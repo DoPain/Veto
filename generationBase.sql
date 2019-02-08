@@ -1,675 +1,490 @@
-DROP DATABASE IF EXISTS MLR1;
+DROP DATABASE IF EXISTS PT4A1;
 
-CREATE DATABASE IF NOT EXISTS MLR1;
-USE MLR1;
+CREATE DATABASE IF NOT EXISTS PT4A1;
+USE PT4A1;
+
 # -----------------------------------------------------------------------------
-#       TABLE : CLIENTFOURNISSEUR
+#       TABLE : Personne
 # -----------------------------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS CLIENTFOURNISSEUR
+CREATE TABLE IF NOT EXISTS Personne
  (
-   IDENTIFIANT BIGINT(4) NOT NULL  
-   , PRIMARY KEY (IDENTIFIANT) 
- ) 
+   idPersonne BIGINT(4) NOT NULL  ,
+   codeCommune INTEGER(10) NOT NULL  ,
+   nom VARCHAR(128) NOT NULL  ,
+   prenom VARCHAR(128) NOT NULL  ,
+   dateNaissance DATE NULL  ,
+   adresse CHAR(255) NULL  ,
+   mail VARCHAR(128) NULL  ,
+   telephone VARCHAR(128) NULL
+   , PRIMARY KEY (idPersonne)
+ )
  comment = "";
 
 # -----------------------------------------------------------------------------
-#       TABLE : COMMANDEFOURNISSEUR
+#       INDEX DE LA TABLE Personne
 # -----------------------------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS COMMANDEFOURNISSEUR
+
+CREATE  INDEX I_FK_Personne_Ville
+     ON Personne (codeCommune ASC);
+
+# -----------------------------------------------------------------------------
+#       TABLE : Veterinaire
+# -----------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS Veterinaire
  (
-   IDCOMMANDE BIGINT(4) NOT NULL  ,
-   IDFOURNISSEUR INTEGER(2) NOT NULL  ,
-   IDENTIFIANT BIGINT(4) NULL  ,
+   idVeterinaire BIGINT(4) NOT NULL  ,
+   signature LONGBLOB NULL
+   , PRIMARY KEY (idVeterinaire)
+ )
+ comment = "";
+
+# -----------------------------------------------------------------------------
+#       TABLE : Panier
+# -----------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS Panier
+ (
+   idVente BIGINT(4) NOT NULL  ,
+   idClient BIGINT(4) NOT NULL  ,
+   idEmploye BIGINT(4) NOT NULL  ,
    DATE DATE NOT NULL  ,
-   MONTANTTOTAL REAL(5,2) NOT NULL  ,
-   ESTREGLE BOOL NOT NULL  ,
-   DATEDELIVRAISONESTIMEE DATE NOT NULL  ,
-   DATEDELIVRAISONREELLE DATE NULL  ,
-   DOSSIERARCHIVAGE CHAR(255) NULL  ,
-   DATEARCHIVAGE DATETIME NULL  
-   , PRIMARY KEY (IDCOMMANDE) 
- ) 
+   montantTotal REAL(5,2) NOT NULL  ,
+   PRIMARY KEY (idVente)
+ )
  comment = "";
 
 # -----------------------------------------------------------------------------
-#       INDEX DE LA TABLE COMMANDEFOURNISSEUR
+#       INDEX DE LA TABLE Panier
 # -----------------------------------------------------------------------------
 
 
-CREATE  INDEX I_FK_COMMANDEFOURNISSEUR_FOURNISSEUR
-     ON COMMANDEFOURNISSEUR (IDFOURNISSEUR ASC);
+CREATE  INDEX I_FK_Panier_Employe
+     ON Panier (idEmploye ASC);
 
-CREATE  INDEX I_FK_COMMANDEFOURNISSEUR_CLIENTFOURNISSEUR
-     ON COMMANDEFOURNISSEUR (IDENTIFIANT ASC);
+CREATE  INDEX I_FK_Panier_Client
+     ON Panier (idClient ASC);
 
 # -----------------------------------------------------------------------------
-#       TABLE : PERSONNE
+#       TABLE : Pays
 # -----------------------------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS PERSONNE
+CREATE TABLE IF NOT EXISTS Pays
  (
-   IDENTIFIANT BIGINT(4) NOT NULL  ,
-   CODECOMMUNE INTEGER(10) NOT NULL  ,
-   NOM VARCHAR(128) NOT NULL  ,
-   PRENOM VARCHAR(128) NOT NULL  ,
-   DATEDENAISSANCE DATE NULL  ,
-   ADRESSE CHAR(255) NULL  ,
-   MAIL VARCHAR(128) NULL  ,
-   TELEPHONE VARCHAR(128) NULL  
-   , PRIMARY KEY (IDENTIFIANT) 
- ) 
+   idPays BIGINT(4) NOT NULL  ,
+   nom VARCHAR(128) NOT NULL
+   , PRIMARY KEY (idPays)
+ )
  comment = "";
 
 # -----------------------------------------------------------------------------
-#       INDEX DE LA TABLE PERSONNE
+#       TABLE : Espece
 # -----------------------------------------------------------------------------
 
-
-CREATE  INDEX I_FK_PERSONNE_VILLE
-     ON PERSONNE (CODECOMMUNE ASC);
-
-# -----------------------------------------------------------------------------
-#       TABLE : REGLEFIDELISATION
-# -----------------------------------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS REGLEFIDELISATION
+CREATE TABLE IF NOT EXISTS Espece
  (
-   IDREGLE BIGINT(4) NOT NULL  ,
-   IDENTIFIANT BIGINT(4) NOT NULL  ,
-   PARAMETRE VARCHAR(128) NOT NULL  ,
-   BORNEINFERIEUR REAL(5,2) NOT NULL  ,
-   BORNESUPERIEUR REAL(5,2) NOT NULL  ,
-   AVANTAGE REAL(5,2) NOT NULL  
-   , PRIMARY KEY (IDREGLE) 
- ) 
+   idEspece INTEGER(2) NOT NULL  ,
+   nom CHAR(32) NOT NULL
+   , PRIMARY KEY (idEspece)
+ )
  comment = "";
 
 # -----------------------------------------------------------------------------
-#       INDEX DE LA TABLE REGLEFIDELISATION
+#       TABLE : Log
 # -----------------------------------------------------------------------------
 
-
-CREATE  INDEX I_FK_REGLEFIDELISATION_VETERINAIRE
-     ON REGLEFIDELISATION (IDENTIFIANT ASC);
-
-# -----------------------------------------------------------------------------
-#       TABLE : VETERINAIRE
-# -----------------------------------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS VETERINAIRE
+CREATE TABLE IF NOT EXISTS Log
  (
-   IDENTIFIANT BIGINT(4) NOT NULL  ,
-   SIGNATUREELECTRONIQUE LONGBLOB NULL  
-   , PRIMARY KEY (IDENTIFIANT) 
- ) 
- comment = "";
-
-# -----------------------------------------------------------------------------
-#       TABLE : ACHATCLIENT
-# -----------------------------------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS ACHATCLIENT
- (
-   IDVENTE BIGINT(4) NOT NULL  ,
-   IDENTIFIANT BIGINT(4) NOT NULL  ,
-   IDENTIFIANT_1 BIGINT(4) NOT NULL  ,
-   DATE DATE NOT NULL  ,
-   MONTANTTOTAL REAL(5,2) NOT NULL  ,
-   MONTANTREDUCTION REAL(5,2) NOT NULL  
-   , PRIMARY KEY (IDVENTE) 
- ) 
- comment = "";
-
-# -----------------------------------------------------------------------------
-#       INDEX DE LA TABLE ACHATCLIENT
-# -----------------------------------------------------------------------------
-
-
-CREATE  INDEX I_FK_ACHATCLIENT_EMPLOYE
-     ON ACHATCLIENT (IDENTIFIANT_1 ASC);
-
-CREATE  INDEX I_FK_ACHATCLIENT_CLIENT
-     ON ACHATCLIENT (IDENTIFIANT ASC);
-
-# -----------------------------------------------------------------------------
-#       TABLE : FOURNISSEUR
-# -----------------------------------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS FOURNISSEUR
- (
-   IDFOURNISSEUR INTEGER(2) NOT NULL  ,
-   CODECOMMUNE INTEGER(10) NOT NULL  ,
-   NOM CHAR(32) NOT NULL  ,
-   ADRESSE CHAR(255) NOT NULL  ,
-   NUMEROTELEPHONE BIGINT(14) NOT NULL  ,
-   MAIL CHAR(32) NOT NULL  ,
-   ACTIVITEE VARCHAR(128) NULL  ,
-   DELAISLIVRAISON INTEGER(2) NULL  
-   , PRIMARY KEY (IDFOURNISSEUR) 
- ) 
- comment = "";
-
-# -----------------------------------------------------------------------------
-#       INDEX DE LA TABLE FOURNISSEUR
-# -----------------------------------------------------------------------------
-
-
-CREATE  INDEX I_FK_FOURNISSEUR_VILLE
-     ON FOURNISSEUR (CODECOMMUNE ASC);
-
-# -----------------------------------------------------------------------------
-#       TABLE : PAYS
-# -----------------------------------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS PAYS
- (
-   IDPAYS BIGINT(4) NOT NULL  ,
-   NOM VARCHAR(128) NOT NULL  
-   , PRIMARY KEY (IDPAYS) 
- ) 
- comment = "";
-
-# -----------------------------------------------------------------------------
-#       TABLE : ESPECE
-# -----------------------------------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS ESPECE
- (
-   IDESPECE INTEGER(2) NOT NULL  ,
-   NOM CHAR(32) NOT NULL  
-   , PRIMARY KEY (IDESPECE) 
- ) 
- comment = "";
-
-# -----------------------------------------------------------------------------
-#       TABLE : LOG
-# -----------------------------------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS LOG
- (
-   IDLOG BIGINT(4) NOT NULL  ,
-   IDENTIFIANT BIGINT(4) NOT NULL  ,
+   idLog BIGINT(4) NOT NULL  ,
+   idEmployee BIGINT(4) NOT NULL  ,
    DATE DATETIME NOT NULL  ,
-   ACTION CHAR(255) NOT NULL  
-   , PRIMARY KEY (IDLOG) 
- ) 
+   action CHAR(255) NOT NULL
+   , PRIMARY KEY (idLog)
+ )
  comment = "";
 
 # -----------------------------------------------------------------------------
-#       INDEX DE LA TABLE LOG
+#       INDEX DE LA TABLE Log
 # -----------------------------------------------------------------------------
 
 
-CREATE  INDEX I_FK_LOG_EMPLOYE
-     ON LOG (IDENTIFIANT ASC);
+CREATE  INDEX I_FK_Log_Employe
+     ON Log (idEmploye ASC);
 
 # -----------------------------------------------------------------------------
-#       TABLE : CONGE
+#       TABLE : Conge
 # -----------------------------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS CONGE
+CREATE TABLE IF NOT EXISTS Conge
  (
-   IDCONGE BIGINT(4) NOT NULL  ,
-   IDENTIFIANT BIGINT(4) NOT NULL  ,
-   IDENTIFIANT_1 BIGINT(4) NOT NULL  ,
-   DATEDEBUT DATETIME NOT NULL  ,
-   DATEFIN DATETIME NOT NULL  
-   , PRIMARY KEY (IDCONGE) 
- ) 
+   idConge BIGINT(4) NOT NULL  ,
+   idEmploye BIGINT(4) NOT NULL  ,
+   idVeterinaire BIGINT(4) NOT NULL  ,
+   dateDebut DATETIME NOT NULL  ,
+   DATEFIN DATETIME NOT NULL
+   , PRIMARY KEY (idConge)
+ )
  comment = "";
 
 # -----------------------------------------------------------------------------
-#       INDEX DE LA TABLE CONGE
+#       INDEX DE LA TABLE Conge
 # -----------------------------------------------------------------------------
 
 
-CREATE  INDEX I_FK_CONGE_EMPLOYE
-     ON CONGE (IDENTIFIANT ASC);
+CREATE  INDEX I_FK_Conge_Employe
+     ON Conge (idEmploye ASC);
 
-CREATE  INDEX I_FK_CONGE_VETERINAIRE
-     ON CONGE (IDENTIFIANT_1 ASC);
+CREATE  INDEX I_FK_Conge_Veterinaire
+     ON Conge (idVeterinaire ASC);
 
 # -----------------------------------------------------------------------------
-#       TABLE : ORDONNANCE
+#       TABLE : Ordonnance
 # -----------------------------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS ORDONNANCE
+CREATE TABLE IF NOT EXISTS Ordonnance
  (
-   IDORDONNANCE CHAR(32) NOT NULL  ,
-   IDANIMAL INTEGER(20) NOT NULL  ,
-   IDENTIFIANT BIGINT(4) NOT NULL  ,
+   idOrdonnance CHAR(32) NOT NULL  ,
+   idAnimal INTEGER(20) NOT NULL  ,
+   idVeterinaire BIGINT(4) NOT NULL  ,
    DATE DATETIME NOT NULL  ,
-   COMMENTAIRE CHAR(32) NULL  
-   , PRIMARY KEY (IDORDONNANCE) 
- ) 
+   commentaire CHAR(32) NULL
+   , PRIMARY KEY (idOrdonnance)
+ )
  comment = "";
 
 # -----------------------------------------------------------------------------
-#       INDEX DE LA TABLE ORDONNANCE
+#       INDEX DE LA TABLE Ordonnance
 # -----------------------------------------------------------------------------
 
 
-CREATE  INDEX I_FK_ORDONNANCE_VETERINAIRE
-     ON ORDONNANCE (IDENTIFIANT ASC);
+CREATE  INDEX I_FK_Ordonnance_Veterinaire
+     ON Ordonnance (idVeterinaire ASC);
 
-CREATE  INDEX I_FK_ORDONNANCE_ANIMAL
-     ON ORDONNANCE (IDANIMAL ASC);
+CREATE  INDEX I_FK_Ordonnance_Animal
+     ON Ordonnance (idAnimal ASC);
 
 # -----------------------------------------------------------------------------
-#       TABLE : VILLE
+#       TABLE : Ville
 # -----------------------------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS VILLE
+CREATE TABLE IF NOT EXISTS Ville
  (
-   CODECOMMUNE INTEGER(10) NOT NULL  ,
-   IDPAYS BIGINT(4) NOT NULL  ,
-   NOM CHAR(32) NOT NULL  ,
-   CODEPOSTAL BIGINT(10) NOT NULL  
-   , PRIMARY KEY (CODECOMMUNE) 
- ) 
+   codeCommune INTEGER(10) NOT NULL  ,
+   idPays BIGINT(4) NOT NULL  ,
+   nom CHAR(32) NOT NULL  ,
+   codePostal BIGINT(10) NOT NULL
+   , PRIMARY KEY (codeCommune)
+ )
  comment = "";
 
 # -----------------------------------------------------------------------------
-#       INDEX DE LA TABLE VILLE
+#       INDEX DE LA TABLE Ville
 # -----------------------------------------------------------------------------
 
 
-CREATE  INDEX I_FK_VILLE_PAYS
-     ON VILLE (IDPAYS ASC);
+CREATE  INDEX I_FK_Ville_Pays
+     ON Ville (idPays ASC);
 
 # -----------------------------------------------------------------------------
-#       TABLE : RACE
+#       TABLE : Race
 # -----------------------------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS RACE
+CREATE TABLE IF NOT EXISTS Race
  (
-   IDRACE INTEGER(2) NOT NULL  ,
-   IDESPECE INTEGER(2) NOT NULL  ,
-   NOM CHAR(32) NOT NULL  
-   , PRIMARY KEY (IDRACE) 
- ) 
+   idRace INTEGER(2) NOT NULL  ,
+   idEspece INTEGER(2) NOT NULL  ,
+   nom CHAR(32) NOT NULL
+   , PRIMARY KEY (idRace)
+ )
  comment = "";
 
 # -----------------------------------------------------------------------------
-#       INDEX DE LA TABLE RACE
+#       INDEX DE LA TABLE Race
 # -----------------------------------------------------------------------------
 
 
-CREATE  INDEX I_FK_RACE_ESPECE
-     ON RACE (IDESPECE ASC);
+CREATE  INDEX I_FK_Race_Espece
+     ON Race (idEspece ASC);
 
 # -----------------------------------------------------------------------------
-#       TABLE : ANIMAL
+#       TABLE : Animal
 # -----------------------------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS ANIMAL
+CREATE TABLE IF NOT EXISTS Animal
  (
-   IDANIMAL INTEGER(20) NOT NULL  ,
-   IDESPECE INTEGER(2) NOT NULL  ,
-   IDENTIFIANT BIGINT(4) NOT NULL  ,
-   NOM CHAR(32) NOT NULL  ,
-   DATEDENAISSANCE DATE NOT NULL  
-   , PRIMARY KEY (IDANIMAL) 
- ) 
+   idAnimal INTEGER(20) NOT NULL  ,
+   idEspece INTEGER(2) NOT NULL  ,
+   idClient BIGINT(4) NOT NULL  ,
+   nom CHAR(32) NOT NULL  ,
+   dateNaissance DATE NOT NULL
+   , PRIMARY KEY (idAnimal)
+ )
  comment = "";
 
 # -----------------------------------------------------------------------------
-#       INDEX DE LA TABLE ANIMAL
+#       INDEX DE LA TABLE Animal
 # -----------------------------------------------------------------------------
 
 
-CREATE  INDEX I_FK_ANIMAL_ESPECE
-     ON ANIMAL (IDESPECE ASC);
+CREATE  INDEX I_FK_Animal_Espece
+     ON Animal (idEspece ASC);
 
-CREATE  INDEX I_FK_ANIMAL_CLIENT
-     ON ANIMAL (IDENTIFIANT ASC);
+CREATE  INDEX I_FK_Animal_Client
+     ON Animal (idClient ASC);
 
 # -----------------------------------------------------------------------------
-#       TABLE : CLIENT
+#       TABLE : Client
 # -----------------------------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS CLIENT
+CREATE TABLE IF NOT EXISTS Client
  (
-   IDENTIFIANT BIGINT(4) NOT NULL  
-   , PRIMARY KEY (IDENTIFIANT) 
- ) 
+   idClient BIGINT(4) NOT NULL
+   , PRIMARY KEY (idClient)
+ )
  comment = "";
 
 # -----------------------------------------------------------------------------
-#       TABLE : PRODUIT
+#       TABLE : Produit
 # -----------------------------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS PRODUIT
+CREATE TABLE IF NOT EXISTS Produit
  (
-   IDPRODUIT SMALLINT(25) NOT NULL  ,
-   NOM CHAR(255) NOT NULL  ,
-   QUANTITEENSTOCK INTEGER(2) NOT NULL  ,
-   QUANTITEMINIMUN INTEGER(2) NOT NULL  ,
-   PRIXVENTEUNITAIRE REAL(25,2) NOT NULL  
-   , PRIMARY KEY (IDPRODUIT) 
- ) 
+   idProduit SMALLINT(25) NOT NULL  ,
+   nom CHAR(255) NOT NULL  ,
+   QuantiteEnStock INTEGER(2) NOT NULL  ,
+   QuantiteMinimum INTEGER(2) NOT NULL  ,
+   prix REAL(25,2) NOT NULL
+   , PRIMARY KEY (idProduit)
+ )
  comment = "";
 
 # -----------------------------------------------------------------------------
-#       TABLE : TRAITEMENT
+#       TABLE : Traitement
 # -----------------------------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS TRAITEMENT
+CREATE TABLE IF NOT EXISTS Traitement
  (
-   IDTRAITEMENT INTEGER(4) NOT NULL  ,
-   IDORDONNANCE CHAR(32) NOT NULL  ,
-   DATEDEBUT DATE NOT NULL  ,
-   DUREEJ INTEGER(2) NOT NULL  ,
-   PRODUITPRESCRIT CHAR(32) NOT NULL  ,
-   POSOLOGIE CHAR(32) NOT NULL  ,
-   METHODEADMINISTRATION CHAR(32) NOT NULL  
-   , PRIMARY KEY (IDTRAITEMENT) 
- ) 
+   idTraitement INTEGER(4) NOT NULL  ,
+   idOrdonnance CHAR(32) NOT NULL  ,
+   dateDebut DATE NOT NULL  ,
+   dureeJour INTEGER(2) NOT NULL  ,
+   produitPrescrit CHAR(32) NOT NULL  ,
+   posologie CHAR(32) NOT NULL  ,
+   methodeAdministration CHAR(32) NOT NULL
+   , PRIMARY KEY (idTraitement)
+ )
  comment = "";
 
 # -----------------------------------------------------------------------------
-#       INDEX DE LA TABLE TRAITEMENT
+#       INDEX DE LA TABLE Traitement
 # -----------------------------------------------------------------------------
 
 
-CREATE  INDEX I_FK_TRAITEMENT_ORDONNANCE
-     ON TRAITEMENT (IDORDONNANCE ASC);
+CREATE  INDEX I_FK_Traitement_Ordonnance
+     ON Traitement (idOrdonnance ASC);
 
 # -----------------------------------------------------------------------------
-#       TABLE : EMPLOYE
+#       TABLE : Employe
 # -----------------------------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS EMPLOYE
+CREATE TABLE IF NOT EXISTS Employe
  (
-   IDENTIFIANT BIGINT(4) NOT NULL  ,
-   IDENTIFIANTCONNEXION CHAR(32) NOT NULL  ,
-   MOTDEPASSE CHAR(32) NOT NULL  
-   , PRIMARY KEY (IDENTIFIANT) 
- ) 
+   idEmploye BIGINT(4) NOT NULL  ,
+   idConnexion CHAR(32) NOT NULL  ,
+   motDePasse CHAR(32) NOT NULL
+   , PRIMARY KEY (id)
+ )
  comment = "";
 
 # -----------------------------------------------------------------------------
-#       TABLE : PROPOSER
+#       TABLE : Appartenir
 # -----------------------------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS PROPOSER
+CREATE TABLE IF NOT EXISTS Appartenir
  (
-   IDFOURNISSEUR INTEGER(2) NOT NULL  ,
-   IDPRODUIT SMALLINT(25) NOT NULL  ,
-   PRIXFOURNISSEURUNITAIRE REAL(5,2) NULL  
-   , PRIMARY KEY (IDFOURNISSEUR,IDPRODUIT) 
- ) 
+   idOrdonnance CHAR(32) NOT NULL  ,
+   idProduit SMALLINT(25) NOT NULL
+   , PRIMARY KEY (idOrdonnance,idProduit)
+ )
  comment = "";
 
 # -----------------------------------------------------------------------------
-#       INDEX DE LA TABLE PROPOSER
+#       INDEX DE LA TABLE Appartenir
 # -----------------------------------------------------------------------------
 
 
-CREATE  INDEX I_FK_PROPOSER_FOURNISSEUR
-     ON PROPOSER (IDFOURNISSEUR ASC);
+CREATE  INDEX I_FK_Appartenir_Ordonnance
+     ON Appartenir (idOrdonnance ASC);
 
-CREATE  INDEX I_FK_PROPOSER_PRODUIT
-     ON PROPOSER (IDPRODUIT ASC);
+CREATE  INDEX I_FK_Appartenir_Produit
+     ON Appartenir (idProduit ASC);
 
 # -----------------------------------------------------------------------------
-#       TABLE : APPARTENIR1
+#       TABLE : Commander
 # -----------------------------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS APPARTENIR1
+CREATE TABLE IF NOT EXISTS Commander
  (
-   IDORDONNANCE CHAR(32) NOT NULL  ,
-   IDPRODUIT SMALLINT(25) NOT NULL  
-   , PRIMARY KEY (IDORDONNANCE,IDPRODUIT) 
- ) 
+   idVente BIGINT(4) NOT NULL  ,
+   idProduit SMALLINT(25) NOT NULL  ,
+   QUANTITESORTIE INTEGER(2) NULL  ,
+   PRIXVENTE REAL(5,2) NULL
+   , PRIMARY KEY (idVente,idProduit)
+ )
  comment = "";
 
 # -----------------------------------------------------------------------------
-#       INDEX DE LA TABLE APPARTENIR1
+#       INDEX DE LA TABLE Commander
 # -----------------------------------------------------------------------------
 
 
-CREATE  INDEX I_FK_APPARTENIR1_ORDONNANCE
-     ON APPARTENIR1 (IDORDONNANCE ASC);
+CREATE  INDEX I_FK_Commander_Panier
+     ON Commander (idVente ASC);
 
-CREATE  INDEX I_FK_APPARTENIR1_PRODUIT
-     ON APPARTENIR1 (IDPRODUIT ASC);
+CREATE  INDEX I_FK_Commander_Produit
+     ON Commander (idProduit ASC);
 
 # -----------------------------------------------------------------------------
-#       TABLE : CONCERNER2
+#       TABLE : AvoirRendezVous
 # -----------------------------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS CONCERNER2
+CREATE TABLE IF NOT EXISTS AvoirRendezVous
  (
-   IDVENTE BIGINT(4) NOT NULL  ,
-   IDPRODUIT SMALLINT(25) NOT NULL  ,
-   QUANTITÉSORTIE INTEGER(2) NULL  ,
-   PRIXVENTE REAL(5,2) NULL  
-   , PRIMARY KEY (IDVENTE,IDPRODUIT) 
- ) 
+   idClient BIGINT(4) NOT NULL  ,
+   idVeterinaire BIGINT(4) NOT NULL  ,
+   dateHeure DATETIME NOT NULL  ,
+   dureeMinutes INTEGER(4) NOT NULL  ,
+   message CHAR(255) NULL
+   , PRIMARY KEY (idClient,idVeterinaire)
+ )
  comment = "";
 
 # -----------------------------------------------------------------------------
-#       INDEX DE LA TABLE CONCERNER2
+#       INDEX DE LA TABLE AvoirRendezVous
 # -----------------------------------------------------------------------------
 
 
-CREATE  INDEX I_FK_CONCERNER2_ACHATCLIENT
-     ON CONCERNER2 (IDVENTE ASC);
+CREATE  INDEX I_FK_AvoirRendezVous_Client
+     ON AvoirRendezVous (idClient ASC);
 
-CREATE  INDEX I_FK_CONCERNER2_PRODUIT
-     ON CONCERNER2 (IDPRODUIT ASC);
-
-# -----------------------------------------------------------------------------
-#       TABLE : CONCERNER3
-# -----------------------------------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS CONCERNER3
- (
-   IDPRODUIT SMALLINT(25) NOT NULL  ,
-   IDCOMMANDE BIGINT(4) NOT NULL  ,
-   QUANTITIÉSORTIE INTEGER(2) NULL  ,
-   PRIXACHATUNITAIRE REAL(5,2) NULL  
-   , PRIMARY KEY (IDPRODUIT,IDCOMMANDE) 
- ) 
- comment = "";
-
-# -----------------------------------------------------------------------------
-#       INDEX DE LA TABLE CONCERNER3
-# -----------------------------------------------------------------------------
-
-
-CREATE  INDEX I_FK_CONCERNER3_PRODUIT
-     ON CONCERNER3 (IDPRODUIT ASC);
-
-CREATE  INDEX I_FK_CONCERNER3_COMMANDEFOURNISSEUR
-     ON CONCERNER3 (IDCOMMANDE ASC);
-
-# -----------------------------------------------------------------------------
-#       TABLE : AVOIRRENDEZVOUS
-# -----------------------------------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS AVOIRRENDEZVOUS
- (
-   IDENTIFIANT BIGINT(4) NOT NULL  ,
-   IDENTIFIANT_1 BIGINT(4) NOT NULL  ,
-   DATEHEURE DATETIME NOT NULL  ,
-   DUREEMINUTES INTEGER(4) NOT NULL  ,
-   MESSAGE CHAR(255) NULL  
-   , PRIMARY KEY (IDENTIFIANT,IDENTIFIANT_1) 
- ) 
- comment = "";
-
-# -----------------------------------------------------------------------------
-#       INDEX DE LA TABLE AVOIRRENDEZVOUS
-# -----------------------------------------------------------------------------
-
-
-CREATE  INDEX I_FK_AVOIRRENDEZVOUS_CLIENT
-     ON AVOIRRENDEZVOUS (IDENTIFIANT ASC);
-
-CREATE  INDEX I_FK_AVOIRRENDEZVOUS_VETERINAIRE
-     ON AVOIRRENDEZVOUS (IDENTIFIANT_1 ASC);
+CREATE  INDEX I_FK_AvoirRendezVous_Veterinaire
+     ON AvoirRendezVous (idVeterinaire ASC);
 
 
 # -----------------------------------------------------------------------------
 #       CREATION DES REFERENCES DE TABLE
 # -----------------------------------------------------------------------------
 
-
-ALTER TABLE CLIENTFOURNISSEUR 
-  ADD FOREIGN KEY FK_CLIENTFOURNISSEUR_EMPLOYE (IDENTIFIANT)
-      REFERENCES EMPLOYE (IDENTIFIANT) ;
-
-
-ALTER TABLE COMMANDEFOURNISSEUR 
-  ADD FOREIGN KEY FK_COMMANDEFOURNISSEUR_FOURNISSEUR (IDFOURNISSEUR)
-      REFERENCES FOURNISSEUR (IDFOURNISSEUR) ;
+ALTER TABLE Personne
+  ADD FOREIGN KEY FK_Personne_Ville (codeCommune)
+      REFERENCES Ville (codeCommune) ;
 
 
-ALTER TABLE COMMANDEFOURNISSEUR 
-  ADD FOREIGN KEY FK_COMMANDEFOURNISSEUR_CLIENTFOURNISSEUR (IDENTIFIANT)
-      REFERENCES CLIENTFOURNISSEUR (IDENTIFIANT) ;
+ALTER TABLE Veterinaire
+  ADD FOREIGN KEY FK_Veterinaire_ClientFournisseur (id)
+      REFERENCES ClientFournisseur (id) ;
 
 
-ALTER TABLE PERSONNE 
-  ADD FOREIGN KEY FK_PERSONNE_VILLE (CODECOMMUNE)
-      REFERENCES VILLE (CODECOMMUNE) ;
+ALTER TABLE Panier
+  ADD FOREIGN KEY FK_Panier_Employe (idEmploye)
+      REFERENCES Employe (idEmploye) ;
 
 
-ALTER TABLE REGLEFIDELISATION 
-  ADD FOREIGN KEY FK_REGLEFIDELISATION_VETERINAIRE (IDENTIFIANT)
-      REFERENCES VETERINAIRE (IDENTIFIANT) ;
+ALTER TABLE Panier
+  ADD FOREIGN KEY FK_Panier_Client (idClient)
+      REFERENCES Client (idClient) ;
 
 
-ALTER TABLE VETERINAIRE 
-  ADD FOREIGN KEY FK_VETERINAIRE_CLIENTFOURNISSEUR (IDENTIFIANT)
-      REFERENCES CLIENTFOURNISSEUR (IDENTIFIANT) ;
+ALTER TABLE Fournisseur
+  ADD FOREIGN KEY FK_Fournisseur_Ville (codeCommune)
+      REFERENCES Ville (codeCommune) ;
 
 
-ALTER TABLE ACHATCLIENT 
-  ADD FOREIGN KEY FK_ACHATCLIENT_EMPLOYE (IDENTIFIANT_1)
-      REFERENCES EMPLOYE (IDENTIFIANT) ;
+ALTER TABLE Log
+  ADD FOREIGN KEY FK_Log_Employe (idEmploye)
+      REFERENCES Employe (idEmploye) ;
 
 
-ALTER TABLE ACHATCLIENT 
-  ADD FOREIGN KEY FK_ACHATCLIENT_CLIENT (IDENTIFIANT)
-      REFERENCES CLIENT (IDENTIFIANT) ;
+ALTER TABLE Conge
+  ADD FOREIGN KEY FK_Conge_Employe (idEmploye)
+      REFERENCES Employe (idEmploye) ;
 
 
-ALTER TABLE FOURNISSEUR 
-  ADD FOREIGN KEY FK_FOURNISSEUR_VILLE (CODECOMMUNE)
-      REFERENCES VILLE (CODECOMMUNE) ;
+ALTER TABLE Conge
+  ADD FOREIGN KEY FK_Conge_Veterinaire (idVeterinaire)
+      REFERENCES Veterinaire (idVeterinaire) ;
 
 
-ALTER TABLE LOG 
-  ADD FOREIGN KEY FK_LOG_EMPLOYE (IDENTIFIANT)
-      REFERENCES EMPLOYE (IDENTIFIANT) ;
+ALTER TABLE Ordonnance
+  ADD FOREIGN KEY FK_Ordonnance_Veterinaire (idVeterinaire)
+      REFERENCES Veterinaire (idVeterinaire) ;
 
 
-ALTER TABLE CONGE 
-  ADD FOREIGN KEY FK_CONGE_EMPLOYE (IDENTIFIANT)
-      REFERENCES EMPLOYE (IDENTIFIANT) ;
+ALTER TABLE Ordonnance
+  ADD FOREIGN KEY FK_Ordonnance_Animal (idAnimal)
+      REFERENCES Animal (idAnimal) ;
 
 
-ALTER TABLE CONGE 
-  ADD FOREIGN KEY FK_CONGE_VETERINAIRE (IDENTIFIANT_1)
-      REFERENCES VETERINAIRE (IDENTIFIANT) ;
+ALTER TABLE Ville
+  ADD FOREIGN KEY FK_Ville_Pays (idPays)
+      REFERENCES Pays (idPays) ;
 
 
-ALTER TABLE ORDONNANCE 
-  ADD FOREIGN KEY FK_ORDONNANCE_VETERINAIRE (IDENTIFIANT)
-      REFERENCES VETERINAIRE (IDENTIFIANT) ;
+ALTER TABLE Race
+  ADD FOREIGN KEY FK_Race_Espece (idEspece)
+      REFERENCES Espece (idEspece) ;
 
 
-ALTER TABLE ORDONNANCE 
-  ADD FOREIGN KEY FK_ORDONNANCE_ANIMAL (IDANIMAL)
-      REFERENCES ANIMAL (IDANIMAL) ;
+ALTER TABLE Animal
+  ADD FOREIGN KEY FK_Animal_Espece (idEspece)
+      REFERENCES Espece (idEspece) ;
 
 
-ALTER TABLE VILLE 
-  ADD FOREIGN KEY FK_VILLE_PAYS (IDPAYS)
-      REFERENCES PAYS (IDPAYS) ;
+ALTER TABLE Animal
+  ADD FOREIGN KEY FK_Animal_Client (idClient)
+      REFERENCES Client (idClient) ;
 
 
-ALTER TABLE RACE 
-  ADD FOREIGN KEY FK_RACE_ESPECE (IDESPECE)
-      REFERENCES ESPECE (IDESPECE) ;
+ALTER TABLE Client
+  ADD FOREIGN KEY FK_Client_Personne (idPersonne)
+      REFERENCES Personne (idPersonne) ;
 
 
-ALTER TABLE ANIMAL 
-  ADD FOREIGN KEY FK_ANIMAL_ESPECE (IDESPECE)
-      REFERENCES ESPECE (IDESPECE) ;
+ALTER TABLE Traitement
+  ADD FOREIGN KEY FK_Traitement_Ordonnance (idOrdonnance)
+      REFERENCES Ordonnance (idOrdonnance) ;
 
 
-ALTER TABLE ANIMAL 
-  ADD FOREIGN KEY FK_ANIMAL_CLIENT (IDENTIFIANT)
-      REFERENCES CLIENT (IDENTIFIANT) ;
+ALTER TABLE Employe
+  ADD FOREIGN KEY FK_Employe_Personne (idPersonne)
+      REFERENCES Personne (idPersonne) ;
+
+ALTER TABLE Appartenir
+  ADD FOREIGN KEY FK_Appartenir_Ordonnance (idOrdonnance)
+      REFERENCES Ordonnance (idOrdonnance) ;
 
 
-ALTER TABLE CLIENT 
-  ADD FOREIGN KEY FK_CLIENT_PERSONNE (IDENTIFIANT)
-      REFERENCES PERSONNE (IDENTIFIANT) ;
+ALTER TABLE Appartenir
+  ADD FOREIGN KEY FK_Appartenir_Produit (idProduit)
+      REFERENCES Produit (idProduit) ;
 
 
-ALTER TABLE TRAITEMENT 
-  ADD FOREIGN KEY FK_TRAITEMENT_ORDONNANCE (IDORDONNANCE)
-      REFERENCES ORDONNANCE (IDORDONNANCE) ;
+ALTER TABLE Commander
+  ADD FOREIGN KEY FK_Commander_Panier (idVente)
+      REFERENCES Panier (idVente) ;
 
 
-ALTER TABLE EMPLOYE 
-  ADD FOREIGN KEY FK_EMPLOYE_PERSONNE (IDENTIFIANT)
-      REFERENCES PERSONNE (IDENTIFIANT) ;
+ALTER TABLE Commander
+  ADD FOREIGN KEY FK_Commander_Produit (idProduit)
+      REFERENCES Produit (idProduit) ;
+
+ALTER TABLE AvoirRendezVous
+  ADD FOREIGN KEY FK_AvoirRendezVous_Client (idClient)
+      REFERENCES Client (idClient) ;
 
 
-ALTER TABLE PROPOSER 
-  ADD FOREIGN KEY FK_PROPOSER_FOURNISSEUR (IDFOURNISSEUR)
-      REFERENCES FOURNISSEUR (IDFOURNISSEUR) ;
-
-
-ALTER TABLE PROPOSER 
-  ADD FOREIGN KEY FK_PROPOSER_PRODUIT (IDPRODUIT)
-      REFERENCES PRODUIT (IDPRODUIT) ;
-
-
-ALTER TABLE APPARTENIR1 
-  ADD FOREIGN KEY FK_APPARTENIR1_ORDONNANCE (IDORDONNANCE)
-      REFERENCES ORDONNANCE (IDORDONNANCE) ;
-
-
-ALTER TABLE APPARTENIR1 
-  ADD FOREIGN KEY FK_APPARTENIR1_PRODUIT (IDPRODUIT)
-      REFERENCES PRODUIT (IDPRODUIT) ;
-
-
-ALTER TABLE CONCERNER2 
-  ADD FOREIGN KEY FK_CONCERNER2_ACHATCLIENT (IDVENTE)
-      REFERENCES ACHATCLIENT (IDVENTE) ;
-
-
-ALTER TABLE CONCERNER2 
-  ADD FOREIGN KEY FK_CONCERNER2_PRODUIT (IDPRODUIT)
-      REFERENCES PRODUIT (IDPRODUIT) ;
-
-
-ALTER TABLE CONCERNER3 
-  ADD FOREIGN KEY FK_CONCERNER3_PRODUIT (IDPRODUIT)
-      REFERENCES PRODUIT (IDPRODUIT) ;
-
-
-ALTER TABLE CONCERNER3 
-  ADD FOREIGN KEY FK_CONCERNER3_COMMANDEFOURNISSEUR (IDCOMMANDE)
-      REFERENCES COMMANDEFOURNISSEUR (IDCOMMANDE) ;
-
-
-ALTER TABLE AVOIRRENDEZVOUS 
-  ADD FOREIGN KEY FK_AVOIRRENDEZVOUS_CLIENT (IDENTIFIANT)
-      REFERENCES CLIENT (IDENTIFIANT) ;
-
-
-ALTER TABLE AVOIRRENDEZVOUS 
-  ADD FOREIGN KEY FK_AVOIRRENDEZVOUS_VETERINAIRE (IDENTIFIANT_1)
-      REFERENCES VETERINAIRE (IDENTIFIANT) ;
-
+ALTER TABLE AvoirRendezVous
+  ADD FOREIGN KEY FK_AvoirRendezVous_Veterinaire (idVeterinaire)
+      REFERENCES Veterinaire (idVeterinaire) ;
