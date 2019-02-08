@@ -9,7 +9,7 @@ USE PT4A1;
 
 CREATE TABLE IF NOT EXISTS Personne
  (
-   idPersonne BIGINT(4) NOT NULL  ,
+   idPersonne BIGINT(4) PRIMARY KEY AUTO_INCREMENT NOT NULL  ,
    codeCommune INTEGER(10) NOT NULL  ,
    nom VARCHAR(128) NOT NULL  ,
    prenom VARCHAR(128) NOT NULL  ,
@@ -17,7 +17,6 @@ CREATE TABLE IF NOT EXISTS Personne
    adresse CHAR(255) NULL  ,
    mail VARCHAR(128) NULL  ,
    telephone VARCHAR(128) NULL
-   , PRIMARY KEY (idPersonne)
  )
  comment = "";
 
@@ -35,9 +34,8 @@ CREATE  INDEX I_FK_Personne_Ville
 
 CREATE TABLE IF NOT EXISTS Veterinaire
  (
-   idVeterinaire BIGINT(4) NOT NULL  ,
+   idVeterinaire BIGINT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT ,
    signature LONGBLOB NULL
-   , PRIMARY KEY (idVeterinaire)
  )
  comment = "";
 
@@ -47,12 +45,11 @@ CREATE TABLE IF NOT EXISTS Veterinaire
 
 CREATE TABLE IF NOT EXISTS Panier
  (
-   idVente BIGINT(4) NOT NULL  ,
+   idVente BIGINT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT  ,
    idClient BIGINT(4) NOT NULL  ,
    idEmploye BIGINT(4) NOT NULL  ,
    DATE DATE NOT NULL  ,
-   montantTotal REAL(5,2) NOT NULL  ,
-   PRIMARY KEY (idVente)
+   montantTotal REAL(5,2) NOT NULL
  )
  comment = "";
 
@@ -73,9 +70,8 @@ CREATE  INDEX I_FK_Panier_Client
 
 CREATE TABLE IF NOT EXISTS Pays
  (
-   idPays BIGINT(4) NOT NULL  ,
+   idPays BIGINT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT  ,
    nom VARCHAR(128) NOT NULL
-   , PRIMARY KEY (idPays)
  )
  comment = "";
 
@@ -85,9 +81,8 @@ CREATE TABLE IF NOT EXISTS Pays
 
 CREATE TABLE IF NOT EXISTS Espece
  (
-   idEspece INTEGER(2) NOT NULL  ,
+   idEspece INTEGER(2) PRIMARY KEY NOT NULL AUTO_INCREMENT  ,
    nom CHAR(32) NOT NULL
-   , PRIMARY KEY (idEspece)
  )
  comment = "";
 
@@ -97,11 +92,10 @@ CREATE TABLE IF NOT EXISTS Espece
 
 CREATE TABLE IF NOT EXISTS Log
  (
-   idLog BIGINT(4) NOT NULL  ,
+   idLog BIGINT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT  ,
    idEmployee BIGINT(4) NOT NULL  ,
    DATE DATETIME NOT NULL  ,
    action CHAR(255) NOT NULL
-   , PRIMARY KEY (idLog)
  )
  comment = "";
 
@@ -119,12 +113,11 @@ CREATE  INDEX I_FK_Log_Employe
 
 CREATE TABLE IF NOT EXISTS Conge
  (
-   idConge BIGINT(4) NOT NULL  ,
+   idConge BIGINT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT ,
    idEmploye BIGINT(4) NOT NULL  ,
    idVeterinaire BIGINT(4) NOT NULL  ,
    dateDebut DATETIME NOT NULL  ,
    DATEFIN DATETIME NOT NULL
-   , PRIMARY KEY (idConge)
  )
  comment = "";
 
@@ -145,12 +138,11 @@ CREATE  INDEX I_FK_Conge_Veterinaire
 
 CREATE TABLE IF NOT EXISTS Ordonnance
  (
-   idOrdonnance CHAR(32) NOT NULL  ,
+   idOrdonnance CHAR(32) PRIMARY KEY NOT NULL,
    idAnimal INTEGER(20) NOT NULL  ,
    idVeterinaire BIGINT(4) NOT NULL  ,
    DATE DATETIME NOT NULL  ,
    commentaire CHAR(32) NULL
-   , PRIMARY KEY (idOrdonnance)
  )
  comment = "";
 
@@ -171,11 +163,10 @@ CREATE  INDEX I_FK_Ordonnance_Animal
 
 CREATE TABLE IF NOT EXISTS Ville
  (
-   codeCommune INTEGER(10) NOT NULL  ,
+   codeCommune INTEGER(10) PRIMARY KEY NOT NULL AUTO_INCREMENT ,
    idPays BIGINT(4) NOT NULL  ,
    nom CHAR(32) NOT NULL  ,
    codePostal BIGINT(10) NOT NULL
-   , PRIMARY KEY (codeCommune)
  )
  comment = "";
 
@@ -193,10 +184,9 @@ CREATE  INDEX I_FK_Ville_Pays
 
 CREATE TABLE IF NOT EXISTS Race
  (
-   idRace INTEGER(2) NOT NULL  ,
+   idRace INTEGER(2) PRIMARY KEY NOT NULL AUTO_INCREMENT ,
    idEspece INTEGER(2) NOT NULL  ,
    nom CHAR(32) NOT NULL
-   , PRIMARY KEY (idRace)
  )
  comment = "";
 
@@ -214,12 +204,11 @@ CREATE  INDEX I_FK_Race_Espece
 
 CREATE TABLE IF NOT EXISTS Animal
  (
-   idAnimal INTEGER(20) NOT NULL  ,
+   idAnimal INTEGER(20) PRIMARY KEY NOT NULL AUTO_INCREMENT  ,
    idEspece INTEGER(2) NOT NULL  ,
    idClient BIGINT(4) NOT NULL  ,
    nom CHAR(32) NOT NULL  ,
    dateNaissance DATE NOT NULL
-   , PRIMARY KEY (idAnimal)
  )
  comment = "";
 
@@ -240,8 +229,7 @@ CREATE  INDEX I_FK_Animal_Client
 
 CREATE TABLE IF NOT EXISTS Client
  (
-   idClient BIGINT(4) NOT NULL
-   , PRIMARY KEY (idClient)
+   idClient BIGINT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT
  )
  comment = "";
 
@@ -251,12 +239,11 @@ CREATE TABLE IF NOT EXISTS Client
 
 CREATE TABLE IF NOT EXISTS Produit
  (
-   idProduit SMALLINT(25) NOT NULL  ,
+   idProduit SMALLINT(25) PRIMARY KEY NOT NULL AUTO_INCREMENT  ,
    nom CHAR(255) NOT NULL  ,
    QuantiteEnStock INTEGER(2) NOT NULL  ,
    QuantiteMinimum INTEGER(2) NOT NULL  ,
    prix REAL(25,2) NOT NULL
-   , PRIMARY KEY (idProduit)
  )
  comment = "";
 
@@ -266,14 +253,13 @@ CREATE TABLE IF NOT EXISTS Produit
 
 CREATE TABLE IF NOT EXISTS Traitement
  (
-   idTraitement INTEGER(4) NOT NULL  ,
+   idTraitement INTEGER(4) PRIMARY KEY NOT NULL AUTO_INCREMENT ,
    idOrdonnance CHAR(32) NOT NULL  ,
    dateDebut DATE NOT NULL  ,
    dureeJour INTEGER(2) NOT NULL  ,
    produitPrescrit CHAR(32) NOT NULL  ,
    posologie CHAR(32) NOT NULL  ,
    methodeAdministration CHAR(32) NOT NULL
-   , PRIMARY KEY (idTraitement)
  )
  comment = "";
 
@@ -291,10 +277,9 @@ CREATE  INDEX I_FK_Traitement_Ordonnance
 
 CREATE TABLE IF NOT EXISTS Employe
  (
-   idEmploye BIGINT(4) NOT NULL  ,
+   idEmploye BIGINT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT  ,
    idConnexion CHAR(32) NOT NULL  ,
    motDePasse CHAR(32) NOT NULL
-   , PRIMARY KEY (id)
  )
  comment = "";
 
