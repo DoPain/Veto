@@ -1,7 +1,4 @@
-DROP DATABASE IF EXISTS PT4A1;
-
-CREATE DATABASE IF NOT EXISTS PT4A1;
-USE PT4A1;
+USE PT_S4P1A_E1;
 
 # -----------------------------------------------------------------------------
 #       TABLE : Personne
