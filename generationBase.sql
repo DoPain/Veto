@@ -138,7 +138,7 @@ CREATE  INDEX I_FK_Conge_Veterinaire
 
 CREATE TABLE IF NOT EXISTS Ordonnance
  (
-   idOrdonnance CHAR(32) PRIMARY KEY NOT NULL,
+   idOrdonnance BIGINT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
    idAnimal INTEGER(20) NOT NULL  ,
    idVeterinaire BIGINT(4) NOT NULL  ,
    DATE DATETIME NOT NULL  ,
