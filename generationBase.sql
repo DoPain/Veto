@@ -6,8 +6,8 @@ USE PT_S4P1A_E1;
 
 CREATE TABLE IF NOT EXISTS Personne
  (
-   idPersonne BIGINT(4) PRIMARY KEY AUTO_INCREMENT NOT NULL  ,
-   codeCommune INTEGER(10) NOT NULL  ,
+   idPersonne BIGINT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT ,
+   idVille BIGINT(4) NOT NULL  ,
    nom VARCHAR(128) NOT NULL  ,
    prenom VARCHAR(128) NOT NULL  ,
    dateNaissance DATE NULL  ,
@@ -22,8 +22,8 @@ CREATE TABLE IF NOT EXISTS Personne
 # -----------------------------------------------------------------------------
 
 
-CREATE  INDEX I_FK_Personne_Ville
-     ON Personne (codeCommune ASC);
+CREATE INDEX I_FK_Personne_Ville
+     ON Personne (idVille ASC);
 
 # -----------------------------------------------------------------------------
 #       TABLE : Veterinaire
@@ -55,22 +55,11 @@ CREATE TABLE IF NOT EXISTS Panier
 # -----------------------------------------------------------------------------
 
 
-CREATE  INDEX I_FK_Panier_Employe
+CREATE INDEX I_FK_Panier_Employe
      ON Panier (idEmploye ASC);
 
-CREATE  INDEX I_FK_Panier_Client
+CREATE INDEX I_FK_Panier_Client
      ON Panier (idClient ASC);
-
-# -----------------------------------------------------------------------------
-#       TABLE : Pays
-# -----------------------------------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS Pays
- (
-   idPays BIGINT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT  ,
-   nom VARCHAR(128) NOT NULL
- )
- comment = "";
 
 # -----------------------------------------------------------------------------
 #       TABLE : Espece
@@ -101,7 +90,7 @@ CREATE TABLE IF NOT EXISTS Log
 # -----------------------------------------------------------------------------
 
 
-CREATE  INDEX I_FK_Log_Employe
+CREATE INDEX I_FK_Log_Employe
      ON Log (idEmploye ASC);
 
 # -----------------------------------------------------------------------------
@@ -123,10 +112,10 @@ CREATE TABLE IF NOT EXISTS Conge
 # -----------------------------------------------------------------------------
 
 
-CREATE  INDEX I_FK_Conge_Employe
+CREATE INDEX I_FK_Conge_Employe
      ON Conge (idEmploye ASC);
 
-CREATE  INDEX I_FK_Conge_Veterinaire
+CREATE INDEX I_FK_Conge_Veterinaire
      ON Conge (idVeterinaire ASC);
 
 # -----------------------------------------------------------------------------
@@ -148,32 +137,58 @@ CREATE TABLE IF NOT EXISTS Ordonnance
 # -----------------------------------------------------------------------------
 
 
-CREATE  INDEX I_FK_Ordonnance_Veterinaire
+CREATE INDEX I_FK_Ordonnance_Veterinaire
      ON Ordonnance (idVeterinaire ASC);
 
-CREATE  INDEX I_FK_Ordonnance_Animal
+CREATE INDEX I_FK_Ordonnance_Animal
      ON Ordonnance (idAnimal ASC);
 
 # -----------------------------------------------------------------------------
 #       TABLE : Ville
 # -----------------------------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS Ville
- (
-   codeCommune INTEGER(10) PRIMARY KEY NOT NULL AUTO_INCREMENT ,
-   idPays BIGINT(4) NOT NULL  ,
-   nom CHAR(32) NOT NULL  ,
-   codePostal BIGINT(10) NOT NULL
- )
- comment = "";
-
-# -----------------------------------------------------------------------------
-#       INDEX DE LA TABLE Ville
-# -----------------------------------------------------------------------------
-
-
-CREATE  INDEX I_FK_Ville_Pays
-     ON Ville (idPays ASC);
+CREATE TABLE IF NOT EXISTS Ville (
+  idVille BIGINT(4) NOT NULL AUTO_INCREMENT,
+  ville_departement VARCHAR(3) DEFAULT NULL,
+  ville_slug VARCHAR(150) DEFAULT NULL,
+  ville_nom VARCHAR(45) DEFAULT NULL,
+  ville_nom_simple VARCHAR(45) DEFAULT NULL,
+  ville_nom_reel VARCHAR(45) DEFAULT NULL,
+  ville_nom_soundex VARCHAR(20) DEFAULT NULL,
+  ville_nom_metaphone VARCHAR(22) DEFAULT NULL,
+  ville_code_postal VARCHAR(150) DEFAULT NULL,
+  ville_commune VARCHAR(3) DEFAULT NULL,
+  ville_code_commune VARCHAR(5) NOT NULL,
+  ville_arrondissement SMALLINT(3) unsigned DEFAULT NULL,
+  ville_canton VARCHAR(4) DEFAULT NULL,
+  ville_amdi SMALLINT(5) unsigned DEFAULT NULL,
+  ville_population_2010 INTEGER(11) DEFAULT NULL,
+  ville_population_1999 INTEGER(11) DEFAULT NULL,
+  ville_population_2012 INTEGER(10) DEFAULT NULL COMMENT 'approximatif',
+  ville_densite_2010 INTEGER(11) DEFAULT NULL,
+  ville_surface float DEFAULT NULL,
+  ville_longitude_deg float DEFAULT NULL,
+  ville_latitude_deg float DEFAULT NULL,
+  ville_longitude_grd VARCHAR(9) DEFAULT NULL,
+  ville_latitude_grd VARCHAR(8) DEFAULT NULL,
+  ville_longitude_dms VARCHAR(9) DEFAULT NULL,
+  ville_latitude_dms VARCHAR(8) DEFAULT NULL,
+  ville_zmin INTEGER(4) DEFAULT NULL,
+  ville_zmax INTEGER(4) DEFAULT NULL,
+  PRIMARY KEY (idVille),
+  UNIQUE KEY ville_code_commune_2 (ville_code_commune),
+  UNIQUE KEY ville_slug (ville_slug),
+  KEY ville_departement (ville_departement),
+  KEY ville_nom (ville_nom),
+  KEY ville_nom_reel (ville_nom_reel),
+  KEY ville_code_commune (ville_code_commune),
+  KEY ville_code_postal (ville_code_postal),
+  KEY ville_longitude_latitude_deg (ville_longitude_deg,ville_latitude_deg),
+  KEY ville_nom_soundex (ville_nom_soundex),
+  KEY ville_nom_metaphone (ville_nom_metaphone),
+  KEY ville_population_2010 (ville_population_2010),
+  KEY ville_nom_simple (ville_nom_simple)
+);
 
 # -----------------------------------------------------------------------------
 #       TABLE : Race
@@ -192,7 +207,7 @@ CREATE TABLE IF NOT EXISTS Race
 # -----------------------------------------------------------------------------
 
 
-CREATE  INDEX I_FK_Race_Espece
+CREATE INDEX I_FK_Race_Espece
      ON Race (idEspece ASC);
 
 # -----------------------------------------------------------------------------
@@ -214,10 +229,10 @@ CREATE TABLE IF NOT EXISTS Animal
 # -----------------------------------------------------------------------------
 
 
-CREATE  INDEX I_FK_Animal_Espece
+CREATE INDEX I_FK_Animal_Espece
      ON Animal (idEspece ASC);
 
-CREATE  INDEX I_FK_Animal_Client
+CREATE INDEX I_FK_Animal_Client
      ON Animal (idClient ASC);
 
 # -----------------------------------------------------------------------------
@@ -226,7 +241,8 @@ CREATE  INDEX I_FK_Animal_Client
 
 CREATE TABLE IF NOT EXISTS Client
  (
-   idClient BIGINT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT
+   idClient BIGINT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT ,
+   idPersonne BIGINT(4)
  )
  comment = "";
 
@@ -251,7 +267,7 @@ CREATE TABLE IF NOT EXISTS Produit
 CREATE TABLE IF NOT EXISTS Traitement
  (
    idTraitement INTEGER(4) PRIMARY KEY NOT NULL AUTO_INCREMENT ,
-   idOrdonnance CHAR(32) NOT NULL  ,
+   idOrdonnance BIGINT(4) NOT NULL  ,
    dateDebut DATE NOT NULL  ,
    dureeJour INTEGER(2) NOT NULL  ,
    produitPrescrit CHAR(32) NOT NULL  ,
@@ -265,7 +281,7 @@ CREATE TABLE IF NOT EXISTS Traitement
 # -----------------------------------------------------------------------------
 
 
-CREATE  INDEX I_FK_Traitement_Ordonnance
+CREATE INDEX I_FK_Traitement_Ordonnance
      ON Traitement (idOrdonnance ASC);
 
 # -----------------------------------------------------------------------------
@@ -286,7 +302,7 @@ CREATE TABLE IF NOT EXISTS Employe
 
 CREATE TABLE IF NOT EXISTS Appartenir
  (
-   idOrdonnance CHAR(32) NOT NULL  ,
+   idOrdonnance BIGINT(4) NOT NULL  ,
    idProduit SMALLINT(25) NOT NULL
    , PRIMARY KEY (idOrdonnance,idProduit)
  )
@@ -297,10 +313,10 @@ CREATE TABLE IF NOT EXISTS Appartenir
 # -----------------------------------------------------------------------------
 
 
-CREATE  INDEX I_FK_Appartenir_Ordonnance
+CREATE INDEX I_FK_Appartenir_Ordonnance
      ON Appartenir (idOrdonnance ASC);
 
-CREATE  INDEX I_FK_Appartenir_Produit
+CREATE INDEX I_FK_Appartenir_Produit
      ON Appartenir (idProduit ASC);
 
 # -----------------------------------------------------------------------------
@@ -322,10 +338,10 @@ CREATE TABLE IF NOT EXISTS Commander
 # -----------------------------------------------------------------------------
 
 
-CREATE  INDEX I_FK_Commander_Panier
+CREATE INDEX I_FK_Commander_Panier
      ON Commander (idVente ASC);
 
-CREATE  INDEX I_FK_Commander_Produit
+CREATE INDEX I_FK_Commander_Produit
      ON Commander (idProduit ASC);
 
 # -----------------------------------------------------------------------------
@@ -348,26 +364,16 @@ CREATE TABLE IF NOT EXISTS AvoirRendezVous
 # -----------------------------------------------------------------------------
 
 
-CREATE  INDEX I_FK_AvoirRendezVous_Client
+CREATE INDEX I_FK_AvoirRendezVous_Client
      ON AvoirRendezVous (idClient ASC);
 
-CREATE  INDEX I_FK_AvoirRendezVous_Veterinaire
+CREATE INDEX I_FK_AvoirRendezVous_Veterinaire
      ON AvoirRendezVous (idVeterinaire ASC);
 
 
 # -----------------------------------------------------------------------------
 #       CREATION DES REFERENCES DE TABLE
 # -----------------------------------------------------------------------------
-
-ALTER TABLE Personne
-  ADD FOREIGN KEY FK_Personne_Ville (codeCommune)
-      REFERENCES Ville (codeCommune) ;
-
-
-ALTER TABLE Veterinaire
-  ADD FOREIGN KEY FK_Veterinaire_ClientFournisseur (id)
-      REFERENCES ClientFournisseur (id) ;
-
 
 ALTER TABLE Panier
   ADD FOREIGN KEY FK_Panier_Employe (idEmploye)
@@ -377,11 +383,6 @@ ALTER TABLE Panier
 ALTER TABLE Panier
   ADD FOREIGN KEY FK_Panier_Client (idClient)
       REFERENCES Client (idClient) ;
-
-
-ALTER TABLE Fournisseur
-  ADD FOREIGN KEY FK_Fournisseur_Ville (codeCommune)
-      REFERENCES Ville (codeCommune) ;
 
 
 ALTER TABLE Log
@@ -409,11 +410,6 @@ ALTER TABLE Ordonnance
       REFERENCES Animal (idAnimal) ;
 
 
-ALTER TABLE Ville
-  ADD FOREIGN KEY FK_Ville_Pays (idPays)
-      REFERENCES Pays (idPays) ;
-
-
 ALTER TABLE Race
   ADD FOREIGN KEY FK_Race_Espece (idEspece)
       REFERENCES Espece (idEspece) ;
@@ -430,22 +426,14 @@ ALTER TABLE Animal
 
 
 ALTER TABLE Client
-  ADD FOREIGN KEY FK_Client_Personne (idPersonne)
+  ADD FOREIGN KEY FK_Client_Personne (idClient)
       REFERENCES Personne (idPersonne) ;
-
-
-ALTER TABLE Traitement
-  ADD FOREIGN KEY FK_Traitement_Ordonnance (idOrdonnance)
-      REFERENCES Ordonnance (idOrdonnance) ;
 
 
 ALTER TABLE Employe
-  ADD FOREIGN KEY FK_Employe_Personne (idPersonne)
+  ADD FOREIGN KEY FK_Employe_Personne (idEmploye)
       REFERENCES Personne (idPersonne) ;
 
-ALTER TABLE Appartenir
-  ADD FOREIGN KEY FK_Appartenir_Ordonnance (idOrdonnance)
-      REFERENCES Ordonnance (idOrdonnance) ;
 
 
 ALTER TABLE Appartenir
@@ -470,3 +458,17 @@ ALTER TABLE AvoirRendezVous
 ALTER TABLE AvoirRendezVous
   ADD FOREIGN KEY FK_AvoirRendezVous_Veterinaire (idVeterinaire)
       REFERENCES Veterinaire (idVeterinaire) ;
+
+ALTER TABLE Traitement
+  ADD FOREIGN KEY FK_Traitement_Ordonnance (idOrdonnance)
+      REFERENCES Ordonnance (idOrdonnance) ;
+
+
+ALTER TABLE Appartenir
+  ADD FOREIGN KEY FK_Appartenir_Ordonnance (idOrdonnance)
+      REFERENCES Ordonnance (idOrdonnance) ;
+
+
+ALTER TABLE Personne
+   ADD FOREIGN KEY FK_Personne_Ville (idVille)
+       REFERENCES Ville (idVille) ;
