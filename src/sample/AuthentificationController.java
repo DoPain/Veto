@@ -40,27 +40,50 @@ public class AuthentificationController implements Initializable {
     }
 
     public void signInButtonPushed() {
+        if(loginField.getText() == null) {
+            loginField.setPromptText("Veuillez remplir ce champ.");
+        }
+        if(passwordField.getText() == null) {
+            loginField.setPromptText("Veuillez remplir ce champ.");
+        }
 
+        if(connexionMached()) {
+            transitionScene("home");
+        }
+    }
+
+    public boolean connexionMached() {
+        //Tester si le login et le mdp correspondent
+        return true;
     }
 
     public void registerButtonPushed() {
-        transitionScene();
+        transitionScene("register");
     }
 
-    private void transitionScene(){
+    private void transitionScene(String nextScene){
         FadeTransition transition = new FadeTransition();
         transition.setDuration(Duration.millis(1000));
         transition.setNode(rootPane);
         transition.setFromValue(1);
         transition.setToValue(0);
-        transition.setOnFinished(e-> loadNextScene());
+        transition.setOnFinished(e-> loadNextScene(nextScene));
         transition.play();
     }
 
-    private void loadNextScene(){
+    private void loadNextScene(String nextScene){
         try {
             Parent secondView;
-            secondView = (VBox) FXMLLoader.load(getClass().getResource("/register.fxml"));
+            switch (nextScene) {
+                case "register" :
+                    secondView = (VBox) FXMLLoader.load(getClass().getResource("/register.fxml"));
+                    break;
+                case "home" :
+                    secondView = (VBox) FXMLLoader.load(getClass().getResource("/home.fxml"));
+                    break;
+                default :
+                    secondView = null;
+            }
             Scene scene2 = new Scene(secondView);
             Stage currentStage = (Stage) rootPane.getScene().getWindow();
             currentStage.setScene(scene2);
