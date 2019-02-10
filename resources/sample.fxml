@@ -9,13 +9,12 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
       <Button graphicTextGap="0.0" layoutX="31.0" layoutY="89.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="73.0" text="Calendrier" visible="false" />
       <ButtonBar layoutX="-235.0" layoutY="343.0" prefHeight="136.0" prefWidth="605.0" rotate="90.0" style="-fx-background-color: lightgrey;">
         <buttons>
-            <Button graphicTextGap="0.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="75.0" rotate="-90.0" text="Calendrier">
+            <Button fx:id="btn_home" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="75.0" rotate="-90.0" text="Calendrier">
                <graphic>
                   <ImageView fitHeight="95.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                      <image>
