@@ -48,4 +48,10 @@ public class ControllerSample implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("/home.fxml"));
         primaryStage.setScene(new Scene(root, 1280, 720));
     }
+    @FXML
+    private void onActionDisconnectBTN() throws IOException {
+        Stage primaryStage = (Stage) btn_home.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/register.fxml"));
+        primaryStage.setScene(new Scene(root, 640, 400));
+    }
 }
