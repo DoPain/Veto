@@ -1,4 +1,4 @@
-package sample;
+package ConnectionMenu.Authentification;
 
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;

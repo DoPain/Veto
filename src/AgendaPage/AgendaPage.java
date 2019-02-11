@@ -8,12 +8,14 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.layout.BorderPane;
 import jfxtras.labs.icalendaragenda.scene.control.agenda.ICalendarAgenda;
 import jfxtras.labs.icalendarfx.VCalendar;
+import sample.ControllerSample;
+
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.ResourceBundle;
 
-public class AgendaPage extends sample.Controller implements Initializable{
+public class AgendaPage extends ControllerSample implements Initializable{
 
     @FXML
     private BorderPane BorderPane;

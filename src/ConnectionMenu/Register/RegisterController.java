@@ -1,4 +1,4 @@
-package sample;
+package ConnectionMenu.Register;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

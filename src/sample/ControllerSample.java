@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable {
+public class ControllerSample implements Initializable {
 
     @FXML
     private Button btn_home;
@@ -39,13 +39,13 @@ public class Controller implements Initializable {
     @FXML
     private void onActionAgendaBTN() throws IOException {
         Stage primaryStage = (Stage) btn_agenda.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/AgendaPage.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/agendaPage.fxml"));
         primaryStage.setScene(new Scene(root, 1280, 720));
     }
     @FXML
     private void onActionHomeBTN() throws IOException {
         Stage primaryStage = (Stage) btn_home.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/home.fxml"));
         primaryStage.setScene(new Scene(root, 1280, 720));
     }
 }
