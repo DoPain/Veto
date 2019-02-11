@@ -3,6 +3,6 @@
 build.xml
 manifest.mf
 nbproject/
-/dist/
-/build/
-/out/
+dist/
+build/
+out/
