@@ -10,9 +10,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="751.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="751.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <top>
-      <Pane BorderPane.alignment="CENTER">
+      <Pane fx:id="pane" BorderPane.alignment="CENTER">
          <children>
             <Button alignment="CENTER_RIGHT" contentDisplay="GRAPHIC_ONLY" ellipsisString="" graphicTextGap="1.0" layoutX="1192.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="70.0">
                <graphic>
@@ -23,7 +24,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Text layoutX="565.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Titre de la page">
+            <Text layoutX="565.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Titre de la page oui">
                <font>
                   <Font size="19.0" />
                </font>
@@ -34,7 +35,7 @@
    <left>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btn_home" ellipsisString="" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="75.0" text="Calendrier">
+            <Button fx:id="btn_home" ellipsisString="" graphicTextGap="0.0" mnemonicParsing="false" onAction="#onActionHomeBTN" prefHeight="70.0" prefWidth="75.0" text="Calendrier">
                <graphic>
                   <ImageView fitHeight="95.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                      <image>

@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
 public class AgendaPage extends sample.Controller implements Initializable{
 
     @FXML
-    private BorderPane pane;
+    private BorderPane BorderPane;
     @FXML
     private DatePicker datePicker;
     @FXML
@@ -31,7 +31,9 @@ public class AgendaPage extends sample.Controller implements Initializable{
         vCalendar = new VCalendar();
         agendaHome = new ICalendarAgenda(vCalendar);
         datePicker.setValue(agendaHome.getDisplayedLocalDateTime().toLocalDate());
-        pane.setCenter(agendaHome);
+        BorderPane.setCenter(agendaHome);
+
+        super.start();
 
         increase_btn.setOnAction(event -> {
             LocalDateTime newLocalDateTime = agendaHome.getDisplayedLocalDateTime().plus(Period.ofWeeks(1));

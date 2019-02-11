@@ -17,7 +17,7 @@ public class DataBase {
         this.name = n;
         this.user = u;
         this.pass = p;
-        this.url =
+        this.url = "fv";
     }
 
     public void connection() {
