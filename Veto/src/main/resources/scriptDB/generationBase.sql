@@ -290,8 +290,8 @@ CREATE INDEX I_FK_Traitement_Ordonnance
 
 CREATE TABLE IF NOT EXISTS Employe
  (
-   idEmploye BIGINT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT  ,
-   idConnexion CHAR(32) NOT NULL  ,
+   idEmploye BIGINT(4) PRIMARY KEY NOT NULL  ,
+   idConnexion CHAR(32) NOT NULL UNIQUE,
    motDePasse CHAR(32) NOT NULL
  )
  comment = "";
