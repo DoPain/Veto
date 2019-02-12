@@ -3,7 +3,8 @@ package pt4p1ae1.veto;
 import java.sql.*;
 
 public class DataBase {
-    private final String host;
+
+    private String host;
     private final String name;
     private final String user;
     private final String pass;
@@ -13,7 +14,7 @@ public class DataBase {
     private ResultSet rs;
 
     public DataBase(){
-        this.host = "172.16.1.17";
+        this.host = "info-arie";
         this.name = "PT_S4P1A_E1";
         this.user = "PT_S4P1A_E1";
         this.pass = "cBYW9Gus";
@@ -54,5 +55,9 @@ public class DataBase {
             System.out.println(e);
         }
         return null;
+    }
+
+    protected void setHost(String host) {
+        this.host = host;
     }
 }
