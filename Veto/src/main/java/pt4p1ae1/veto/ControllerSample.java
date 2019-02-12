@@ -1,5 +1,6 @@
 package pt4p1ae1.veto;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -54,5 +55,40 @@ public class ControllerSample implements Initializable {
         Stage primaryStage = (Stage) btn_home.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/register.fxml"));
         primaryStage.setScene(new Scene(root, 640, 400));
+    }
+
+    @FXML
+    public void onActionAnimauxBTN() throws IOException {
+        Stage primaryStage = (Stage) btn_home.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/pageAnimaux.fxml"));
+        primaryStage.setScene(new Scene(root, 1280, 720));
+    }
+
+    @FXML
+    public void onActionClientBTN() throws IOException {
+        Stage primaryStage = (Stage) btn_home.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/pageClient.fxml"));
+        primaryStage.setScene(new Scene(root, 1280, 720));
+    }
+
+    @FXML
+    public void onActionOrdonnanceBTN() throws IOException  {
+        Stage primaryStage = (Stage) btn_home.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/pageOrdonnance.fxml"));
+        primaryStage.setScene(new Scene(root, 1280, 720));
+    }
+
+    @FXML
+    public void onActionStockBTN() throws IOException  {
+        Stage primaryStage = (Stage) btn_home.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/pageStock.fxml"));
+        primaryStage.setScene(new Scene(root, 1280, 720));
+    }
+
+    @FXML
+    public void onActionStatistiquesBTN() throws IOException  {
+        Stage primaryStage = (Stage) btn_home.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/pageStatistiques.fxml"));
+        primaryStage.setScene(new Scene(root, 1280, 720));
     }
 }
