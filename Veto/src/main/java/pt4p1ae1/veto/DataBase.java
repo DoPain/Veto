@@ -4,22 +4,15 @@ import java.sql.*;
 
 public class DataBase {
 
-    private String host;
-    private final String name;
-    private final String user;
-    private final String pass;
-    private final String url;
+    private final String host = DBPortable.setHost();
+    private final String name = "PT_S4P1A_E1";
+    private final String user = "PT_S4P1A_E1";
+    private final String pass = "cBYW9Gus";
+    private final String url = "jdbc:mysql://" + host + "/" + name;
     private Connection conn;
     private Statement st;
-    private ResultSet rs;
 
     public DataBase() {
-
-        this.host = DBPortable.setHost();
-        this.name = "PT_S4P1A_E1";
-        this.user = "PT_S4P1A_E1";
-        this.pass = "cBYW9Gus";
-        this.url = "jdbc:mysql://" + host + "/" + name;
         connexion();
     }
 
@@ -56,9 +49,5 @@ public class DataBase {
             System.out.println(e);
         }
         return null;
-    }
-
-    protected void setHost(String host) {
-        this.host = host;
     }
 }
