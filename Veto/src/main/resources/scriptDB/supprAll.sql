@@ -1,0 +1,15 @@
+DELETE FROM Animal;
+DELETE FROM Appartenir;
+DELETE FROM AvoirRendezVous;
+DELETE FROM Client;
+DELETE FROM Commander;
+DELETE FROM Conge;
+DELETE FROM Employer;
+DELETE FROM Espece;
+DELETE FROM Log;
+DELETE FROM Ordonnace;
+DELETE FROM Panier;
+DELETE FROM Produit;
+DELETE FROM Race;
+DELETE FROM Traitement;
+DELETE FROM Veterinaire;
