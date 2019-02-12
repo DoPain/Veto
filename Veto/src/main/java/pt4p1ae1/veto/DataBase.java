@@ -14,7 +14,8 @@ public class DataBase {
     private ResultSet rs;
 
     public DataBase(){
-        this.host = "info-arie";
+
+        this.host = DBPortable.setHost();
         this.name = "PT_S4P1A_E1";
         this.user = "PT_S4P1A_E1";
         this.pass = "cBYW9Gus";
