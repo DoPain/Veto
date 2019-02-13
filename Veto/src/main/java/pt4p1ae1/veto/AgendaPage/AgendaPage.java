@@ -52,9 +52,10 @@ public class AgendaPage extends ControllerSample implements Initializable{
         datePicker.setOnAction(event -> {
             LocalDateTime newLocalDateTime = datePicker.getValue().atStartOfDay();
             agendaHome.setDisplayedLocalDateTime(newLocalDateTime);
-        })
+            System.out.println(vCalendar.toString());
+        });
         //TODO use this method to save events in file or base and use this information to fill the vCalendar
-        //System.out.println(vCalendar.toString());
+
     }
 
 }
