@@ -14,7 +14,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("/agendaPage.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/authentification.fxml"));
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root, 1280, 720));
         primaryStage.show();
@@ -23,17 +23,5 @@ public class App extends Application {
 
     public static void main(String[] args) {
         launch(args);
-        try {
-            DataBase dataBase = new DataBase();
-            ResultSet resultSet = dataBase.getRace();
-            while (resultSet.next()) {
-                System.out.println("Espece : "
-                        + resultSet.getString("nomEspece")
-                        + " Race : "
-                        + resultSet.getString("nomRace"));
-            }
-        } catch (SQLException s){
-            System.out.println(s);
-        }
     }
 }

@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static javafx.application.Platform.exit;
+
 public class ControllerSample implements Initializable {
 
     @FXML
@@ -52,9 +54,7 @@ public class ControllerSample implements Initializable {
     }
     @FXML
     private void onActionDisconnectBTN() throws IOException {
-        Stage primaryStage = (Stage) btn_home.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/authentification.fxml"));
-        primaryStage.setScene(new Scene(root, 640, 400));
+        exit();
     }
 
     @FXML

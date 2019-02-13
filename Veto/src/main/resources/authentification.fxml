@@ -21,11 +21,9 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField id="loginField" fx:id="loginField" layoutX="265.0" layoutY="123.0" prefHeight="26.0" prefWidth="209.0" promptText="Enter your login here..." />
-            <TextField id="passwordField" fx:id="passwordField" layoutX="265.0" layoutY="188.0" prefHeight="26.0" prefWidth="209.0" promptText="Enter your password here..." />
-            <Button id="signInButton" fx:id="signInButton" layoutX="413.0" layoutY="243.0" mnemonicParsing="false" onAction="#signInButtonPushed" text="Sign in" />
-            <Button id="registerButton" fx:id="registerButton" layoutX="413.0" layoutY="338.0" mnemonicParsing="false" onAction="#registerButtonPushed" text="Register" />
-            <Label id="registerLabel" layoutX="297.0" layoutY="343.0" text="Not registered ?" />
+            <TextField id="loginField" fx:id="loginField" layoutX="265.0" layoutY="123.0" prefHeight="26.0" prefWidth="300.0" promptText="Enter your login here..." />
+            <TextField id="passwordField" fx:id="passwordField" layoutX="265.0" layoutY="188.0" prefHeight="26.0" prefWidth="300.0" promptText="Enter your password here..." />
+            <Button id="signInButton" fx:id="signInButton" layoutX="513.0" layoutY="243.0" mnemonicParsing="false" onAction="#signInButtonPushed" text="Sign in" />
             <Label layoutX="228.0" layoutY="34.0" text="Authentification">
                <font>
                   <Font name="System Bold" size="20.0" />

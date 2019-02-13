@@ -50,4 +50,14 @@ public class DataBase {
         }
         return null;
     }
+
+    public ResultSet getEmployes(){
+        try{
+            String query = "SELECT E.idConnexion as login, E.motDePasse as mdp FROM Employe E ";
+            return st.executeQuery(query);
+        } catch (Exception e){
+            System.out.println(e);
+        }
+        return null;
+    }
 }
