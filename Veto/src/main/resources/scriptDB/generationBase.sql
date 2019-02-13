@@ -31,7 +31,7 @@ CREATE INDEX I_FK_Personne_Ville
 
 CREATE TABLE IF NOT EXISTS Veterinaire
  (
-   idVeterinaire BIGINT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT ,
+   idVeterinaire BIGINT(4) PRIMARY KEY NOT NULL ,
    signature LONGBLOB NULL
  )
  comment = "";
@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS Log
  (
    idLog BIGINT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT  ,
    idEmploye BIGINT(4) NOT NULL  ,
-   DATE DATETIME NOT NULL  ,
+   temps TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
    action CHAR(255) NOT NULL
  )
  comment = "";
@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS Ordonnance
    idOrdonnance BIGINT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
    idAnimal INTEGER(20) NOT NULL  ,
    idVeterinaire BIGINT(4) NOT NULL  ,
-   DATE DATETIME NOT NULL  ,
+   date DATETIME NOT NULL  ,
    commentaire CHAR(32) NULL
  )
  comment = "";
@@ -148,7 +148,7 @@ CREATE INDEX I_FK_Ordonnance_Animal
 # -----------------------------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS Ville (
-  idVille BIGINT(4) NOT NULL AUTO_INCREMENT,
+  idVille BIGINT(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   ville_departement VARCHAR(3) DEFAULT NULL,
   ville_slug VARCHAR(150) DEFAULT NULL,
   ville_nom VARCHAR(45) DEFAULT NULL,
@@ -175,7 +175,6 @@ CREATE TABLE IF NOT EXISTS Ville (
   ville_latitude_dms VARCHAR(8) DEFAULT NULL,
   ville_zmin INTEGER(4) DEFAULT NULL,
   ville_zmax INTEGER(4) DEFAULT NULL,
-  PRIMARY KEY (idVille),
   UNIQUE KEY ville_code_commune_2 (ville_code_commune),
   UNIQUE KEY ville_slug (ville_slug),
   KEY ville_departement (ville_departement),
@@ -241,8 +240,7 @@ CREATE INDEX I_FK_Animal_Client
 
 CREATE TABLE IF NOT EXISTS Client
  (
-   idClient BIGINT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT ,
-   idPersonne BIGINT(4)
+   idClient BIGINT(4) PRIMARY KEY NOT NULL
  )
  comment = "";
 
@@ -427,6 +425,10 @@ ALTER TABLE Animal
 
 ALTER TABLE Client
   ADD FOREIGN KEY FK_Client_Personne (idClient)
+      REFERENCES Personne (idPersonne) ;
+
+ALTER TABLE Veterinaire
+  ADD FOREIGN KEY FK_Veterinaire_Personne (idVeterinaire)
       REFERENCES Personne (idPersonne) ;
 
 
