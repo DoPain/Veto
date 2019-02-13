@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS Ordonnance
    idOrdonnance BIGINT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
    idAnimal INTEGER(20) NOT NULL  ,
    idVeterinaire BIGINT(4) NOT NULL  ,
-   date DATETIME NOT NULL  ,
+   dateOrdonnance DATETIME NOT NULL  ,
    commentaire CHAR(32) NULL
  )
  comment = "";
