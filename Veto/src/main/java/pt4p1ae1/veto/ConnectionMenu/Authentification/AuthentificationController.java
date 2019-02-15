@@ -93,35 +93,4 @@ public class AuthentificationController implements Initializable {
 
         return loginFound && mdpFound;
     }
-
-    private void transitionScene(String nextScene) {
-        FadeTransition transition = new FadeTransition();
-        transition.setDuration(Duration.millis(1000));
-        transition.setNode(rootPane);
-        transition.setFromValue(1);
-        transition.setToValue(0);
-        transition.setOnFinished(e -> loadNextScene(nextScene));
-        transition.play();
-    }
-
-    private void loadNextScene(String nextScene) {
-        try {
-            Parent secondView;
-            switch (nextScene) {
-                case "register":
-                    secondView = (VBox) FXMLLoader.load(getClass().getResource("/register.fxml"));
-                    break;
-                case "home":
-                    secondView = (VBox) FXMLLoader.load(getClass().getResource("/home.fxml"));
-                    break;
-                default:
-                    secondView = null;
-            }
-            Scene scene2 = new Scene(secondView);
-            Stage currentStage = (Stage) rootPane.getScene().getWindow();
-            currentStage.setScene(scene2);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
