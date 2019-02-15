@@ -59,6 +59,7 @@ public class AuthentificationController implements Initializable {
             Stage primaryStage = (Stage) signInButton.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("/home.fxml"));
             primaryStage.setScene(new Scene(root, 1280, 720));
+            primaryStage.centerOnScreen();
         } else {
             loginField.setText("");
             passwordField.setText("");
