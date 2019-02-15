@@ -51,11 +51,10 @@ public class AuthentificationController implements Initializable {
         } else if (loginField.getText().equals("")) {
             passwordField.setStyle("-fx-prompt-text-fill: red");
             loginField.setPromptText("Veuillez remplir ce champ.");
-            passwordField.setText("");
         } else if (passwordField.getText().equals("")) {
+            loginField.setStyle("-fx-prompt-text-fill: red");
             passwordField.setStyle("-fx-prompt-text-fill: red");
             passwordField.setPromptText("Veuillez remplir ce champ.");
-            loginField.setText("");
         } else if (connexionMatched()) {
             Stage primaryStage = (Stage) signInButton.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("/home.fxml"));
