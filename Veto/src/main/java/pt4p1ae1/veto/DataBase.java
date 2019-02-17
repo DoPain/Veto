@@ -13,10 +13,6 @@ public class DataBase {
     private Statement st;
 
     public DataBase() {
-        connexion();
-    }
-
-    public void connexion() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
@@ -33,7 +29,10 @@ public class DataBase {
 
     public ResultSet getRace() {
         try {
-            String query = "SELECT E.nom as nomEspece, R.nom as nomRace FROM Race R INNER JOIN Espece E ON R.idEspece = E.idEspece";
+            String query = "SELECT E.nom as nomEspece, R.nom as nomRace " +
+                    "FROM Race R " +
+                    "INNER JOIN Espece E " +
+                    "ON R.idEspece = E.idEspece";
             return st.executeQuery(query);
         } catch (Exception e) {
             System.out.println("ERROR " + e);
@@ -43,10 +42,13 @@ public class DataBase {
 
     public ResultSet getLog() {
         try {
-            String query = "SELECT E.idConnexion, L.DATE, L.action FROM Log L INNER JOIN Employe E ON L.idEmploye = E.idEmploye";
+            String query = "SELECT E.idConnexion, L.temps, L.action " +
+                    "FROM Log L " +
+                    "INNER JOIN Employe E " +
+                    "ON L.idEmploye = E.idEmploye";
             return st.executeQuery(query);
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("Error DataBase.getLog() " + e);
         }
         return null;
     }

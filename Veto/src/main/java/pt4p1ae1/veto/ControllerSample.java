@@ -31,7 +31,7 @@ public class ControllerSample implements Initializable {
     private Pane pane;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle resources)   {
         start();
     }
 
@@ -88,9 +88,9 @@ public class ControllerSample implements Initializable {
     }
 
     @FXML
-    public void onActionStatistiquesBTN() throws IOException  {
+    public void onActionLogBTN() throws IOException  {
         Stage primaryStage = (Stage) btn_home.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/pageStatistiques.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/pageLog.fxml"));
         primaryStage.setScene(new Scene(root, 1280, 720));
     }
 }
