@@ -77,7 +77,6 @@ public class AuthentificationController implements Initializable {
         boolean mdpFound = false;
         ResultSet results = database.getEmployes();
 
-        System.out.println("pas OK");
         try {
             while (results.next() || (!loginFound && !mdpFound))  {
                 if (results.getString("login").equals(loginField.getText())) {
