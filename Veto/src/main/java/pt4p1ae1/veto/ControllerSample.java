@@ -56,7 +56,8 @@ public class ControllerSample implements Initializable {
     private void onActionDisconnectBTN() throws IOException {
         Stage primaryStage = (Stage) btn_home.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/authentification.fxml"));
-        primaryStage.setScene(new Scene(root, 1280, 720));
+        primaryStage.setScene(new Scene(root, 700, 400));
+        primaryStage.centerOnScreen();
     }
 
     @FXML

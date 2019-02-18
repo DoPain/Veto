@@ -79,7 +79,7 @@ public class AuthentificationController implements Initializable {
 
         System.out.println("pas OK");
         try {
-            while (results.next() && !loginFound && !mdpFound)  {
+            while (results.next() || (!loginFound && !mdpFound))  {
                 if (results.getString("login").equals(loginField.getText())) {
                     loginFound = true;
                 }
