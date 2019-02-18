@@ -55,9 +55,20 @@ public class DataBase {
 
     public ResultSet getEmployes(){
         try{
-            String query = "SELECT E.idConnexion as login, E.motDePasse as mdp FROM Employe E ";
+            String query = "SELECT E.idConnexion as login, E.motDePasse as mdp, E.idEmploye as idE FROM Employe E ";
             return st.executeQuery(query);
         } catch (Exception e){
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    public ResultSet getIdVeterinaire() throws SQLException {
+        Statement stV = conn.createStatement();
+        try{
+            String query = "SELECT V.idVeterinaire as idV FROM Veterinaire as V";
+            return stV.executeQuery(query);
+        } catch (SQLException e) {
             System.out.println(e);
         }
         return null;
