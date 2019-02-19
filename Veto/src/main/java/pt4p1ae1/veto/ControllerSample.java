@@ -26,12 +26,10 @@ public class ControllerSample implements Initializable {
     @FXML
     private Button btn_home;
     @FXML
-    private Button btn_agenda;
-    @FXML
     private Pane pane;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle resources)   {
         start();
     }
 
@@ -40,55 +38,57 @@ public class ControllerSample implements Initializable {
         pane.setBackground(new Background(fill));
     }
 
+    @Deprecated
+    private void creatBtn(String name) throws IOException {
+        Stage primaryStage = (Stage) btn_home.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource(name));
+        primaryStage.setScene(new Scene(root,1280,720));
+    }
+
     @FXML
     private void onActionAgendaBTN() throws IOException {
-        Stage primaryStage = (Stage) btn_agenda.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/agendaPage.fxml"));
-        primaryStage.setScene(new Scene(root, 1280, 720));
+        creatBtn("/agendaPage.fxml");
     }
     @FXML
     private void onActionHomeBTN() throws IOException {
-        Stage primaryStage = (Stage) btn_home.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/home.fxml"));
-        primaryStage.setScene(new Scene(root, 1280, 720));
+        creatBtn("/home.fxml");
     }
     @FXML
     private void onActionDisconnectBTN() throws IOException {
-        exit();
+        Stage primaryStage = (Stage) btn_home.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/authentification.fxml"));
+        primaryStage.setScene(new Scene(root, 700, 400));
+        primaryStage.centerOnScreen();
     }
 
     @FXML
     public void onActionAnimauxBTN() throws IOException {
-        Stage primaryStage = (Stage) btn_home.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/pageAnimaux.fxml"));
-        primaryStage.setScene(new Scene(root, 1280, 720));
+        creatBtn("/pageAnimaux.fxml");
     }
 
     @FXML
     public void onActionClientBTN() throws IOException {
-        Stage primaryStage = (Stage) btn_home.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/pageClient.fxml"));
-        primaryStage.setScene(new Scene(root, 1280, 720));
+        creatBtn("/pageClient.fxml");
     }
 
     @FXML
     public void onActionOrdonnanceBTN() throws IOException  {
-        Stage primaryStage = (Stage) btn_home.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/pageOrdonnance.fxml"));
-        primaryStage.setScene(new Scene(root, 1280, 720));
+        creatBtn("/pageOrdonnance.fxml");
     }
 
     @FXML
     public void onActionStockBTN() throws IOException  {
-        Stage primaryStage = (Stage) btn_home.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/pageStock.fxml"));
-        primaryStage.setScene(new Scene(root, 1280, 720));
+        creatBtn("/pageStock.fxml");
     }
 
     @FXML
-    public void onActionStatistiquesBTN() throws IOException  {
-        Stage primaryStage = (Stage) btn_home.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/pageStatistiques.fxml"));
-        primaryStage.setScene(new Scene(root, 1280, 720));
+    public void onActionLogBTN() throws IOException  {
+<<<<<<< HEAD
+        creatBtn("/pageLog.fxml");
+=======
+            Stage primaryStage = (Stage) btn_home.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("/pageLog.fxml"));
+            primaryStage.setScene(new Scene(root, 1280, 720));
+>>>>>>> 5eae48b4eb70fadbe39654712e8c1ad6e1db6ef7
     }
 }

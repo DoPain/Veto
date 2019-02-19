@@ -13,7 +13,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import pt4p1ae1.veto.DataBase;
+import pt4p1ae1.veto.Utils;
 
+import javax.rmi.CORBA.Util;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -35,7 +37,6 @@ public class AuthentificationController implements Initializable {
     private Button signInButton;
 
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -51,15 +52,22 @@ public class AuthentificationController implements Initializable {
         } else if (loginField.getText().equals("")) {
             passwordField.setStyle("-fx-prompt-text-fill: red");
             loginField.setPromptText("Veuillez remplir ce champ.");
-            passwordField.setText("");
         } else if (passwordField.getText().equals("")) {
+            loginField.setStyle("-fx-prompt-text-fill: red");
             passwordField.setStyle("-fx-prompt-text-fill: red");
             passwordField.setPromptText("Veuillez remplir ce champ.");
-            loginField.setText("");
-        } else if (connexionMatched()) {
+        } else if (connexionMatched() == 1) {
+            Utils.admin = false;
             Stage primaryStage = (Stage) signInButton.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("/home.fxml"));
             primaryStage.setScene(new Scene(root, 1280, 720));
+            primaryStage.centerOnScreen();
+        } else if (connexionMatched() == 2) {
+            Utils.admin = true;
+            Stage primaryStage = (Stage) signInButton.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("/home.fxml"));
+            primaryStage.setScene(new Scene(root, 1280, 720));
+            primaryStage.centerOnScreen();
         } else {
             loginField.setText("");
             passwordField.setText("");
@@ -71,57 +79,37 @@ public class AuthentificationController implements Initializable {
     }
 
 
-    public boolean connexionMatched() {
+    public int connexionMatched() {
         DataBase database = new DataBase();
-        boolean loginFound = false;
-        boolean mdpFound = false;
-        ResultSet results = database.getEmployes();
+        boolean accountFound = false;
+        boolean admin = false;
 
-        System.out.println("pas OK");
         try {
-            while (results.next() && !loginFound && !mdpFound)  {
-                if (results.getString("login").equals(loginField.getText())) {
-                    loginFound = true;
-                }
-                if (results.getString("mdp").equals(passwordField.getText())) {
-                    mdpFound = true;
+            ResultSet resultsV = database.getIdVeterinaire();
+            ResultSet results = database.getEmployes();
+            resultsV.first();
+            while (results.next()) {
+
+                if (results.getString("login").equals(loginField.getText())
+                        && results.getString("mdp").equals(passwordField.getText())
+                        && results.getString("idE").equals(resultsV.getString("idV"))) {
+                    accountFound = true;
+                    admin = true;
+                } else if (results.getString("login").equals(loginField.getText())
+                        && results.getString("mdp").equals(passwordField.getText())) {
+                    accountFound = true;
                 }
             }
         } catch (SQLException e) {
             System.out.println(e);
         }
 
-        return loginFound && mdpFound;
-    }
-
-    private void transitionScene(String nextScene) {
-        FadeTransition transition = new FadeTransition();
-        transition.setDuration(Duration.millis(1000));
-        transition.setNode(rootPane);
-        transition.setFromValue(1);
-        transition.setToValue(0);
-        transition.setOnFinished(e -> loadNextScene(nextScene));
-        transition.play();
-    }
-
-    private void loadNextScene(String nextScene) {
-        try {
-            Parent secondView;
-            switch (nextScene) {
-                case "register":
-                    secondView = (VBox) FXMLLoader.load(getClass().getResource("/register.fxml"));
-                    break;
-                case "home":
-                    secondView = (VBox) FXMLLoader.load(getClass().getResource("/home.fxml"));
-                    break;
-                default:
-                    secondView = null;
-            }
-            Scene scene2 = new Scene(secondView);
-            Stage currentStage = (Stage) rootPane.getScene().getWindow();
-            currentStage.setScene(scene2);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (accountFound && admin) {
+            return 2;
+        } else if (accountFound && !admin) {
+            return 1;
+        } else {
+            return 0;
         }
     }
 }
