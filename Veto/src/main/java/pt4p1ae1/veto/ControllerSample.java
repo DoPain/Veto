@@ -1,6 +1,5 @@
 package pt4p1ae1.veto;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
