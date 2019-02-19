@@ -39,7 +39,8 @@ public class DataBase {
         String query = "SELECT E.idConnexion, L.temps, L.action " +
                 "FROM Log L " +
                 "INNER JOIN Employe E " +
-                "ON L.idEmploye = E.idEmploye";
+                "ON L.idEmploye = E.idEmploye " +
+                "ORDER BY L.temps";
         return executeSQL(query);
     }
 
