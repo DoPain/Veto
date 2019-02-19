@@ -28,36 +28,45 @@ public class DataBase {
     }
 
     public ResultSet getRace() {
-        try {
-            String query = "SELECT E.nom as nomEspece, R.nom as nomRace " +
-                    "FROM Race R " +
-                    "INNER JOIN Espece E " +
-                    "ON R.idEspece = E.idEspece";
-            return st.executeQuery(query);
-        } catch (Exception e) {
-            System.out.println("ERROR " + e);
-        }
-        return null;
+        String query = "SELECT E.nom as nomEspece, R.nom as nomRace " +
+                "FROM Race R " +
+                "INNER JOIN Espece E " +
+                "ON R.idEspece = E.idEspece";
+        return executeSQL(query);
     }
 
     public ResultSet getLog() {
-        try {
-            String query = "SELECT E.idConnexion, L.temps, L.action " +
-                    "FROM Log L " +
-                    "INNER JOIN Employe E " +
-                    "ON L.idEmploye = E.idEmploye";
-            return st.executeQuery(query);
-        } catch (Exception e) {
-            System.out.println("Error DataBase.getLog() " + e);
-        }
-        return null;
+        String query = "SELECT E.idConnexion, L.temps, L.action " +
+                "FROM Log L " +
+                "INNER JOIN Employe E " +
+                "ON L.idEmploye = E.idEmploye";
+        return executeSQL(query);
     }
 
-    public ResultSet getEmployes(){
-        try{
-            String query = "SELECT E.idConnexion as login, E.motDePasse as mdp, E.idEmploye as idE FROM Employe E ";
+    public ResultSet getEmployes() {
+        String query = "SELECT E.idConnexion as login, E.motDePasse as mdp, E.idEmploye as idE FROM Employe E ";
+        return executeSQL(query);
+    }
+
+    public ResultSet getShortClient() {
+        String query = "SELECT P.nom, P.prenom FROM Client C" +
+                " INNER JOIN Personne P ON P.idPersonne = C.idClient";
+        return executeSQL(query);
+    }
+
+    public ResultSet getClient() {
+        String query = "SELECT P.nom as NOM, P.prenom as PRENOM, P.adresse AS ADRESSE, " +
+                "P.mail AS MAIL, P.telephone AS TEL, V.ville_nom_reel AS VILLE FROM Client C" +
+                " INNER JOIN Personne P ON P.idPersonne = C.idClient" +
+                " INNER JOIN Ville V ON V.idVille = P.idVille";
+        return executeSQL(query);
+    }
+
+    public ResultSet executeSQL(String s) {
+        try {
+            String query = s;
             return st.executeQuery(query);
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
         return null;
