@@ -90,8 +90,8 @@ public class ControllerSample implements Initializable {
 
     @FXML
     public void onActionLogBTN() throws IOException  {
-        Stage primaryStage = (Stage) btn_home.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/pageLog.fxml"));
-        primaryStage.setScene(new Scene(root, 1280, 720));
+            Stage primaryStage = (Stage) btn_home.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("/pageLog.fxml"));
+            primaryStage.setScene(new Scene(root, 1280, 720));
     }
 }
