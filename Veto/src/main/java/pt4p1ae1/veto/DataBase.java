@@ -13,10 +13,6 @@ public class DataBase {
     private Statement st;
 
     public DataBase() {
-        connexion();
-    }
-
-    public void connexion() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
@@ -32,18 +28,43 @@ public class DataBase {
     }
 
     public ResultSet getRace() {
-        try {
-            String query = "SELECT E.nom as nomEspece, R.nom as nomRace FROM Race R INNER JOIN Espece E ON R.idEspece = E.idEspece";
-            return st.executeQuery(query);
-        } catch (Exception e) {
-            System.out.println("ERROR " + e);
-        }
-        return null;
+        String query = "SELECT E.nom as nomEspece, R.nom as nomRace " +
+                "FROM Race R " +
+                "INNER JOIN Espece E " +
+                "ON R.idEspece = E.idEspece";
+        return executeSQL(query);
     }
 
     public ResultSet getLog() {
+        String query = "SELECT E.idConnexion, L.temps, L.action " +
+                "FROM Log L " +
+                "INNER JOIN Employe E " +
+                "ON L.idEmploye = E.idEmploye";
+        return executeSQL(query);
+    }
+
+    public ResultSet getEmployes() {
+        String query = "SELECT E.idConnexion as login, E.motDePasse as mdp, E.idEmploye as idE FROM Employe E ";
+        return executeSQL(query);
+    }
+
+    public ResultSet getShortClient() {
+        String query = "SELECT P.nom, P.prenom FROM Client C" +
+                " INNER JOIN Personne P ON P.idPersonne = C.idClient";
+        return executeSQL(query);
+    }
+
+    public ResultSet getClient() {
+        String query = "SELECT P.nom as NOM, P.prenom as PRENOM, P.adresse AS ADRESSE, " +
+                "P.mail AS MAIL, P.telephone AS TEL, V.ville_nom_reel AS VILLE FROM Client C" +
+                " INNER JOIN Personne P ON P.idPersonne = C.idClient" +
+                " INNER JOIN Ville V ON V.idVille = P.idVille";
+        return executeSQL(query);
+    }
+
+    public ResultSet executeSQL(String s) {
         try {
-            String query = "SELECT E.idConnexion, L.DATE, L.action FROM Log L INNER JOIN Employe E ON L.idEmploye = E.idEmploye";
+            String query = s;
             return st.executeQuery(query);
         } catch (Exception e) {
             System.out.println(e);
@@ -51,11 +72,12 @@ public class DataBase {
         return null;
     }
 
-    public ResultSet getEmployes(){
+    public ResultSet getIdVeterinaire() throws SQLException {
+        Statement stV = conn.createStatement();
         try{
-            String query = "SELECT E.idConnexion as login, E.motDePasse as mdp FROM Employe E ";
-            return st.executeQuery(query);
-        } catch (Exception e){
+            String query = "SELECT V.idVeterinaire as idV FROM Veterinaire as V";
+            return stV.executeQuery(query);
+        } catch (SQLException e) {
             System.out.println(e);
         }
         return null;
