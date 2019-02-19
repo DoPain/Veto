@@ -28,7 +28,6 @@ public class LogController extends ControllerSample implements Initializable {
                         + " -> "
                         + rs.getString("action");
                 logBox.getChildren().add(new Label(s));
-                System.out.println(s);
             }
         } catch (Exception e){
             System.out.println("Inizialisation LogController :" + e);
