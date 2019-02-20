@@ -1,46 +1,45 @@
 package pt4p1ae1.veto.Entity;
 
-import javax.persistence.*;
-import java.util.Date;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.sql.Date;
+import java.util.Objects;
 
 @Entity
-@Table
 public class Personne {
-    @Id
-    @GeneratedValue
-    private int idPersonne;
-
+    private long idPersonne;
+    private long idVille;
     private String nom;
-
     private String prenom;
-
     private Date dateNaissance;
-
     private String adresse;
-
     private String mail;
-
     private String telephone;
 
-//    @ManyToOne
-//    private Ville ville;
-
-//    public Ville getVille() {
-//        return ville;
-//    }
-//
-//    public void setVille(Ville ville) {
-//        this.ville = ville;
-//    }
-
-    public int getIdPersonne() {
+    @Id
+    @Column(name = "idPersonne")
+    public long getIdPersonne() {
         return idPersonne;
     }
 
-    public void setIdPersonne(int id) {
-        this.idPersonne = id;
+    public void setIdPersonne(long idPersonne) {
+        this.idPersonne = idPersonne;
     }
 
+    @Basic
+    @Column(name = "idVille")
+    public long getIdVille() {
+        return idVille;
+    }
+
+    public void setIdVille(long idVille) {
+        this.idVille = idVille;
+    }
+
+    @Basic
+    @Column(name = "nom")
     public String getNom() {
         return nom;
     }
@@ -49,6 +48,8 @@ public class Personne {
         this.nom = nom;
     }
 
+    @Basic
+    @Column(name = "prenom")
     public String getPrenom() {
         return prenom;
     }
@@ -57,6 +58,8 @@ public class Personne {
         this.prenom = prenom;
     }
 
+    @Basic
+    @Column(name = "dateNaissance")
     public Date getDateNaissance() {
         return dateNaissance;
     }
@@ -65,6 +68,8 @@ public class Personne {
         this.dateNaissance = dateNaissance;
     }
 
+    @Basic
+    @Column(name = "adresse")
     public String getAdresse() {
         return adresse;
     }
@@ -73,6 +78,8 @@ public class Personne {
         this.adresse = adresse;
     }
 
+    @Basic
+    @Column(name = "mail")
     public String getMail() {
         return mail;
     }
@@ -81,11 +88,33 @@ public class Personne {
         this.mail = mail;
     }
 
+    @Basic
+    @Column(name = "telephone")
     public String getTelephone() {
         return telephone;
     }
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Personne personne = (Personne) o;
+        return idPersonne == personne.idPersonne &&
+                idVille == personne.idVille &&
+                Objects.equals(nom, personne.nom) &&
+                Objects.equals(prenom, personne.prenom) &&
+                Objects.equals(dateNaissance, personne.dateNaissance) &&
+                Objects.equals(adresse, personne.adresse) &&
+                Objects.equals(mail, personne.mail) &&
+                Objects.equals(telephone, personne.telephone);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idPersonne, idVille, nom, prenom, dateNaissance, adresse, mail, telephone);
     }
 }

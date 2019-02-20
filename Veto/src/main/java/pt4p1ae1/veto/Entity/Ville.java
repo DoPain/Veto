@@ -1,154 +1,347 @@
 package pt4p1ae1.veto.Entity;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.util.Objects;
 
 @Entity
-@Table
 public class Ville {
+    private long idVille;
+    private String villeDepartement;
+    private String villeSlug;
+    private String villeNom;
+    private String villeNomSimple;
+    private String villeNomReel;
+    private String villeNomSoundex;
+    private String villeNomMetaphone;
+    private String villeCodePostal;
+    private String villeCommune;
+    private String villeCodeCommune;
+    private Short villeArrondissement;
+    private String villeCanton;
+    private Short villeAmdi;
+    private Integer villePopulation2010;
+    private Integer villePopulation1999;
+    private Integer villePopulation2012;
+    private Integer villeDensite2010;
+    private Double villeSurface;
+    private Double villeLongitudeDeg;
+    private Double villeLatitudeDeg;
+    private String villeLongitudeGrd;
+    private String villeLatitudeGrd;
+    private String villeLongitudeDms;
+    private String villeLatitudeDms;
+    private Integer villeZmin;
+    private Integer villeZmax;
 
     @Id
-    private int idVille;
-    private int ville_departement;
-    private String ville_slug;
-    private String ville_nom;
-    private String ville_nom_simple;
-    private String ville_nom_reel;
-    private String ville_nom_soundex;
-    private String ville_nom_metaphone;
-    private String ville_code_postal;
-    private String ville_commune;
-    private String ville_code_commune;
-    private int ville_arrondissement;
-    private String ville_canton;
-    private int ville_amdi;
-    private int ville_population_2010;
-    private int ville_population_1999;
-    private int ville_population_2012;
-    private int ville_densite_2010;
-    private float ville_surface;
-    private float ville_longitude_deg;
-    private float ville_latitude_deg;
-    private String ville_longitude_grd;
-    private String ville_latitude_grd;
-    private String ville_longitude_dms;
-    private String ville_latitude_dms;
-    private int ville_zmin;
-    private int ville_zmax;
-
-
-//    @OneToMany(mappedBy = "ville")
-//    private List<Personne> personnes;
-
-    public int getId() {
+    @Column(name = "idVille")
+    public long getIdVille() {
         return idVille;
     }
 
-//    public List<Personne> getPersonnes() {
-//        return personnes;
-//    }
-
-    public int getDepartement() {
-        return ville_departement;
+    public void setIdVille(long idVille) {
+        this.idVille = idVille;
     }
 
-    public String getVille_slug() {
-        return ville_slug;
+    @Basic
+    @Column(name = "ville_departement")
+    public String getVilleDepartement() {
+        return villeDepartement;
     }
 
-    public String getNomMaj() {
-        return ville_nom;
+    public void setVilleDepartement(String villeDepartement) {
+        this.villeDepartement = villeDepartement;
     }
 
-    public String getNomMin() {
-        return ville_nom_simple;
+    @Basic
+    @Column(name = "ville_slug")
+    public String getVilleSlug() {
+        return villeSlug;
     }
 
-    public String getNom() {
-        return ville_nom_reel;
+    public void setVilleSlug(String villeSlug) {
+        this.villeSlug = villeSlug;
     }
 
-    public String getVille_nom_soundex() {
-        return ville_nom_soundex;
+    @Basic
+    @Column(name = "ville_nom")
+    public String getVilleNom() {
+        return villeNom;
     }
 
-    public String getVille_nom_metaphone() {
-        return ville_nom_metaphone;
+    public void setVilleNom(String villeNom) {
+        this.villeNom = villeNom;
     }
 
-    public String getVille_code_postal() {
-        return ville_code_postal;
+    @Basic
+    @Column(name = "ville_nom_simple")
+    public String getVilleNomSimple() {
+        return villeNomSimple;
     }
 
-    public String getVille_commune() {
-        return ville_commune;
+    public void setVilleNomSimple(String villeNomSimple) {
+        this.villeNomSimple = villeNomSimple;
     }
 
-    public String getVille_code_commune() {
-        return ville_code_commune;
+    @Basic
+    @Column(name = "ville_nom_reel")
+    public String getVilleNomReel() {
+        return villeNomReel;
     }
 
-    public int getVille_arrondissement() {
-        return ville_arrondissement;
+    public void setVilleNomReel(String villeNomReel) {
+        this.villeNomReel = villeNomReel;
     }
 
-    public String getVille_canton() {
-        return ville_canton;
+    @Basic
+    @Column(name = "ville_nom_soundex")
+    public String getVilleNomSoundex() {
+        return villeNomSoundex;
     }
 
-    public int getVille_amdi() {
-        return ville_amdi;
+    public void setVilleNomSoundex(String villeNomSoundex) {
+        this.villeNomSoundex = villeNomSoundex;
     }
 
-    public int getVille_population_2010() {
-        return ville_population_2010;
+    @Basic
+    @Column(name = "ville_nom_metaphone")
+    public String getVilleNomMetaphone() {
+        return villeNomMetaphone;
     }
 
-    public int getVille_population_1999() {
-        return ville_population_1999;
+    public void setVilleNomMetaphone(String villeNomMetaphone) {
+        this.villeNomMetaphone = villeNomMetaphone;
     }
 
-    public int getVille_population_2012() {
-        return ville_population_2012;
+    @Basic
+    @Column(name = "ville_code_postal")
+    public String getVilleCodePostal() {
+        return villeCodePostal;
     }
 
-    public int getVille_densite_2010() {
-        return ville_densite_2010;
+    public void setVilleCodePostal(String villeCodePostal) {
+        this.villeCodePostal = villeCodePostal;
     }
 
-    public float getVille_surface() {
-        return ville_surface;
+    @Basic
+    @Column(name = "ville_commune")
+    public String getVilleCommune() {
+        return villeCommune;
     }
 
-    public float getVille_longitude_deg() {
-        return ville_longitude_deg;
+    public void setVilleCommune(String villeCommune) {
+        this.villeCommune = villeCommune;
     }
 
-    public float getVille_latitude_deg() {
-        return ville_latitude_deg;
+    @Basic
+    @Column(name = "ville_code_commune")
+    public String getVilleCodeCommune() {
+        return villeCodeCommune;
     }
 
-    public String getVille_longitude_grd() {
-        return ville_longitude_grd;
+    public void setVilleCodeCommune(String villeCodeCommune) {
+        this.villeCodeCommune = villeCodeCommune;
     }
 
-    public String getVille_latitude_grd() {
-        return ville_latitude_grd;
+    @Basic
+    @Column(name = "ville_arrondissement")
+    public Short getVilleArrondissement() {
+        return villeArrondissement;
     }
 
-    public String getVille_longitude_dms() {
-        return ville_longitude_dms;
+    public void setVilleArrondissement(Short villeArrondissement) {
+        this.villeArrondissement = villeArrondissement;
     }
 
-    public String getVille_latitude_dms() {
-        return ville_latitude_dms;
+    @Basic
+    @Column(name = "ville_canton")
+    public String getVilleCanton() {
+        return villeCanton;
     }
 
-    public int getVille_zmin() {
-        return ville_zmin;
+    public void setVilleCanton(String villeCanton) {
+        this.villeCanton = villeCanton;
     }
 
-    public int getVille_zmax() {
-        return ville_zmax;
+    @Basic
+    @Column(name = "ville_amdi")
+    public Short getVilleAmdi() {
+        return villeAmdi;
+    }
+
+    public void setVilleAmdi(Short villeAmdi) {
+        this.villeAmdi = villeAmdi;
+    }
+
+    @Basic
+    @Column(name = "ville_population_2010")
+    public Integer getVillePopulation2010() {
+        return villePopulation2010;
+    }
+
+    public void setVillePopulation2010(Integer villePopulation2010) {
+        this.villePopulation2010 = villePopulation2010;
+    }
+
+    @Basic
+    @Column(name = "ville_population_1999")
+    public Integer getVillePopulation1999() {
+        return villePopulation1999;
+    }
+
+    public void setVillePopulation1999(Integer villePopulation1999) {
+        this.villePopulation1999 = villePopulation1999;
+    }
+
+    @Basic
+    @Column(name = "ville_population_2012")
+    public Integer getVillePopulation2012() {
+        return villePopulation2012;
+    }
+
+    public void setVillePopulation2012(Integer villePopulation2012) {
+        this.villePopulation2012 = villePopulation2012;
+    }
+
+    @Basic
+    @Column(name = "ville_densite_2010")
+    public Integer getVilleDensite2010() {
+        return villeDensite2010;
+    }
+
+    public void setVilleDensite2010(Integer villeDensite2010) {
+        this.villeDensite2010 = villeDensite2010;
+    }
+
+    @Basic
+    @Column(name = "ville_surface")
+    public Double getVilleSurface() {
+        return villeSurface;
+    }
+
+    public void setVilleSurface(Double villeSurface) {
+        this.villeSurface = villeSurface;
+    }
+
+    @Basic
+    @Column(name = "ville_longitude_deg")
+    public Double getVilleLongitudeDeg() {
+        return villeLongitudeDeg;
+    }
+
+    public void setVilleLongitudeDeg(Double villeLongitudeDeg) {
+        this.villeLongitudeDeg = villeLongitudeDeg;
+    }
+
+    @Basic
+    @Column(name = "ville_latitude_deg")
+    public Double getVilleLatitudeDeg() {
+        return villeLatitudeDeg;
+    }
+
+    public void setVilleLatitudeDeg(Double villeLatitudeDeg) {
+        this.villeLatitudeDeg = villeLatitudeDeg;
+    }
+
+    @Basic
+    @Column(name = "ville_longitude_grd")
+    public String getVilleLongitudeGrd() {
+        return villeLongitudeGrd;
+    }
+
+    public void setVilleLongitudeGrd(String villeLongitudeGrd) {
+        this.villeLongitudeGrd = villeLongitudeGrd;
+    }
+
+    @Basic
+    @Column(name = "ville_latitude_grd")
+    public String getVilleLatitudeGrd() {
+        return villeLatitudeGrd;
+    }
+
+    public void setVilleLatitudeGrd(String villeLatitudeGrd) {
+        this.villeLatitudeGrd = villeLatitudeGrd;
+    }
+
+    @Basic
+    @Column(name = "ville_longitude_dms")
+    public String getVilleLongitudeDms() {
+        return villeLongitudeDms;
+    }
+
+    public void setVilleLongitudeDms(String villeLongitudeDms) {
+        this.villeLongitudeDms = villeLongitudeDms;
+    }
+
+    @Basic
+    @Column(name = "ville_latitude_dms")
+    public String getVilleLatitudeDms() {
+        return villeLatitudeDms;
+    }
+
+    public void setVilleLatitudeDms(String villeLatitudeDms) {
+        this.villeLatitudeDms = villeLatitudeDms;
+    }
+
+    @Basic
+    @Column(name = "ville_zmin")
+    public Integer getVilleZmin() {
+        return villeZmin;
+    }
+
+    public void setVilleZmin(Integer villeZmin) {
+        this.villeZmin = villeZmin;
+    }
+
+    @Basic
+    @Column(name = "ville_zmax")
+    public Integer getVilleZmax() {
+        return villeZmax;
+    }
+
+    public void setVilleZmax(Integer villeZmax) {
+        this.villeZmax = villeZmax;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ville ville = (Ville) o;
+        return idVille == ville.idVille &&
+                Objects.equals(villeDepartement, ville.villeDepartement) &&
+                Objects.equals(villeSlug, ville.villeSlug) &&
+                Objects.equals(villeNom, ville.villeNom) &&
+                Objects.equals(villeNomSimple, ville.villeNomSimple) &&
+                Objects.equals(villeNomReel, ville.villeNomReel) &&
+                Objects.equals(villeNomSoundex, ville.villeNomSoundex) &&
+                Objects.equals(villeNomMetaphone, ville.villeNomMetaphone) &&
+                Objects.equals(villeCodePostal, ville.villeCodePostal) &&
+                Objects.equals(villeCommune, ville.villeCommune) &&
+                Objects.equals(villeCodeCommune, ville.villeCodeCommune) &&
+                Objects.equals(villeArrondissement, ville.villeArrondissement) &&
+                Objects.equals(villeCanton, ville.villeCanton) &&
+                Objects.equals(villeAmdi, ville.villeAmdi) &&
+                Objects.equals(villePopulation2010, ville.villePopulation2010) &&
+                Objects.equals(villePopulation1999, ville.villePopulation1999) &&
+                Objects.equals(villePopulation2012, ville.villePopulation2012) &&
+                Objects.equals(villeDensite2010, ville.villeDensite2010) &&
+                Objects.equals(villeSurface, ville.villeSurface) &&
+                Objects.equals(villeLongitudeDeg, ville.villeLongitudeDeg) &&
+                Objects.equals(villeLatitudeDeg, ville.villeLatitudeDeg) &&
+                Objects.equals(villeLongitudeGrd, ville.villeLongitudeGrd) &&
+                Objects.equals(villeLatitudeGrd, ville.villeLatitudeGrd) &&
+                Objects.equals(villeLongitudeDms, ville.villeLongitudeDms) &&
+                Objects.equals(villeLatitudeDms, ville.villeLatitudeDms) &&
+                Objects.equals(villeZmin, ville.villeZmin) &&
+                Objects.equals(villeZmax, ville.villeZmax);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idVille, villeDepartement, villeSlug, villeNom, villeNomSimple, villeNomReel, villeNomSoundex, villeNomMetaphone, villeCodePostal, villeCommune, villeCodeCommune, villeArrondissement, villeCanton, villeAmdi, villePopulation2010, villePopulation1999, villePopulation2012, villeDensite2010, villeSurface, villeLongitudeDeg, villeLatitudeDeg, villeLongitudeGrd, villeLatitudeGrd, villeLongitudeDms, villeLatitudeDms, villeZmin, villeZmax);
     }
 }

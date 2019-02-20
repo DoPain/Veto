@@ -30,7 +30,8 @@ public class ClientController extends ControllerSample implements Initializable 
         session.close();
 
         for (Client c : clients) {
-            ClientBox.getChildren().add(new Button(c.getPersonne().getIdPersonne() + ". " + c.getPersonne().getNom() + ", " + c.getPersonne().getPrenom()));
+//            ClientBox.getChildren().add(new Button(c.getPersonne().getIdPersonne() + ". " + c.getPersonne().getNom() + ", " + c.getPersonne().getPrenom()));
+            ClientBox.getChildren().add(new Button( String.valueOf(c.getIdClient())));
         }
         super.start();
     }

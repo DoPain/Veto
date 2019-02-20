@@ -1,29 +1,26 @@
 package pt4p1ae1.veto.Entity;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
+import java.io.Serializable;
 import java.util.Objects;
 
-@Entity
-@IdClass(AppartenirPK.class)
-public class Appartenir {
-    private long idOrdonnance;
+public class CommanderPK implements Serializable {
+    private long idVente;
     private short idProduit;
 
+    @Column(name = "idVente")
     @Id
-    @Column(name = "idOrdonnance")
-    public long getIdOrdonnance() {
-        return idOrdonnance;
+    public long getIdVente() {
+        return idVente;
     }
 
-    public void setIdOrdonnance(long idOrdonnance) {
-        this.idOrdonnance = idOrdonnance;
+    public void setIdVente(long idVente) {
+        this.idVente = idVente;
     }
 
-    @Id
     @Column(name = "idProduit")
+    @Id
     public short getIdProduit() {
         return idProduit;
     }
@@ -36,13 +33,13 @@ public class Appartenir {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Appartenir that = (Appartenir) o;
-        return idOrdonnance == that.idOrdonnance &&
+        CommanderPK that = (CommanderPK) o;
+        return idVente == that.idVente &&
                 idProduit == that.idProduit;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idOrdonnance, idProduit);
+        return Objects.hash(idVente, idProduit);
     }
 }
