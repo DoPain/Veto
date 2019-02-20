@@ -4,11 +4,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import pt4p1ae1.veto.ControllerSample;
-import pt4p1ae1.veto.DataBase;
+import pt4p1ae1.veto.Entity.Client;
+import pt4p1ae1.veto.HibernateUtil;
 
 import java.net.URL;
-import java.sql.ResultSet;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ClientController extends ControllerSample implements Initializable {
@@ -18,27 +21,16 @@ public class ClientController extends ControllerSample implements Initializable 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        try {
-            DataBase dataBase = new DataBase();
-            ResultSet rs = dataBase.getClient();
-            while (rs.next()) {
-                String s = rs.getString("NOM")
-                        + " "
-                        + rs.getString("PRENOM")
-                        + " "
-                        + rs.getString("ADRESSE")
-                        + " "
-                        + rs.getString("MAIL")
-                        + " "
-                        + rs.getString("TEL")
-                        + " "
-                        + rs.getString("VILLE");
-                Button a = new Button(s);
-                a.setOnAction(e -> afficherClient(s));
-                ClientBox.getChildren().add(a);
-            }
-        } catch (Exception e){
-            System.out.println("Inizialisation LogController :" + e);
+
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+
+        List<Client> clients = session.createQuery("from Client").list();
+
+        session.close();
+
+        for (Client c : clients) {
+            ClientBox.getChildren().add(new Button(c.getPersonne().getIdPersonne() + ". " + c.getPersonne().getNom() + ", " + c.getPersonne().getPrenom()));
         }
         super.start();
     }

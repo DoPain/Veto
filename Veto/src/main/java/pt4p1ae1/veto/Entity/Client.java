@@ -1,18 +1,31 @@
 package pt4p1ae1.veto.Entity;
 
-import java.io.Serializable;
+import javax.persistence.*;
 
-public class Client implements Serializable {
+@Entity
+@Table
+public class Client{
 
-    private int id;
+    @Id
+    @GeneratedValue
+    private int idClient;
+
+    @OneToOne @PrimaryKeyJoinColumn
+    private Personne personne;
+
+    public Personne getPersonne() {
+        return personne;
+    }
+
+    public void setPersonne(Personne personne) {
+        this.personne = personne;
+    }
 
     public int getIdClient() {
-        return id;
+        return idClient;
     }
 
     public void setIdClient(int id) {
-        this.id = id;
+        this.idClient = id;
     }
-
-    private Personne personne;
 }

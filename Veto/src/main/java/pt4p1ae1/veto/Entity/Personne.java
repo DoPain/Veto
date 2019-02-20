@@ -1,10 +1,14 @@
 package pt4p1ae1.veto.Entity;
 
-import java.io.Serializable;
+import javax.persistence.*;
 import java.util.Date;
 
-public class Personne  implements Serializable {
-    private int id;
+@Entity
+@Table
+public class Personne {
+    @Id
+    @GeneratedValue
+    private int idPersonne;
 
     private String nom;
 
@@ -18,12 +22,23 @@ public class Personne  implements Serializable {
 
     private String telephone;
 
-    public int getId() {
-        return id;
+//    @ManyToOne
+//    private Ville ville;
+
+//    public Ville getVille() {
+//        return ville;
+//    }
+//
+//    public void setVille(Ville ville) {
+//        this.ville = ville;
+//    }
+
+    public int getIdPersonne() {
+        return idPersonne;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdPersonne(int id) {
+        this.idPersonne = id;
     }
 
     public String getNom() {
