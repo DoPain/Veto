@@ -39,7 +39,8 @@ public class DataBase {
         String query = "SELECT E.idConnexion, L.temps, L.action " +
                 "FROM Log L " +
                 "INNER JOIN Employe E " +
-                "ON L.idEmploye = E.idEmploye";
+                "ON L.idEmploye = E.idEmploye " +
+                "ORDER BY L.temps";
         return executeSQL(query);
     }
 
@@ -74,12 +75,21 @@ public class DataBase {
 
     public ResultSet getIdVeterinaire() throws SQLException {
         Statement stV = conn.createStatement();
-        try{
+        try {
             String query = "SELECT V.idVeterinaire as idV FROM Veterinaire as V";
             return stV.executeQuery(query);
         } catch (SQLException e) {
             System.out.println(e);
         }
         return null;
+    }
+
+    public void setLog(String idEmploye, String action) {
+        try {
+            String query = "INSERT INTO Log(idEmploye,action)VALUES('" + idEmploye + "','" + action + "')";
+            st.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
