@@ -18,8 +18,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static javafx.application.Platform.exit;
-
 public class ControllerSample implements Initializable {
 
     @FXML
@@ -37,7 +35,6 @@ public class ControllerSample implements Initializable {
         pane.setBackground(new Background(fill));
     }
 
-    @Deprecated
     private void creatBtn(String name) throws IOException {
         Stage primaryStage = (Stage) btn_home.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource(name));
@@ -82,12 +79,6 @@ public class ControllerSample implements Initializable {
 
     @FXML
     public void onActionLogBTN() throws IOException  {
-<<<<<<< HEAD
         creatBtn("/pageLog.fxml");
-=======
-            Stage primaryStage = (Stage) btn_home.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("/pageLog.fxml"));
-            primaryStage.setScene(new Scene(root, 1280, 720));
->>>>>>> 5eae48b4eb70fadbe39654712e8c1ad6e1db6ef7
     }
 }
