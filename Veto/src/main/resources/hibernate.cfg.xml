@@ -10,23 +10,23 @@
         <property name="show_sql">true</property>
         <property name="connection.pool_size">1</property>
 
-        <mapping class="pt4p1ae1.veto.Entity.Animal"></mapping>
-        <mapping class="pt4p1ae1.veto.Entity.Appartenir"></mapping>
-        <mapping class="pt4p1ae1.veto.Entity.AvoirRendezVous"></mapping>
-        <mapping class="pt4p1ae1.veto.Entity.Client"></mapping>
-        <mapping class="pt4p1ae1.veto.Entity.Commander"></mapping>
-        <mapping class="pt4p1ae1.veto.Entity.Conge"></mapping>
-        <mapping class="pt4p1ae1.veto.Entity.Employe"></mapping>
-        <mapping class="pt4p1ae1.veto.Entity.Espece"></mapping>
-        <mapping class="pt4p1ae1.veto.Entity.Log"></mapping>
-        <mapping class="pt4p1ae1.veto.Entity.Ordonnance"></mapping>
-        <mapping class="pt4p1ae1.veto.Entity.Panier"></mapping>
-        <mapping class="pt4p1ae1.veto.Entity.Personne"></mapping>
-        <mapping class="pt4p1ae1.veto.Entity.Produit"></mapping>
-        <mapping class="pt4p1ae1.veto.Entity.Race"></mapping>
-        <mapping class="pt4p1ae1.veto.Entity.Traitement"></mapping>
-        <mapping class="pt4p1ae1.veto.Entity.Veterinaire"></mapping>
-        <mapping class="pt4p1ae1.veto.Entity.Ville"></mapping>
+        <mapping class="pt4p1ae1.veto.Entity.Animal"/>
+        <mapping class="pt4p1ae1.veto.Entity.Appartenir"/>
+        <mapping class="pt4p1ae1.veto.Entity.AvoirRendezVous"/>
+        <mapping class="pt4p1ae1.veto.Entity.Client"/>
+        <mapping class="pt4p1ae1.veto.Entity.Commander"/>
+        <mapping class="pt4p1ae1.veto.Entity.Conge"/>
+        <mapping class="pt4p1ae1.veto.Entity.Employe"/>
+        <mapping class="pt4p1ae1.veto.Entity.Espece"/>
+        <mapping class="pt4p1ae1.veto.Entity.Log"/>
+        <mapping class="pt4p1ae1.veto.Entity.Ordonnance"/>
+        <mapping class="pt4p1ae1.veto.Entity.Panier"/>
+        <mapping class="pt4p1ae1.veto.Entity.Personne"/>
+        <mapping class="pt4p1ae1.veto.Entity.Produit"/>
+        <mapping class="pt4p1ae1.veto.Entity.Race"/>
+        <mapping class="pt4p1ae1.veto.Entity.Traitement"/>
+        <mapping class="pt4p1ae1.veto.Entity.Veterinaire"/>
+        <mapping class="pt4p1ae1.veto.Entity.Ville"/>
 
     </session-factory>
 </hibernate-configuration>
