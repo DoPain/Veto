@@ -11,6 +11,8 @@
 <?import javafx.scene.text.Text?>
 
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
 <BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="751.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.181" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt4p1ae1.veto.GestionCLient.ClientController">
     <top>
         <Pane fx:id="pane" BorderPane.alignment="CENTER">
@@ -110,7 +112,16 @@
     <center>
         <ScrollPane fx:id="scrollPane">
             <content>
-                <VBox fx:id="ClientBox" prefHeight="668.0" prefWidth="1178.0" BorderPane.alignment="CENTER" />
+                <TableView fx:id="tableView" layoutX="35.0" layoutY="28.0" prefHeight="667.0" prefWidth="1177.0">
+                    <columns>
+                        <TableColumn fx:id="ClientNom" prefWidth="191.0" text="Nom" />
+                        <TableColumn fx:id="ClientPrenom" prefWidth="172.0" text="Prénom" />
+                        <TableColumn fx:id="ClientAge" prefWidth="123.0" text="Age" />
+                        <TableColumn fx:id="ClientMail" prefWidth="260.0" text="Mail" />
+                        <TableColumn fx:id="ClientTelephone" prefWidth="201.0" text="Téléphone" />
+                        <TableColumn fx:id="ClientProchainRDV" prefWidth="228.0" text="Prochain RDV" />
+                    </columns>
+                </TableView>
             </content>
         </ScrollPane>
     </center>
