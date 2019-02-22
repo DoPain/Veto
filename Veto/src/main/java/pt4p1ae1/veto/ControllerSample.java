@@ -68,7 +68,7 @@ public class ControllerSample implements Initializable {
 
     @FXML
     public void onActionAnimauxBTN() throws IOException {
-        creatBtn("/pageAnimaux.fxml");
+        creatBtn("/dossierAnimal.fxml");
     }
 
     @FXML
