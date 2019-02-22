@@ -83,30 +83,36 @@ public class AuthentificationController implements Initializable {
         DataBase database = new DataBase();
         boolean accountFound = false;
         boolean admin = false;
-
+        String idE = "";
         try {
             ResultSet resultsV = database.getIdVeterinaire();
             ResultSet results = database.getEmployes();
-            resultsV.first();
             while (results.next()) {
-
                 if (results.getString("login").equals(loginField.getText())
-                        && results.getString("mdp").equals(passwordField.getText())
-                        && results.getString("idE").equals(resultsV.getString("idV"))) {
+                        && results.getString("mdp").equals(passwordField.getText())) {
+                    while(resultsV.next()){
+                        if(results.getString("idE").equals(resultsV.getString("idV"))){
+                            admin = true;
+                        }
+                    }
                     accountFound = true;
-                    admin = true;
+                    idE = results.getString("idE");
                 } else if (results.getString("login").equals(loginField.getText())
                         && results.getString("mdp").equals(passwordField.getText())) {
                     accountFound = true;
+                    idE = results.getString("idE");
                 }
+                resultsV.beforeFirst();
             }
         } catch (SQLException e) {
             System.out.println(e);
         }
 
         if (accountFound && admin) {
+            database.setLog(idE,"Connexion");
             return 2;
         } else if (accountFound && !admin) {
+            database.setLog(idE,"Connexion");
             return 1;
         } else {
             return 0;

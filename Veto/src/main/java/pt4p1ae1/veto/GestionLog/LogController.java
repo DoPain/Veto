@@ -24,7 +24,7 @@ public class LogController extends ControllerSample implements Initializable {
             while (rs.next()) {
                 String s = rs.getString("idConnexion")
                         + " at "
-                        + rs.getDate("temps")
+                        + rs.getString("temps")
                         + " -> "
                         + rs.getString("action");
                 logBox.getChildren().add(new Label(s));
