@@ -19,11 +19,6 @@ public class ClientController extends ControllerSample implements Initializable 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //TODO : récupérer les clients comme en JEE
-
-        for (Client c : clients) {
-//            ClientBox.getChildren().add(new Button(c.getPersonne().getIdPersonne() + ". " + c.getPersonne().getNom() + ", " + c.getPersonne().getPrenom()));
-            ClientBox.getChildren().add(new Button( String.valueOf(c.getIdClient())));
-        }
         super.start();
     }
 
