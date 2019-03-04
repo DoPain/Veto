@@ -24,8 +24,6 @@ public class ControllerSample implements Initializable {
     private Button btn_home;
     @FXML
     private Pane pane;
-    @FXML
-    private Button btn_log;
 
     @Override
     public void initialize(URL location, ResourceBundle resources)   {
@@ -35,9 +33,6 @@ public class ControllerSample implements Initializable {
     protected void start(){
         BackgroundFill fill = new BackgroundFill(Color.web("#2E64FE"), CornerRadii.EMPTY, Insets.EMPTY);
         pane.setBackground(new Background(fill));
-        if(!Utils.admin){
-            btn_log.setVisible(false);
-        }
     }
 
     private void creatBtn(String name) throws IOException {
@@ -64,7 +59,7 @@ public class ControllerSample implements Initializable {
 
     @FXML
     public void onActionAnimauxBTN() throws IOException {
-        creatBtn("/pageAnimaux.fxml");
+        creatBtn("/rechercheAnimal.fxml");
     }
 
     @FXML
@@ -85,5 +80,6 @@ public class ControllerSample implements Initializable {
     @FXML
     public void onActionLogBTN() throws IOException  {
         creatBtn("/pageLog.fxml");
+
     }
 }

@@ -1,5 +1,6 @@
 package pt4p1ae1.veto.GestionAnimaux;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -48,5 +49,8 @@ public class InscriptionAnimalController extends ControllerSample implements Ini
     @FXML
     private void onActionRegisterBtn() {
         //TODO Inscrire l'animal et rediriger vers la liste des animaux
+    }
+
+    public void onActionBackToAnimalsBtn(ActionEvent actionEvent) {
     }
 }
