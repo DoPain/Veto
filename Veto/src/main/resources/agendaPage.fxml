@@ -41,6 +41,6 @@
    </Pane>
 </top>
 <left>
-   <fx:include source="VBoxButton.fxml"></fx:include>
+   <fx:include fx:id="vbox" source="VBoxButton.fxml"></fx:include>
 </left>
 </BorderPane>
