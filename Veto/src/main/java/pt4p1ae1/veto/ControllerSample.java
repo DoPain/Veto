@@ -27,32 +27,39 @@ public class ControllerSample implements Initializable {
     private Button btn_home;
     @FXML
     private Pane pane;
+    @FXML
+    private Button btn_log;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources)   {
+    public void initialize(URL location, ResourceBundle resources) {
         start();
     }
 
-    protected void start(){
+    protected void start() {
         BackgroundFill fill = new BackgroundFill(Color.web("#2E64FE"), CornerRadii.EMPTY, Insets.EMPTY);
         pane.setBackground(new Background(fill));
+        if (Utils.admin == false ) {
+            btn_log.setVisible(false);
+        }
     }
 
     @Deprecated
     private void creatBtn(String name) throws IOException {
         Stage primaryStage = (Stage) btn_home.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource(name));
-        primaryStage.setScene(new Scene(root,1280,720));
+        primaryStage.setScene(new Scene(root, 1280, 720));
     }
 
     @FXML
     private void onActionAgendaBTN() throws IOException {
         creatBtn("/agendaPage.fxml");
     }
+
     @FXML
     private void onActionHomeBTN() throws IOException {
         creatBtn("/home.fxml");
     }
+
     @FXML
     private void onActionDisconnectBTN() throws IOException {
         Stage primaryStage = (Stage) btn_home.getScene().getWindow();
@@ -72,19 +79,17 @@ public class ControllerSample implements Initializable {
     }
 
     @FXML
-    public void onActionOrdonnanceBTN() throws IOException  {
+    public void onActionOrdonnanceBTN() throws IOException {
         creatBtn("/pageOrdonnance.fxml");
     }
 
     @FXML
-    public void onActionStockBTN() throws IOException  {
+    public void onActionStockBTN() throws IOException {
         creatBtn("/pageStock.fxml");
     }
 
     @FXML
-    public void onActionLogBTN() throws IOException  {
+    public void onActionLogBTN() throws IOException {
         creatBtn("/pageLog.fxml");
-      Stage primaryStage = (Stage) btn_home.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("/pageLog.fxml"));
-            primaryStage.setScene(new Scene(root, 1280, 720)); }
+    }
 }
