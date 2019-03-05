@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="751.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt4p1ae1.veto.GestionAnimaux.AnimauxController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="751.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt4p1ae1.veto.GestionAnimaux.DossierAnimalController">
     <top>
         <Pane fx:id="pane" BorderPane.alignment="CENTER">
             <children>
@@ -38,104 +38,32 @@
         </Pane>
     </top>
     <left>
-        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-            <children>
-                <Button fx:id="btn_home" ellipsisString="" graphicTextGap="0.0" mnemonicParsing="false" onAction="#onActionHomeBTN" prefHeight="70.0" prefWidth="75.0" text="Calendrier">
-                    <graphic>
-                        <ImageView fitHeight="95.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@img/maison.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Button fx:id="btn_agenda" ellipsisString="" graphicTextGap="0.0" mnemonicParsing="false" onAction="#onActionAgendaBTN" prefHeight="70.0" prefWidth="75.0" text="Calendrier">
-                    <graphic>
-                        <ImageView fitHeight="63.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@img/calendrier.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Button fx:id="btn_client" ellipsisString="" graphicTextGap="0.0" mnemonicParsing="false" onAction="#onActionClientBTN" prefHeight="70.0" prefWidth="75.0" text="Calendrier">
-                    <graphic>
-                        <ImageView fitHeight="58.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@img/carnetAdresse.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Button fx:id="btn_animaux" ellipsisString="" graphicTextGap="0.0" mnemonicParsing="false" onAction="#onActionAnimauxBTN" prefHeight="70.0" prefWidth="75.0" text="Calendrier">
-                    <graphic>
-                        <ImageView fitHeight="129.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@img/dossier.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Button fx:id="btn_Ordonnance" ellipsisString="" graphicTextGap="0.0" mnemonicParsing="false" onAction="#onActionOrdonnanceBTN" prefHeight="70.0" prefWidth="75.0" text="Calendrier">
-                    <graphic>
-                        <ImageView fitHeight="63.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@img/docteur.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Button fx:id="btn_facture" ellipsisString="" graphicTextGap="0.0" mnemonicParsing="false" onAction="#onActionStockBTN" prefHeight="70.0" prefWidth="75.0" text="Calendrier">
-                    <graphic>
-                        <ImageView fitHeight="65.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@img/justice.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Button fx:id="btn_log" ellipsisString="" graphicTextGap="0.0" mnemonicParsing="false" onAction="#onActionLogBTN" prefHeight="70.0" prefWidth="75.0" text="Calendrier">
-                    <graphic>
-                        <ImageView fitHeight="62.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@img/graphe.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-            </children>
-            <BorderPane.margin>
-                <Insets />
-            </BorderPane.margin>
-            <padding>
-                <Insets top="10.0" />
-            </padding>
-        </VBox>
+        <fx:include fx:id="vbox" source="VBoxButton.fxml"></fx:include>
     </left>
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="animalNameLabel" layoutX="508.0" layoutY="24.0" text="Nom animal" />
-            <Button fx:id="backToAnimalsBtn" layoutX="37.0" layoutY="19.0" mnemonicParsing="false" onAction="#onActionBackToAnimalsBtn" text="Retour liste animaux" />
+            <Label fx:id="animalNameLab" layoutX="508.0" layoutY="24.0" text="Nom animal" />
+            <Button fx:id="backToAnimals" layoutX="37.0" layoutY="19.0" mnemonicParsing="false" onAction="#onActionBackToAnimalsBtn" text="Retour liste animaux" />
             <Label layoutX="495.0" layoutY="118.0" text="Liste des soins :" />
             <ScrollPane layoutX="495.0" layoutY="150.0" prefHeight="309.0" prefWidth="640.0">
                <content>
-                  <TableView fx:id="careList" prefHeight="315.0" prefWidth="621.0">
+                  <TableView fx:id="careL" prefHeight="315.0" prefWidth="621.0">
                     <columns>
-                      <TableColumn fx:id="numCareColumn" prefWidth="75.0" text="N°" />
-                      <TableColumn fx:id="descriptionCareColumn" prefWidth="545.0" text="Description" />
+                      <TableColumn fx:id="numCareC" prefWidth="75.0" text="N°" />
+                      <TableColumn fx:id="descriptionCareC" prefWidth="545.0" text="Description" />
                     </columns>
                   </TableView>
                </content>
             </ScrollPane>
             <ButtonBar fx:id="animalButtonList" layoutX="60.0" layoutY="556.0" prefHeight="40.0" prefWidth="1037.0">
               <buttons>
-                  <Button fx:id="animalModifyBtn" mnemonicParsing="false" onAction="#onActionAnimalModifyBtn" text="Modifier l'animal" />
-                  <Button fx:id="animalDeleteBtn" mnemonicParsing="false" onAction="#onActionAnimalDeleteBtn" text="Supprimer l'animal" />
-                  <Button fx:id="diseaseAddBtn" mnemonicParsing="false" onAction="#onActionDiseaseAddBtn" text="Ajouter une maladie" />
-                  <Button fx:id="diseaseModifyBtn" mnemonicParsing="false" onAction="#onActionDiseaseModifyBtn" text="Modifier une maladie" />
-                  <Button fx:id="prescriptionGenerateBtn" mnemonicParsing="false" onAction="#onActionPrescriptionGenerateBtn" text="Générer ordonnance" />
-                <Button fx:id="billGenerateBtn" mnemonicParsing="false" onAction="#onActionBillGenerateBtn" text="Générer facture" />
+                  <Button fx:id="animalModify" mnemonicParsing="false" onAction="#onActionAnimalModifyBtn" text="Modifier l'animal" />
+                  <Button fx:id="animalDelete" mnemonicParsing="false" onAction="#onActionAnimalDeleteBtn" text="Supprimer l'animal" />
+                  <Button fx:id="diseaseAdd" mnemonicParsing="false" onAction="#onActionDiseaseAddBtn" text="Ajouter une maladie" />
+                  <Button fx:id="diseaseModify" mnemonicParsing="false" onAction="#onActionDiseaseModifyBtn" text="Modifier une maladie" />
+                  <Button fx:id="prescriptionGenerate" mnemonicParsing="false" onAction="#onActionPrescriptionGenerateBtn" text="Générer ordonnance" />
+                <Button fx:id="billGenerate" mnemonicParsing="false" onAction="#onActionBillGenerateBtn" text="Générer facture" />
               </buttons>
             </ButtonBar>
             <ButtonBar buttonMinWidth="30.0" layoutX="503.0" layoutY="459.0" maxWidth="784.0" prefHeight="40.0" prefWidth="625.0">
@@ -144,27 +72,27 @@
                      <font>
                         <Font size="12.0" />
                      </font></Button>
-                  <Button fx:id="previousAnimalBtn" mnemonicParsing="false" onAction="#onActionPreviousAnimalBtn" text="&lt; Prev">
+                  <Button fx:id="previousAnimal" mnemonicParsing="false" onAction="#onActionPreviousAnimalBtn" text="&lt; Prev">
                      <font>
                         <Font size="12.0" />
                      </font></Button>
-                  <Button fx:id="nextAnimalBtn" mnemonicParsing="false" onAction="#onActionNextAnimalBtn" text="Next &gt;">
+                  <Button fx:id="nextAnimal" mnemonicParsing="false" onAction="#onActionNextAnimalBtn" text="Next &gt;">
                      <font>
                         <Font size="12.0" />
                      </font></Button>
-                  <Button fx:id="lastAnimalBtn" mnemonicParsing="false" onAction="#onActionLastAnimalBtn" text="Last &gt;&gt;">
+                  <Button fx:id="lastAnimal" mnemonicParsing="false" onAction="#onActionLastAnimalBtn" text="Last &gt;&gt;">
                      <font>
                         <Font size="12.0" />
                      </font></Button>
-                  <Button fx:id="insertCareBtn" mnemonicParsing="false" onAction="#onActionInsertCareBtn" text="Insert">
+                  <Button fx:id="insertCare" mnemonicParsing="false" onAction="#onActionInsertCareBtn" text="Insert">
                      <font>
                         <Font size="12.0" />
                      </font></Button>
-                  <Button fx:id="editCareBtn" mnemonicParsing="false" onAction="#onActionEditCareBtn" text="Edit">
+                  <Button fx:id="editCare" mnemonicParsing="false" onAction="#onActionEditCareBtn" text="Edit">
                      <font>
                         <Font size="12.0" />
                      </font></Button>
-                  <Button fx:id="deleteCareBtn" mnemonicParsing="false" onAction="#onActionDeleteCareBtn" text="Delete">
+                  <Button fx:id="deleteCare" mnemonicParsing="false" onAction="#onActionDeleteCareBtn" text="Delete">
                      <font>
                         <Font size="12.0" />
                      </font></Button>
@@ -176,10 +104,10 @@
             </ButtonBar>
             <ScrollPane layoutX="14.0" layoutY="310.0" prefHeight="189.0" prefWidth="433.0">
                <content>
-                  <TableView fx:id="diseaseHistoryList" prefHeight="196.0" prefWidth="415.0">
+                  <TableView fx:id="diseaseHistory" prefHeight="196.0" prefWidth="415.0">
                      <columns>
-                        <TableColumn fx:id="reasonDiseaseColumn" maxWidth="205.0" prefWidth="205.0" text="Motif" />
-                        <TableColumn fx:id="dateDiseaseColumn" maxWidth="205.0" prefWidth="205.0" text="Date" />
+                        <TableColumn fx:id="reasonDiseaseC" maxWidth="205.0" prefWidth="205.0" text="Motif" />
+                        <TableColumn fx:id="dateDiseaseC" maxWidth="205.0" prefWidth="205.0" text="Date" />
                      </columns>
                   </TableView>
                </content>

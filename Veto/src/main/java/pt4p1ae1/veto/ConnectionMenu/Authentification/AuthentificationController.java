@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -39,7 +40,15 @@ public class AuthentificationController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        passwordField.setOnKeyPressed(ke-> {
+            if(ke.getCode()== KeyCode.ENTER) {
+                try {
+                    signInButtonPushed();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     public void signInButtonPushed() throws IOException {

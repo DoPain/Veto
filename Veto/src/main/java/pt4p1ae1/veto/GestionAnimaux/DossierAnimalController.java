@@ -1,5 +1,6 @@
 package pt4p1ae1.veto.GestionAnimaux;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
@@ -151,5 +152,14 @@ public class DossierAnimalController extends ControllerSample implements Initial
     @FXML
     private void onActionRefreshCareBtn() {
         //TODO Rafraîchir les soins
+    }
+
+    public void onActionBackToAnimalsBtn(ActionEvent actionEvent) {
+    }
+
+    public void onActionfirstAnimalBtn(ActionEvent actionEvent) {
+    }
+
+    public void onActionRefreshDiseaseBtn(ActionEvent actionEvent) {
     }
 }

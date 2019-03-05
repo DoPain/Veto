@@ -1,5 +1,6 @@
 package pt4p1ae1.veto.GestionAnimaux;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -68,5 +69,8 @@ public class InscriptionAnimalController extends ControllerSample implements Ini
                 furtherInformationsTextField.getText());
 
 
+    }
+
+    public void onActionBackToAnimalsBtn(ActionEvent actionEvent) {
     }
 }
