@@ -292,7 +292,7 @@ CREATE TABLE IF NOT EXISTS Employe
 
 CREATE TABLE IF NOT EXISTS Appartenir
 (
-  id           BIGINT(4)  NOT NULL,
+  id           BIGINT(4)  NOT NULL AUTO_INCREMENT,
   idOrdonnance BIGINT(4)  NOT NULL,
   idProduit    BIGINT(4)  NOT NULL,
   quantite     INTEGER(2) NOT NULL,
@@ -339,7 +339,7 @@ CREATE INDEX I_FK_Commander_Produit
 
 CREATE TABLE IF NOT EXISTS AvoirRendezVous
 (
-  id            BIGINT(4)  NOT NULL,
+  id            BIGINT(4)  NOT NULL AUTO_INCREMENT,
   idClient      BIGINT(4)  NOT NULL,
   idVeterinaire BIGINT(4)  NOT NULL,
   dateHeure     DATETIME   NOT NULL,
