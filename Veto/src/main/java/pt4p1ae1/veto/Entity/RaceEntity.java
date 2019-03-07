@@ -1,33 +1,35 @@
 package pt4p1ae1.veto.Entity;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 @Table(name = "Race", schema = "PT_S4P1A_E1", catalog = "")
 public class RaceEntity {
-    private int idRace;
-    private int idEspece;
+    private long id;
+    private long idEspece;
     private String nom;
+    private Collection<AnimalEntity> animalsById;
     private EspeceEntity especeByIdEspece;
 
     @Id
-    @Column(name = "idRace", nullable = false)
-    public int getIdRace() {
-        return idRace;
+    @Column(name = "id", nullable = false)
+    public long getId() {
+        return id;
     }
 
-    public void setIdRace(int idRace) {
-        this.idRace = idRace;
+    public void setId(long id) {
+        this.id = id;
     }
 
     @Basic
     @Column(name = "idEspece", nullable = false)
-    public int getIdEspece() {
+    public long getIdEspece() {
         return idEspece;
     }
 
-    public void setIdEspece(int idEspece) {
+    public void setIdEspece(long idEspece) {
         this.idEspece = idEspece;
     }
 
@@ -46,18 +48,27 @@ public class RaceEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RaceEntity that = (RaceEntity) o;
-        return idRace == that.idRace &&
+        return id == that.id &&
                 idEspece == that.idEspece &&
                 Objects.equals(nom, that.nom);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idRace, idEspece, nom);
+        return Objects.hash(id, idEspece, nom);
+    }
+
+    @OneToMany(mappedBy = "raceByIdRace")
+    public Collection<AnimalEntity> getAnimalsById() {
+        return animalsById;
+    }
+
+    public void setAnimalsById(Collection<AnimalEntity> animalsById) {
+        this.animalsById = animalsById;
     }
 
     @ManyToOne
-    @JoinColumn(name = "idEspece", referencedColumnName = "idEspece", nullable = false)
+    @JoinColumn(name = "idEspece", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public EspeceEntity getEspeceByIdEspece() {
         return especeByIdEspece;
     }

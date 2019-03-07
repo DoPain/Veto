@@ -14,6 +14,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import pt4p1ae1.veto.DAO.DaoFactory;
+import pt4p1ae1.veto.DAO.EntityDao;
+import pt4p1ae1.veto.Entity.AnimalEntity;
+import pt4p1ae1.veto.Entity.EmployeEntity;
 import pt4p1ae1.veto.Utils;
 
 import java.io.IOException;
@@ -37,6 +41,8 @@ public class AuthentificationController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        EntityDao<EmployeEntity> dao = DaoFactory.getDaoFor(EmployeEntity.class);
+        dao.findAll().forEach(employe -> System.out.println(employe.getId() + " -> " + employe.getLogin()));
     }
 
     public void signInButtonPushed() throws IOException {

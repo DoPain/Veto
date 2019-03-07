@@ -2,29 +2,28 @@ package pt4p1ae1.veto.Entity;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 @Table(name = "Panier", schema = "PT_S4P1A_E1", catalog = "")
 public class PanierEntity {
-    private long idVente;
+    private long id;
     private long idClient;
     private long idEmploye;
     private Date date;
     private double montantTotal;
-    private Collection<CommanderEntity> commandersByIdVente;
+    private CommanderEntity commanderById;
     private ClientEntity clientByIdClient;
     private EmployeEntity employeByIdEmploye;
 
     @Id
-    @Column(name = "idVente", nullable = false)
-    public long getIdVente() {
-        return idVente;
+    @Column(name = "id", nullable = false)
+    public long getId() {
+        return id;
     }
 
-    public void setIdVente(long idVente) {
-        this.idVente = idVente;
+    public void setId(long id) {
+        this.id = id;
     }
 
     @Basic
@@ -72,7 +71,7 @@ public class PanierEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PanierEntity that = (PanierEntity) o;
-        return idVente == that.idVente &&
+        return id == that.id &&
                 idClient == that.idClient &&
                 idEmploye == that.idEmploye &&
                 Double.compare(that.montantTotal, montantTotal) == 0 &&
@@ -81,20 +80,20 @@ public class PanierEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(idVente, idClient, idEmploye, date, montantTotal);
+        return Objects.hash(id, idClient, idEmploye, date, montantTotal);
     }
 
-    @OneToMany(mappedBy = "panierByIdVente")
-    public Collection<CommanderEntity> getCommandersByIdVente() {
-        return commandersByIdVente;
+    @OneToOne(mappedBy = "panierById")
+    public CommanderEntity getCommanderById() {
+        return commanderById;
     }
 
-    public void setCommandersByIdVente(Collection<CommanderEntity> commandersByIdVente) {
-        this.commandersByIdVente = commandersByIdVente;
+    public void setCommanderById(CommanderEntity commanderById) {
+        this.commanderById = commanderById;
     }
 
     @ManyToOne
-    @JoinColumn(name = "idClient", referencedColumnName = "idClient", nullable = false)
+    @JoinColumn(name = "idClient", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public ClientEntity getClientByIdClient() {
         return clientByIdClient;
     }
@@ -104,7 +103,7 @@ public class PanierEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "idEmploye", referencedColumnName = "idEmploye", nullable = false)
+    @JoinColumn(name = "idEmploye", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public EmployeEntity getEmployeByIdEmploye() {
         return employeByIdEmploye;
     }

@@ -8,21 +8,20 @@ import java.util.Objects;
 @Entity
 @Table(name = "Veterinaire", schema = "PT_S4P1A_E1", catalog = "")
 public class VeterinaireEntity {
-    private long idVeterinaire;
+    private long id;
     private byte[] signature;
-    private Collection<AvoirRendezVousEntity> avoirRendezVousByIdVeterinaire;
-    private Collection<CongeEntity> congesByIdVeterinaire;
-    private Collection<OrdonnanceEntity> ordonnancesByIdVeterinaire;
-    private EmployeEntity employeByIdVeterinaire;
+    private Collection<AvoirRendezVousEntity> avoirRendezVousById;
+    private Collection<OrdonnanceEntity> ordonnancesById;
+    private PersonneEntity personneById;
 
     @Id
-    @Column(name = "idVeterinaire", nullable = false)
-    public long getIdVeterinaire() {
-        return idVeterinaire;
+    @Column(name = "id", nullable = false)
+    public long getId() {
+        return id;
     }
 
-    public void setIdVeterinaire(long idVeterinaire) {
-        this.idVeterinaire = idVeterinaire;
+    public void setId(long id) {
+        this.id = id;
     }
 
     @Basic
@@ -40,51 +39,42 @@ public class VeterinaireEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         VeterinaireEntity that = (VeterinaireEntity) o;
-        return idVeterinaire == that.idVeterinaire &&
+        return id == that.id &&
                 Arrays.equals(signature, that.signature);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(idVeterinaire);
+        int result = Objects.hash(id);
         result = 31 * result + Arrays.hashCode(signature);
         return result;
     }
 
     @OneToMany(mappedBy = "veterinaireByIdVeterinaire")
-    public Collection<AvoirRendezVousEntity> getAvoirRendezVousByIdVeterinaire() {
-        return avoirRendezVousByIdVeterinaire;
+    public Collection<AvoirRendezVousEntity> getAvoirRendezVousById() {
+        return avoirRendezVousById;
     }
 
-    public void setAvoirRendezVousByIdVeterinaire(Collection<AvoirRendezVousEntity> avoirRendezVousByIdVeterinaire) {
-        this.avoirRendezVousByIdVeterinaire = avoirRendezVousByIdVeterinaire;
-    }
-
-    @OneToMany(mappedBy = "veterinaireByIdVeterinaire")
-    public Collection<CongeEntity> getCongesByIdVeterinaire() {
-        return congesByIdVeterinaire;
-    }
-
-    public void setCongesByIdVeterinaire(Collection<CongeEntity> congesByIdVeterinaire) {
-        this.congesByIdVeterinaire = congesByIdVeterinaire;
+    public void setAvoirRendezVousById(Collection<AvoirRendezVousEntity> avoirRendezVousById) {
+        this.avoirRendezVousById = avoirRendezVousById;
     }
 
     @OneToMany(mappedBy = "veterinaireByIdVeterinaire")
-    public Collection<OrdonnanceEntity> getOrdonnancesByIdVeterinaire() {
-        return ordonnancesByIdVeterinaire;
+    public Collection<OrdonnanceEntity> getOrdonnancesById() {
+        return ordonnancesById;
     }
 
-    public void setOrdonnancesByIdVeterinaire(Collection<OrdonnanceEntity> ordonnancesByIdVeterinaire) {
-        this.ordonnancesByIdVeterinaire = ordonnancesByIdVeterinaire;
+    public void setOrdonnancesById(Collection<OrdonnanceEntity> ordonnancesById) {
+        this.ordonnancesById = ordonnancesById;
     }
 
     @OneToOne
-    @JoinColumn(name = "idVeterinaire", referencedColumnName = "idEmploye", nullable = false)
-    public EmployeEntity getEmployeByIdVeterinaire() {
-        return employeByIdVeterinaire;
+    @JoinColumn(name = "id", referencedColumnName = "id", nullable = false)
+    public PersonneEntity getPersonneById() {
+        return personneById;
     }
 
-    public void setEmployeByIdVeterinaire(EmployeEntity employeByIdVeterinaire) {
-        this.employeByIdVeterinaire = employeByIdVeterinaire;
+    public void setPersonneById(PersonneEntity personneById) {
+        this.personneById = personneById;
     }
 }

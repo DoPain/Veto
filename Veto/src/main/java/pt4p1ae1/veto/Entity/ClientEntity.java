@@ -7,20 +7,20 @@ import java.util.Objects;
 @Entity
 @Table(name = "Client", schema = "PT_S4P1A_E1", catalog = "")
 public class ClientEntity {
-    private long idClient;
-    private Collection<AnimalEntity> animalsByIdClient;
-    private Collection<AvoirRendezVousEntity> avoirRendezVousByIdClient;
-    private PersonneEntity personneByIdClient;
-    private Collection<PanierEntity> paniersByIdClient;
+    private long id;
+    private Collection<AnimalEntity> animalsById;
+    private Collection<AvoirRendezVousEntity> avoirRendezVousById;
+    private PersonneEntity personneById;
+    private Collection<PanierEntity> paniersById;
 
     @Id
-    @Column(name = "idClient", nullable = false)
-    public long getIdClient() {
-        return idClient;
+    @Column(name = "id", nullable = false)
+    public long getId() {
+        return id;
     }
 
-    public void setIdClient(long idClient) {
-        this.idClient = idClient;
+    public void setId(long id) {
+        this.id = id;
     }
 
     @Override
@@ -28,48 +28,48 @@ public class ClientEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ClientEntity that = (ClientEntity) o;
-        return idClient == that.idClient;
+        return id == that.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idClient);
+        return Objects.hash(id);
     }
 
     @OneToMany(mappedBy = "clientByIdClient")
-    public Collection<AnimalEntity> getAnimalsByIdClient() {
-        return animalsByIdClient;
+    public Collection<AnimalEntity> getAnimalsById() {
+        return animalsById;
     }
 
-    public void setAnimalsByIdClient(Collection<AnimalEntity> animalsByIdClient) {
-        this.animalsByIdClient = animalsByIdClient;
+    public void setAnimalsById(Collection<AnimalEntity> animalsById) {
+        this.animalsById = animalsById;
     }
 
     @OneToMany(mappedBy = "clientByIdClient")
-    public Collection<AvoirRendezVousEntity> getAvoirRendezVousByIdClient() {
-        return avoirRendezVousByIdClient;
+    public Collection<AvoirRendezVousEntity> getAvoirRendezVousById() {
+        return avoirRendezVousById;
     }
 
-    public void setAvoirRendezVousByIdClient(Collection<AvoirRendezVousEntity> avoirRendezVousByIdClient) {
-        this.avoirRendezVousByIdClient = avoirRendezVousByIdClient;
+    public void setAvoirRendezVousById(Collection<AvoirRendezVousEntity> avoirRendezVousById) {
+        this.avoirRendezVousById = avoirRendezVousById;
     }
 
     @OneToOne
-    @JoinColumn(name = "idClient", referencedColumnName = "idPersonne", nullable = false)
-    public PersonneEntity getPersonneByIdClient() {
-        return personneByIdClient;
+    @JoinColumn(name = "id", referencedColumnName = "id", nullable = false)
+    public PersonneEntity getPersonneById() {
+        return personneById;
     }
 
-    public void setPersonneByIdClient(PersonneEntity personneByIdClient) {
-        this.personneByIdClient = personneByIdClient;
+    public void setPersonneById(PersonneEntity personneById) {
+        this.personneById = personneById;
     }
 
     @OneToMany(mappedBy = "clientByIdClient")
-    public Collection<PanierEntity> getPaniersByIdClient() {
-        return paniersByIdClient;
+    public Collection<PanierEntity> getPaniersById() {
+        return paniersById;
     }
 
-    public void setPaniersByIdClient(Collection<PanierEntity> paniersByIdClient) {
-        this.paniersByIdClient = paniersByIdClient;
+    public void setPaniersById(Collection<PanierEntity> paniersById) {
+        this.paniersById = paniersById;
     }
 }

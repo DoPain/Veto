@@ -7,7 +7,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "Ville", schema = "PT_S4P1A_E1", catalog = "")
 public class VilleEntity {
-    private long idVille;
+    private long id;
     private String villeDepartement;
     private String villeSlug;
     private String villeNom;
@@ -34,16 +34,16 @@ public class VilleEntity {
     private String villeLatitudeDms;
     private Integer villeZmin;
     private Integer villeZmax;
-    private Collection<PersonneEntity> personnesByIdVille;
+    private Collection<PersonneEntity> personnesById;
 
     @Id
-    @Column(name = "idVille", nullable = false)
-    public long getIdVille() {
-        return idVille;
+    @Column(name = "id", nullable = false)
+    public long getId() {
+        return id;
     }
 
-    public void setIdVille(long idVille) {
-        this.idVille = idVille;
+    public void setId(long id) {
+        this.id = id;
     }
 
     @Basic
@@ -311,7 +311,7 @@ public class VilleEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         VilleEntity that = (VilleEntity) o;
-        return idVille == that.idVille &&
+        return id == that.id &&
                 Objects.equals(villeDepartement, that.villeDepartement) &&
                 Objects.equals(villeSlug, that.villeSlug) &&
                 Objects.equals(villeNom, that.villeNom) &&
@@ -342,15 +342,15 @@ public class VilleEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(idVille, villeDepartement, villeSlug, villeNom, villeNomSimple, villeNomReel, villeNomSoundex, villeNomMetaphone, villeCodePostal, villeCommune, villeCodeCommune, villeArrondissement, villeCanton, villeAmdi, villePopulation2010, villePopulation1999, villePopulation2012, villeDensite2010, villeSurface, villeLongitudeDeg, villeLatitudeDeg, villeLongitudeGrd, villeLatitudeGrd, villeLongitudeDms, villeLatitudeDms, villeZmin, villeZmax);
+        return Objects.hash(id, villeDepartement, villeSlug, villeNom, villeNomSimple, villeNomReel, villeNomSoundex, villeNomMetaphone, villeCodePostal, villeCommune, villeCodeCommune, villeArrondissement, villeCanton, villeAmdi, villePopulation2010, villePopulation1999, villePopulation2012, villeDensite2010, villeSurface, villeLongitudeDeg, villeLatitudeDeg, villeLongitudeGrd, villeLatitudeGrd, villeLongitudeDms, villeLatitudeDms, villeZmin, villeZmax);
     }
 
     @OneToMany(mappedBy = "villeByIdVille")
-    public Collection<PersonneEntity> getPersonnesByIdVille() {
-        return personnesByIdVille;
+    public Collection<PersonneEntity> getPersonnesById() {
+        return personnesById;
     }
 
-    public void setPersonnesByIdVille(Collection<PersonneEntity> personnesByIdVille) {
-        this.personnesByIdVille = personnesByIdVille;
+    public void setPersonnesById(Collection<PersonneEntity> personnesById) {
+        this.personnesById = personnesById;
     }
 }

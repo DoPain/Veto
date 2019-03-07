@@ -7,7 +7,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "Traitement", schema = "PT_S4P1A_E1", catalog = "")
 public class TraitementEntity {
-    private int idTraitement;
+    private long id;
     private long idOrdonnance;
     private Date dateDebut;
     private int dureeJour;
@@ -17,13 +17,13 @@ public class TraitementEntity {
     private OrdonnanceEntity ordonnanceByIdOrdonnance;
 
     @Id
-    @Column(name = "idTraitement", nullable = false)
-    public int getIdTraitement() {
-        return idTraitement;
+    @Column(name = "id", nullable = false)
+    public long getId() {
+        return id;
     }
 
-    public void setIdTraitement(int idTraitement) {
-        this.idTraitement = idTraitement;
+    public void setId(long id) {
+        this.id = id;
     }
 
     @Basic
@@ -91,7 +91,7 @@ public class TraitementEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TraitementEntity that = (TraitementEntity) o;
-        return idTraitement == that.idTraitement &&
+        return id == that.id &&
                 idOrdonnance == that.idOrdonnance &&
                 dureeJour == that.dureeJour &&
                 Objects.equals(dateDebut, that.dateDebut) &&
@@ -102,11 +102,11 @@ public class TraitementEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(idTraitement, idOrdonnance, dateDebut, dureeJour, produitPrescrit, posologie, methodeAdministration);
+        return Objects.hash(id, idOrdonnance, dateDebut, dureeJour, produitPrescrit, posologie, methodeAdministration);
     }
 
     @ManyToOne
-    @JoinColumn(name = "idOrdonnance", referencedColumnName = "idOrdonnance", nullable = false)
+    @JoinColumn(name = "idOrdonnance", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public OrdonnanceEntity getOrdonnanceByIdOrdonnance() {
         return ordonnanceByIdOrdonnance;
     }

@@ -10,6 +10,9 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import pt4p1ae1.veto.DAO.DaoFactory;
+import pt4p1ae1.veto.DAO.EntityDao;
+import pt4p1ae1.veto.Entity.AnimalEntity;
 
 import javax.persistence.metamodel.EntityType;
 import javax.persistence.metamodel.Metamodel;
@@ -68,6 +71,7 @@ public final class App extends Application {
                 }
             }
         }).start();
+
 
         launch(args);
     }

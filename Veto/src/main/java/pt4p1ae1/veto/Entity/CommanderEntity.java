@@ -5,53 +5,52 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "Commander", schema = "PT_S4P1A_E1", catalog = "")
-@IdClass(CommanderEntityPK.class)
 public class CommanderEntity {
-    private long idVente;
-    private short idProduit;
-    private Integer quantitesortie;
-    private Double prixvente;
-    private PanierEntity panierByIdVente;
+    private long id;
+    private long idProduit;
+    private Integer quantite;
+    private Double prix;
+    private PanierEntity panierById;
     private ProduitEntity produitByIdProduit;
 
     @Id
-    @Column(name = "idVente", nullable = false)
-    public long getIdVente() {
-        return idVente;
+    @Column(name = "id", nullable = false)
+    public long getId() {
+        return id;
     }
 
-    public void setIdVente(long idVente) {
-        this.idVente = idVente;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    @Id
+    @Basic
     @Column(name = "idProduit", nullable = false)
-    public short getIdProduit() {
+    public long getIdProduit() {
         return idProduit;
     }
 
-    public void setIdProduit(short idProduit) {
+    public void setIdProduit(long idProduit) {
         this.idProduit = idProduit;
     }
 
     @Basic
-    @Column(name = "QUANTITESORTIE", nullable = true)
-    public Integer getQuantitesortie() {
-        return quantitesortie;
+    @Column(name = "quantite", nullable = true)
+    public Integer getQuantite() {
+        return quantite;
     }
 
-    public void setQuantitesortie(Integer quantitesortie) {
-        this.quantitesortie = quantitesortie;
+    public void setQuantite(Integer quantite) {
+        this.quantite = quantite;
     }
 
     @Basic
-    @Column(name = "PRIXVENTE", nullable = true, precision = 2)
-    public Double getPrixvente() {
-        return prixvente;
+    @Column(name = "prix", nullable = true, precision = 2)
+    public Double getPrix() {
+        return prix;
     }
 
-    public void setPrixvente(Double prixvente) {
-        this.prixvente = prixvente;
+    public void setPrix(Double prix) {
+        this.prix = prix;
     }
 
     @Override
@@ -59,29 +58,29 @@ public class CommanderEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CommanderEntity that = (CommanderEntity) o;
-        return idVente == that.idVente &&
+        return id == that.id &&
                 idProduit == that.idProduit &&
-                Objects.equals(quantitesortie, that.quantitesortie) &&
-                Objects.equals(prixvente, that.prixvente);
+                Objects.equals(quantite, that.quantite) &&
+                Objects.equals(prix, that.prix);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idVente, idProduit, quantitesortie, prixvente);
+        return Objects.hash(id, idProduit, quantite, prix);
+    }
+
+    @OneToOne
+    @JoinColumn(name = "id", referencedColumnName = "id", nullable = false)
+    public PanierEntity getPanierById() {
+        return panierById;
+    }
+
+    public void setPanierById(PanierEntity panierById) {
+        this.panierById = panierById;
     }
 
     @ManyToOne
-    @JoinColumn(name = "idVente", referencedColumnName = "idVente", nullable = false)
-    public PanierEntity getPanierByIdVente() {
-        return panierByIdVente;
-    }
-
-    public void setPanierByIdVente(PanierEntity panierByIdVente) {
-        this.panierByIdVente = panierByIdVente;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "idProduit", referencedColumnName = "idProduit", nullable = false)
+    @JoinColumn(name = "idProduit", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public ProduitEntity getProduitByIdProduit() {
         return produitByIdProduit;
     }

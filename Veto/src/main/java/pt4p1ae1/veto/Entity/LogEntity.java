@@ -7,20 +7,20 @@ import java.util.Objects;
 @Entity
 @Table(name = "Log", schema = "PT_S4P1A_E1", catalog = "")
 public class LogEntity {
-    private long idLog;
+    private long id;
     private long idEmploye;
     private Timestamp temps;
     private String action;
     private EmployeEntity employeByIdEmploye;
 
     @Id
-    @Column(name = "idLog", nullable = false)
-    public long getIdLog() {
-        return idLog;
+    @Column(name = "id", nullable = false)
+    public long getId() {
+        return id;
     }
 
-    public void setIdLog(long idLog) {
-        this.idLog = idLog;
+    public void setId(long id) {
+        this.id = id;
     }
 
     @Basic
@@ -58,7 +58,7 @@ public class LogEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         LogEntity logEntity = (LogEntity) o;
-        return idLog == logEntity.idLog &&
+        return id == logEntity.id &&
                 idEmploye == logEntity.idEmploye &&
                 Objects.equals(temps, logEntity.temps) &&
                 Objects.equals(action, logEntity.action);
@@ -66,11 +66,11 @@ public class LogEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(idLog, idEmploye, temps, action);
+        return Objects.hash(id, idEmploye, temps, action);
     }
 
     @ManyToOne
-    @JoinColumn(name = "idEmploye", referencedColumnName = "idEmploye", nullable = false)
+    @JoinColumn(name = "idEmploye", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public EmployeEntity getEmployeByIdEmploye() {
         return employeByIdEmploye;
     }

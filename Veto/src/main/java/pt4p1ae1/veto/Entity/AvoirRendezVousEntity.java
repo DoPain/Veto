@@ -6,8 +6,8 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "AvoirRendezVous", schema = "PT_S4P1A_E1", catalog = "")
-@IdClass(AvoirRendezVousEntityPK.class)
 public class AvoirRendezVousEntity {
+    private long id;
     private long idClient;
     private long idVeterinaire;
     private Timestamp dateHeure;
@@ -17,6 +17,16 @@ public class AvoirRendezVousEntity {
     private VeterinaireEntity veterinaireByIdVeterinaire;
 
     @Id
+    @Column(name = "id", nullable = false)
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    @Basic
     @Column(name = "idClient", nullable = false)
     public long getIdClient() {
         return idClient;
@@ -26,7 +36,7 @@ public class AvoirRendezVousEntity {
         this.idClient = idClient;
     }
 
-    @Id
+    @Basic
     @Column(name = "idVeterinaire", nullable = false)
     public long getIdVeterinaire() {
         return idVeterinaire;
@@ -71,7 +81,8 @@ public class AvoirRendezVousEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AvoirRendezVousEntity that = (AvoirRendezVousEntity) o;
-        return idClient == that.idClient &&
+        return id == that.id &&
+                idClient == that.idClient &&
                 idVeterinaire == that.idVeterinaire &&
                 dureeMinutes == that.dureeMinutes &&
                 Objects.equals(dateHeure, that.dateHeure) &&
@@ -80,11 +91,11 @@ public class AvoirRendezVousEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(idClient, idVeterinaire, dateHeure, dureeMinutes, message);
+        return Objects.hash(id, idClient, idVeterinaire, dateHeure, dureeMinutes, message);
     }
 
     @ManyToOne
-    @JoinColumn(name = "idClient", referencedColumnName = "idClient", nullable = false)
+    @JoinColumn(name = "idClient", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public ClientEntity getClientByIdClient() {
         return clientByIdClient;
     }
@@ -94,7 +105,7 @@ public class AvoirRendezVousEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "idVeterinaire", referencedColumnName = "idVeterinaire", nullable = false)
+    @JoinColumn(name = "idVeterinaire", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public VeterinaireEntity getVeterinaireByIdVeterinaire() {
         return veterinaireByIdVeterinaire;
     }

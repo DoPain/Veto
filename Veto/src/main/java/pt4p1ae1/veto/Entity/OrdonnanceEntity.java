@@ -8,33 +8,33 @@ import java.util.Objects;
 @Entity
 @Table(name = "Ordonnance", schema = "PT_S4P1A_E1", catalog = "")
 public class OrdonnanceEntity {
-    private long idOrdonnance;
-    private int idAnimal;
+    private long id;
+    private long idAnimal;
     private long idVeterinaire;
     private Timestamp dateOrdonnance;
     private String commentaire;
-    private Collection<AppartenirEntity> appartenirsByIdOrdonnance;
+    private Collection<AppartenirEntity> appartenirsById;
     private AnimalEntity animalByIdAnimal;
     private VeterinaireEntity veterinaireByIdVeterinaire;
-    private Collection<TraitementEntity> traitementsByIdOrdonnance;
+    private Collection<TraitementEntity> traitementsById;
 
     @Id
-    @Column(name = "idOrdonnance", nullable = false)
-    public long getIdOrdonnance() {
-        return idOrdonnance;
+    @Column(name = "id", nullable = false)
+    public long getId() {
+        return id;
     }
 
-    public void setIdOrdonnance(long idOrdonnance) {
-        this.idOrdonnance = idOrdonnance;
+    public void setId(long id) {
+        this.id = id;
     }
 
     @Basic
     @Column(name = "idAnimal", nullable = false)
-    public int getIdAnimal() {
+    public long getIdAnimal() {
         return idAnimal;
     }
 
-    public void setIdAnimal(int idAnimal) {
+    public void setIdAnimal(long idAnimal) {
         this.idAnimal = idAnimal;
     }
 
@@ -73,7 +73,7 @@ public class OrdonnanceEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OrdonnanceEntity that = (OrdonnanceEntity) o;
-        return idOrdonnance == that.idOrdonnance &&
+        return id == that.id &&
                 idAnimal == that.idAnimal &&
                 idVeterinaire == that.idVeterinaire &&
                 Objects.equals(dateOrdonnance, that.dateOrdonnance) &&
@@ -82,20 +82,20 @@ public class OrdonnanceEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(idOrdonnance, idAnimal, idVeterinaire, dateOrdonnance, commentaire);
+        return Objects.hash(id, idAnimal, idVeterinaire, dateOrdonnance, commentaire);
     }
 
     @OneToMany(mappedBy = "ordonnanceByIdOrdonnance")
-    public Collection<AppartenirEntity> getAppartenirsByIdOrdonnance() {
-        return appartenirsByIdOrdonnance;
+    public Collection<AppartenirEntity> getAppartenirsById() {
+        return appartenirsById;
     }
 
-    public void setAppartenirsByIdOrdonnance(Collection<AppartenirEntity> appartenirsByIdOrdonnance) {
-        this.appartenirsByIdOrdonnance = appartenirsByIdOrdonnance;
+    public void setAppartenirsById(Collection<AppartenirEntity> appartenirsById) {
+        this.appartenirsById = appartenirsById;
     }
 
     @ManyToOne
-    @JoinColumn(name = "idAnimal", referencedColumnName = "idAnimal", nullable = false)
+    @JoinColumn(name = "idAnimal", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public AnimalEntity getAnimalByIdAnimal() {
         return animalByIdAnimal;
     }
@@ -105,7 +105,7 @@ public class OrdonnanceEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "idVeterinaire", referencedColumnName = "idVeterinaire", nullable = false)
+    @JoinColumn(name = "idVeterinaire", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public VeterinaireEntity getVeterinaireByIdVeterinaire() {
         return veterinaireByIdVeterinaire;
     }
@@ -115,11 +115,11 @@ public class OrdonnanceEntity {
     }
 
     @OneToMany(mappedBy = "ordonnanceByIdOrdonnance")
-    public Collection<TraitementEntity> getTraitementsByIdOrdonnance() {
-        return traitementsByIdOrdonnance;
+    public Collection<TraitementEntity> getTraitementsById() {
+        return traitementsById;
     }
 
-    public void setTraitementsByIdOrdonnance(Collection<TraitementEntity> traitementsByIdOrdonnance) {
-        this.traitementsByIdOrdonnance = traitementsByIdOrdonnance;
+    public void setTraitementsById(Collection<TraitementEntity> traitementsById) {
+        this.traitementsById = traitementsById;
     }
 }

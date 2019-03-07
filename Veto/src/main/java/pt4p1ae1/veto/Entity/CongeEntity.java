@@ -7,22 +7,20 @@ import java.util.Objects;
 @Entity
 @Table(name = "Conge", schema = "PT_S4P1A_E1", catalog = "")
 public class CongeEntity {
-    private long idConge;
+    private long id;
     private long idEmploye;
-    private long idVeterinaire;
     private Timestamp dateDebut;
-    private Timestamp datefin;
+    private Timestamp dateFin;
     private EmployeEntity employeByIdEmploye;
-    private VeterinaireEntity veterinaireByIdVeterinaire;
 
     @Id
-    @Column(name = "idConge", nullable = false)
-    public long getIdConge() {
-        return idConge;
+    @Column(name = "id", nullable = false)
+    public long getId() {
+        return id;
     }
 
-    public void setIdConge(long idConge) {
-        this.idConge = idConge;
+    public void setId(long id) {
+        this.id = id;
     }
 
     @Basic
@@ -36,16 +34,6 @@ public class CongeEntity {
     }
 
     @Basic
-    @Column(name = "idVeterinaire", nullable = false)
-    public long getIdVeterinaire() {
-        return idVeterinaire;
-    }
-
-    public void setIdVeterinaire(long idVeterinaire) {
-        this.idVeterinaire = idVeterinaire;
-    }
-
-    @Basic
     @Column(name = "dateDebut", nullable = false)
     public Timestamp getDateDebut() {
         return dateDebut;
@@ -56,13 +44,13 @@ public class CongeEntity {
     }
 
     @Basic
-    @Column(name = "DATEFIN", nullable = false)
-    public Timestamp getDatefin() {
-        return datefin;
+    @Column(name = "dateFin", nullable = false)
+    public Timestamp getDateFin() {
+        return dateFin;
     }
 
-    public void setDatefin(Timestamp datefin) {
-        this.datefin = datefin;
+    public void setDateFin(Timestamp dateFin) {
+        this.dateFin = dateFin;
     }
 
     @Override
@@ -70,35 +58,24 @@ public class CongeEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CongeEntity that = (CongeEntity) o;
-        return idConge == that.idConge &&
+        return id == that.id &&
                 idEmploye == that.idEmploye &&
-                idVeterinaire == that.idVeterinaire &&
                 Objects.equals(dateDebut, that.dateDebut) &&
-                Objects.equals(datefin, that.datefin);
+                Objects.equals(dateFin, that.dateFin);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idConge, idEmploye, idVeterinaire, dateDebut, datefin);
+        return Objects.hash(id, idEmploye, dateDebut, dateFin);
     }
 
     @ManyToOne
-    @JoinColumn(name = "idEmploye", referencedColumnName = "idEmploye", nullable = false)
+    @JoinColumn(name = "idEmploye", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public EmployeEntity getEmployeByIdEmploye() {
         return employeByIdEmploye;
     }
 
     public void setEmployeByIdEmploye(EmployeEntity employeByIdEmploye) {
         this.employeByIdEmploye = employeByIdEmploye;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "idVeterinaire", referencedColumnName = "idVeterinaire", nullable = false)
-    public VeterinaireEntity getVeterinaireByIdVeterinaire() {
-        return veterinaireByIdVeterinaire;
-    }
-
-    public void setVeterinaireByIdVeterinaire(VeterinaireEntity veterinaireByIdVeterinaire) {
-        this.veterinaireByIdVeterinaire = veterinaireByIdVeterinaire;
     }
 }

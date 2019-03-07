@@ -1,40 +1,42 @@
 package pt4p1ae1.veto.Entity;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 @Table(name = "Animal", schema = "PT_S4P1A_E1", catalog = "")
 public class AnimalEntity {
-    private int idAnimal;
-    private int idEspece;
+    private long id;
+    private long idRace;
     private long idClient;
     private String nom;
-    private Date dateNaissance;
-    private EspeceEntity especeByIdEspece;
+    private String sexe;
+    private Double poids;
+    private Timestamp dateNaissance;
+    private RaceEntity raceByIdRace;
     private ClientEntity clientByIdClient;
-    private Collection<OrdonnanceEntity> ordonnancesByIdAnimal;
+    private Collection<OrdonnanceEntity> ordonnancesById;
 
     @Id
-    @Column(name = "idAnimal", nullable = false)
-    public int getIdAnimal() {
-        return idAnimal;
+    @Column(name = "id", nullable = false)
+    public long getId() {
+        return id;
     }
 
-    public void setIdAnimal(int idAnimal) {
-        this.idAnimal = idAnimal;
+    public void setId(long id) {
+        this.id = id;
     }
 
     @Basic
-    @Column(name = "idEspece", nullable = false)
-    public int getIdEspece() {
-        return idEspece;
+    @Column(name = "idRace", nullable = false)
+    public long getIdRace() {
+        return idRace;
     }
 
-    public void setIdEspece(int idEspece) {
-        this.idEspece = idEspece;
+    public void setIdRace(long idRace) {
+        this.idRace = idRace;
     }
 
     @Basic
@@ -58,12 +60,32 @@ public class AnimalEntity {
     }
 
     @Basic
-    @Column(name = "dateNaissance", nullable = false)
-    public Date getDateNaissance() {
+    @Column(name = "sexe", nullable = true, length = 1)
+    public String getSexe() {
+        return sexe;
+    }
+
+    public void setSexe(String sexe) {
+        this.sexe = sexe;
+    }
+
+    @Basic
+    @Column(name = "poids", nullable = true, precision = 2)
+    public Double getPoids() {
+        return poids;
+    }
+
+    public void setPoids(Double poids) {
+        this.poids = poids;
+    }
+
+    @Basic
+    @Column(name = "dateNaissance", nullable = true)
+    public Timestamp getDateNaissance() {
         return dateNaissance;
     }
 
-    public void setDateNaissance(Date dateNaissance) {
+    public void setDateNaissance(Timestamp dateNaissance) {
         this.dateNaissance = dateNaissance;
     }
 
@@ -72,30 +94,32 @@ public class AnimalEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AnimalEntity that = (AnimalEntity) o;
-        return idAnimal == that.idAnimal &&
-                idEspece == that.idEspece &&
+        return id == that.id &&
+                idRace == that.idRace &&
                 idClient == that.idClient &&
                 Objects.equals(nom, that.nom) &&
+                Objects.equals(sexe, that.sexe) &&
+                Objects.equals(poids, that.poids) &&
                 Objects.equals(dateNaissance, that.dateNaissance);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idAnimal, idEspece, idClient, nom, dateNaissance);
+        return Objects.hash(id, idRace, idClient, nom, sexe, poids, dateNaissance);
     }
 
     @ManyToOne
-    @JoinColumn(name = "idEspece", referencedColumnName = "idEspece", nullable = false)
-    public EspeceEntity getEspeceByIdEspece() {
-        return especeByIdEspece;
+    @JoinColumn(name = "idRace", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    public RaceEntity getRaceByIdRace() {
+        return raceByIdRace;
     }
 
-    public void setEspeceByIdEspece(EspeceEntity especeByIdEspece) {
-        this.especeByIdEspece = especeByIdEspece;
+    public void setRaceByIdRace(RaceEntity raceByIdRace) {
+        this.raceByIdRace = raceByIdRace;
     }
 
     @ManyToOne
-    @JoinColumn(name = "idClient", referencedColumnName = "idClient", nullable = false)
+    @JoinColumn(name = "idClient", referencedColumnName = "id", insertable = false, updatable = false, nullable = false)
     public ClientEntity getClientByIdClient() {
         return clientByIdClient;
     }
@@ -105,11 +129,11 @@ public class AnimalEntity {
     }
 
     @OneToMany(mappedBy = "animalByIdAnimal")
-    public Collection<OrdonnanceEntity> getOrdonnancesByIdAnimal() {
-        return ordonnancesByIdAnimal;
+    public Collection<OrdonnanceEntity> getOrdonnancesById() {
+        return ordonnancesById;
     }
 
-    public void setOrdonnancesByIdAnimal(Collection<OrdonnanceEntity> ordonnancesByIdAnimal) {
-        this.ordonnancesByIdAnimal = ordonnancesByIdAnimal;
+    public void setOrdonnancesById(Collection<OrdonnanceEntity> ordonnancesById) {
+        this.ordonnancesById = ordonnancesById;
     }
 }

@@ -7,7 +7,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "Personne", schema = "PT_S4P1A_E1", catalog = "")
 public class PersonneEntity {
-    private long idPersonne;
+    private long id;
     private long idVille;
     private String nom;
     private String prenom;
@@ -15,18 +15,19 @@ public class PersonneEntity {
     private String adresse;
     private String mail;
     private String telephone;
-    private ClientEntity clientByIdPersonne;
-    private EmployeEntity employeByIdPersonne;
+    private ClientEntity clientById;
+    private EmployeEntity employeById;
     private VilleEntity villeByIdVille;
+    private VeterinaireEntity veterinaireById;
 
     @Id
-    @Column(name = "idPersonne", nullable = false)
-    public long getIdPersonne() {
-        return idPersonne;
+    @Column(name = "id", nullable = false)
+    public long getId() {
+        return id;
     }
 
-    public void setIdPersonne(long idPersonne) {
-        this.idPersonne = idPersonne;
+    public void setId(long id) {
+        this.id = id;
     }
 
     @Basic
@@ -104,7 +105,7 @@ public class PersonneEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PersonneEntity that = (PersonneEntity) o;
-        return idPersonne == that.idPersonne &&
+        return id == that.id &&
                 idVille == that.idVille &&
                 Objects.equals(nom, that.nom) &&
                 Objects.equals(prenom, that.prenom) &&
@@ -116,34 +117,43 @@ public class PersonneEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(idPersonne, idVille, nom, prenom, dateNaissance, adresse, mail, telephone);
+        return Objects.hash(id, idVille, nom, prenom, dateNaissance, adresse, mail, telephone);
     }
 
-    @OneToOne(mappedBy = "personneByIdClient")
-    public ClientEntity getClientByIdPersonne() {
-        return clientByIdPersonne;
+    @OneToOne(mappedBy = "personneById")
+    public ClientEntity getClientById() {
+        return clientById;
     }
 
-    public void setClientByIdPersonne(ClientEntity clientByIdPersonne) {
-        this.clientByIdPersonne = clientByIdPersonne;
+    public void setClientById(ClientEntity clientById) {
+        this.clientById = clientById;
     }
 
-    @OneToOne(mappedBy = "personneByIdEmploye")
-    public EmployeEntity getEmployeByIdPersonne() {
-        return employeByIdPersonne;
+    @OneToOne(mappedBy = "personneById")
+    public EmployeEntity getEmployeById() {
+        return employeById;
     }
 
-    public void setEmployeByIdPersonne(EmployeEntity employeByIdPersonne) {
-        this.employeByIdPersonne = employeByIdPersonne;
+    public void setEmployeById(EmployeEntity employeById) {
+        this.employeById = employeById;
     }
 
     @ManyToOne
-    @JoinColumn(name = "idVille", referencedColumnName = "idVille", nullable = false)
+    @JoinColumn(name = "idVille", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public VilleEntity getVilleByIdVille() {
         return villeByIdVille;
     }
 
     public void setVilleByIdVille(VilleEntity villeByIdVille) {
         this.villeByIdVille = villeByIdVille;
+    }
+
+    @OneToOne(mappedBy = "personneById")
+    public VeterinaireEntity getVeterinaireById() {
+        return veterinaireById;
+    }
+
+    public void setVeterinaireById(VeterinaireEntity veterinaireById) {
+        this.veterinaireById = veterinaireById;
     }
 }

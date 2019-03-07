@@ -10,7 +10,7 @@
         <property name="hibernate.connection.password">cBYW9Gus</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
         <property name="show_sql">true</property>
-        <property name="connection.pool_size">1</property>
+        <property name="connection.pool_size">5</property>
 
         <mapping class="pt4p1ae1.veto.Entity.AnimalEntity"/>
         <mapping class="pt4p1ae1.veto.Entity.AppartenirEntity"/>

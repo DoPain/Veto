@@ -5,14 +5,25 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "Appartenir", schema = "PT_S4P1A_E1", catalog = "")
-@IdClass(AppartenirEntityPK.class)
 public class AppartenirEntity {
+    private long id;
     private long idOrdonnance;
-    private short idProduit;
+    private long idProduit;
+    private int quantite;
     private OrdonnanceEntity ordonnanceByIdOrdonnance;
     private ProduitEntity produitByIdProduit;
 
     @Id
+    @Column(name = "id", nullable = false)
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    @Basic
     @Column(name = "idOrdonnance", nullable = false)
     public long getIdOrdonnance() {
         return idOrdonnance;
@@ -22,14 +33,24 @@ public class AppartenirEntity {
         this.idOrdonnance = idOrdonnance;
     }
 
-    @Id
+    @Basic
     @Column(name = "idProduit", nullable = false)
-    public short getIdProduit() {
+    public long getIdProduit() {
         return idProduit;
     }
 
-    public void setIdProduit(short idProduit) {
+    public void setIdProduit(long idProduit) {
         this.idProduit = idProduit;
+    }
+
+    @Basic
+    @Column(name = "quantite", nullable = false)
+    public int getQuantite() {
+        return quantite;
+    }
+
+    public void setQuantite(int quantite) {
+        this.quantite = quantite;
     }
 
     @Override
@@ -37,17 +58,19 @@ public class AppartenirEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AppartenirEntity that = (AppartenirEntity) o;
-        return idOrdonnance == that.idOrdonnance &&
-                idProduit == that.idProduit;
+        return id == that.id &&
+                idOrdonnance == that.idOrdonnance &&
+                idProduit == that.idProduit &&
+                quantite == that.quantite;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idOrdonnance, idProduit);
+        return Objects.hash(id, idOrdonnance, idProduit, quantite);
     }
 
     @ManyToOne
-    @JoinColumn(name = "idOrdonnance", referencedColumnName = "idOrdonnance", nullable = false)
+    @JoinColumn(name = "idOrdonnance", referencedColumnName = "id", insertable = false, updatable = false, nullable = false)
     public OrdonnanceEntity getOrdonnanceByIdOrdonnance() {
         return ordonnanceByIdOrdonnance;
     }
@@ -57,7 +80,7 @@ public class AppartenirEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "idProduit", referencedColumnName = "idProduit", nullable = false)
+    @JoinColumn(name = "idProduit", referencedColumnName = "id", insertable = false, updatable = false, nullable = false)
     public ProduitEntity getProduitByIdProduit() {
         return produitByIdProduit;
     }

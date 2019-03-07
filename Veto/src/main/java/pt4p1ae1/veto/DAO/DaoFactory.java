@@ -3,7 +3,6 @@ package pt4p1ae1.veto.DAO;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import pt4p1ae1.veto.App;
-import pt4p1ae1.veto.Entity.AnimalEntity;
 
 import java.util.List;
 

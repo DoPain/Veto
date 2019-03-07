@@ -1,39 +1,41 @@
 package pt4p1ae1.veto.Entity;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 @Table(name = "Employe", schema = "PT_S4P1A_E1", catalog = "")
 public class EmployeEntity {
-    private long idEmploye;
-    private String idConnexion;
+    private long id;
+    private String login;
     private String motDePasse;
-    private Collection<CongeEntity> congesByIdEmploye;
-    private PersonneEntity personneByIdEmploye;
-    private Collection<LogEntity> logsByIdEmploye;
-    private Collection<PanierEntity> paniersByIdEmploye;
-    private VeterinaireEntity veterinaireByIdEmploye;
+    private Double salaire;
+    private Date dateDebutContrat;
+    private Collection<CongeEntity> congesById;
+    private PersonneEntity personneById;
+    private Collection<LogEntity> logsById;
+    private Collection<PanierEntity> paniersById;
 
     @Id
-    @Column(name = "idEmploye", nullable = false)
-    public long getIdEmploye() {
-        return idEmploye;
+    @Column(name = "id", nullable = false)
+    public long getId() {
+        return id;
     }
 
-    public void setIdEmploye(long idEmploye) {
-        this.idEmploye = idEmploye;
+    public void setId(long id) {
+        this.id = id;
     }
 
     @Basic
-    @Column(name = "idConnexion", nullable = false, length = 32)
-    public String getIdConnexion() {
-        return idConnexion;
+    @Column(name = "login", nullable = false, length = 32)
+    public String getLogin() {
+        return login;
     }
 
-    public void setIdConnexion(String idConnexion) {
-        this.idConnexion = idConnexion;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     @Basic
@@ -46,64 +48,77 @@ public class EmployeEntity {
         this.motDePasse = motDePasse;
     }
 
+    @Basic
+    @Column(name = "salaire", nullable = true, precision = 2)
+    public Double getSalaire() {
+        return salaire;
+    }
+
+    public void setSalaire(Double salaire) {
+        this.salaire = salaire;
+    }
+
+    @Basic
+    @Column(name = "dateDebutContrat", nullable = false)
+    public Date getDateDebutContrat() {
+        return dateDebutContrat;
+    }
+
+    public void setDateDebutContrat(Date dateDebutContrat) {
+        this.dateDebutContrat = dateDebutContrat;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EmployeEntity that = (EmployeEntity) o;
-        return idEmploye == that.idEmploye &&
-                Objects.equals(idConnexion, that.idConnexion) &&
-                Objects.equals(motDePasse, that.motDePasse);
+        return id == that.id &&
+                Objects.equals(login, that.login) &&
+                Objects.equals(motDePasse, that.motDePasse) &&
+                Objects.equals(salaire, that.salaire) &&
+                Objects.equals(dateDebutContrat, that.dateDebutContrat);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idEmploye, idConnexion, motDePasse);
+        return Objects.hash(id, login, motDePasse, salaire, dateDebutContrat);
     }
 
     @OneToMany(mappedBy = "employeByIdEmploye")
-    public Collection<CongeEntity> getCongesByIdEmploye() {
-        return congesByIdEmploye;
+    public Collection<CongeEntity> getCongesById() {
+        return congesById;
     }
 
-    public void setCongesByIdEmploye(Collection<CongeEntity> congesByIdEmploye) {
-        this.congesByIdEmploye = congesByIdEmploye;
+    public void setCongesById(Collection<CongeEntity> congesById) {
+        this.congesById = congesById;
     }
 
     @OneToOne
-    @JoinColumn(name = "idEmploye", referencedColumnName = "idPersonne", nullable = false)
-    public PersonneEntity getPersonneByIdEmploye() {
-        return personneByIdEmploye;
+    @JoinColumn(name = "id", referencedColumnName = "id", nullable = false)
+    public PersonneEntity getPersonneById() {
+        return personneById;
     }
 
-    public void setPersonneByIdEmploye(PersonneEntity personneByIdEmploye) {
-        this.personneByIdEmploye = personneByIdEmploye;
-    }
-
-    @OneToMany(mappedBy = "employeByIdEmploye")
-    public Collection<LogEntity> getLogsByIdEmploye() {
-        return logsByIdEmploye;
-    }
-
-    public void setLogsByIdEmploye(Collection<LogEntity> logsByIdEmploye) {
-        this.logsByIdEmploye = logsByIdEmploye;
+    public void setPersonneById(PersonneEntity personneById) {
+        this.personneById = personneById;
     }
 
     @OneToMany(mappedBy = "employeByIdEmploye")
-    public Collection<PanierEntity> getPaniersByIdEmploye() {
-        return paniersByIdEmploye;
+    public Collection<LogEntity> getLogsById() {
+        return logsById;
     }
 
-    public void setPaniersByIdEmploye(Collection<PanierEntity> paniersByIdEmploye) {
-        this.paniersByIdEmploye = paniersByIdEmploye;
+    public void setLogsById(Collection<LogEntity> logsById) {
+        this.logsById = logsById;
     }
 
-    @OneToOne(mappedBy = "employeByIdVeterinaire")
-    public VeterinaireEntity getVeterinaireByIdEmploye() {
-        return veterinaireByIdEmploye;
+    @OneToMany(mappedBy = "employeByIdEmploye")
+    public Collection<PanierEntity> getPaniersById() {
+        return paniersById;
     }
 
-    public void setVeterinaireByIdEmploye(VeterinaireEntity veterinaireByIdEmploye) {
-        this.veterinaireByIdEmploye = veterinaireByIdEmploye;
+    public void setPaniersById(Collection<PanierEntity> paniersById) {
+        this.paniersById = paniersById;
     }
 }

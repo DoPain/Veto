@@ -7,19 +7,18 @@ import java.util.Objects;
 @Entity
 @Table(name = "Espece", schema = "PT_S4P1A_E1", catalog = "")
 public class EspeceEntity {
-    private int idEspece;
+    private long id;
     private String nom;
-    private Collection<AnimalEntity> animalsByIdEspece;
-    private Collection<RaceEntity> racesByIdEspece;
+    private Collection<RaceEntity> racesById;
 
     @Id
-    @Column(name = "idEspece", nullable = false)
-    public int getIdEspece() {
-        return idEspece;
+    @Column(name = "id", nullable = false)
+    public long getId() {
+        return id;
     }
 
-    public void setIdEspece(int idEspece) {
-        this.idEspece = idEspece;
+    public void setId(long id) {
+        this.id = id;
     }
 
     @Basic
@@ -37,30 +36,21 @@ public class EspeceEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EspeceEntity that = (EspeceEntity) o;
-        return idEspece == that.idEspece &&
+        return id == that.id &&
                 Objects.equals(nom, that.nom);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idEspece, nom);
+        return Objects.hash(id, nom);
     }
 
     @OneToMany(mappedBy = "especeByIdEspece")
-    public Collection<AnimalEntity> getAnimalsByIdEspece() {
-        return animalsByIdEspece;
+    public Collection<RaceEntity> getRacesById() {
+        return racesById;
     }
 
-    public void setAnimalsByIdEspece(Collection<AnimalEntity> animalsByIdEspece) {
-        this.animalsByIdEspece = animalsByIdEspece;
-    }
-
-    @OneToMany(mappedBy = "especeByIdEspece")
-    public Collection<RaceEntity> getRacesByIdEspece() {
-        return racesByIdEspece;
-    }
-
-    public void setRacesByIdEspece(Collection<RaceEntity> racesByIdEspece) {
-        this.racesByIdEspece = racesByIdEspece;
+    public void setRacesById(Collection<RaceEntity> racesById) {
+        this.racesById = racesById;
     }
 }

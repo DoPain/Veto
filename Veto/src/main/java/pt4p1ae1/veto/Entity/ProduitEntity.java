@@ -7,22 +7,22 @@ import java.util.Objects;
 @Entity
 @Table(name = "Produit", schema = "PT_S4P1A_E1", catalog = "")
 public class ProduitEntity {
-    private short idProduit;
+    private long id;
     private String nom;
     private int quantiteEnStock;
     private int quantiteMinimum;
     private double prix;
-    private Collection<AppartenirEntity> appartenirsByIdProduit;
-    private Collection<CommanderEntity> commandersByIdProduit;
+    private Collection<AppartenirEntity> appartenirsById;
+    private Collection<CommanderEntity> commandersById;
 
     @Id
-    @Column(name = "idProduit", nullable = false)
-    public short getIdProduit() {
-        return idProduit;
+    @Column(name = "id", nullable = false)
+    public long getId() {
+        return id;
     }
 
-    public void setIdProduit(short idProduit) {
-        this.idProduit = idProduit;
+    public void setId(long id) {
+        this.id = id;
     }
 
     @Basic
@@ -36,7 +36,7 @@ public class ProduitEntity {
     }
 
     @Basic
-    @Column(name = "QuantiteEnStock", nullable = false)
+    @Column(name = "quantiteEnStock", nullable = false)
     public int getQuantiteEnStock() {
         return quantiteEnStock;
     }
@@ -46,7 +46,7 @@ public class ProduitEntity {
     }
 
     @Basic
-    @Column(name = "QuantiteMinimum", nullable = false)
+    @Column(name = "quantiteMinimum", nullable = false)
     public int getQuantiteMinimum() {
         return quantiteMinimum;
     }
@@ -70,7 +70,7 @@ public class ProduitEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProduitEntity that = (ProduitEntity) o;
-        return idProduit == that.idProduit &&
+        return id == that.id &&
                 quantiteEnStock == that.quantiteEnStock &&
                 quantiteMinimum == that.quantiteMinimum &&
                 Double.compare(that.prix, prix) == 0 &&
@@ -79,24 +79,24 @@ public class ProduitEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(idProduit, nom, quantiteEnStock, quantiteMinimum, prix);
+        return Objects.hash(id, nom, quantiteEnStock, quantiteMinimum, prix);
     }
 
     @OneToMany(mappedBy = "produitByIdProduit")
-    public Collection<AppartenirEntity> getAppartenirsByIdProduit() {
-        return appartenirsByIdProduit;
+    public Collection<AppartenirEntity> getAppartenirsById() {
+        return appartenirsById;
     }
 
-    public void setAppartenirsByIdProduit(Collection<AppartenirEntity> appartenirsByIdProduit) {
-        this.appartenirsByIdProduit = appartenirsByIdProduit;
+    public void setAppartenirsById(Collection<AppartenirEntity> appartenirsById) {
+        this.appartenirsById = appartenirsById;
     }
 
     @OneToMany(mappedBy = "produitByIdProduit")
-    public Collection<CommanderEntity> getCommandersByIdProduit() {
-        return commandersByIdProduit;
+    public Collection<CommanderEntity> getCommandersById() {
+        return commandersById;
     }
 
-    public void setCommandersByIdProduit(Collection<CommanderEntity> commandersByIdProduit) {
-        this.commandersByIdProduit = commandersByIdProduit;
+    public void setCommandersById(Collection<CommanderEntity> commandersById) {
+        this.commandersById = commandersById;
     }
 }
