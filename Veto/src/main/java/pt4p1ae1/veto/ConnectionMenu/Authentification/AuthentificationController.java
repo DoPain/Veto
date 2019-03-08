@@ -1,6 +1,10 @@
 package pt4p1ae1.veto.ConnectionMenu.Authentification;
 
-import javafx.animation.FadeTransition;
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+import com.google.inject.persist.PersistService;
+import com.google.inject.persist.jpa.JpaPersistModule;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -10,18 +14,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-import pt4p1ae1.veto.DataBase;
+import pt4p1ae1.veto.DAO.DaoFactory;
+import pt4p1ae1.veto.DAO.EntityDao;
+import pt4p1ae1.veto.Entity.AnimalEntity;
+import pt4p1ae1.veto.Entity.EmployeEntity;
 import pt4p1ae1.veto.Utils;
-import sun.awt.SunHints;
 
-import javax.rmi.CORBA.Util;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class AuthentificationController implements Initializable {
@@ -38,21 +40,14 @@ public class AuthentificationController implements Initializable {
     @FXML
     private Button signInButton;
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        passwordField.setOnKeyPressed(k -> {
-            if (k.getCode() == KeyCode.ENTER) {
-                try {
-                    signInButtonPushed();
-                } catch (IOException e) {
-                }
-            }
-        });
+        EntityDao<EmployeEntity> dao = DaoFactory.getDaoFor(EmployeEntity.class);
+        dao.findAll().forEach(employe -> System.out.println(employe.getId() + " -> " + employe.getLogin()));
     }
 
     public void signInButtonPushed() throws IOException {
-
+        int returnInt = connexionMatched();
         if (loginField.getText().equals("") && passwordField.getText().equals("")) {
             passwordField.setStyle("-fx-prompt-text-fill: red");
             loginField.setStyle("-fx-prompt-text-fill: red");
@@ -65,16 +60,14 @@ public class AuthentificationController implements Initializable {
             loginField.setStyle("-fx-prompt-text-fill: red");
             passwordField.setStyle("-fx-prompt-text-fill: red");
             passwordField.setPromptText("Veuillez remplir ce champ.");
-        } else if (connexionMatched() == 1) {
-            Utils.admin = false;
+        } else if (returnInt == 1 || returnInt == 2) {
+            if (returnInt == 1) {
+                Utils.admin = false;
+            } else {
+                Utils.admin = false;
+            }
             Stage primaryStage = (Stage) signInButton.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("/home.fxml"));
-            primaryStage.setScene(new Scene(root, 1280, 720));
-            primaryStage.centerOnScreen();
-        } else if (connexionMatched() == 2) {
-            Utils.admin = true;
-            Stage primaryStage = (Stage) signInButton.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("/home.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/home.fxml"));
             primaryStage.setScene(new Scene(root, 1280, 720));
             primaryStage.centerOnScreen();
         } else {
@@ -88,43 +81,7 @@ public class AuthentificationController implements Initializable {
     }
 
 
-    public int connexionMatched() {
-        DataBase database = new DataBase();
-        boolean accountFound = false;
-        boolean admin = false;
-        String idE = "";
-        try {
-            ResultSet resultsV = database.getIdVeterinaire();
-            ResultSet results = database.getEmployes();
-            while (results.next()) {
-                if (results.getString("login").equals(loginField.getText())
-                        && results.getString("mdp").equals(passwordField.getText())) {
-                    while(resultsV.next()){
-                        if(results.getString("idE").equals(resultsV.getString("idV"))){
-                            admin = true;
-                        }
-                    }
-                    accountFound = true;
-                    idE = results.getString("idE");
-                } else if (results.getString("login").equals(loginField.getText())
-                        && results.getString("mdp").equals(passwordField.getText())) {
-                    accountFound = true;
-                    idE = results.getString("idE");
-                }
-                resultsV.beforeFirst();
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-
-        if (accountFound && admin) {
-            database.setLog(idE,"Connexion");
-            return 2;
-        } else if (accountFound && !admin) {
-            database.setLog(idE,"Connexion");
-            return 1;
-        } else {
-            return 0;
-        }
+    private int connexionMatched() {
+        return 0;
     }
 }

@@ -1,11 +1,14 @@
 package pt4p1ae1.veto.GestionAnimaux;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
 import pt4p1ae1.veto.ControllerSample;
+import pt4p1ae1.veto.DataBase;
 
+import javax.xml.crypto.Data;
 import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -34,11 +37,12 @@ public class InscriptionAnimalController extends ControllerSample implements Ini
     @FXML
     private TextField furtherInformationsTextField;
 
+    //TODO Remplir les ComboBox
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.start();
     }
-    //TODO Remplir les ComboBox
+
 
     @FXML
     private void onActionBackToAnimalBtn() {
@@ -48,5 +52,25 @@ public class InscriptionAnimalController extends ControllerSample implements Ini
     @FXML
     private void onActionRegisterBtn() {
         //TODO Inscrire l'animal et rediriger vers la liste des animaux
+        DataBase dataBase = new DataBase();
+
+        boolean male = true;
+        if(femaleRadioBtn.isSelected()){
+            male=false;
+        }
+
+        dataBase.insertAnimal(
+                nameTextField.getText(),
+                speciesComboBox.getValue().toString(),
+                raceComboBox.getValue().toString(),
+                male?"male":"femelle",
+                birthDateTextField.getText(),
+                weightTextField.getText(),
+                furtherInformationsTextField.getText());
+
+
+    }
+
+    public void onActionBackToAnimalsBtn(ActionEvent actionEvent) {
     }
 }

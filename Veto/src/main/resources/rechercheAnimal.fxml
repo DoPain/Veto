@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="751.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.181" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt4p1ae1.veto.GestionAnimaux.DossierAnimalController">
+    <top>
+        <Pane fx:id="pane" BorderPane.alignment="CENTER">
+            <children>
+                <Button alignment="CENTER_RIGHT" contentDisplay="GRAPHIC_ONLY" ellipsisString="" graphicTextGap="1.0" layoutX="1192.0" mnemonicParsing="false" onAction="#onActionDisconnectBTN" prefHeight="75.0" prefWidth="70.0">
+                    <graphic>
+                        <ImageView fitHeight="75.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@img/power.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Text layoutX="565.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gestion Animaux">
+                    <font>
+                        <Font size="19.0" />
+                    </font>
+                </Text>
+            </children>
+        </Pane>
+    </top>
+    <left>
+        <fx:include fx:id="vbox" source="VBoxButton.fxml"></fx:include>
+   </left>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="84.0" layoutY="39.0" text="Nom du propriétaire :" />
+            <TextField fx:id="nomProprioField" layoutX="234.0" layoutY="34.0" />
+            <Label layoutX="536.0" layoutY="39.0" text="Espèce :" />
+            <TextField fx:id="especeField" layoutX="603.0" layoutY="34.0" />
+            <Label layoutX="137.0" layoutY="92.0" text="Nom animal :" />
+            <TextField fx:id="nomAnimalField" layoutX="234.0" layoutY="87.0" />
+            <Label layoutX="550.0" layoutY="92.0" text="Race :" />
+            <TextField fx:id="raceField" layoutX="603.0" layoutY="87.0" />
+            <ScrollPane layoutX="84.0" layoutY="160.0" prefHeight="468.0" prefWidth="1013.0">
+              <content>
+                  <TableView prefHeight="461.0" prefWidth="1012.0">
+                      <columns>
+                          <TableColumn fx:id="nomProprioColumn" minWidth="30.0" prefWidth="161.0" text="Nom propriétaire" />
+                          <TableColumn fx:id="nomAnimalColumn" minWidth="30.0" prefWidth="161.0" text="Nom animal" />
+                          <TableColumn fx:id="nomEspeceColumn" minWidth="24.0" prefWidth="132.0" text="Espèce" />
+                          <TableColumn fx:id="nomRaceColumn" minWidth="0.0" prefWidth="114.0" text="Race" />
+                          <TableColumn fx:id="ageAnimal" minWidth="29.0" prefWidth="54.0" text="Age" />
+                          <TableColumn fx:id="poidsAnimal" minWidth="30.0" prefWidth="126.0" text="Poids" />
+                          <TableColumn fx:id="nextMeeting" minWidth="30.0" prefWidth="247.0" text="Prochain rendez-vous" />
+                      </columns>
+                  </TableView>
+              </content>
+            </ScrollPane>
+            <Button fx:id="filterButton" layoutX="909.0" layoutY="87.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="75.0" text="Filtrer" />
+            <Button fx:id="firstButton" layoutX="84.0" layoutY="628.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="145.0" text="First" />
+            <Button fx:id="previousButton" layoutX="229.0" layoutY="628.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="145.0" text="Previous" />
+            <Button fx:id="nextButton" layoutX="374.0" layoutY="628.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="145.0" text="Next" />
+            <Button fx:id="lastButton" layoutX="518.0" layoutY="628.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="145.0" text="Last" />
+            <Button fx:id="insertButton" layoutX="663.0" layoutY="628.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="145.0" text="Insert" />
+            <Button fx:id="editButton" layoutX="808.0" layoutY="628.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="145.0" text="Edit" />
+            <Button fx:id="deleteButton" layoutX="953.0" layoutY="628.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="145.0" text="Delete" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
