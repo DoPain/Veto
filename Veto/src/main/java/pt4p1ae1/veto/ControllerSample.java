@@ -36,7 +36,7 @@ public class ControllerSample extends ControllerVbox implements Initializable {
     @FXML
     private void onActionDisconnectBTN() throws IOException {
         Stage primaryStage = (Stage) pane.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/authentification.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/authentification.fxml"));
         primaryStage.setScene(new Scene(root, 700, 400));
         primaryStage.centerOnScreen();
     }

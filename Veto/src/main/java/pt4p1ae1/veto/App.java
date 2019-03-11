@@ -47,7 +47,7 @@ public final class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/agendaPage.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/authentification.fxml"));
         primaryStage.setTitle("nameToChoose");
         primaryStage.setScene(new Scene(root, 700, 400));
         primaryStage.show();
