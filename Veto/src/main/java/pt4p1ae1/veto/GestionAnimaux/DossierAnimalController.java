@@ -12,7 +12,7 @@ import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class DossierAnimalController extends ControllerSample implements Initializable {
+public class DossierAnimalController /*extends ControllerSample*/ implements Initializable {
 
     @FXML
     private Button backToAnimalsBtn;
