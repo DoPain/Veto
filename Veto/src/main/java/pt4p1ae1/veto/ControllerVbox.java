@@ -42,12 +42,12 @@ public class ControllerVbox implements Initializable {
     }
     @FXML
     public void onActionAnimauxBTN() throws IOException {
-        creatBtn("/rechercheAnimal.fxml");
+        creatBtn("/fxml/rechercheAnimal.fxml");
     }
 
     @FXML
     public void onActionClientBTN() throws IOException {
-        creatBtn("/pageClient.fxml");
+        creatBtn("/dossierClient.fxml");
     }
 
     @FXML
