@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ControllerSample implements Initializable {
+public class ControllerSample extends ControllerVbox implements Initializable {
 
     @FXML
     private Button btn_home;
@@ -35,7 +35,7 @@ public class ControllerSample implements Initializable {
     protected void start() {
         BackgroundFill fill = new BackgroundFill(Color.web("#2E64FE"), CornerRadii.EMPTY, Insets.EMPTY);
         pane.setBackground(new Background(fill));
-        if (Utils.admin == false ) {
+        if (Utils.admin == false) {
             btn_log.setVisible(false);
         }
     }
@@ -46,30 +46,5 @@ public class ControllerSample implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("/authentification.fxml"));
         primaryStage.setScene(new Scene(root, 700, 400));
         primaryStage.centerOnScreen();
-    }
-
-    @FXML
-    public void onActionAnimauxBTN() throws IOException {
-        creatBtn("/rechercheAnimal.fxml");
-    }
-
-    @FXML
-    public void onActionClientBTN() throws IOException {
-        creatBtn("/rechergeClient.fxml");
-    }
-
-    @FXML
-    public void onActionOrdonnanceBTN() throws IOException {
-        creatBtn("/pageOrdonnance.fxml");
-    }
-
-    @FXML
-    public void onActionStockBTN() throws IOException {
-        creatBtn("/pageStock.fxml");
-    }
-
-    @FXML
-    public void onActionLogBTN() throws IOException {
-        creatBtn("/pageLog.fxml");
     }
 }
