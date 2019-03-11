@@ -21,11 +21,7 @@ import java.util.ResourceBundle;
 public class ControllerSample extends ControllerVbox implements Initializable {
 
     @FXML
-    private Button btn_home;
-    @FXML
     private Pane pane;
-    @FXML
-    private Button btn_log;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -35,9 +31,6 @@ public class ControllerSample extends ControllerVbox implements Initializable {
     protected void start() {
         BackgroundFill fill = new BackgroundFill(Color.web("#2E64FE"), CornerRadii.EMPTY, Insets.EMPTY);
         pane.setBackground(new Background(fill));
-        if (Utils.admin == false) {
-            btn_log.setVisible(false);
-        }
     }
 
     @FXML
