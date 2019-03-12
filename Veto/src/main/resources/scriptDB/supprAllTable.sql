@@ -14,4 +14,3 @@ DROP TABLE Employe;
 DROP TABLE Veterinaire;
 DROP TABLE Personne;
 DROP TABLE Espece;
-DROP TABLE Ville;

@@ -207,13 +207,14 @@ CREATE INDEX I_FK_Race_Espece
 
 CREATE TABLE IF NOT EXISTS Animal
 (
-  id            BIGINT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  idRace        BIGINT(4)             NOT NULL,
-  idClient      BIGINT(4)             NOT NULL,
-  nom           CHAR(32)              NOT NULL,
-  sexe          CHAR(1),
-  poids         REAL(4, 2),
-  dateNaissance DATETIME
+  id                BIGINT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  idRace            BIGINT(4)             NOT NULL,
+  idClient          BIGINT(4)             NOT NULL,
+  nom               CHAR(32)              NOT NULL,
+  sexe              CHAR(1),
+  poids             REAL(4, 2),
+  autreInformations LONGTEXT,
+  dateNaissance     DATETIME
 );
 
 # -----------------------------------------------------------------------------
