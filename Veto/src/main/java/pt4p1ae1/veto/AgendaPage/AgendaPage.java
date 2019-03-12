@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.layout.BorderPane;
 import jfxtras.icalendarfx.VCalendar;
+import jfxtras.scene.control.agenda.Agenda;
 import jfxtras.scene.control.agenda.icalendar.ICalendarAgenda;
 import pt4p1ae1.veto.ControllerSample;
 
@@ -35,7 +36,7 @@ public class AgendaPage extends ControllerSample implements Initializable{
         datePicker.setValue(agendaHome.getDisplayedLocalDateTime().toLocalDate());
         BorderPane.setCenter(agendaHome);
 
-        super.start();
+       super.start();
 
         increase_btn.setOnAction(event -> {
             LocalDateTime newLocalDateTime = agendaHome.getDisplayedLocalDateTime().plus(Period.ofWeeks(1));
@@ -54,8 +55,7 @@ public class AgendaPage extends ControllerSample implements Initializable{
             agendaHome.setDisplayedLocalDateTime(newLocalDateTime);
             System.out.println(vCalendar.toString());
         });
-        //TODO use this method to save events in file or base and use this information to fill the vCalendar
+        //TODO use this method to save events in file or base and use this information to fill the vCalenda
 
     }
-
 }
