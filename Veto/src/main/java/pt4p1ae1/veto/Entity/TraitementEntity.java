@@ -8,13 +8,12 @@ import java.util.Objects;
 @Table(name = "Traitement", schema = "PT_S4P1A_E1", catalog = "")
 public class TraitementEntity {
     private long id;
-    private long idOrdonnance;
+    private long idAnimal;
+    private String maladie;
+    private String soin;
     private Date dateDebut;
-    private int dureeJour;
-    private String produitPrescrit;
-    private String posologie;
-    private String methodeAdministration;
-    private OrdonnanceEntity ordonnanceByIdOrdonnance;
+    private Date dateFin;
+    private AnimalEntity animalByIdAnimal;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -27,13 +26,33 @@ public class TraitementEntity {
     }
 
     @Basic
-    @Column(name = "idOrdonnance", nullable = false)
-    public long getIdOrdonnance() {
-        return idOrdonnance;
+    @Column(name = "idAnimal", nullable = false)
+    public long getIdAnimal() {
+        return idAnimal;
     }
 
-    public void setIdOrdonnance(long idOrdonnance) {
-        this.idOrdonnance = idOrdonnance;
+    public void setIdAnimal(long idAnimal) {
+        this.idAnimal = idAnimal;
+    }
+
+    @Basic
+    @Column(name = "maladie", nullable = false, length = 255)
+    public String getMaladie() {
+        return maladie;
+    }
+
+    public void setMaladie(String maladie) {
+        this.maladie = maladie;
+    }
+
+    @Basic
+    @Column(name = "soin", nullable = true, length = 255)
+    public String getSoin() {
+        return soin;
+    }
+
+    public void setSoin(String soin) {
+        this.soin = soin;
     }
 
     @Basic
@@ -47,43 +66,13 @@ public class TraitementEntity {
     }
 
     @Basic
-    @Column(name = "dureeJour", nullable = false)
-    public int getDureeJour() {
-        return dureeJour;
+    @Column(name = "dateFin", nullable = true)
+    public Date getDateFin() {
+        return dateFin;
     }
 
-    public void setDureeJour(int dureeJour) {
-        this.dureeJour = dureeJour;
-    }
-
-    @Basic
-    @Column(name = "produitPrescrit", nullable = false, length = 32)
-    public String getProduitPrescrit() {
-        return produitPrescrit;
-    }
-
-    public void setProduitPrescrit(String produitPrescrit) {
-        this.produitPrescrit = produitPrescrit;
-    }
-
-    @Basic
-    @Column(name = "posologie", nullable = false, length = 32)
-    public String getPosologie() {
-        return posologie;
-    }
-
-    public void setPosologie(String posologie) {
-        this.posologie = posologie;
-    }
-
-    @Basic
-    @Column(name = "methodeAdministration", nullable = false, length = 32)
-    public String getMethodeAdministration() {
-        return methodeAdministration;
-    }
-
-    public void setMethodeAdministration(String methodeAdministration) {
-        this.methodeAdministration = methodeAdministration;
+    public void setDateFin(Date dateFin) {
+        this.dateFin = dateFin;
     }
 
     @Override
@@ -92,26 +81,25 @@ public class TraitementEntity {
         if (o == null || getClass() != o.getClass()) return false;
         TraitementEntity that = (TraitementEntity) o;
         return id == that.id &&
-                idOrdonnance == that.idOrdonnance &&
-                dureeJour == that.dureeJour &&
+                idAnimal == that.idAnimal &&
+                Objects.equals(maladie, that.maladie) &&
+                Objects.equals(soin, that.soin) &&
                 Objects.equals(dateDebut, that.dateDebut) &&
-                Objects.equals(produitPrescrit, that.produitPrescrit) &&
-                Objects.equals(posologie, that.posologie) &&
-                Objects.equals(methodeAdministration, that.methodeAdministration);
+                Objects.equals(dateFin, that.dateFin);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, idOrdonnance, dateDebut, dureeJour, produitPrescrit, posologie, methodeAdministration);
+        return Objects.hash(id, idAnimal, maladie, soin, dateDebut, dateFin);
     }
 
     @ManyToOne
-    @JoinColumn(name = "idOrdonnance", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
-    public OrdonnanceEntity getOrdonnanceByIdOrdonnance() {
-        return ordonnanceByIdOrdonnance;
+    @JoinColumn(insertable = false, updatable = false, name = "idAnimal", referencedColumnName = "id", nullable = false)
+    public AnimalEntity getAnimalByIdAnimal() {
+        return animalByIdAnimal;
     }
 
-    public void setOrdonnanceByIdOrdonnance(OrdonnanceEntity ordonnanceByIdOrdonnance) {
-        this.ordonnanceByIdOrdonnance = ordonnanceByIdOrdonnance;
+    public void setAnimalByIdAnimal(AnimalEntity animalByIdAnimal) {
+        this.animalByIdAnimal = animalByIdAnimal;
     }
 }

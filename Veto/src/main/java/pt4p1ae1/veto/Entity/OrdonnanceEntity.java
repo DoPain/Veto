@@ -16,7 +16,6 @@ public class OrdonnanceEntity {
     private Collection<AppartenirEntity> appartenirsById;
     private AnimalEntity animalByIdAnimal;
     private VeterinaireEntity veterinaireByIdVeterinaire;
-    private Collection<TraitementEntity> traitementsById;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -95,7 +94,7 @@ public class OrdonnanceEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "idAnimal", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(insertable = false, updatable = false, name = "idAnimal", referencedColumnName = "id", nullable = false)
     public AnimalEntity getAnimalByIdAnimal() {
         return animalByIdAnimal;
     }
@@ -105,21 +104,12 @@ public class OrdonnanceEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "idVeterinaire", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(insertable = false, updatable = false, name = "idVeterinaire", referencedColumnName = "id", nullable = false)
     public VeterinaireEntity getVeterinaireByIdVeterinaire() {
         return veterinaireByIdVeterinaire;
     }
 
     public void setVeterinaireByIdVeterinaire(VeterinaireEntity veterinaireByIdVeterinaire) {
         this.veterinaireByIdVeterinaire = veterinaireByIdVeterinaire;
-    }
-
-    @OneToMany(mappedBy = "ordonnanceByIdOrdonnance")
-    public Collection<TraitementEntity> getTraitementsById() {
-        return traitementsById;
-    }
-
-    public void setTraitementsById(Collection<TraitementEntity> traitementsById) {
-        this.traitementsById = traitementsById;
     }
 }
