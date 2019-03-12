@@ -10,8 +10,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import org.hibernate.Session;
-import pt4p1ae1.veto.App;
 import pt4p1ae1.veto.DAO.DaoFactory;
 import pt4p1ae1.veto.DAO.EntityDao;
 import pt4p1ae1.veto.Entity.EmployeEntity;
@@ -27,9 +25,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class AuthentificationController implements Initializable {
-
-    @FXML
-    private AnchorPane rootPane;
 
     @FXML
     private TextField loginField;

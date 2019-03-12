@@ -15,7 +15,9 @@ public class DaoFactory {
             @Override
             public void saveOrUpdate(T entity) {
                 Session session = App.getSession();
+                session.beginTransaction();
                 session.saveOrUpdate(entity);
+                session.getTransaction().commit();
                 session.close();
             }
 
