@@ -12,10 +12,12 @@ public class Utils {
     public static EmployeEntity actualEmploye;
 
     public static void createLog(String action) {
-        LogEntity log = new LogEntity();
-        log.setAction(action);
-        log.setTemps(Timestamp.from(Instant.now()));
-        log.setIdEmploye(actualEmploye.getId());
-        DaoFactory.getDaoFor(LogEntity.class).saveOrUpdate(log);
+        new Thread(() -> {
+            LogEntity log = new LogEntity();
+            log.setAction(action);
+            log.setTemps(Timestamp.from(Instant.now()));
+            log.setIdEmploye(actualEmploye.getId());
+            DaoFactory.getDaoFor(LogEntity.class).saveOrUpdate(log);
+        }).start();
     }
 }
