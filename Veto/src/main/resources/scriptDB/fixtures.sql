@@ -253,3 +253,13 @@ CURDATE(),
 		AND P.prenom = 'Madame'), 
 CURDATE(),
 "Ordonnance10");
+
+INSERT INTO Traitement (idAnimal, maladie, soin, dateDebut, dateFin) VALUES
+((SELECT A.id FROM Animal A
+		INNER JOIN Race R ON R.id = A.idRace
+		INNER JOIN Client C ON C.id = A.idClient
+		INNER JOIN Personne P ON P.id = C.id
+		WHERE R.nom = 'Balinais'
+		AND P.nom = 'TestC4'
+		AND P.prenom = 'Client4'
+		AND A.nom = 'Choupette'), "Patte Cassée", "Plâtre", CURDATE(), null);
