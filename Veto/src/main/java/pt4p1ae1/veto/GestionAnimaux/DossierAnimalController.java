@@ -13,6 +13,7 @@ import pt4p1ae1.veto.ControllerSample;
 import pt4p1ae1.veto.DAO.DaoFactory;
 import pt4p1ae1.veto.DAO.EntityDao;
 import pt4p1ae1.veto.Entity.AnimalEntity;
+import pt4p1ae1.veto.Utils;
 
 import javax.swing.table.TableColumn;
 import javax.swing.text.TableView;
@@ -84,7 +85,7 @@ public class DossierAnimalController extends ControllerSample implements Initial
 
         //Mettre le nom de l'animal dans animalNameLabel
         daoAnimal = DaoFactory.getDaoFor(AnimalEntity.class);
-        animalNameLabel.setText(daoAnimal.findById((long)resources.getObject("idAnimal")).getNom());
+        animalNameLabel.setText(Utils.currentAnimal.getNom());
 
         //TODO Afficher détails de l'animal dans resumeAnimalVBox
 
