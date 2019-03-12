@@ -6,6 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
@@ -13,14 +15,14 @@ import pt4p1ae1.veto.ControllerSample;
 import pt4p1ae1.veto.DAO.DaoFactory;
 import pt4p1ae1.veto.DAO.EntityDao;
 import pt4p1ae1.veto.Entity.AnimalEntity;
+import pt4p1ae1.veto.Entity.TraitementEntity;
 import pt4p1ae1.veto.Utils;
 
-import javax.swing.table.TableColumn;
-import javax.swing.text.TableView;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.List;
 
 public class DossierAnimalController extends ControllerSample implements Initializable {
 
@@ -53,14 +55,6 @@ public class DossierAnimalController extends ControllerSample implements Initial
     @FXML
     private TableColumn descriptionCareColumn;
     @FXML
-    private Button firstAnmialBtn;
-    @FXML
-    private Button previousAnimalBtn;
-    @FXML
-    private Button nextAnimalBtn;
-    @FXML
-    private Button lastAnimalBtn;
-    @FXML
     private Button insertCareBtn;
     @FXML
     private Button editCareBtn;
@@ -71,13 +65,14 @@ public class DossierAnimalController extends ControllerSample implements Initial
 
     //historique des maladies
     @FXML
-    private TableView diseaseHistoryList;
+    private TableView diseaseHistory;
     @FXML
     private TableColumn reasonDiseaseColumn;
     @FXML
     private TableColumn dateDiseaseColumn;
 
     EntityDao<AnimalEntity> daoAnimal;
+    EntityDao<TraitementEntity> daoTraitement;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -85,15 +80,20 @@ public class DossierAnimalController extends ControllerSample implements Initial
 
         //Mettre le nom de l'animal dans animalNameLabel
         daoAnimal = DaoFactory.getDaoFor(AnimalEntity.class);
+        daoTraitement = DaoFactory.getDaoFor(TraitementEntity.class);
         animalNameLabel.setText(Utils.currentAnimal.getNom());
 
         //TODO Afficher détails de l'animal dans resumeAnimalVBox
 
-        //TODO Afficher historique des maladies dans diseaseHistoryList
-        daoAnimal.findById((long)resources.getObject("idAnimal")).get
-        diseaseHistoryList.set
 
-        //TODO Afficher liste des soins dans careList
+
+        //TODO Afficher historique des maladies dans diseaseHistoryList
+        List<TraitementEntity> traitementList = daoTraitement.findAll();
+        for (TraitementEntity traitement : traitementList) {
+            if(traitement.getIdAnimal() == Utils.currentAnimal.getId()) {
+                //ajouter dans diseaseHistory
+            }
+        }
     }
 
     @FXML

@@ -139,7 +139,7 @@ public class PersonneEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "idVille", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(insertable = false, updatable = false, name = "idVille", referencedColumnName = "id", nullable = false)
     public VilleEntity getVilleByIdVille() {
         return villeByIdVille;
     }

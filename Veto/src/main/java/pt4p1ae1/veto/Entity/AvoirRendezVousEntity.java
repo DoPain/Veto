@@ -95,7 +95,7 @@ public class AvoirRendezVousEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "idClient", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(insertable = false, updatable = false, name = "idClient", referencedColumnName = "id", nullable = false)
     public ClientEntity getClientByIdClient() {
         return clientByIdClient;
     }
@@ -105,7 +105,7 @@ public class AvoirRendezVousEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "idVeterinaire", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(insertable = false, updatable = false, name = "idVeterinaire", referencedColumnName = "id", nullable = false)
     public VeterinaireEntity getVeterinaireByIdVeterinaire() {
         return veterinaireByIdVeterinaire;
     }

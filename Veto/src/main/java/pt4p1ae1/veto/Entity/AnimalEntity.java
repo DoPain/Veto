@@ -14,10 +14,12 @@ public class AnimalEntity {
     private String nom;
     private String sexe;
     private Double poids;
+    private String autreInformations;
     private Timestamp dateNaissance;
     private RaceEntity raceByIdRace;
     private ClientEntity clientByIdClient;
     private Collection<OrdonnanceEntity> ordonnancesById;
+    private Collection<TraitementEntity> traitementsById;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -80,6 +82,16 @@ public class AnimalEntity {
     }
 
     @Basic
+    @Column(name = "autreInformations", nullable = true, length = -1)
+    public String getAutreInformations() {
+        return autreInformations;
+    }
+
+    public void setAutreInformations(String autreInformations) {
+        this.autreInformations = autreInformations;
+    }
+
+    @Basic
     @Column(name = "dateNaissance", nullable = true)
     public Timestamp getDateNaissance() {
         return dateNaissance;
@@ -100,16 +112,17 @@ public class AnimalEntity {
                 Objects.equals(nom, that.nom) &&
                 Objects.equals(sexe, that.sexe) &&
                 Objects.equals(poids, that.poids) &&
+                Objects.equals(autreInformations, that.autreInformations) &&
                 Objects.equals(dateNaissance, that.dateNaissance);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, idRace, idClient, nom, sexe, poids, dateNaissance);
+        return Objects.hash(id, idRace, idClient, nom, sexe, poids, autreInformations, dateNaissance);
     }
 
     @ManyToOne
-    @JoinColumn(name = "idRace", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(insertable = false, updatable = false, name = "idRace", referencedColumnName = "id", nullable = false)
     public RaceEntity getRaceByIdRace() {
         return raceByIdRace;
     }
@@ -119,7 +132,7 @@ public class AnimalEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "idClient", referencedColumnName = "id", insertable = false, updatable = false, nullable = false)
+    @JoinColumn(insertable = false, updatable = false, name = "idClient", referencedColumnName = "id", nullable = false)
     public ClientEntity getClientByIdClient() {
         return clientByIdClient;
     }
@@ -135,5 +148,14 @@ public class AnimalEntity {
 
     public void setOrdonnancesById(Collection<OrdonnanceEntity> ordonnancesById) {
         this.ordonnancesById = ordonnancesById;
+    }
+
+    @OneToMany(mappedBy = "animalByIdAnimal")
+    public Collection<TraitementEntity> getTraitementsById() {
+        return traitementsById;
+    }
+
+    public void setTraitementsById(Collection<TraitementEntity> traitementsById) {
+        this.traitementsById = traitementsById;
     }
 }

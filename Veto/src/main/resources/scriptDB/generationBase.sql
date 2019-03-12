@@ -256,13 +256,13 @@ CREATE TABLE IF NOT EXISTS Produit
 
 CREATE TABLE IF NOT EXISTS Traitement
 (
-  id                    BIGINT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  idOrdonnance          BIGINT(4)             NOT NULL,
-  dateDebut             DATE                  NOT NULL,
-  dureeJour             INTEGER(2)            NOT NULL,
-  produitPrescrit       CHAR(32)              NOT NULL,
-  posologie             CHAR(32)              NOT NULL,
-  methodeAdministration CHAR(32)              NOT NULL
+  id        BIGINT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  idAnimal  BIGINT(4)             NOT NULL,
+  maladie   CHAR(255)             NOT NULL,
+  soin      CHAR(255),
+  dateDebut DATE                  NOT NULL,
+  dateFin   DATE
+
 );
 
 # -----------------------------------------------------------------------------
@@ -271,7 +271,7 @@ CREATE TABLE IF NOT EXISTS Traitement
 
 
 CREATE INDEX I_FK_Traitement_Ordonnance
-  ON Traitement (idOrdonnance ASC);
+  ON Traitement (id ASC);
 
 # -----------------------------------------------------------------------------
 #       TABLE : Employe
@@ -449,8 +449,8 @@ ALTER TABLE AvoirRendezVous
     REFERENCES Veterinaire (id);
 
 ALTER TABLE Traitement
-  ADD FOREIGN KEY FK_Traitement_Ordonnance (idOrdonnance)
-    REFERENCES Ordonnance (id);
+  ADD FOREIGN KEY FK_Traitement_Animal (idAnimal)
+    REFERENCES Animal (id);
 
 
 ALTER TABLE Appartenir
