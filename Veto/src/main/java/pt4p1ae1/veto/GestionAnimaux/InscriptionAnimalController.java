@@ -1,7 +1,6 @@
 package pt4p1ae1.veto.GestionAnimaux;
 
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;

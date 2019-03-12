@@ -2,20 +2,29 @@ package pt4p1ae1.veto.GestionAnimaux;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.scene.control.Button;
 import pt4p1ae1.veto.ControllerSample;
+import pt4p1ae1.veto.DAO.DaoFactory;
+import pt4p1ae1.veto.DAO.EntityDao;
+import pt4p1ae1.veto.Entity.AnimalEntity;
 
 import javax.swing.table.TableColumn;
 import javax.swing.text.TableView;
 import java.awt.*;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class DossierAnimalController /*extends ControllerSample*/ implements Initializable {
+public class DossierAnimalController extends ControllerSample implements Initializable {
 
     @FXML
-    private Button backToAnimalsBtn;
+    private Button backToAnimals;
     @FXML
     private Label animalNameLabel;
     @FXML
@@ -67,17 +76,32 @@ public class DossierAnimalController /*extends ControllerSample*/ implements Ini
     @FXML
     private TableColumn dateDiseaseColumn;
 
+    EntityDao<AnimalEntity> daoAnimal;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.start();
+
+        //Mettre le nom de l'animal dans animalNameLabel
+        daoAnimal = DaoFactory.getDaoFor(AnimalEntity.class);
+        animalNameLabel.setText(daoAnimal.findById((long)resources.getObject("idAnimal")).getNom());
+
+        //TODO Afficher détails de l'animal dans resumeAnimalVBox
+
+        //TODO Afficher historique des maladies dans diseaseHistoryList
+        daoAnimal.findById((long)resources.getObject("idAnimal")).get
+        diseaseHistoryList.set
+
+        //TODO Afficher liste des soins dans careList
     }
-    //TODO Mettre le nom de l'animal dans animalNameLabel
-    //TODO Afficher historique des maladies dans diseaseHistoryList
-    //TODO Afficher liste des soins dans careList
 
     @FXML
-    private void onActionBackToAnimalBtn() {
+    private void onActionBackToAnimalBtn() throws IOException {
         //TODO Retour vers la liste des animaux
+        Stage primaryStage = (Stage) backToAnimals.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/rechercheAnimal.fxml"));
+        primaryStage.setScene(new Scene(root, 1280, 720));
+        primaryStage.centerOnScreen();
     }
 
     //boutons du bas
@@ -90,6 +114,7 @@ public class DossierAnimalController /*extends ControllerSample*/ implements Ini
     @FXML
     private void onActionAnimalDeleteBtn() {
         //TODO Supprimer l'animal (afficher fenêtre de confirmation)
+        daoAnimal.
     }
 
     @FXML
