@@ -1,10 +1,5 @@
 package pt4p1ae1.veto.ConnectionMenu.Authentification;
 
-import com.google.inject.Guice;
-import com.google.inject.Inject;
-import com.google.inject.Injector;
-import com.google.inject.persist.PersistService;
-import com.google.inject.persist.jpa.JpaPersistModule;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,19 +12,19 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import pt4p1ae1.veto.DAO.DaoFactory;
 import pt4p1ae1.veto.DAO.EntityDao;
-import pt4p1ae1.veto.Entity.AnimalEntity;
 import pt4p1ae1.veto.Entity.EmployeEntity;
+import pt4p1ae1.veto.Entity.LogEntity;
+import pt4p1ae1.veto.Entity.VeterinaireEntity;
 import pt4p1ae1.veto.Utils;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class AuthentificationController implements Initializable {
-
-    @FXML
-    private AnchorPane rootPane;
 
     @FXML
     private TextField loginField;
@@ -40,10 +35,30 @@ public class AuthentificationController implements Initializable {
     @FXML
     private Button signInButton;
 
+    private final EntityDao<EmployeEntity> employeDao = DaoFactory.getDaoFor(EmployeEntity.class);
+    private final EntityDao<VeterinaireEntity> veterinaireDao = DaoFactory.getDaoFor(VeterinaireEntity.class);
+    private final EntityDao<LogEntity> logDao = DaoFactory.getDaoFor(LogEntity.class);
+    private List<EmployeEntity> employeList;
+    private List<VeterinaireEntity> veterinaireList;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        EntityDao<EmployeEntity> dao = DaoFactory.getDaoFor(EmployeEntity.class);
-        dao.findAll().forEach(employe -> System.out.println(employe.getId() + " -> " + employe.getLogin()));
+        employeList = employeDao.findAll();
+        veterinaireList = veterinaireDao.findAll();
+        loginField.setOnKeyPressed(ke -> {
+            if (ke.getCode() == KeyCode.ENTER) {
+                passwordField.requestFocus();
+            }
+        });
+        passwordField.setOnKeyPressed(ke-> {
+            if (ke.getCode() == KeyCode.ENTER) {
+                try {
+                    signInButtonPushed();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     public void signInButtonPushed() throws IOException {
@@ -64,7 +79,7 @@ public class AuthentificationController implements Initializable {
             if (returnInt == 1) {
                 Utils.admin = false;
             } else {
-                Utils.admin = false;
+                Utils.admin = true;
             }
             Stage primaryStage = (Stage) signInButton.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/home.fxml"));
@@ -82,6 +97,36 @@ public class AuthentificationController implements Initializable {
 
 
     private int connexionMatched() {
-        return 0;
+        // accountBoolean [0] == accountFound
+        // accountBoolean [1] == adminAccount
+        final boolean[] accountBoolean = {false, false};
+        final String login = loginField.getText();
+        final String mdp = passwordField.getText();
+        employeList.forEach(employeEntity -> {
+            if (login.equals(employeEntity.getLogin()) &&
+            mdp.equals(employeEntity.getMotDePasse())) {
+                veterinaireList.forEach(veterinaireEntity -> {
+                    if (veterinaireEntity.getId() == employeEntity.getId()) {
+                        accountBoolean[1] = true;
+                    }
+
+                });
+                accountBoolean[0] = true;
+
+                LogEntity log = new LogEntity();
+                log.setAction("Connexion");
+                log.setIdEmploye(employeEntity.getId());
+                log.setTemps(Timestamp.from(Instant.now()));
+                logDao.saveOrUpdate(log);
+            }
+        });
+
+        if (accountBoolean[0] && accountBoolean[1]){
+            return 2;
+        } else if (accountBoolean[0]) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }

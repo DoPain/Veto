@@ -1,4 +1,4 @@
-/*INSERT INTO Personne (idVille, nom, prenom, dateNaissance, adresse, mail, telephone) VALUES
+INSERT INTO Personne (idVille, nom, prenom, dateNaissance, adresse, mail, telephone) VALUES
 ((SELECT id FROM Ville WHERE Ville.ville_nom_reel = 'Ozan'), 'TestE1', 'Employe1', DATE("1999-12-23"), '45 Route de Employe1 34530 Mutch', 'emp1.test@email.com', '06.01.01.01.01'),
 ((SELECT id FROM Ville WHERE Ville.ville_nom_reel = 'Ozan'), 'TestE2', 'Employe2', DATE("1999-12-23"), '45 Route de Employe2 34530 Mutch', 'emp2.test@email.com', '06.01.01.01.02'),
 ((SELECT id FROM Ville WHERE Ville.ville_nom_reel = 'Ozan'), 'TestE3', 'Employe3', DATE("1999-12-23"), '45 Route de Employe3 34530 Mutch', 'emp3.test@email.com', '06.01.01.01.03'),
@@ -12,7 +12,8 @@
 INSERT INTO Employe (id, login, motDePasse, dateDebutContrat, salaire) VALUES
 ((SELECT id FROM Personne WHERE Personne.nom = 'TestE1'), 'empTest1', 'test', DATE("2015-10-23"), 2340.35),
 ((SELECT id FROM Personne WHERE Personne.nom = 'TestE2'), 'empTest2', 'test', DATE("2004-12-10"), 15000.34),
-((SELECT id FROM Personne WHERE Personne.nom = 'TestE3'), 'empTest3', 'test', DATE("2013-01-3") , null);
+((SELECT id FROM Personne WHERE Personne.nom = 'TestE3'), 'empTest3', 'test', DATE("2013-01-3") , null),
+((SELECT id FROM Personne WHERE Personne.nom = 'Veterinaire'), 'vetoTest', 'test', DATE("2013-01-3") , null);
 
 INSERT INTO Client (id) VALUES
 ((SELECT id FROM Personne WHERE Personne.nom = "TestC1")),
@@ -62,7 +63,7 @@ INSERT INTO Race (idEspece, nom) VALUES
 ((SELECT id FROM Espece WHERE Espece.nom = 'Hamster'),'Hamster de Syrie'),
 ((SELECT id FROM Espece WHERE Espece.nom = 'Hamster'),'Hamster d\'Europe'),
 ((SELECT id FROM Espece WHERE Espece.nom = 'Hamster'),'Hamster de Campbell'),
-((SELECT id FROM Espece WHERE Espece.nom = 'Hamster'),'Hamster hybride');*/
+((SELECT id FROM Espece WHERE Espece.nom = 'Hamster'),'Hamster hybride');
 
 INSERT INTO Animal (idRace, idClient, nom, dateNaissance) VALUES
 ((SELECT id FROM Race WHERE Race.nom = 'Japonais'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "TestC1"), 'PamPam', DATE("2007-10-23")),
