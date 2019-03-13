@@ -8,14 +8,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import pt4p1ae1.veto.ControllerSample;
 import pt4p1ae1.veto.DAO.DaoFactory;
 import pt4p1ae1.veto.DAO.EntityDao;
-import pt4p1ae1.veto.Entity.AnimalEntity;
-import pt4p1ae1.veto.Entity.TraitementEntity;
+import pt4p1ae1.veto.Entity.*;
 import pt4p1ae1.veto.Utils;
 
 import java.awt.*;
@@ -31,7 +29,7 @@ public class DossierAnimalController extends ControllerSample implements Initial
     @FXML
     private Label animalNameLabel;
     @FXML
-    private VBox resumeAnimalVBox;
+    private Label resumeAnimalLabel;
 
     //les boutons du bas
     @FXML
@@ -39,52 +37,62 @@ public class DossierAnimalController extends ControllerSample implements Initial
     @FXML
     private Button animalDeleteBtn;
     @FXML
-    private Button diseaseAddBtn;
-    @FXML
-    private Button diseaseModifyBtn;
-    @FXML
     private Button prescriptionGenerateBtn;
     @FXML
     private Button billGenerateBtn;
 
-    //la liste des soins et ses boutons de navigation
-    @FXML
-    private TableView careList;
-    @FXML
-    private TableColumn numCareColumn;
-    @FXML
-    private TableColumn descriptionCareColumn;
-    @FXML
-    private Button insertCareBtn;
-    @FXML
-    private Button editCareBtn;
-    @FXML
-    private Button deleteCareBtn;
-    @FXML
-    private Button refreshCareBtn;
-
-    //historique des maladies
+    //liste des maladies
     @FXML
     private TableView diseaseHistory;
     @FXML
-    private TableColumn reasonDiseaseColumn;
+    private TableColumn numCol;
     @FXML
-    private TableColumn dateDiseaseColumn;
+    private TableColumn diseaseCol;
+    @FXML
+    private TableColumn careCol;
+    @FXML
+    private TableColumn startDateCol;
+    @FXML
+    private TableColumn endDateCol;
+    @FXML
+    private Button insertDiseaseBtn;
+    @FXML
+    private Button editDiseaseBtn;
+    @FXML
+    private Button deleteDiseaseBtn;
 
+    EntityDao<ClientEntity> daoClient;
+    EntityDao<PersonneEntity> daoPersonne;
     EntityDao<AnimalEntity> daoAnimal;
     EntityDao<TraitementEntity> daoTraitement;
+    EntityDao<EspeceEntity> daoEspece;
+    EntityDao<RaceEntity> daoRace;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.start();
 
-        //Mettre le nom de l'animal dans animalNameLabel
+        daoClient = DaoFactory.getDaoFor(ClientEntity.class);
+        daoPersonne = DaoFactory.getDaoFor(PersonneEntity.class);
         daoAnimal = DaoFactory.getDaoFor(AnimalEntity.class);
         daoTraitement = DaoFactory.getDaoFor(TraitementEntity.class);
+        daoEspece = DaoFactory.getDaoFor(EspeceEntity.class);
+        daoRace = DaoFactory.getDaoFor(RaceEntity.class);
+
+        //Mettre le nom de l'animal dans animalNameLabel
         animalNameLabel.setText(Utils.currentAnimal.getNom());
 
-        //TODO Afficher détails de l'animal dans resumeAnimalVBox
-
+        //Afficher résumé de l'animal dans resumeAnimalLabel
+        resumeAnimalLabel.setText(
+                "Propriétaire : " + daoPersonne.findById(daoClient.findById(Utils.currentAnimal.getIdClient()).getId()).getNom()
+                + "Nom : " + Utils.currentAnimal.getNom()
+                + "Espèce : " + daoEspece.findById(Utils.currentAnimal.getIdRace()).getNom()
+                + "Race : " + daoRace.findById(Utils.currentAnimal.getIdRace()).getNom()
+                + "Sexe : " + Utils.currentAnimal.getSexe()
+                + "Date de naissance : " + Utils.currentAnimal.getDateNaissance().toString()
+                + "Poids : " + Utils.currentAnimal.getPoids().toString()
+                + "Autres informations : " + Utils.currentAnimal.getAutreInformations()
+        );
 
 
         //TODO Afficher historique des maladies dans diseaseHistoryList
