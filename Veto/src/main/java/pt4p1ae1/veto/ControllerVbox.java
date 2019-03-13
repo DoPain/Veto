@@ -34,35 +34,35 @@ public class ControllerVbox implements Initializable {
     }
     @FXML
     protected void onActionAgendaBTN() throws IOException {
-        creatBtn("/agendaPage.fxml");
+        creatBtn("/fxml/agendaPage.fxml");
     }
     @FXML
     protected void onActionHomeBTN() throws IOException {
-        creatBtn("/home.fxml");
+        creatBtn("/fxml/home.fxml");
     }
     @FXML
     public void onActionAnimauxBTN() throws IOException {
-        creatBtn("/rechercheAnimal.fxml");
+        creatBtn("/fxml/rechercheAnimal.fxml");
     }
 
     @FXML
     public void onActionClientBTN() throws IOException {
-        creatBtn("/pageClient.fxml");
+        creatBtn("/fxml/dossierClient.fxml");
     }
 
     @FXML
     public void onActionOrdonnanceBTN() throws IOException  {
-        creatBtn("/pageOrdonnance.fxml");
+        creatBtn("/fxml/pageOrdonnance.fxml");
     }
 
     @FXML
     public void onActionStockBTN() throws IOException  {
-        creatBtn("/pageStock.fxml");
+        creatBtn("/fxml/pageStock.fxml");
     }
 
     @FXML
     public void onActionLogBTN() throws IOException  {
-        creatBtn("/pageLog.fxml");
+        creatBtn("/fxml/pageLog.fxml");
 
     }
 }
