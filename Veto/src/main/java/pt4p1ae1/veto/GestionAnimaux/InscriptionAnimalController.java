@@ -6,7 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
 import pt4p1ae1.veto.ControllerSample;
-import pt4p1ae1.veto.DataBase;
+//import pt4p1ae1.veto.DataBase;
 
 import javax.xml.crypto.Data;
 import java.awt.*;
@@ -52,21 +52,21 @@ public class InscriptionAnimalController extends ControllerSample implements Ini
     @FXML
     private void onActionRegisterBtn() {
         //TODO Inscrire l'animal et rediriger vers la liste des animaux
-        DataBase dataBase = new DataBase();
+        //DataBase dataBase = new DataBase();
 
-        boolean male = true;
-        if(femaleRadioBtn.isSelected()){
-            male=false;
-        }
+        //boolean male = true;
+        //if(femaleRadioBtn.isSelected()){
+        //    male=false;
+        //}
 
-        dataBase.insertAnimal(
-                nameTextField.getText(),
-                speciesComboBox.getValue().toString(),
-                raceComboBox.getValue().toString(),
-                male?"male":"femelle",
-                birthDateTextField.getText(),
-                weightTextField.getText(),
-                furtherInformationsTextField.getText());
+        //dataBase.insertAnimal(
+                //nameTextField.getText(),
+                //speciesComboBox.getValue().toString(),
+                //raceComboBox.getValue().toString(),
+                //male?"male":"femelle",
+                //birthDateTextField.getText(),
+                //weightTextField.getText(),
+                //furtherInformationsTextField.getText());
 
 
     }

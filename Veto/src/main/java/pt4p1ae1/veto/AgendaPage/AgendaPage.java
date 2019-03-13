@@ -36,7 +36,7 @@ public class AgendaPage extends ControllerSample implements Initializable{
         datePicker.setValue(agendaHome.getDisplayedLocalDateTime().toLocalDate());
         BorderPane.setCenter(agendaHome);
 
-        super.start();
+       super.start();
 
         increase_btn.setOnAction(event -> {
             LocalDateTime newLocalDateTime = agendaHome.getDisplayedLocalDateTime().plus(Period.ofWeeks(1));
