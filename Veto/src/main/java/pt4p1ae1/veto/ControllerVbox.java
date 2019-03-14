@@ -22,7 +22,7 @@ public class ControllerVbox implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (Utils.admin == false ) {
+        if (!Utils.isAdmin()) {
             btn_log.setVisible(false);
         }
     }

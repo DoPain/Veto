@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import pt4p1ae1.veto.DAO.DaoFactory;
 import pt4p1ae1.veto.DAO.EntityDao;
@@ -19,8 +18,6 @@ import pt4p1ae1.veto.Utils;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -77,9 +74,9 @@ public class AuthentificationController implements Initializable {
             passwordField.setPromptText("Veuillez remplir ce champ.");
         } else if (returnInt == 1 || returnInt == 2) {
             if (returnInt == 1) {
-                Utils.admin = false;
+                Utils.setAdmin(false);
             } else {
-                Utils.admin = true;
+                Utils.setAdmin(true);
             }
             Stage primaryStage = (Stage) signInButton.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/home.fxml"));
@@ -113,7 +110,7 @@ public class AuthentificationController implements Initializable {
                 });
                 accountBoolean[0] = true;
 
-                Utils.actualEmploye = employeEntity;
+                Utils.setActualEmploye(employeEntity);
                 Utils.createLog("Connect");
             }
         });
