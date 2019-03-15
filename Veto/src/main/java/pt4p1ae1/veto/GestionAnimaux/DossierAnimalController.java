@@ -61,33 +61,19 @@ public class DossierAnimalController extends ControllerSample implements Initial
     @FXML
     private Button deleteDiseaseBtn;
 
-    EntityDao<ClientEntity> daoClient;
-    EntityDao<PersonneEntity> daoPersonne;
-    EntityDao<AnimalEntity> daoAnimal;
-    EntityDao<TraitementEntity> daoTraitement;
-    EntityDao<EspeceEntity> daoEspece;
-    EntityDao<RaceEntity> daoRace;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.start();
-
-        daoClient = DaoFactory.getDaoFor(ClientEntity.class);
-        daoPersonne = DaoFactory.getDaoFor(PersonneEntity.class);
-        daoAnimal = DaoFactory.getDaoFor(AnimalEntity.class);
-        daoTraitement = DaoFactory.getDaoFor(TraitementEntity.class);
-        daoEspece = DaoFactory.getDaoFor(EspeceEntity.class);
-        daoRace = DaoFactory.getDaoFor(RaceEntity.class);
 
         //Mettre le nom de l'animal dans animalNameLabel
         animalNameLabel.setText(Utils.currentAnimal.getNom());
 
         //Afficher résumé de l'animal dans resumeAnimalLabel
         resumeAnimalLabel.setText(
-                "Propriétaire : " + daoPersonne.findById(daoClient.findById(Utils.currentAnimal.getIdClient()).getId()).getNom()
+                "Propriétaire : " + Utils.personneDao.findById(Utils.clientDao.findById(Utils.currentAnimal.getIdClient()).getId()).getNom()
                 + "Nom : " + Utils.currentAnimal.getNom()
-                + "Espèce : " + daoEspece.findById(Utils.currentAnimal.getIdRace()).getNom()
-                + "Race : " + daoRace.findById(Utils.currentAnimal.getIdRace()).getNom()
+                + "Espèce : " + Utils.especeDao.findById(Utils.currentAnimal.getIdRace()).getNom()
+                + "Race : " + Utils.raceDao.findById(Utils.currentAnimal.getIdRace()).getNom()
                 + "Sexe : " + Utils.currentAnimal.getSexe()
                 + "Date de naissance : " + Utils.currentAnimal.getDateNaissance().toString()
                 + "Poids : " + Utils.currentAnimal.getPoids().toString()
@@ -96,7 +82,7 @@ public class DossierAnimalController extends ControllerSample implements Initial
 
 
         //TODO Afficher historique des maladies dans diseaseHistoryList
-        List<TraitementEntity> traitementList = daoTraitement.findAll();
+        List<TraitementEntity> traitementList = Utils.traitementDao.findAll();
         for (TraitementEntity traitement : traitementList) {
             if(traitement.getIdAnimal() == Utils.currentAnimal.getId()) {
                 //ajouter dans diseaseHistory
@@ -123,7 +109,7 @@ public class DossierAnimalController extends ControllerSample implements Initial
     @FXML
     private void onActionAnimalDeleteBtn() {
         //TODO Supprimer l'animal (afficher fenêtre de confirmation)
-        daoAnimal.
+
     }
 
     @FXML
