@@ -31,8 +31,7 @@
         <fx:include fx:id="vbox" source="VBoxButton.fxml"/>
     </left>
     <center>
-        <ScrollPane fx:id="scrollPane">
-            <TableView fx:id="tableView" layoutX="35.0" layoutY="28.0" prefHeight="667.0" prefWidth="1136">
+            <TableView fx:id="tableView" layoutX="35.0" layoutY="28.0" prefHeight="667.0" prefWidth="1140">
                 <columns>
                     <TableColumn fx:id="employeNom" prefWidth="191.0" text="Nom"/>
                     <TableColumn fx:id="employePrenom" prefWidth="172.0" text="Prénom"/>
@@ -40,6 +39,5 @@
                     <TableColumn fx:id="action" prefWidth="540.0" text="Action"/>
                 </columns>
             </TableView>
-        </ScrollPane>
     </center>
 </BorderPane>
