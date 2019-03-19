@@ -52,11 +52,7 @@ public class AuthentificationController implements Initializable {
         });
         passwordField.setOnKeyPressed(ke-> {
             if (ke.getCode() == KeyCode.ENTER) {
-                try {
-                    signInButtonPushed();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                    signInButton.fire();
             }
         });
     }
@@ -113,11 +109,8 @@ public class AuthentificationController implements Initializable {
                 });
                 accountBoolean[0] = true;
 
-                LogEntity log = new LogEntity();
-                log.setAction("Connexion");
-                log.setIdEmploye(employeEntity.getId());
-                log.setTemps(Timestamp.from(Instant.now()));
-                logDao.saveOrUpdate(log);
+                Utils.actualEmploye = employeEntity;
+                Utils.createLog("Connect");
             }
         });
 
