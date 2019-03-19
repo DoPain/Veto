@@ -50,43 +50,13 @@ public class LogController extends ControllerSample implements Initializable {
         action.setCellValueFactory(new PropertyValueFactory<>("action"));
         temps.setCellValueFactory(new PropertyValueFactory<>("temps"));
 
-        ObservableList<LogEntityObservable> data = FXCollections.observableArrayList();
+        ObservableList<LogEntityObservable> observableList = FXCollections.observableArrayList();
 
         List<LogEntity> logs = DaoFactory.getDaoFor(LogEntity.class).findAll();
 
         for (LogEntity log : logs)
-            data.add(new LogEntityObservable(log));
+            observableList.add(new LogEntityObservable(log));
 
-        tableView.setItems(data);
-    }
-
-    private class LogEntityObservable {
-        private String nom;
-        private String prenom;
-        private String action;
-        private Timestamp temps;
-
-        LogEntityObservable(LogEntity log) {
-            this.nom = log.getEmployeByIdEmploye().getPersonneById().getNom();
-            this.prenom = log.getEmployeByIdEmploye().getPersonneById().getPrenom();
-            this.action = log.getAction();
-            this.temps = log.getTemps();
-        }
-
-        public String getNom() {
-            return nom;
-        }
-
-        public String getPrenom() {
-            return prenom;
-        }
-
-        public String getAction() {
-            return action;
-        }
-
-        public Timestamp getTemps() {
-            return temps;
-        }
+        tableView.setItems(observableList);
     }
 }
