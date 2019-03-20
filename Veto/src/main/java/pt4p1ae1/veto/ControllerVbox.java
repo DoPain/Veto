@@ -47,7 +47,7 @@ public class ControllerVbox implements Initializable {
 
     @FXML
     public void onActionClientBTN() throws IOException {
-        creatBtn("/fxml/dossierClient.fxml");
+        creatBtn("/fxml/rechercheClient.fxml");
     }
 
     @FXML

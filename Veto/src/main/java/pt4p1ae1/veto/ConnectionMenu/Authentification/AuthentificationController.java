@@ -49,11 +49,7 @@ public class AuthentificationController implements Initializable {
         });
         passwordField.setOnKeyPressed(ke-> {
             if (ke.getCode() == KeyCode.ENTER) {
-                try {
-                    signInButtonPushed();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                    signInButton.fire();
             }
         });
     }
