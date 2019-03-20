@@ -32,16 +32,13 @@ public class AuthentificationController implements Initializable {
     @FXML
     private Button signInButton;
 
-    private final EntityDao<EmployeEntity> employeDao = DaoFactory.getDaoFor(EmployeEntity.class);
-    private final EntityDao<VeterinaireEntity> veterinaireDao = DaoFactory.getDaoFor(VeterinaireEntity.class);
-    private final EntityDao<LogEntity> logDao = DaoFactory.getDaoFor(LogEntity.class);
     private List<EmployeEntity> employeList;
     private List<VeterinaireEntity> veterinaireList;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        employeList = employeDao.findAll();
-        veterinaireList = veterinaireDao.findAll();
+        employeList = Utils.employeDao.findAll();
+        veterinaireList = Utils.veterinaireDao.findAll();
         loginField.setOnKeyPressed(ke -> {
             if (ke.getCode() == KeyCode.ENTER) {
                 passwordField.requestFocus();
@@ -76,7 +73,7 @@ public class AuthentificationController implements Initializable {
             }
             Stage primaryStage = (Stage) signInButton.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/home.fxml"));
-            primaryStage.setScene(new Scene(root, 1280, 720));
+            primaryStage.setScene(new Scene(root, 1280, 800));
             primaryStage.centerOnScreen();
         } else {
             loginField.setText("");

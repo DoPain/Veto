@@ -51,13 +51,12 @@
                 <TextField fx:id="emailClientField" layoutX="234.0" layoutY="87.0" />
                 <ScrollPane layoutX="84.0" layoutY="160.0" prefHeight="468.0" prefWidth="1013.0">
                     <content>
-                        <TableView prefHeight="461.0" prefWidth="1012.0">
+                        <TableView prefHeight="461.0" prefWidth="1012.0" fx:id="tableView">
                             <columns>
                                 <TableColumn fx:id="nameColumn" minWidth="30.0" prefWidth="115.0" text="Nom" />
                                 <TableColumn fx:id="firstNameColumn" minWidth="30.0" prefWidth="113.0" text="Prénom" />
                                 <TableColumn fx:id="ageColumn" minWidth="24.0" prefWidth="67.0" text="Age" />
-                                <TableColumn fx:id="genderColumn" minWidth="0.0" prefWidth="112.0" text="Sexe" />
-                                <TableColumn fx:id="phoneColomn" minWidth="29.0" prefWidth="141.0" text="Téléphone" />
+                                <TableColumn fx:id="phoneColumn" minWidth="29.0" prefWidth="141.0" text="Téléphone" />
                                 <TableColumn fx:id="emailColumn" minWidth="30.0" prefWidth="212.0" text="Email" />
                                 <TableColumn fx:id="nextMeetingColumn" minWidth="30.0" prefWidth="236.0" text="Prochain rendez-vous" />
                             </columns>
