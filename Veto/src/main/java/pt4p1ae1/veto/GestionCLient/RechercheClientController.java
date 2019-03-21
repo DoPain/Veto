@@ -4,7 +4,6 @@ package pt4p1ae1.veto.GestionCLient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -18,10 +17,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import pt4p1ae1.veto.ControllerSample;
-import pt4p1ae1.veto.Entity.AnimalEntity;
 import pt4p1ae1.veto.Entity.ClientEntity;
-import pt4p1ae1.veto.Entity.LogEntity;
-import pt4p1ae1.veto.GestionLog.LogEntityObservable;
 import pt4p1ae1.veto.Utils;
 
 import java.io.IOException;
@@ -91,13 +87,8 @@ public class RechercheClientController extends ControllerSample implements Initi
     public void supprimerClient(ActionEvent actionEvent) {
         ClientEntityObservable selectedClient = tableViewClient.getSelectionModel().getSelectedItem();
         ClientEntity client = selectedClient.toClientEntity();
-        client.getAvoirRendezVousById();
-        client.getPaniersById();
-        for (AnimalEntity a: client.getAnimalsById()) {
-            Utils.ANIMAL_DAO.remove(a);
-        }
+        System.out.println("Selected : " + client.getPersonneById().getNom() + " " + client.getPersonneById().getPrenom());
         Utils.CLIENT_DAO.remove(client);
-        Utils.PERSONNE_DAO.remove(client.getPersonneById());
     }
 }
 
