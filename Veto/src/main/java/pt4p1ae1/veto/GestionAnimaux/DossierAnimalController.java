@@ -1,5 +1,7 @@
 package pt4p1ae1.veto.GestionAnimaux;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,12 +10,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import pt4p1ae1.veto.ControllerSample;
-import pt4p1ae1.veto.DAO.DaoFactory;
-import pt4p1ae1.veto.DAO.EntityDao;
 import pt4p1ae1.veto.Entity.*;
+import pt4p1ae1.veto.GestionLog.LogEntityObservable;
 import pt4p1ae1.veto.Utils;
 
 import java.awt.*;
@@ -61,33 +63,45 @@ public class DossierAnimalController extends ControllerSample implements Initial
     @FXML
     private Button deleteDiseaseBtn;
 
+    @FXML
+    private AnimalEntity animal;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.start();
 
+        animal = Utils.getCurrentAnimal();
+
         //Mettre le nom de l'animal dans animalNameLabel
-        animalNameLabel.setText(Utils.currentAnimal.getNom());
+        animalNameLabel.setText(animal.getNom());
 
         //Afficher résumé de l'animal dans resumeAnimalLabel
         resumeAnimalLabel.setText(
-                "Propriétaire : " + Utils.personneDao.findById(Utils.clientDao.findById(Utils.currentAnimal.getIdClient()).getId()).getNom()
-                + "Nom : " + Utils.currentAnimal.getNom()
-                + "Espèce : " + Utils.especeDao.findById(Utils.currentAnimal.getIdRace()).getNom()
-                + "Race : " + Utils.raceDao.findById(Utils.currentAnimal.getIdRace()).getNom()
-                + "Sexe : " + Utils.currentAnimal.getSexe()
-                + "Date de naissance : " + Utils.currentAnimal.getDateNaissance().toString()
-                + "Poids : " + Utils.currentAnimal.getPoids().toString()
-                + "Autres informations : " + Utils.currentAnimal.getAutreInformations()
+                "Propriétaire : " + Utils.personneDao.findById(Utils.clientDao.findById(animal.getIdClient()).getId()).getNom()
+                + "Nom : " + animal.getNom()
+                + "Espèce : " + Utils.especeDao.findById(animal.getIdRace()).getNom()
+                + "Race : " + Utils.raceDao.findById(animal.getIdRace()).getNom()
+                + "Sexe : " + animal.getSexe()
+                + "Date de naissance : " + animal.getDateNaissance().toString()
+                + "Poids : " + animal.getPoids().toString()
+                + "Autres informations : " + animal.getAutreInformations()
         );
 
 
         //TODO Afficher historique des maladies dans diseaseHistoryList
-        List<TraitementEntity> traitementList = Utils.traitementDao.findAll();
-        for (TraitementEntity traitement : traitementList) {
-            if(traitement.getIdAnimal() == Utils.currentAnimal.getId()) {
-                //ajouter dans diseaseHistory
-            }
-        }
+        animal.setCellValueFactory(new PropertyValueFactory<>("nom"));
+        employePrenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
+        action.setCellValueFactory(new PropertyValueFactory<>("action"));
+        temps.setCellValueFactory(new PropertyValueFactory<>("temps"));
+
+        ObservableList<LogEntityObservable> observableList = FXCollections.observableArrayList();
+
+        List<LogEntity> logs = Utils.logDao.findAll();
+
+        for (LogEntity log : logs)
+            observableList.add(new LogEntityObservable(log));
+
+        tableView.setItems(observableList);
     }
 
     @FXML

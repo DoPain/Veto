@@ -96,7 +96,7 @@ public class InscriptionAnimalController extends ControllerSample implements Ini
         newAnimal.setSexe(male?"male":"femelle");
         newAnimal.setDateNaissance((Timestamp.valueOf(birthDateTextField.getText())));
         newAnimal.setPoids(Double.parseDouble(weightTextField.getText()));
-        newAnimal.setAutresInfromations(furtherInformationsTextField.getText());
+        newAnimal.setAutreInformations(furtherInformationsTextField.getText());
         daoAnimal.saveOrUpdate(newAnimal);
 
         //Rediriger vers la liste animaux
