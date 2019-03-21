@@ -25,6 +25,8 @@ public class Utils {
     private static EmployeEntity actualEmploye;
     private static AnimalEntity currentAnimal;
 
+    private static boolean modifyAnimal = false;
+
     public static void createLog(String action) {
         new Thread(() -> {
             LogEntity log = new LogEntity();
@@ -57,5 +59,13 @@ public class Utils {
 
     public static AnimalEntity getCurrentAnimal() {
         return currentAnimal;
+    }
+
+    public static boolean isModifyAnimal() {
+        return modifyAnimal;
+    }
+
+    public static void setModifyAnimal(boolean modifyAnimal) {
+        Utils.modifyAnimal = modifyAnimal;
     }
 }

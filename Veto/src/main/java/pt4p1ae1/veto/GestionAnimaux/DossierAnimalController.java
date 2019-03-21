@@ -15,7 +15,6 @@ import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import pt4p1ae1.veto.ControllerSample;
 import pt4p1ae1.veto.Entity.*;
-import pt4p1ae1.veto.GestionLog.LogEntityObservable;
 import pt4p1ae1.veto.Utils;
 
 import java.awt.*;
@@ -45,17 +44,17 @@ public class DossierAnimalController extends ControllerSample implements Initial
 
     //liste des maladies
     @FXML
-    private TableView <LogEntityObservable> diseaseHistory;
+    private TableView <TraitementEntityObservable> diseaseHistory;
     @FXML
-    private TableColumn<LogEntityObservable, String> numCol;
+    private TableColumn<TraitementEntityObservable, String> numCol;
     @FXML
-    private TableColumn<LogEntityObservable, String> diseaseCol;
+    private TableColumn<TraitementEntityObservable, String> diseaseCol;
     @FXML
-    private TableColumn<LogEntityObservable, String> careCol;
+    private TableColumn<TraitementEntityObservable, String> careCol;
     @FXML
-    private TableColumn<LogEntityObservable, String> startDateCol;
+    private TableColumn<TraitementEntityObservable, String> startDateCol;
     @FXML
-    private TableColumn<LogEntityObservable, String> endDateCol;
+    private TableColumn<TraitementEntityObservable, String> endDateCol;
     @FXML
     private Button insertDiseaseBtn;
     @FXML
@@ -89,37 +88,35 @@ public class DossierAnimalController extends ControllerSample implements Initial
         );
 
 
-        //TODO Afficher historique des maladies dans diseaseHistoryList
+        //Afficher historique des maladies dans diseaseHistoryList
         numCol.setCellValueFactory(new PropertyValueFactory<>("N°"));
         diseaseCol.setCellValueFactory(new PropertyValueFactory<>("Maladie"));
         careCol.setCellValueFactory(new PropertyValueFactory<>("Soin"));
         startDateCol.setCellValueFactory(new PropertyValueFactory<>("Date de début"));
         endDateCol.setCellValueFactory(new PropertyValueFactory<>("Date de fin"));
 
-        ObservableList<AnimalEntityObservable> observableList = FXCollections.observableArrayList();
+        ObservableList<TraitementEntityObservable> observableList = FXCollections.observableArrayList();
 
-        List<LogEntity> logs = Utils.logDao.findAll();
+        List<TraitementEntity> traitements = Utils.traitementDao.findAll();
 
-        for (LogEntity log : logs)
-            observableList.add(new LogEntityObservable(log));
+        for (TraitementEntity traitement : traitements) {
+            if(traitement.getIdAnimal() == animal.getId()) {
+                observableList.add(new TraitementEntityObservable(traitement));
+            }
+        }
 
-        tableView.setItems(observableList);
-    }
-
-    @FXML
-    private void onActionBackToAnimalBtn() throws IOException {
-        //TODO Retour vers la liste des animaux
-        Stage primaryStage = (Stage) backToAnimals.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/rechercheAnimal.fxml"));
-        primaryStage.setScene(new Scene(root, 1280, 720));
-        primaryStage.centerOnScreen();
+        diseaseHistory.setItems(observableList);
     }
 
     //boutons du bas
 
     @FXML
-    private void onActionAnimalModifyBtn() {
-        //TODO Afficher fenêtre de modification d'un animal
+    private void onActionAnimalModifyBtn() throws IOException {
+        Utils.setModifyAnimal(true);
+        Stage primaryStage = (Stage) animalModifyBtn.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/inscriptionAnimal.fxml"));
+        primaryStage.setScene(new Scene(root, 1280, 720));
+        primaryStage.centerOnScreen();
     }
 
     @FXML
@@ -148,28 +145,6 @@ public class DossierAnimalController extends ControllerSample implements Initial
         //TODO Générer la facture
     }
 
-    //boutons de navigation de la liste de soins
-
-    @FXML
-    private void onActionFirstAnimalBtn() {
-        //TODO Afficher le premier animal de la liste
-    }
-
-    @FXML
-    private void onActionPreviousAnimalBtn() {
-        //TODO Afficher l'animal précédent
-    }
-
-    @FXML
-    private void onActionNextAnimalBtn() {
-        //TODO Afficher l'animal suivant de la liste
-    }
-
-    @FXML
-    private void onActionLastAnimalBtn() {
-        //TODO Afficher le dernier animal de la liste
-    }
-
     @FXML
     private void onActionInsertCareBtn() {
         //TODO Afficher la fenêtre d'insertion d'un soin
@@ -185,17 +160,10 @@ public class DossierAnimalController extends ControllerSample implements Initial
         //TODO Afficher la fenêtre de suppression d'un soin (du soin sélectionné ?)
     }
 
-    @FXML
-    private void onActionRefreshCareBtn() {
-        //TODO Rafraîchir les soins
-    }
-
-    public void onActionBackToAnimalsBtn(ActionEvent actionEvent) {
-    }
-
-    public void onActionfirstAnimalBtn(ActionEvent actionEvent) {
-    }
-
-    public void onActionRefreshDiseaseBtn(ActionEvent actionEvent) {
+    public void onActionBackToAnimalsBtn(ActionEvent actionEvent) throws IOException {
+        Stage primaryStage = (Stage) backToAnimals.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/rechercheAnimal.fxml"));
+        primaryStage.setScene(new Scene(root, 1280, 720));
+        primaryStage.centerOnScreen();
     }
 }
