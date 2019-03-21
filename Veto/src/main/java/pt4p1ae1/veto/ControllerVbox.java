@@ -65,4 +65,10 @@ public class ControllerVbox implements Initializable {
         creatBtn("/fxml/pageLog.fxml");
 
     }
+
+    @FXML
+    public void onActionEmpBTN() throws IOException  {
+        creatBtn("/fxml/rechercheEmployes.fxml");
+
+    }
 }
