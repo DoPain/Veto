@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -45,7 +43,6 @@
             <Label layoutX="107.0" layoutY="179.0" text="Nom :" />
             <Label layoutX="91.0" layoutY="242.0" text="Espèce :" />
             <Label layoutX="106.0" layoutY="303.0" text="Race :" />
-            <Label layoutX="106.0" layoutY="361.0" text="Sexe :" />
             <TextField fx:id="nameText" layoutX="192.0" layoutY="174.0" prefHeight="26.0" prefWidth="175.0" />
             <ComboBox fx:id="speciesComboBox" layoutX="192.0" layoutY="237.0" prefHeight="26.0" prefWidth="177.0" />
             <ComboBox fx:id="raceComboBox" layoutX="192.0" layoutY="298.0" prefHeight="26.0" prefWidth="177.0" />
@@ -57,12 +54,6 @@
             <TextField fx:id="furtherInformationsText" layoutX="569.0" layoutY="356.0" prefHeight="86.0" prefWidth="487.0" />
             <Button fx:id="register" layoutX="503.0" layoutY="538.0" mnemonicParsing="false" onAction="#onActionRegisterBtn" text="Inscription" />
             <Label layoutX="472.0" layoutY="21.0" text="Création profil animal" />
-            <ButtonBar layoutX="171.0" layoutY="349.0" prefHeight="40.0" prefWidth="206.0">
-               <buttons>
-                  <RadioButton fx:id="maleRadioBtn" mnemonicParsing="false" text="Mâle" />
-                  <RadioButton fx:id="femaleRadioBtn" mnemonicParsing="false" text="Femelle" />
-               </buttons>
-            </ButtonBar>
          </children>
       </AnchorPane>
    </center>
