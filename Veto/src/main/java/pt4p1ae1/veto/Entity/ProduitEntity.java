@@ -1,5 +1,7 @@
 package pt4p1ae1.veto.Entity;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
@@ -83,6 +85,7 @@ public class ProduitEntity {
     }
 
     @OneToMany(mappedBy = "produitByIdProduit")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public Collection<AppartenirEntity> getAppartenirsById() {
         return appartenirsById;
     }
@@ -92,6 +95,7 @@ public class ProduitEntity {
     }
 
     @OneToMany(mappedBy = "produitByIdProduit")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public Collection<CommanderEntity> getCommandersById() {
         return commandersById;
     }

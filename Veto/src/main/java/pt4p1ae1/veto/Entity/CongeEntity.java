@@ -70,7 +70,7 @@ public class CongeEntity {
     }
 
     @ManyToOne
-    @JoinColumn(insertable = false, updatable = false, name = "idEmploye", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "idEmploye", referencedColumnName = "id", nullable = false)
     public EmployeEntity getEmployeByIdEmploye() {
         return employeByIdEmploye;
     }
