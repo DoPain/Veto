@@ -38,7 +38,7 @@ public class OrdonnanceController extends ControllerSample implements Initializa
 
         ObservableList<ClientEntityObservable> clientEntityObservables = FXCollections.observableArrayList();
 
-        List<ClientEntity> clients = Utils.clientDao.findAll();
+        List<ClientEntity> clients = Utils.CLIENT_DAO.findAll();
 
         for (ClientEntity client : clients) clientEntityObservables.add(new ClientEntityObservable(client));
 
@@ -51,14 +51,16 @@ public class OrdonnanceController extends ControllerSample implements Initializa
 
         ObservableList<AnimalEntityObservable> animalEntityObservables = FXCollections.observableArrayList();
 
-        List<AnimalEntity> animals;
+        for (AnimalEntity animal : Utils.ANIMAL_DAO.findAll())
+            animalEntityObservables.add(new AnimalEntityObservable(animal));
 
-        if (tableViewClient.getSelectionModel().isEmpty())
-            animals = tableViewClient.getSelectionModel().getSelectedItem().to.getAnimalsById();
-        else
-            animals = Utils.animalDao.findAll();
-
-        for (AnimalEntity animal : animals) animalEntityObservables.add(new AnimalEntityObservable(animal));
         tableViewAnimal.setItems(animalEntityObservables);
+
+        tableViewClient.onMouseClickedProperty().set(e -> {
+            ObservableList<AnimalEntityObservable> clientObservableAnimalsList = FXCollections.observableArrayList();
+            for (AnimalEntity animal : (List<AnimalEntity>) tableViewClient.getSelectionModel().getSelectedItem().toClientEntity().getAnimalsById())
+                clientObservableAnimalsList.add(new AnimalEntityObservable(animal));
+            tableViewAnimal.setItems(clientObservableAnimalsList);
+        });
     }
 }

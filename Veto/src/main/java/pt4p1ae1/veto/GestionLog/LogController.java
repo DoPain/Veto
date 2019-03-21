@@ -49,7 +49,7 @@ public class LogController extends ControllerSample implements Initializable {
 
         ObservableList<LogEntityObservable> observableList = FXCollections.observableArrayList();
 
-        List<LogEntity> logs = Utils.logDao.findAll();
+        List<LogEntity> logs = Utils.LOG_DAO.findAll();
 
         for (LogEntity log : logs)
             observableList.add(new LogEntityObservable(log));

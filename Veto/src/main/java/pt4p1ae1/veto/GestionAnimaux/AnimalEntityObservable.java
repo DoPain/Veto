@@ -23,14 +23,17 @@ public class AnimalEntityObservable {
         this.race = animal.getRaceByIdRace().getNom();
         this.sexe = animal.getSexe();
         this.dateDeNaissance = animal.getDateNaissance().toString();
-        this.poids = animal.getPoids().toString();
+        if (animal.getPoids() != null)
+            this.poids = animal.getPoids().toString();
+        else
+            this.poids = "Non renseigné";
         this.autresInformations = animal.getAutreInformations();
         Collection<AvoirRendezVousEntity> rdv = animal.getClientByIdClient().getAvoirRendezVousById();
-        if (!rdv.isEmpty()) {
+        if (!rdv.isEmpty())
             this.prochainRDV = rdv.iterator().next().getDateHeure().toString();
-        } else {
+        else
             this.prochainRDV = "Pas de rendez-vous";
-        }
+
     }
 
     public String getProprietaire() {

@@ -45,7 +45,7 @@ public class DossierAnimalController extends ControllerSample implements Initial
 
     //liste des maladies
     @FXML
-    private TableView <LogEntityObservable> diseaseHistory;
+    private TableView<LogEntityObservable> diseaseHistory;
     @FXML
     private TableColumn<LogEntityObservable, String> numCol;
     @FXML
@@ -79,13 +79,13 @@ public class DossierAnimalController extends ControllerSample implements Initial
         //Afficher résumé de l'animal dans resumeAnimalLabel
         resumeAnimalLabel.setText(
                 "Propriétaire : " + animalObservable.getProprietaire()
-                + "Nom : " + animalObservable.getNom()
-                + "Espèce : " + animalObservable.getEspece()
-                + "Race : " + animalObservable.getRace()
-                + "Sexe : " + animalObservable.getSexe()
-                + "Date de naissance : " + animalObservable.getDateDeNaissance()
-                + "Poids : " + animalObservable.getPoids()
-                + "Autres informations : " + animalObservable.getAutresInformations()
+                        + "Nom : " + animalObservable.getNom()
+                        + "Espèce : " + animalObservable.getEspece()
+                        + "Race : " + animalObservable.getRace()
+                        + "Sexe : " + animalObservable.getSexe()
+                        + "Date de naissance : " + animalObservable.getDateDeNaissance()
+                        + "Poids : " + animalObservable.getPoids()
+                        + "Autres informations : " + animalObservable.getAutresInformations()
         );
 
 
@@ -98,12 +98,6 @@ public class DossierAnimalController extends ControllerSample implements Initial
 
         ObservableList<AnimalEntityObservable> observableList = FXCollections.observableArrayList();
 
-        List<LogEntity> logs = Utils.logDao.findAll();
-
-        for (LogEntity log : logs)
-            observableList.add(new LogEntityObservable(log));
-
-        tableView.setItems(observableList);
     }
 
     @FXML

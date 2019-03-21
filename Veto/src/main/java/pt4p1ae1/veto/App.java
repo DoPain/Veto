@@ -65,9 +65,6 @@ public final class App extends Application {
                 }
             }
         }).start();
-
-
         launch(args);
     }
-
 }
