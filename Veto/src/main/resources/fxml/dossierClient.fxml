@@ -61,37 +61,21 @@
                         <Button fx:id="clientDelete" mnemonicParsing="false" onAction="#onActionAnimalDeleteBtn" text="Supprimer client" />
                     </buttons>
                 </ButtonBar>
-                <ButtonBar buttonMinWidth="30.0" layoutX="497.0" layoutY="564.0" maxWidth="784.0" prefHeight="40.0" prefWidth="625.0">
+                <ButtonBar buttonMinWidth="30.0" layoutX="658.0" layoutY="564.0" maxWidth="784.0" prefHeight="40.0" prefWidth="341.0">
                     <buttons>
-                        <Button fx:id="firstAnimal" mnemonicParsing="false" onAction="#onActionfirstAnimalBtn" prefWidth="83.0" text="&lt;&lt; First">
+                        <Button fx:id="insertAnimalClient" mnemonicParsing="false" onAction="#onActionInsertCareBtn" prefHeight="29.0" prefWidth="90.0" text="Insert">
                             <font>
                                 <Font size="12.0" />
                             </font></Button>
-                        <Button fx:id="previousAnimal" mnemonicParsing="false" onAction="#onActionPreviousAnimalBtn" text="&lt; Prev">
+                        <Button fx:id="editAnimalClient" mnemonicParsing="false" onAction="#onActionEditCareBtn" prefHeight="29.0" text="Edit">
                             <font>
                                 <Font size="12.0" />
                             </font></Button>
-                        <Button fx:id="nextAnimal" mnemonicParsing="false" onAction="#onActionNextAnimalBtn" text="Next &gt;">
+                        <Button fx:id="deleteAnimalClient" mnemonicParsing="false" onAction="#onActionDeleteCareBtn" prefHeight="31.0" text="Delete">
                             <font>
                                 <Font size="12.0" />
                             </font></Button>
-                        <Button fx:id="lastAnimal" mnemonicParsing="false" onAction="#onActionLastAnimalBtn" text="Last &gt;&gt;">
-                            <font>
-                                <Font size="12.0" />
-                            </font></Button>
-                        <Button fx:id="insertAnimalClient" mnemonicParsing="false" onAction="#onActionInsertCareBtn" text="Insert">
-                            <font>
-                                <Font size="12.0" />
-                            </font></Button>
-                        <Button fx:id="editAnimalClient" mnemonicParsing="false" onAction="#onActionEditCareBtn" text="Edit">
-                            <font>
-                                <Font size="12.0" />
-                            </font></Button>
-                        <Button fx:id="deleteAnimalClient" mnemonicParsing="false" onAction="#onActionDeleteCareBtn" text="Delete">
-                            <font>
-                                <Font size="12.0" />
-                            </font></Button>
-                        <Button fx:id="refreshAnimalListe" mnemonicParsing="false" onAction="#onActionRefreshDiseaseBtn" text="Refresh">
+                        <Button fx:id="refreshAnimalListe" mnemonicParsing="false" onAction="#onActionRefreshDiseaseBtn" prefHeight="32.0" text="Refresh">
                             <font>
                                 <Font size="12.0" />
                             </font></Button>
