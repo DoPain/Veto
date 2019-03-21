@@ -1,5 +1,4 @@
 .idea/
 *.iml
 target/
-
-Veto/src/main/java/pt4p1ae1/veto/DBPortable\.java
+hibernate.cfg.xml

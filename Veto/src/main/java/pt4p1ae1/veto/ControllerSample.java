@@ -6,21 +6,15 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import pt4p1ae1.veto.DAO.DaoFactory;
-import pt4p1ae1.veto.Entity.EmployeEntity;
-import pt4p1ae1.veto.Entity.LogEntity;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.ResourceBundle;
 
 public class ControllerSample extends ControllerVbox implements Initializable {

@@ -6,13 +6,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.hibernate.HibernateException;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import pt4p1ae1.veto.DAO.DaoFactory;
-import pt4p1ae1.veto.DAO.EntityDao;
-import pt4p1ae1.veto.Entity.AnimalEntity;
+import org.hibernate.query.Query;
 
 import javax.persistence.metamodel.EntityType;
 import javax.persistence.metamodel.Metamodel;
@@ -48,7 +45,8 @@ public final class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/authentification.fxml"));
-        primaryStage.setTitle("nameToChoose");
+        primaryStage.setTitle("VetAg");
+        primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root, 700, 400));
         primaryStage.show();
     }
@@ -63,10 +61,7 @@ public final class App extends Application {
                     final String entityName = entityType.getName();
                     final Query query = session
                             .createQuery("from " + entityName);
-                    System.out.println("executing: " + query.getQueryString());
-                    for (Object o : query.list()) {
-                        System.out.println(" " + o);
-                    }
+                    System.out.println("executing : " + query.getQueryString());
                 }
             }
         }).start();
