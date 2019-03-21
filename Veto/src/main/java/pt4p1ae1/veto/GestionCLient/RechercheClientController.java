@@ -91,6 +91,8 @@ public class RechercheClientController extends ControllerSample implements Initi
     public void supprimerClient(ActionEvent actionEvent) {
         ClientEntityObservable selectedClient = tableViewClient.getSelectionModel().getSelectedItem();
         ClientEntity client = selectedClient.toClientEntity();
+        client.getAvoirRendezVousById();
+        client.getPaniersById();
         for (AnimalEntity a: client.getAnimalsById()) {
             Utils.ANIMAL_DAO.remove(a);
         }
