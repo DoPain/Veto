@@ -13,11 +13,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import pt4p1ae1.veto.ControllerSample;
 import pt4p1ae1.veto.Entity.*;
 import pt4p1ae1.veto.Utils;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -97,7 +97,7 @@ public class DossierAnimalController extends ControllerSample implements Initial
 
         ObservableList<TraitementEntityObservable> observableList = FXCollections.observableArrayList();
 
-        List<TraitementEntity> traitements = Utils.traitementDao.findAll();
+        List<TraitementEntity> traitements = Utils.TRAITEMENT_DAO.findAll();
 
         for (TraitementEntity traitement : traitements) {
             if(traitement.getIdAnimal() == animal.getId()) {

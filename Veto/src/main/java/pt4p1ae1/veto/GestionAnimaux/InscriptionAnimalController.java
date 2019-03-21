@@ -51,24 +51,18 @@ public class InscriptionAnimalController extends ControllerSample implements Ini
     @FXML
     private TextField furtherInformationsTextField;
 
-    EntityDao<AnimalEntity> daoAnimal;
-    EntityDao<EspeceEntity> daoSpecie;
-    EntityDao<RaceEntity> daoRace;
+    AnimalEntity animal = Utils.getCurrentAnimal();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.start();
-        daoAnimal = DaoFactory.getDaoFor(AnimalEntity.class);
-        daoSpecie = DaoFactory.getDaoFor(EspeceEntity.class);
-        daoRace = DaoFactory.getDaoFor(RaceEntity.class);
 
         //Remplir ComboBox des espèces
         ArrayList<String> speciesList = new ArrayList<>();
-        daoSpecie.findAll().forEach(espece -> speciesList.add(espece.getNom()));
+        Utils.ESPECE_DAO.findAll().forEach(espece -> speciesList.add(espece.getNom()));
         speciesComboBox.setItems((ObservableList<String>)speciesList);
 
         if(Utils.isModifyAnimal()) {
-            AnimalEntity animal = Utils.getCurrentAnimal();
             AnimalEntityObservable animalObservable = new AnimalEntityObservable(animal);
             nameTextField.setText(animalObservable.getNom());
             if(animalObservable.getSexe()=="femelle") {
@@ -89,7 +83,7 @@ public class InscriptionAnimalController extends ControllerSample implements Ini
     @FXML
     private void onActionSpeciesComboBox() {
         ArrayList<String> racesList = new ArrayList<>();
-        daoRace.findAll().forEach(race -> racesList.add(race.getNom()));
+        Utils.RACE_DAO.findAll().forEach(race -> racesList.add(race.getNom()));
         raceComboBox.setItems((ObservableList<String>)racesList);
     }
 
@@ -110,14 +104,24 @@ public class InscriptionAnimalController extends ControllerSample implements Ini
             male=false;
         }
 
-        AnimalEntity newAnimal = new AnimalEntity();
-        newAnimal.setNom(nameTextField.getText());
-        newAnimal.setIdRace(((Long) raceComboBox.getValue()));
-        newAnimal.setSexe(male?"male":"femelle");
-        newAnimal.setDateNaissance((Timestamp.valueOf(birthDateTextField.getText())));
-        newAnimal.setPoids(Double.parseDouble(weightTextField.getText()));
-        newAnimal.setAutreInformations(furtherInformationsTextField.getText());
-        daoAnimal.saveOrUpdate(newAnimal);
+        if(!Utils.isModifyAnimal()) {
+            AnimalEntity newAnimal = new AnimalEntity();
+            newAnimal.setNom(nameTextField.getText());
+            newAnimal.setIdRace(((Long) raceComboBox.getValue()));
+            newAnimal.setSexe(male ? "male" : "femelle");
+            newAnimal.setDateNaissance((Timestamp.valueOf(birthDateTextField.getText())));
+            newAnimal.setPoids(Double.parseDouble(weightTextField.getText()));
+            newAnimal.setAutreInformations(furtherInformationsTextField.getText());
+            Utils.ANIMAL_DAO.saveOrUpdate(newAnimal);
+        } else {
+            animal.setNom(nameTextField.getText());
+            animal.setIdRace(((Long) raceComboBox.getValue()));
+            animal.setSexe(male ? "male" : "femelle");
+            animal.setDateNaissance((Timestamp.valueOf(birthDateTextField.getText())));
+            animal.setPoids(Double.parseDouble(weightTextField.getText()));
+            animal.setAutreInformations(furtherInformationsTextField.getText());
+            Utils.ANIMAL_DAO.saveOrUpdate(animal);
+        }
 
         Utils.setModifyAnimal(false);
         //Rediriger vers la liste animaux

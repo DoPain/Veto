@@ -18,6 +18,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import pt4p1ae1.veto.ControllerSample;
+import pt4p1ae1.veto.Entity.AnimalEntity;
 import pt4p1ae1.veto.Entity.ClientEntity;
 import pt4p1ae1.veto.Entity.LogEntity;
 import pt4p1ae1.veto.GestionLog.LogEntityObservable;
@@ -70,12 +71,11 @@ public class RechercheClientController extends ControllerSample implements Initi
 
         ObservableList<ClientEntityObservable> observables = FXCollections.observableArrayList();
 
-        List<ClientEntity> clients = Utils.clientDao.findAll();
+        List<ClientEntity> clients = Utils.CLIENT_DAO.findAll();
 
         for (ClientEntity client : clients) {
             ClientEntityObservable c = new ClientEntityObservable(client);
             observables.add(c);
-            System.out.println(c.getNom() + " " + c.getPrenom());
         }
 
         tableViewClient.setItems(observables);
@@ -86,6 +86,16 @@ public class RechercheClientController extends ControllerSample implements Initi
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/inscriptionClient.fxml"));
         primaryStage.setScene(new Scene(root, Utils.WIDTH, Utils.HEIGHT));
         primaryStage.centerOnScreen();
+    }
+
+    public void supprimerClient(ActionEvent actionEvent) {
+        ClientEntityObservable selectedClient = tableViewClient.getSelectionModel().getSelectedItem();
+        ClientEntity client = selectedClient.toClientEntity();
+        for (AnimalEntity a: client.getAnimalsById()) {
+            Utils.ANIMAL_DAO.remove(a);
+        }
+        Utils.CLIENT_DAO.remove(client);
+        Utils.PERSONNE_DAO.remove(client.getPersonneById());
     }
 }
 

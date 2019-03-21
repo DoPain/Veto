@@ -2,12 +2,10 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -31,7 +29,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Text layoutX="565.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gestion Clients">
+                <Text layoutX="565.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gestion Employé">
                     <font>
                         <Font size="19.0" />
                     </font>
@@ -45,68 +43,29 @@
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
-                <Label fx:id="animalNameLab" layoutX="495.0" layoutY="23.0" text="Nom Client : " />
-                <Button fx:id="backToClients" layoutX="37.0" layoutY="19.0" mnemonicParsing="false" onAction="#onActionBackToAnimalsBtn" text="Retour liste employé" />
-                <Label layoutX="497.0" layoutY="227.0" text="Liste de ses animaux :" />
-                <ScrollPane layoutX="497.0" layoutY="255.0" prefHeight="309.0" prefWidth="640.0">
+                <Label fx:id="empNameLabel" layoutX="462.0" layoutY="11.0" text="Nom employé : " />
+                <Button fx:id="backToEmp" layoutX="37.0" layoutY="19.0" mnemonicParsing="false" onAction="#onActionBackToAnimalsBtn" text="Retour liste employé" />
+                <Label layoutX="498.0" layoutY="342.0" text="Liste de ses congés :" />
+                <ScrollPane layoutX="498.0" layoutY="366.0" prefHeight="268.0" prefWidth="640.0">
                     <content>
-                        <TableView fx:id="careL" prefHeight="315.0" prefWidth="621.0">
+                        <TableView fx:id="careL" prefHeight="266.0" prefWidth="639.0">
                             <columns>
-                                <TableColumn fx:id="numCareC" prefWidth="73.0" text="N°" />
-                                <TableColumn fx:id="descriptionCareC" prefWidth="154.0" text="Nom" />
-                                <TableColumn prefWidth="180.0" text="Espèce" />
-                                <TableColumn prefWidth="213.0" text="Race" />
+                                <TableColumn fx:id="periodeCongesColomn" prefWidth="296.0" text="Pèriode de congés" />
+                                <TableColumn fx:id="typeCongesColomn" prefWidth="324.0" text="Type " />
                             </columns>
                         </TableView>
                     </content>
                 </ScrollPane>
-                <ButtonBar fx:id="animalButtonList" layoutX="61.0" layoutY="564.0" prefHeight="40.0" prefWidth="287.0">
+                <ButtonBar fx:id="animalButtonList" layoutX="7.0" layoutY="564.0" prefHeight="40.0" prefWidth="327.0">
                     <buttons>
-                        <Button fx:id="clientModify" mnemonicParsing="false" onAction="#onActionAnimalModifyBtn" text="Modifier client" />
-                        <Button fx:id="clientDelete" mnemonicParsing="false" onAction="#onActionAnimalDeleteBtn" text="Supprimer client" />
+                        <Button fx:id="empModify" mnemonicParsing="false" onAction="#onActionAnimalModifyBtn" text="Modifier employé" />
+                        <Button fx:id="empDelete" mnemonicParsing="false" onAction="#onActionAnimalDeleteBtn" text="Supprimer employé" />
                     </buttons>
                 </ButtonBar>
-                <ButtonBar buttonMinWidth="30.0" layoutX="497.0" layoutY="564.0" maxWidth="784.0" prefHeight="40.0" prefWidth="625.0">
-                    <buttons>
-                        <Button fx:id="firstAnimal" mnemonicParsing="false" onAction="#onActionfirstAnimalBtn" prefWidth="83.0" text="&lt;&lt; First">
-                            <font>
-                                <Font size="12.0" />
-                            </font></Button>
-                        <Button fx:id="previousAnimal" mnemonicParsing="false" onAction="#onActionPreviousAnimalBtn" text="&lt; Prev">
-                            <font>
-                                <Font size="12.0" />
-                            </font></Button>
-                        <Button fx:id="nextAnimal" mnemonicParsing="false" onAction="#onActionNextAnimalBtn" text="Next &gt;">
-                            <font>
-                                <Font size="12.0" />
-                            </font></Button>
-                        <Button fx:id="lastAnimal" mnemonicParsing="false" onAction="#onActionLastAnimalBtn" text="Last &gt;&gt;">
-                            <font>
-                                <Font size="12.0" />
-                            </font></Button>
-                        <Button fx:id="insertAnimalClient" mnemonicParsing="false" onAction="#onActionInsertCareBtn" text="Insert">
-                            <font>
-                                <Font size="12.0" />
-                            </font></Button>
-                        <Button fx:id="editAnimalClient" mnemonicParsing="false" onAction="#onActionEditCareBtn" text="Edit">
-                            <font>
-                                <Font size="12.0" />
-                            </font></Button>
-                        <Button fx:id="deleteAnimalClient" mnemonicParsing="false" onAction="#onActionDeleteCareBtn" text="Delete">
-                            <font>
-                                <Font size="12.0" />
-                            </font></Button>
-                        <Button fx:id="refreshAnimalListe" mnemonicParsing="false" onAction="#onActionRefreshDiseaseBtn" text="Refresh">
-                            <font>
-                                <Font size="12.0" />
-                            </font></Button>
-                    </buttons>
-                </ButtonBar>
-                <Label layoutX="22.0" layoutY="328.0" text="Historique rendez-vous :" />
-                <Label layoutX="19.0" layoutY="63.0" text="Fiche client :" />
-                <AnchorPane layoutX="14.0" layoutY="89.0" prefHeight="200.0" prefWidth="406.0">
+                <Label layoutX="14.0" layoutY="102.0" text="Fiche employé :" />
+                <AnchorPane layoutX="14.0" layoutY="155.0" prefHeight="337.0" prefWidth="406.0">
                     <children>
-                        <VBox fx:id="resumeClientVbox" prefHeight="200.0" prefWidth="406.0" />
+                        <VBox fx:id="resumeEmpVbox" prefHeight="337.0" prefWidth="406.0" />
                     </children>
                 </AnchorPane>
                 <AnchorPane layoutX="37.0" layoutY="364.0" prefHeight="200.0" prefWidth="345.0">
@@ -115,13 +74,13 @@
                     </children>
                 </AnchorPane>
                 <HBox layoutX="590.0" layoutY="19.0" prefHeight="26.0" prefWidth="187.0" />
-                <Label layoutX="497.0" layoutY="81.0" text="Espèces : " />
-                <ComboBox fx:id="especeAnimalCLientComboBox" layoutX="580.0" layoutY="76.0" prefWidth="150.0" />
-                <Label layoutX="518.0" layoutY="137.0" text="Race : " />
-                <ComboBox fx:id="raceAnimalClientComboBox" layoutX="580.0" layoutY="132.0" prefWidth="150.0" />
-                <Label layoutX="799.0" layoutY="81.0" text="Nom animal : " />
-                <TextField fx:id="nomAnimalClientText" layoutX="904.0" layoutY="76.0" />
-                <Button fx:id="filterButton" layoutX="1013.0" layoutY="132.0" mnemonicParsing="false" text="Filtrer" />
+            <AnchorPane layoutX="498.0" layoutY="102.0" prefHeight="219.0" prefWidth="638.0">
+               <children>
+                  <VBox fx:id="ficheCongesVbox" prefHeight="219.0" prefWidth="651.0" />
+               </children>
+            </AnchorPane>
+            <Label layoutX="498.0" layoutY="78.0" text="Fiche congés" />
+            <Button fx:id="ajouterCongesBtn" layoutX="124.0" layoutY="608.0" mnemonicParsing="false" text="Ajouter congés" />
             </children>
         </AnchorPane>
     </center>

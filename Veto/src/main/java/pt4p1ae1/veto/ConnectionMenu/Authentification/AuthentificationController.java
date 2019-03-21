@@ -34,16 +34,16 @@ public class AuthentificationController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        employeList = Utils.employeDao.findAll();
-        veterinaireList = Utils.veterinaireDao.findAll();
+        employeList = Utils.EMPLOYE_DAO.findAll();
+        veterinaireList = Utils.VETERINAIRE_DAO.findAll();
         loginField.setOnKeyPressed(ke -> {
             if (ke.getCode() == KeyCode.ENTER) {
                 passwordField.requestFocus();
             }
         });
-        passwordField.setOnKeyPressed(ke-> {
+        passwordField.setOnKeyPressed(ke -> {
             if (ke.getCode() == KeyCode.ENTER) {
-                    signInButton.fire();
+                signInButton.fire();
             }
         });
     }
@@ -91,7 +91,7 @@ public class AuthentificationController implements Initializable {
         final String mdp = passwordField.getText();
         employeList.forEach(employeEntity -> {
             if (login.equals(employeEntity.getLogin()) &&
-            mdp.equals(employeEntity.getMotDePasse())) {
+                    mdp.equals(employeEntity.getMotDePasse())) {
                 veterinaireList.forEach(veterinaireEntity -> {
                     if (veterinaireEntity.getId() == employeEntity.getId()) {
                         accountBoolean[1] = true;
@@ -105,7 +105,7 @@ public class AuthentificationController implements Initializable {
             }
         });
 
-        if (accountBoolean[0] && accountBoolean[1]){
+        if (accountBoolean[0] && accountBoolean[1]) {
             return 2;
         } else if (accountBoolean[0]) {
             return 1;

@@ -6,6 +6,7 @@ import pt4p1ae1.veto.Entity.AvoirRendezVousEntity;
 import java.util.Collection;
 
 public class AnimalEntityObservable {
+    private String id;
     private String proprietaire;
     private String nom;
     private String espece;
@@ -17,6 +18,7 @@ public class AnimalEntityObservable {
     private String prochainRDV;
 
     public AnimalEntityObservable(AnimalEntity animal) {
+        this.id = String.valueOf(animal.getId());
         this.proprietaire = animal.getClientByIdClient().getPersonneById().getNom();
         this.nom = animal.getNom();
         this.espece = animal.getRaceByIdRace().getEspeceByIdEspece().getNom();
@@ -67,5 +69,9 @@ public class AnimalEntityObservable {
 
     public String getProchainRDV() {
         return prochainRDV;
+    }
+
+    public String getId() {
+        return id;
     }
 }

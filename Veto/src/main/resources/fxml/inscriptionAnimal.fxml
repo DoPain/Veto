@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -14,6 +12,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.RadioButton?>
 <BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="751.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt4p1ae1.veto.GestionAnimaux.InscriptionAnimalController">
     <top>
         <Pane fx:id="pane" BorderPane.alignment="CENTER">
@@ -45,7 +45,6 @@
             <Label layoutX="107.0" layoutY="179.0" text="Nom :" />
             <Label layoutX="91.0" layoutY="242.0" text="Espèce :" />
             <Label layoutX="106.0" layoutY="303.0" text="Race :" />
-            <Label layoutX="106.0" layoutY="361.0" text="Sexe :" />
             <TextField fx:id="nameText" layoutX="192.0" layoutY="174.0" prefHeight="26.0" prefWidth="175.0" />
             <ComboBox fx:id="speciesComboBox" layoutX="192.0" layoutY="237.0" onAction="#onActionSpeciesComboBox" prefHeight="26.0" prefWidth="177.0" />
             <ComboBox fx:id="raceComboBox" layoutX="192.0" layoutY="298.0" prefHeight="26.0" prefWidth="177.0" />

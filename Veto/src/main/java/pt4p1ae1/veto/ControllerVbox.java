@@ -52,7 +52,7 @@ public class ControllerVbox implements Initializable {
 
     @FXML
     public void onActionOrdonnanceBTN() throws IOException  {
-        creatBtn("/fxml/pageOrdonnance.fxml");
+        creatBtn("/fxml/rechercheOrdonnance.fxml");
     }
 
     @FXML
@@ -63,6 +63,12 @@ public class ControllerVbox implements Initializable {
     @FXML
     public void onActionLogBTN() throws IOException  {
         creatBtn("/fxml/pageLog.fxml");
+
+    }
+
+    @FXML
+    public void onActionEmpBTN() throws IOException  {
+        creatBtn("/fxml/rechercheEmployes.fxml");
 
     }
 }
