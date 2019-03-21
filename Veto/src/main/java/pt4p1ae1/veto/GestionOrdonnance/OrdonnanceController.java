@@ -7,6 +7,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import pt4p1ae1.veto.ControllerSample;
+import pt4p1ae1.veto.Entity.AnimalEntity;
 import pt4p1ae1.veto.Entity.ClientEntity;
 import pt4p1ae1.veto.GestionAnimaux.AnimalEntityObservable;
 import pt4p1ae1.veto.GestionCLient.ClientEntityObservable;
@@ -21,11 +22,11 @@ public class OrdonnanceController extends ControllerSample implements Initializa
     public TableColumn<ClientEntityObservable, String> firstNameClient;
     public TableColumn<ClientEntityObservable, String> nameClient;
     public TableView<ClientEntityObservable> tableViewClient;
-    public TableView tableViewAnimal;
-    public TableColumn<AnimalEntityObservable, Object> nameAnimal;
-    public TableColumn<AnimalEntityObservable, Object> especeAnimal;
-    public TableColumn<AnimalEntityObservable, Object> raceAnimal;
-    public TableColumn<AnimalEntityObservable, Object> nextMeetingAnimal;
+    public TableView<AnimalEntityObservable> tableViewAnimal;
+    public TableColumn<AnimalEntityObservable, String> nameAnimal;
+    public TableColumn<AnimalEntityObservable, String> especeAnimal;
+    public TableColumn<AnimalEntityObservable, String> raceAnimal;
+    public TableColumn<AnimalEntityObservable, String> nextMeetingAnimal;
 
 
     @Override
@@ -35,17 +36,29 @@ public class OrdonnanceController extends ControllerSample implements Initializa
         this.firstNameClient.setCellValueFactory(new PropertyValueFactory<>("prenom"));
         this.nextMeetingClient.setCellValueFactory(new PropertyValueFactory<>("nextRDV"));
 
-        ObservableList<ClientEntityObservable> observables = FXCollections.observableArrayList();
+        ObservableList<ClientEntityObservable> clientEntityObservables = FXCollections.observableArrayList();
 
         List<ClientEntity> clients = Utils.clientDao.findAll();
 
-        for (ClientEntity client : clients) observables.add(new ClientEntityObservable(client));
+        for (ClientEntity client : clients) clientEntityObservables.add(new ClientEntityObservable(client));
 
-        tableViewClient.setItems(observables);
+        tableViewClient.setItems(clientEntityObservables);
 
         this.nameAnimal.setCellValueFactory(new PropertyValueFactory<>("nom"));
         this.especeAnimal.setCellValueFactory(new PropertyValueFactory<>("espece"));
         this.raceAnimal.setCellValueFactory(new PropertyValueFactory<>("race"));
         this.nextMeetingAnimal.setCellValueFactory(new PropertyValueFactory<>("prochainRDV"));
+
+        ObservableList<AnimalEntityObservable> animalEntityObservables = FXCollections.observableArrayList();
+
+        List<AnimalEntity> animals;
+
+        if (tableViewClient.getSelectionModel().isEmpty())
+            animals = tableViewClient.getSelectionModel().getSelectedItem().toClientEntity().getAnimalsById();
+        else
+            animals = Utils.animalDao.findAll();
+
+        for (AnimalEntity animal : animals) animalEntityObservables.add(new AnimalEntityObservable(animal));
+        tableViewAnimal.setItems(animalEntityObservables);
     }
 }
