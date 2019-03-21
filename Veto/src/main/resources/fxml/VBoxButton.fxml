@@ -29,7 +29,7 @@
             <graphic>
                 <ImageView fitHeight="58.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../img/carnetAdresse.png" />
+                        <Image url="@../img/dossierClientl.png" />
                     </image>
                 </ImageView>
             </graphic>
@@ -38,7 +38,7 @@
             <graphic>
                 <ImageView fitHeight="129.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../img/dossier.png" />
+                        <Image url="@../img/dossierAnimal.png" />
                     </image>
                 </ImageView>
             </graphic>
@@ -47,7 +47,7 @@
             <graphic>
                 <ImageView fitHeight="63.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../img/docteur.png" />
+                        <Image url="@../img/ordonnance.png" />
                     </image>
                 </ImageView>
             </graphic>
@@ -56,7 +56,7 @@
             <graphic>
                 <ImageView fitHeight="65.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../img/justice.png" />
+                        <Image url="@../img/facture.png" />
                     </image>
                 </ImageView>
             </graphic>
@@ -65,7 +65,7 @@
             <graphic>
                 <ImageView fitHeight="95.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../img/maison.png" />
+                        <Image url="@../img/docteur.png" />
                     </image>
                 </ImageView>
             </graphic>
@@ -74,7 +74,7 @@
             <graphic>
                 <ImageView fitHeight="62.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../img/graphe.png" />
+                        <Image url="@../img/logs.png" />
                     </image>
                 </ImageView>
             </graphic>

@@ -54,7 +54,7 @@ public class OrdonnanceController extends ControllerSample implements Initializa
         List<AnimalEntity> animals;
 
         if (tableViewClient.getSelectionModel().isEmpty())
-            animals = tableViewClient.getSelectionModel().getSelectedItem().toClientEntity().getAnimalsById();
+            animals = tableViewClient.getSelectionModel().getSelectedItem().to.getAnimalsById();
         else
             animals = Utils.animalDao.findAll();
 
