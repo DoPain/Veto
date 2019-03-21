@@ -3,11 +3,8 @@ package pt4p1ae1.veto.GestionCLient;
 import pt4p1ae1.veto.Entity.AvoirRendezVousEntity;
 import pt4p1ae1.veto.Entity.ClientEntity;
 
-import java.sql.Date;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.Period;
-import java.time.temporal.ChronoUnit;
 import java.util.Collection;
 
 public class ClientEntityObservable {
@@ -33,5 +30,29 @@ public class ClientEntityObservable {
         } else {
             this.nextRDV = "Pas de rendez-vous";
         }
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getNextRDV() {
+        return nextRDV;
     }
 }

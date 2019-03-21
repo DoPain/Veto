@@ -45,7 +45,8 @@ public final class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/authentification.fxml"));
-        primaryStage.setTitle("nameToChoose");
+        primaryStage.setTitle("VetAg");
+        primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root, 700, 400));
         primaryStage.show();
     }
@@ -60,7 +61,7 @@ public final class App extends Application {
                     final String entityName = entityType.getName();
                     final Query query = session
                             .createQuery("from " + entityName);
-                    System.out.println("executing: " + query.getQueryString());
+                    System.out.println("executing : " + query.getQueryString());
                 }
             }
         }).start();

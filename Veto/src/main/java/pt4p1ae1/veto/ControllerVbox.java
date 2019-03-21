@@ -30,7 +30,7 @@ public class ControllerVbox implements Initializable {
     private void creatBtn(String name) throws IOException {
         Stage primaryStage = (Stage) btn_home.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource(name));
-        primaryStage.setScene(new Scene(root,1280,720));
+        primaryStage.setScene(new Scene(root,Utils.WIDTH,Utils.HEIGHT));
     }
     @FXML
     protected void onActionAgendaBTN() throws IOException {

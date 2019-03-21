@@ -10,7 +10,6 @@ public class ClientController extends ControllerSample implements Initializable 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //TODO : récupérer les clients comme en JEE
         super.start();
     }
 

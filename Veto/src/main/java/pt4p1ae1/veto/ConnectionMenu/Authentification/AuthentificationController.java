@@ -9,10 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-import pt4p1ae1.veto.DAO.DaoFactory;
-import pt4p1ae1.veto.DAO.EntityDao;
 import pt4p1ae1.veto.Entity.EmployeEntity;
-import pt4p1ae1.veto.Entity.LogEntity;
 import pt4p1ae1.veto.Entity.VeterinaireEntity;
 import pt4p1ae1.veto.Utils;
 
@@ -73,7 +70,7 @@ public class AuthentificationController implements Initializable {
             }
             Stage primaryStage = (Stage) signInButton.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/home.fxml"));
-            primaryStage.setScene(new Scene(root, 1280, 800));
+            primaryStage.setScene(new Scene(root, Utils.WIDTH, Utils.HEIGHT));
             primaryStage.centerOnScreen();
         } else {
             loginField.setText("");

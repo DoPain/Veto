@@ -19,6 +19,8 @@ public class Utils {
     public static final EntityDao<TraitementEntity> traitementDao = DaoFactory.getDaoFor(TraitementEntity.class);
     public static final EntityDao<EmployeEntity> employeDao = DaoFactory.getDaoFor(EmployeEntity.class);
     public static final EntityDao<VeterinaireEntity> veterinaireDao = DaoFactory.getDaoFor(VeterinaireEntity.class);
+    public static final double WIDTH = 1280;
+    public static final double HEIGHT = 800;
 
     private static boolean admin;
     private static EmployeEntity actualEmploye;
