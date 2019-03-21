@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -32,6 +33,16 @@
         </Pane>
     </top>
     <left>
-        <fx:include fx:id="vbox" source="VBoxButton.fxml"></fx:include>
+        <fx:include fx:id="vbox" source="VBoxButton.fxml" />
     </left>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField layoutX="139.0" layoutY="159.0" />
+            <TextField layoutX="139.0" layoutY="214.0" />
+            <Label layoutX="34.0" layoutY="164.0" text="Nom :" />
+            <Label layoutX="34.0" layoutY="219.0" text="Prénom :" />
+         </children>
+      </AnchorPane>
+   </center>
 </BorderPane>
