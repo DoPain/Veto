@@ -57,9 +57,13 @@
                       </columns>
                   </TableView>
                 <Button fx:id="filterButton" layoutX="790.0" layoutY="87.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="75.0" text="Filtrer" />
-                <Button fx:id="insertButton" layoutX="293.0" layoutY="619.0" mnemonicParsing="false" onAction="#insererClient" prefHeight="30.0" prefWidth="145.0" text="Insérer" />
-                <Button fx:id="editButton" layoutX="531.0" layoutY="619.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="145.0" text="Modifier" />
-                <Button fx:id="deleteButton" layoutX="755.0" layoutY="619.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="145.0" text="Supprimer" />
+                <Button fx:id="firstButton" layoutX="84.0" layoutY="628.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="145.0" text="Premier" />
+                <Button fx:id="previousButton" layoutX="229.0" layoutY="628.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="145.0" text="Précédent" />
+                <Button fx:id="nextButton" layoutX="374.0" layoutY="628.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="145.0" text="Suivant" />
+                <Button fx:id="lastButton" layoutX="518.0" layoutY="628.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="145.0" text="Dernier" />
+                <Button fx:id="insertButton" layoutX="663.0" layoutY="628.0" mnemonicParsing="false" onAction="#insererClient" prefHeight="30.0" prefWidth="145.0" text="Insérer" />
+                <Button fx:id="editButton" layoutX="808.0" layoutY="628.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="145.0" text="Modifier" />
+                <Button fx:id="deleteButton" layoutX="953.0" layoutY="628.0" mnemonicParsing="false" onAction="#supprimerClient" prefHeight="30.0" prefWidth="145.0" text="Supprimer" />
             </children>
         </AnchorPane>
     </center>
