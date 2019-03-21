@@ -4,7 +4,6 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -47,19 +46,15 @@
             <children>
                 <Label fx:id="animalNameLab" layoutX="495.0" layoutY="23.0" text="Nom Client : " />
                 <Button fx:id="backToClients" layoutX="37.0" layoutY="19.0" mnemonicParsing="false" onAction="#onActionBackToAnimalsBtn" text="Retour liste clients" />
-                <Label layoutX="497.0" layoutY="227.0" text="Liste de ses animaux :" />
-                <ScrollPane layoutX="497.0" layoutY="255.0" prefHeight="309.0" prefWidth="640.0">
-                    <content>
-                        <TableView fx:id="careL" prefHeight="315.0" prefWidth="621.0">
-                            <columns>
-                                <TableColumn fx:id="numCareC" prefWidth="73.0" text="N°" />
-                                <TableColumn fx:id="descriptionCareC" prefWidth="154.0" text="Nom" />
-                        <TableColumn prefWidth="180.0" text="Espèce" />
-                        <TableColumn prefWidth="213.0" text="Race" />
-                            </columns>
-                        </TableView>
-                    </content>
-                </ScrollPane>
+                <Label layoutX="517.0" layoutY="201.0" text="Liste de ses animaux :" />
+                  <TableView fx:id="careL" layoutX="518.0" layoutY="236.0" prefHeight="315.0" prefWidth="621.0">
+                      <columns>
+                          <TableColumn fx:id="numCareC" prefWidth="73.0" text="N°" />
+                          <TableColumn fx:id="descriptionCareC" prefWidth="154.0" text="Nom" />
+                  <TableColumn prefWidth="180.0" text="Espèce" />
+                  <TableColumn prefWidth="213.0" text="Race" />
+                      </columns>
+                  </TableView>
                 <ButtonBar fx:id="animalButtonList" layoutX="61.0" layoutY="564.0" prefHeight="40.0" prefWidth="287.0">
                     <buttons>
                         <Button fx:id="clientModify" mnemonicParsing="false" onAction="#onActionAnimalModifyBtn" text="Modifier client" />
