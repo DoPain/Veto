@@ -45,17 +45,17 @@ public class DossierAnimalController extends ControllerSample implements Initial
 
     //liste des maladies
     @FXML
-    private TableView diseaseHistory;
+    private TableView <LogEntityObservable> diseaseHistory;
     @FXML
-    private TableColumn numCol;
+    private TableColumn<LogEntityObservable, String> numCol;
     @FXML
-    private TableColumn diseaseCol;
+    private TableColumn<LogEntityObservable, String> diseaseCol;
     @FXML
-    private TableColumn careCol;
+    private TableColumn<LogEntityObservable, String> careCol;
     @FXML
-    private TableColumn startDateCol;
+    private TableColumn<LogEntityObservable, String> startDateCol;
     @FXML
-    private TableColumn endDateCol;
+    private TableColumn<LogEntityObservable, String> endDateCol;
     @FXML
     private Button insertDiseaseBtn;
     @FXML
@@ -71,30 +71,32 @@ public class DossierAnimalController extends ControllerSample implements Initial
         super.start();
 
         animal = Utils.getCurrentAnimal();
+        AnimalEntityObservable animalObservable = new AnimalEntityObservable(animal);
 
         //Mettre le nom de l'animal dans animalNameLabel
         animalNameLabel.setText(animal.getNom());
 
         //Afficher résumé de l'animal dans resumeAnimalLabel
         resumeAnimalLabel.setText(
-                "Propriétaire : " + Utils.personneDao.findById(Utils.clientDao.findById(animal.getIdClient()).getId()).getNom()
-                + "Nom : " + animal.getNom()
-                + "Espèce : " + Utils.especeDao.findById(animal.getIdRace()).getNom()
-                + "Race : " + Utils.raceDao.findById(animal.getIdRace()).getNom()
-                + "Sexe : " + animal.getSexe()
-                + "Date de naissance : " + animal.getDateNaissance().toString()
-                + "Poids : " + animal.getPoids().toString()
-                + "Autres informations : " + animal.getAutreInformations()
+                "Propriétaire : " + animalObservable.getProprietaire()
+                + "Nom : " + animalObservable.getNom()
+                + "Espèce : " + animalObservable.getEspece()
+                + "Race : " + animalObservable.getRace()
+                + "Sexe : " + animalObservable.getSexe()
+                + "Date de naissance : " + animalObservable.getDateDeNaissance()
+                + "Poids : " + animalObservable.getPoids()
+                + "Autres informations : " + animalObservable.getAutresInformations()
         );
 
 
         //TODO Afficher historique des maladies dans diseaseHistoryList
-        animal.setCellValueFactory(new PropertyValueFactory<>("nom"));
-        employePrenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
-        action.setCellValueFactory(new PropertyValueFactory<>("action"));
-        temps.setCellValueFactory(new PropertyValueFactory<>("temps"));
+        numCol.setCellValueFactory(new PropertyValueFactory<>("N°"));
+        diseaseCol.setCellValueFactory(new PropertyValueFactory<>("Maladie"));
+        careCol.setCellValueFactory(new PropertyValueFactory<>("Soin"));
+        startDateCol.setCellValueFactory(new PropertyValueFactory<>("Date de début"));
+        endDateCol.setCellValueFactory(new PropertyValueFactory<>("Date de fin"));
 
-        ObservableList<LogEntityObservable> observableList = FXCollections.observableArrayList();
+        ObservableList<AnimalEntityObservable> observableList = FXCollections.observableArrayList();
 
         List<LogEntity> logs = Utils.logDao.findAll();
 
