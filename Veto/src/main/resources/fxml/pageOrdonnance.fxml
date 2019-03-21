@@ -37,18 +37,18 @@
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <TableView fx:id="tableViewClient" layoutX="590.0" layoutY="21.0" prefHeight="204.0" prefWidth="544.0">
                 <columns>
-                    <TableColumn fx:id="nameColumn" minWidth="30.0" prefWidth="162.0" text="Nom"/>
-                    <TableColumn fx:id="firstNameColumn" minWidth="30.0" prefWidth="171.0" text="Prénom"/>
-                    <TableColumn fx:id="nextMeetingColumn" minWidth="30.0" prefWidth="210.0"
+                    <TableColumn fx:id="nameClient" minWidth="30.0" prefWidth="162.0" text="Nom"/>
+                    <TableColumn fx:id="firstNameClient" minWidth="30.0" prefWidth="171.0" text="Prénom"/>
+                    <TableColumn fx:id="nextMeetingClient" minWidth="30.0" prefWidth="210.0"
                                  text="Prochain rendez-vous"/>
                 </columns>
             </TableView>
             <TableView fx:id="tableViewAnimal" layoutX="590.0" layoutY="239.0" prefHeight="342.0" prefWidth="567.0">
                 <columns>
-                    <TableColumn fx:id="nomAnimalColumn" minWidth="30.0" prefWidth="111.0" text="Nom animal"/>
-                    <TableColumn fx:id="nomEspeceColumn" minWidth="24.0" prefWidth="117.0" text="Espèce"/>
-                    <TableColumn fx:id="nomRaceColumn" minWidth="0.0" prefWidth="147.0" text="Race"/>
-                    <TableColumn fx:id="nextMeeting" minWidth="30.0" prefWidth="191.0" text="Prochain rendez-vous"/>
+                    <TableColumn fx:id="nameAnimal" minWidth="30.0" prefWidth="111.0" text="Nom animal"/>
+                    <TableColumn fx:id="especeAnimal" minWidth="24.0" prefWidth="117.0" text="Espèce"/>
+                    <TableColumn fx:id="raceAnimal" minWidth="0.0" prefWidth="147.0" text="Race"/>
+                    <TableColumn fx:id="nextMeetingAnimal" minWidth="30.0" prefWidth="191.0" text="Prochain rendez-vous"/>
                 </columns>
             </TableView>
         </AnchorPane>

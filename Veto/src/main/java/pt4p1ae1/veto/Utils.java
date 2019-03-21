@@ -8,7 +8,6 @@ import java.sql.Timestamp;
 import java.time.Instant;
 
 public class Utils {
-
     public static final EntityDao<ClientEntity> clientDao = DaoFactory.getDaoFor(ClientEntity.class);
     public static final EntityDao<LogEntity> logDao = DaoFactory.getDaoFor(LogEntity.class);
     public static final EntityDao<PersonneEntity> personneDao = DaoFactory.getDaoFor(PersonneEntity.class);

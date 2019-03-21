@@ -1,0 +1,16 @@
+DROP TABLE Log;
+DROP TABLE Appartenir;
+DROP TABLE AvoirRendezVous;
+DROP TABLE Commander;
+DROP TABLE Conge;
+DROP TABLE Traitement;
+DROP TABLE Panier;
+DROP TABLE Produit;
+DROP TABLE Race;
+DROP TABLE Ordonnance;
+DROP TABLE Animal;
+DROP TABLE Client;
+DROP TABLE Employe;
+DROP TABLE Veterinaire;
+DROP TABLE Personne;
+DROP TABLE Espece;

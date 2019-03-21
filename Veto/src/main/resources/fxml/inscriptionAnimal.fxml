@@ -41,13 +41,13 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="backToAnimals" layoutX="67.0" layoutY="63.0" mnemonicParsing="false" onAction="#onActionBackToAnimalsBtn" text="Retour liste animaux" />
+            <Button fx:id="backToAnimalsBtn" layoutX="67.0" layoutY="63.0" mnemonicParsing="false" onAction="#onActionBackToAnimalsBtn" text="Retour liste animaux" />
             <Label layoutX="107.0" layoutY="179.0" text="Nom :" />
             <Label layoutX="91.0" layoutY="242.0" text="Espèce :" />
             <Label layoutX="106.0" layoutY="303.0" text="Race :" />
             <Label layoutX="106.0" layoutY="361.0" text="Sexe :" />
             <TextField fx:id="nameText" layoutX="192.0" layoutY="174.0" prefHeight="26.0" prefWidth="175.0" />
-            <ComboBox fx:id="speciesComboBox" layoutX="192.0" layoutY="237.0" prefHeight="26.0" prefWidth="177.0" />
+            <ComboBox fx:id="speciesComboBox" layoutX="192.0" layoutY="237.0" onAction="#onActionSpeciesComboBox" prefHeight="26.0" prefWidth="177.0" />
             <ComboBox fx:id="raceComboBox" layoutX="192.0" layoutY="298.0" prefHeight="26.0" prefWidth="177.0" />
             <Label layoutX="568.0" layoutY="179.0" text="Date de naissance :" />
             <TextField fx:id="birthDateText" layoutX="752.0" layoutY="174.0" />
