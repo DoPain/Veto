@@ -8,6 +8,7 @@ import java.time.Period;
 import java.util.Collection;
 
 public class ClientEntityObservable {
+    private ClientEntity clientEntity;
     private String nom;
     private String prenom;
     private String age;
@@ -16,6 +17,7 @@ public class ClientEntityObservable {
     private String nextRDV;
 
     public ClientEntityObservable(ClientEntity clientEntity) {
+        this.clientEntity = clientEntity;
         this.nom = clientEntity.getPersonneById().getNom();
         this.prenom = clientEntity.getPersonneById().getPrenom();
 
@@ -30,6 +32,10 @@ public class ClientEntityObservable {
         } else {
             this.nextRDV = "Pas de rendez-vous";
         }
+    }
+
+    public ClientEntity toClientEntity() {
+        return this.clientEntity;
     }
 
     public String getNom() {

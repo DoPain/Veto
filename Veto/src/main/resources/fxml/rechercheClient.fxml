@@ -2,7 +2,6 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -14,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="751.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt4p1ae1.veto.GestionCLient.RechercheClientController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="751.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.181" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt4p1ae1.veto.GestionCLient.RechercheClientController">
     <top>
         <Pane fx:id="pane" BorderPane.alignment="CENTER">
             <children>
@@ -47,28 +46,19 @@
                 <TextField fx:id="firstNameClientField" layoutX="603.0" layoutY="34.0" />
                 <Label layoutX="179.0" layoutY="92.0" text="Email :" />
                 <TextField fx:id="emailClientField" layoutX="234.0" layoutY="87.0" />
-                <ScrollPane layoutX="84.0" layoutY="160.0" prefHeight="468.0" prefWidth="1013.0">
-                    <content>
-                        <TableView fx:id="tableViewClient" prefHeight="461.0" prefWidth="1012.0">
-                            <columns>
-                                <TableColumn fx:id="nameColumn" minWidth="30.0" prefWidth="146.0" text="Nom" />
-                                <TableColumn fx:id="firstNameColumn" minWidth="30.0" prefWidth="171.0" text="Prénom" />
-                                <TableColumn fx:id="ageColumn" minWidth="1.0" prefWidth="114.0" text="Age" />
-                                <TableColumn fx:id="phoneColumn" minWidth="29.0" prefWidth="176.0" text="Téléphone" />
-                                <TableColumn fx:id="emailColumn" minWidth="30.0" prefWidth="212.0" text="Email" />
-                                <TableColumn fx:id="nextMeetingColumn" minWidth="30.0" prefWidth="175.0" text="Prochain rendez-vous" />
-                            </columns>
-                        </TableView>
-                    </content>
-                </ScrollPane>
-                <Button fx:id="filterButton" layoutX="790.0" layoutY="87.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="75.0" text="Filtrer" />
-                <Button fx:id="firstButton" layoutX="84.0" layoutY="628.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="145.0" text="Premier" />
-                <Button fx:id="previousButton" layoutX="229.0" layoutY="628.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="145.0" text="Précédent" />
-                <Button fx:id="nextButton" layoutX="374.0" layoutY="628.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="145.0" text="Suivant" />
-                <Button fx:id="lastButton" layoutX="518.0" layoutY="628.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="145.0" text="Dernier" />
-                <Button fx:id="insertButton" layoutX="663.0" layoutY="628.0" mnemonicParsing="false" onAction="#insererClient" prefHeight="30.0" prefWidth="145.0" text="Insérer" />
-                <Button fx:id="editButton" layoutX="808.0" layoutY="628.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="145.0" text="Modifier" />
-                <Button fx:id="deleteButton" layoutX="953.0" layoutY="628.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="145.0" text="Supprimer" />
+                  <TableView fx:id="tableViewClient" layoutX="85.0" layoutY="137.0" prefHeight="461.0" prefWidth="1012.0">
+                      <columns>
+                          <TableColumn fx:id="nameColumn" minWidth="30.0" prefWidth="146.0" text="Nom" />
+                          <TableColumn fx:id="firstNameColumn" minWidth="30.0" prefWidth="171.0" text="Prénom" />
+                          <TableColumn fx:id="ageColumn" minWidth="1.0" prefWidth="114.0" text="Age" />
+                          <TableColumn fx:id="phoneColumn" minWidth="29.0" prefWidth="176.0" text="Téléphone" />
+                          <TableColumn fx:id="emailColumn" minWidth="30.0" prefWidth="212.0" text="Email" />
+                          <TableColumn fx:id="nextMeetingColumn" minWidth="30.0" prefWidth="175.0" text="Prochain rendez-vous" />
+                      </columns>
+                  </TableView>
+                <Button fx:id="insertButton" layoutX="293.0" layoutY="619.0" mnemonicParsing="false" onAction="#insererClient" prefHeight="30.0" prefWidth="145.0" text="Insérer" />
+                <Button fx:id="editButton" layoutX="531.0" layoutY="619.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="145.0" text="Modifier" />
+                <Button fx:id="deleteButton" layoutX="755.0" layoutY="619.0" mnemonicParsing="false" onAction="#supprimerClient" prefHeight="30.0" prefWidth="145.0" text="Supprimer" />
             </children>
         </AnchorPane>
     </center>

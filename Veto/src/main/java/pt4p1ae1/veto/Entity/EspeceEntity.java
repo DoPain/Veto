@@ -1,5 +1,7 @@
 package pt4p1ae1.veto.Entity;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
@@ -45,7 +47,8 @@ public class EspeceEntity {
         return Objects.hash(id, nom);
     }
 
-    @OneToMany(mappedBy = "especeByIdEspece")
+    @OneToMany( mappedBy = "especeByIdEspece")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public Collection<RaceEntity> getRacesById() {
         return racesById;
     }

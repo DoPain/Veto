@@ -22,6 +22,15 @@ public class DaoFactory {
             }
 
             @Override
+            public void remove(T entity) {
+                Session session = App.getSession();
+                session.beginTransaction();
+                session.remove(entity);
+                session.getTransaction().commit();
+                session.close();
+            }
+
+            @Override
             public List<T> findAll() {
                 Session session = App.getSession();
                 Query query = session.createQuery("from " + className);

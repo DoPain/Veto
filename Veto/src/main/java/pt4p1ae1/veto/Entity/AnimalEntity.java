@@ -1,5 +1,7 @@
 package pt4p1ae1.veto.Entity;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
@@ -122,7 +124,7 @@ public class AnimalEntity {
     }
 
     @ManyToOne
-    @JoinColumn(insertable = false, updatable = false, name = "idRace", referencedColumnName = "id", nullable = false)
+    @JoinColumn(insertable =false, updatable=false,name = "idRace", referencedColumnName = "id", nullable = false)
     public RaceEntity getRaceByIdRace() {
         return raceByIdRace;
     }
@@ -132,7 +134,7 @@ public class AnimalEntity {
     }
 
     @ManyToOne
-    @JoinColumn(insertable = false, updatable = false, name = "idClient", referencedColumnName = "id", nullable = false)
+    @JoinColumn(insertable =false, updatable=false,name = "idClient", referencedColumnName = "id", nullable = false)
     public ClientEntity getClientByIdClient() {
         return clientByIdClient;
     }
@@ -141,7 +143,8 @@ public class AnimalEntity {
         this.clientByIdClient = clientByIdClient;
     }
 
-    @OneToMany(mappedBy = "animalByIdAnimal")
+    @OneToMany( mappedBy = "animalByIdAnimal")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public Collection<OrdonnanceEntity> getOrdonnancesById() {
         return ordonnancesById;
     }
@@ -150,7 +153,8 @@ public class AnimalEntity {
         this.ordonnancesById = ordonnancesById;
     }
 
-    @OneToMany(mappedBy = "animalByIdAnimal")
+    @OneToMany( mappedBy = "animalByIdAnimal")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public Collection<TraitementEntity> getTraitementsById() {
         return traitementsById;
     }
