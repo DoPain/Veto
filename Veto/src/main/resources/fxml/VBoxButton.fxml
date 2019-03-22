@@ -6,7 +6,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.image.ImageView?>
-<VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" xmlns:fx="http://javafx.com/fxml/1"
+<VBox fx:id="vBox" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="pt4p1ae1.veto.ControllerVbox">
     <padding>
         <Insets top="10.0"/>
