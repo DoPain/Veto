@@ -25,7 +25,6 @@ public final class App extends Application {
         try {
             Configuration configuration = new Configuration();
             configuration.configure();
-
             SESSION_FACTORY = configuration.buildSessionFactory();
         } catch (HibernateException ex) {
             throw new ExceptionInInitializerError(ex);
