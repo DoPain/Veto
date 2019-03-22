@@ -46,7 +46,6 @@ public final class App extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/authentification.fxml"));
         primaryStage.setTitle("VetoGestion");
         primaryStage.setResizable(false);
-        //primaryStage.setScene(new Scene(root, Utils.WIDTH, Utils.HEIGHT));
         primaryStage.setScene(new Scene(root, 700, 400));
         primaryStage.show();
     }
