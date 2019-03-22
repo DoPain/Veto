@@ -18,12 +18,15 @@ public class Utils {
     public static final EntityDao<TraitementEntity> TRAITEMENT_DAO = DaoFactory.getDaoFor(TraitementEntity.class);
     public static final EntityDao<EmployeEntity> EMPLOYE_DAO = DaoFactory.getDaoFor(EmployeEntity.class);
     public static final EntityDao<VeterinaireEntity> VETERINAIRE_DAO = DaoFactory.getDaoFor(VeterinaireEntity.class);
+
     public static final double WIDTH = 1280;
     public static final double HEIGHT = 800;
 
     private static boolean admin;
     private static EmployeEntity actualEmploye;
     private static AnimalEntity currentAnimal;
+
+    private static boolean modifyAnimal = false;
 
     public static void createLog(String action) {
         new Thread(() -> {
@@ -57,5 +60,13 @@ public class Utils {
 
     public static AnimalEntity getCurrentAnimal() {
         return currentAnimal;
+    }
+
+    public static boolean isModifyAnimal() {
+        return modifyAnimal;
+    }
+
+    public static void setModifyAnimal(boolean modifyAnimal) {
+        Utils.modifyAnimal = modifyAnimal;
     }
 }
