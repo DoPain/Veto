@@ -33,7 +33,7 @@
                <Button fx:id="decrease_btn" mnemonicParsing="false" text="&lt;" />
                <DatePicker fx:id="datePicker" />
                <Button fx:id="increase_btn" mnemonicParsing="false" text="&gt;" />
-                  <Button fx:id="save_btn" layoutX="374.0" layoutY="10.0" mnemonicParsing="false" text="Enregistrer" onAction="#saveEvent"/>
+                  <Button fx:id="save_btn" layoutX="374.0" layoutY="10.0" mnemonicParsing="false" text="Enregistrer"/>
             </children>
          </HBox>
       </children>

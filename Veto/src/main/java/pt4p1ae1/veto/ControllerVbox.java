@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import jfxtras.scene.control.agenda.Agenda;
+import pt4p1ae1.veto.AgendaPage.AgendaPage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -47,8 +49,9 @@ public class ControllerVbox implements Initializable {
         Stage primaryStage = (Stage) btn_home.getScene().getWindow();
         if(primaryStage.getTitle().equals("Agenda")){
             System.out.println("agenda, à faire");
+            AgendaPage.saveEvent();
         }
-        Parent root = FXMLLoader.load(getClass().getResource(name));
+        Parent root = FXMLLoader.load(this.getClass().getResource(name));
         primaryStage.setScene(new Scene(root,Utils.WIDTH,Utils.HEIGHT));
         primaryStage.setTitle(titleMap.get(name));
     }
