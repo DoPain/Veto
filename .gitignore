@@ -2,5 +2,9 @@
 *.iml
 target/
 src/main/resources/hibernate.cfg.xml
+<<<<<<< HEAD
 
 Veto/src/main/resources/hibernate\.cfg\.xml
+=======
+*.pdf
+>>>>>>> master
