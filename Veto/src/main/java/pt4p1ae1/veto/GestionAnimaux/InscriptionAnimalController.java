@@ -1,6 +1,7 @@
 package pt4p1ae1.veto.GestionAnimaux;
 
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -35,6 +36,10 @@ public class InscriptionAnimalController extends ControllerSample implements Ini
     @FXML
     private Button registerBtn;
     @FXML
+    private ComboBox ownerComboBox;
+    @FXML
+    private Button newCustomer;
+    @FXML
     private TextField nameTextField;
     @FXML
     private ComboBox speciesComboBox;
@@ -61,6 +66,10 @@ public class InscriptionAnimalController extends ControllerSample implements Ini
         ArrayList<String> speciesList = new ArrayList<>();
         Utils.ESPECE_DAO.findAll().forEach(espece -> speciesList.add(espece.getNom()));
         speciesComboBox.setItems((ObservableList<String>)speciesList);
+
+        ArrayList<String> ownersList = new ArrayList<>();
+        Utils.CLIENT_DAO.findAll().forEach(client -> ownersList.add(client.getPersonneById().getNom()));
+        ownerComboBox.setItems((ObservableList<String>)ownersList);
 
         if(Utils.isModifyAnimal()) {
             AnimalEntityObservable animalObservable = new AnimalEntityObservable(animal);
@@ -127,6 +136,13 @@ public class InscriptionAnimalController extends ControllerSample implements Ini
         //Rediriger vers la liste animaux
         Stage primaryStage = (Stage) registerBtn.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/rechercheAnimal.fxml"));
+        primaryStage.setScene(new Scene(root, 1280, 720));
+        primaryStage.centerOnScreen();
+    }
+
+    public void newCustomerOnAction(ActionEvent actionEvent) throws IOException {
+        Stage primaryStage = (Stage) newCustomer.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/inscriptionClient.fxml"));
         primaryStage.setScene(new Scene(root, 1280, 720));
         primaryStage.centerOnScreen();
     }
