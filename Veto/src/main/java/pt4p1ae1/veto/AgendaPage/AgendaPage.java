@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.layout.BorderPane;
 import jfxtras.icalendarfx.VCalendar;
-import jfxtras.scene.control.agenda.Agenda;
+import jfxtras.icalendarfx.utilities.Callback;
 import jfxtras.scene.control.agenda.icalendar.ICalendarAgenda;
 import pt4p1ae1.veto.ControllerSample;
 
@@ -55,7 +55,11 @@ public class AgendaPage extends ControllerSample implements Initializable{
             agendaHome.setDisplayedLocalDateTime(newLocalDateTime);
             System.out.println(vCalendar.toString());
         });
-        //TODO use this method to save events in file or base and use this information to fill the vCalenda
+
+        Callback uidCallback = (Void) ->
+                LocalDateTime.now().toString() + "-" +
+                        ".myapp.com";
+        agendaHome.setUidGeneratorCallback(uidCallback);
 
     }
 }
