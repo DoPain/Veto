@@ -7,7 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.layout.BorderPane;
 import jfxtras.icalendarfx.VCalendar;
-import jfxtras.icalendarfx.utilities.Callback;
 import jfxtras.scene.control.agenda.icalendar.ICalendarAgenda;
 import pt4p1ae1.veto.ControllerSample;
 
@@ -26,6 +25,8 @@ public class AgendaPage extends ControllerSample implements Initializable{
     private Button increase_btn;
     @FXML
     private Button decrease_btn;
+    @FXML
+    private Button save_btn;
     private VCalendar vCalendar;
     private ICalendarAgenda agendaHome;
 
@@ -55,11 +56,11 @@ public class AgendaPage extends ControllerSample implements Initializable{
             agendaHome.setDisplayedLocalDateTime(newLocalDateTime);
             System.out.println(vCalendar.toString());
         });
+    }
 
-        Callback uidCallback = (Void) ->
-                LocalDateTime.now().toString() + "-" +
-                        ".myapp.com";
-        agendaHome.setUidGeneratorCallback(uidCallback);
-
+    @FXML
+    public void saveEvent() {
+        System.out.println("A faire");
+        //TODO save all event
     }
 }

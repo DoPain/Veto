@@ -6,10 +6,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class ControllerVbox implements Initializable {
@@ -20,18 +22,37 @@ public class ControllerVbox implements Initializable {
     @FXML
     protected Button btn_log;
 
+    @FXML
+    protected VBox vBox;
+
+    HashMap<String,String> titleMap;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (!Utils.isAdmin()) {
             btn_log.setVisible(false);
         }
+        titleMap = new HashMap<>();
+        titleMap.put("/fxml/agendaPage.fxml","Agenda");
+        titleMap.put("/fxml/home.fxml","Home");
+        titleMap.put("/fxml/rechercheAnimal.fxml","Animaux");
+        titleMap.put("/fxml/rechercheClient.fxml","Client");
+        titleMap.put("/fxml/rechercheOrdonnance.fxml","Ordonnance");
+        titleMap.put("/fxml/pageStock.fxml","Stock");
+        titleMap.put("/fxml/pageLog.fxml","Log");
+        titleMap.put("/fxml/rechercheEmployes.fxml","Employé");
     }
 
-    private void creatBtn(String name) throws IOException {
+    protected void creatBtn(String name) throws IOException {
         Stage primaryStage = (Stage) btn_home.getScene().getWindow();
+        if(primaryStage.getTitle().equals("Agenda")){
+            System.out.println("agenda, à faire");
+        }
         Parent root = FXMLLoader.load(getClass().getResource(name));
         primaryStage.setScene(new Scene(root,Utils.WIDTH,Utils.HEIGHT));
+        primaryStage.setTitle(titleMap.get(name));
     }
+
     @FXML
     protected void onActionAgendaBTN() throws IOException {
         creatBtn("/fxml/agendaPage.fxml");
@@ -41,33 +62,33 @@ public class ControllerVbox implements Initializable {
         creatBtn("/fxml/home.fxml");
     }
     @FXML
-    public void onActionAnimauxBTN() throws IOException {
+    protected void onActionAnimauxBTN() throws IOException {
         creatBtn("/fxml/rechercheAnimal.fxml");
     }
 
     @FXML
-    public void onActionClientBTN() throws IOException {
+    protected void onActionClientBTN() throws IOException {
         creatBtn("/fxml/rechercheClient.fxml");
     }
 
     @FXML
-    public void onActionOrdonnanceBTN() throws IOException  {
+    protected void onActionOrdonnanceBTN() throws IOException  {
         creatBtn("/fxml/rechercheOrdonnance.fxml");
     }
 
     @FXML
-    public void onActionStockBTN() throws IOException  {
+    protected void onActionStockBTN() throws IOException  {
         creatBtn("/fxml/pageStock.fxml");
     }
 
     @FXML
-    public void onActionLogBTN() throws IOException  {
+    protected void onActionLogBTN() throws IOException  {
         creatBtn("/fxml/pageLog.fxml");
 
     }
 
     @FXML
-    public void onActionEmpBTN() throws IOException  {
+    protected void onActionEmpBTN() throws IOException  {
         creatBtn("/fxml/rechercheEmployes.fxml");
 
     }
