@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="751.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.181" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt4p1ae1.veto.GestionCLient.RechercheClientController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="751.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt4p1ae1.veto.GestionCLient.RechercheClientController">
     <top>
         <Pane fx:id="pane" BorderPane.alignment="CENTER">
             <children>
@@ -44,8 +44,7 @@
                 <TextField fx:id="nameClientField" layoutX="234.0" layoutY="34.0" />
                 <Label layoutX="536.0" layoutY="39.0" text="Prénom :" />
                 <TextField fx:id="firstNameClientField" layoutX="603.0" layoutY="34.0" />
-                <Label layoutX="179.0" layoutY="92.0" text="Email :" />
-                <TextField fx:id="emailClientField" layoutX="234.0" layoutY="87.0" />
+                <Label fx:id="error" layoutX="172.0" layoutY="87.0" prefHeight="26.0" prefWidth="364.0" />
                   <TableView fx:id="tableViewClient" layoutX="85.0" layoutY="137.0" prefHeight="461.0" prefWidth="1012.0">
                       <columns>
                           <TableColumn fx:id="nameColumn" minWidth="30.0" prefWidth="146.0" text="Nom" />
@@ -59,6 +58,7 @@
                 <Button fx:id="insertButton" layoutX="293.0" layoutY="619.0" mnemonicParsing="false" onAction="#insererClient" prefHeight="30.0" prefWidth="145.0" text="Insérer" />
                 <Button fx:id="editButton" layoutX="531.0" layoutY="619.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="145.0" text="Modifier" />
                 <Button fx:id="deleteButton" layoutX="755.0" layoutY="619.0" mnemonicParsing="false" onAction="#supprimerClient" prefHeight="30.0" prefWidth="145.0" text="Supprimer" />
+            <Button layoutX="604.0" layoutY="87.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="170.0" text="Filtrer" />
             </children>
         </AnchorPane>
     </center>

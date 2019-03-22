@@ -3,6 +3,7 @@ package pt4p1ae1.veto.Entity;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -11,9 +12,13 @@ import java.util.Objects;
 public class ProduitEntity {
     private long id;
     private String nom;
+    private String refProduit;
     private int quantiteEnStock;
-    private int quantiteMinimum;
     private double prix;
+    private Integer quantiteMinimum;
+    private Date peremption;
+    private Date dateAcquisition;
+    private String description;
     private Collection<AppartenirEntity> appartenirsById;
     private Collection<CommanderEntity> commandersById;
 
@@ -38,6 +43,16 @@ public class ProduitEntity {
     }
 
     @Basic
+    @Column(name = "refProduit", nullable = false, length = 32)
+    public String getRefProduit() {
+        return refProduit;
+    }
+
+    public void setRefProduit(String refProduit) {
+        this.refProduit = refProduit;
+    }
+
+    @Basic
     @Column(name = "quantiteEnStock", nullable = false)
     public int getQuantiteEnStock() {
         return quantiteEnStock;
@@ -45,16 +60,6 @@ public class ProduitEntity {
 
     public void setQuantiteEnStock(int quantiteEnStock) {
         this.quantiteEnStock = quantiteEnStock;
-    }
-
-    @Basic
-    @Column(name = "quantiteMinimum", nullable = false)
-    public int getQuantiteMinimum() {
-        return quantiteMinimum;
-    }
-
-    public void setQuantiteMinimum(int quantiteMinimum) {
-        this.quantiteMinimum = quantiteMinimum;
     }
 
     @Basic
@@ -67,6 +72,46 @@ public class ProduitEntity {
         this.prix = prix;
     }
 
+    @Basic
+    @Column(name = "quantiteMinimum", nullable = true)
+    public Integer getQuantiteMinimum() {
+        return quantiteMinimum;
+    }
+
+    public void setQuantiteMinimum(Integer quantiteMinimum) {
+        this.quantiteMinimum = quantiteMinimum;
+    }
+
+    @Basic
+    @Column(name = "peremption", nullable = true)
+    public Date getPeremption() {
+        return peremption;
+    }
+
+    public void setPeremption(Date peremption) {
+        this.peremption = peremption;
+    }
+
+    @Basic
+    @Column(name = "dateAcquisition", nullable = true)
+    public Date getDateAcquisition() {
+        return dateAcquisition;
+    }
+
+    public void setDateAcquisition(Date dateAcquisition) {
+        this.dateAcquisition = dateAcquisition;
+    }
+
+    @Basic
+    @Column(name = "description", nullable = true, length = 1000)
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -74,14 +119,18 @@ public class ProduitEntity {
         ProduitEntity that = (ProduitEntity) o;
         return id == that.id &&
                 quantiteEnStock == that.quantiteEnStock &&
-                quantiteMinimum == that.quantiteMinimum &&
                 Double.compare(that.prix, prix) == 0 &&
-                Objects.equals(nom, that.nom);
+                Objects.equals(nom, that.nom) &&
+                Objects.equals(refProduit, that.refProduit) &&
+                Objects.equals(quantiteMinimum, that.quantiteMinimum) &&
+                Objects.equals(peremption, that.peremption) &&
+                Objects.equals(dateAcquisition, that.dateAcquisition) &&
+                Objects.equals(description, that.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nom, quantiteEnStock, quantiteMinimum, prix);
+        return Objects.hash(id, nom, refProduit, quantiteEnStock, prix, quantiteMinimum, peremption, dateAcquisition, description);
     }
 
     @OneToMany(mappedBy = "produitByIdProduit")

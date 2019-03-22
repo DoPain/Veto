@@ -49,7 +49,7 @@ public class EspeceEntity {
 
     @OneToMany(mappedBy = "especeByIdEspece")
     @Cascade(org.hibernate.annotations.CascadeType.DELETE)
-    public Collection<RaceEntity> getRacesById() {
+    private Collection<RaceEntity> getRacesById() {
         return racesById;
     }
 

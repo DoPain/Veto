@@ -96,8 +96,8 @@ CREATE TABLE IF NOT EXISTS Conge
 (
   id        BIGINT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   idEmploye BIGINT(4)             NOT NULL,
-  dateDebut DATETIME              NOT NULL,
-  dateFin   DATETIME              NOT NULL
+  dateDebut DATE              NOT NULL,
+  dateFin   DATE              NOT NULL
 );
 
 # -----------------------------------------------------------------------------
@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS Ordonnance
   id             BIGINT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   idAnimal       BIGINT(4)             NOT NULL,
   idVeterinaire  BIGINT(4)             NOT NULL,
-  dateOrdonnance DATETIME              NOT NULL,
+  dateOrdonnance DATE              NOT NULL,
   commentaire    CHAR(32)              NULL
 );
 
@@ -211,10 +211,9 @@ CREATE TABLE IF NOT EXISTS Animal
   idRace            BIGINT(4)             NOT NULL,
   idClient          BIGINT(4)             NOT NULL,
   nom               CHAR(32)              NOT NULL,
-  sexe              CHAR(1),
   poids             REAL(4, 2),
   autreInformations LONGTEXT,
-  dateNaissance     DATETIME
+  dateNaissance     DATE
 );
 
 # -----------------------------------------------------------------------------
@@ -273,7 +272,6 @@ CREATE TABLE IF NOT EXISTS Traitement
 #       INDEX DE LA TABLE Traitement
 # -----------------------------------------------------------------------------
 
-
 CREATE INDEX I_FK_Traitement_Ordonnance
   ON Traitement (id ASC);
 
@@ -287,7 +285,9 @@ CREATE TABLE IF NOT EXISTS Employe
   login            CHAR(32)              NOT NULL UNIQUE,
   motDePasse       CHAR(32)              NOT NULL,
   salaire          REAL(10, 2),
-  dateDebutContrat DATE                  NOT NULL
+  dateDebutContrat DATE                  NOT NULL,
+  dateFinContrat   DATE,
+  typeContrat      CHAR(20)
 
 );
 
@@ -345,7 +345,7 @@ CREATE INDEX I_FK_Commander_Produit
 CREATE TABLE IF NOT EXISTS AvoirRendezVous
 (
   id            BIGINT(4)  NOT NULL AUTO_INCREMENT,
-  idClient      BIGINT(4)  NOT NULL,
+  idAnimal      BIGINT(4)  NOT NULL,
   idVeterinaire BIGINT(4)  NOT NULL,
   dateHeure     DATETIME   NOT NULL,
   dureeMinutes  INTEGER(4) NOT NULL,
@@ -360,8 +360,8 @@ CREATE TABLE IF NOT EXISTS AvoirRendezVous
 CREATE INDEX I_FK_AvoirRendezVous
   ON AvoirRendezVous (id ASC);
 
-CREATE INDEX I_FK_AvoirRendezVous_Client
-  ON AvoirRendezVous (idClient ASC);
+CREATE INDEX I_FK_AvoirRendezVous_Animal
+  ON AvoirRendezVous (idAnimal ASC);
 
 CREATE INDEX I_FK_AvoirRendezVous_Veterinaire
   ON AvoirRendezVous (idVeterinaire ASC);
@@ -445,8 +445,8 @@ ALTER TABLE Commander
     REFERENCES Produit (id);
 
 ALTER TABLE AvoirRendezVous
-  ADD FOREIGN KEY FK_AvoirRendezVous_Client (idClient)
-    REFERENCES Client (id);
+  ADD FOREIGN KEY FK_AvoirRendezVous_Animal (idAnimal)
+    REFERENCES Animal (id);
 
 ALTER TABLE AvoirRendezVous
   ADD FOREIGN KEY FK_AvoirRendezVous_Veterinaire (idVeterinaire)

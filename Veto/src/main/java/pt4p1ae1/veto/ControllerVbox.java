@@ -15,7 +15,7 @@ import java.util.ResourceBundle;
 public class ControllerVbox implements Initializable {
 
     @FXML
-    private Button btn_home;
+    protected Button btn_home;
 
     @FXML
     protected Button btn_log;
@@ -27,48 +27,47 @@ public class ControllerVbox implements Initializable {
         }
     }
 
-    private void creatBtn(String name) throws IOException {
-        Stage primaryStage = (Stage) btn_home.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource(name));
-        primaryStage.setScene(new Scene(root,Utils.WIDTH,Utils.HEIGHT));
+    protected void creatBtn(String ressourceName, Stage primaryStage) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource(ressourceName));
+        primaryStage.setScene(new Scene(root, Utils.WIDTH,Utils.HEIGHT));
     }
     @FXML
     protected void onActionAgendaBTN() throws IOException {
-        creatBtn("/fxml/agendaPage.fxml");
+        creatBtn("/fxml/agendaPage.fxml", (Stage) btn_home.getScene().getWindow());
     }
     @FXML
     protected void onActionHomeBTN() throws IOException {
-        creatBtn("/fxml/home.fxml");
+        creatBtn("/fxml/home.fxml", (Stage) btn_home.getScene().getWindow());
     }
     @FXML
-    public void onActionAnimauxBTN() throws IOException {
-        creatBtn("/fxml/rechercheAnimal.fxml");
-    }
-
-    @FXML
-    public void onActionClientBTN() throws IOException {
-        creatBtn("/fxml/rechercheClient.fxml");
+    protected void onActionAnimauxBTN() throws IOException {
+        creatBtn("/fxml/rechercheAnimal.fxml", (Stage) btn_home.getScene().getWindow());
     }
 
     @FXML
-    public void onActionOrdonnanceBTN() throws IOException  {
-        creatBtn("/fxml/rechercheOrdonnance.fxml");
+    protected void onActionClientBTN() throws IOException {
+        creatBtn("/fxml/rechercheClient.fxml", (Stage) btn_home.getScene().getWindow());
     }
 
     @FXML
-    public void onActionStockBTN() throws IOException  {
-        creatBtn("/fxml/pageStock.fxml");
+    protected void onActionOrdonnanceBTN() throws IOException  {
+        creatBtn("/fxml/rechercheOrdonnance.fxml", (Stage) btn_home.getScene().getWindow());
+    }
+
+    @FXML
+    protected void onActionStockBTN() throws IOException  {
+        creatBtn("/fxml/pageStock.fxml", (Stage) btn_home.getScene().getWindow());
     }
 
     @FXML
     public void onActionLogBTN() throws IOException  {
-        creatBtn("/fxml/pageLog.fxml");
+        creatBtn("/fxml/pageLog.fxml", (Stage) btn_home.getScene().getWindow());
 
     }
 
     @FXML
-    public void onActionEmpBTN() throws IOException  {
-        creatBtn("/fxml/rechercheEmployes.fxml");
+    protected void onActionEmpBTN() throws IOException  {
+        creatBtn("/fxml/rechercheEmployes.fxml", (Stage) btn_home.getScene().getWindow());
 
     }
 }

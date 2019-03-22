@@ -8,12 +8,12 @@ import java.util.Objects;
 @Table(name = "AvoirRendezVous", schema = "PT_S4P1A_E1", catalog = "")
 public class AvoirRendezVousEntity {
     private long id;
-    private long idClient;
+    private long idAnimal;
     private long idVeterinaire;
     private Timestamp dateHeure;
     private int dureeMinutes;
     private String message;
-    private ClientEntity clientByIdClient;
+    private AnimalEntity animalByIdAnimal;
     private VeterinaireEntity veterinaireByIdVeterinaire;
 
     @Id
@@ -27,13 +27,13 @@ public class AvoirRendezVousEntity {
     }
 
     @Basic
-    @Column(name = "idClient", nullable = false)
-    public long getIdClient() {
-        return idClient;
+    @Column(name = "idAnimal", nullable = false)
+    public long getIdAnimal() {
+        return idAnimal;
     }
 
-    public void setIdClient(long idClient) {
-        this.idClient = idClient;
+    public void setIdAnimal(long idAnimal) {
+        this.idAnimal = idAnimal;
     }
 
     @Basic
@@ -82,7 +82,7 @@ public class AvoirRendezVousEntity {
         if (o == null || getClass() != o.getClass()) return false;
         AvoirRendezVousEntity that = (AvoirRendezVousEntity) o;
         return id == that.id &&
-                idClient == that.idClient &&
+                idAnimal == that.idAnimal &&
                 idVeterinaire == that.idVeterinaire &&
                 dureeMinutes == that.dureeMinutes &&
                 Objects.equals(dateHeure, that.dateHeure) &&
@@ -91,21 +91,21 @@ public class AvoirRendezVousEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, idClient, idVeterinaire, dateHeure, dureeMinutes, message);
+        return Objects.hash(id, idAnimal, idVeterinaire, dateHeure, dureeMinutes, message);
     }
 
     @ManyToOne
-    @JoinColumn(name = "idClient", referencedColumnName = "id", nullable = false)
-    public ClientEntity getClientByIdClient() {
-        return clientByIdClient;
+    @JoinColumn(insertable =false, updatable=false,name = "idAnimal", referencedColumnName = "id", nullable = false)
+    public AnimalEntity getAnimalByIdAnimal() {
+        return animalByIdAnimal;
     }
 
-    public void setClientByIdClient(ClientEntity clientByIdClient) {
-        this.clientByIdClient = clientByIdClient;
+    public void setAnimalByIdAnimal(AnimalEntity animalByIdAnimal) {
+        this.animalByIdAnimal = animalByIdAnimal;
     }
 
     @ManyToOne
-    @JoinColumn(name = "idVeterinaire", referencedColumnName = "id", nullable = false)
+    @JoinColumn(insertable =false, updatable=false,name = "idVeterinaire", referencedColumnName = "id", nullable = false)
     public VeterinaireEntity getVeterinaireByIdVeterinaire() {
         return veterinaireByIdVeterinaire;
     }

@@ -15,6 +15,8 @@ public class EmployeEntity {
     private String motDePasse;
     private Double salaire;
     private Date dateDebutContrat;
+    private Date dateFinContrat;
+    private String typeContrat;
     private Collection<CongeEntity> congesById;
     private PersonneEntity personneById;
     private Collection<LogEntity> logsById;
@@ -70,6 +72,25 @@ public class EmployeEntity {
         this.dateDebutContrat = dateDebutContrat;
     }
 
+    @Basic
+    @Column(name = "dateFinContrat", nullable = true)
+    public Date getDateFinContrat() {
+        return dateFinContrat;
+    }
+
+    public void setDateFinContrat(Date dateFinContrat) {
+        this.dateFinContrat = dateFinContrat;
+    }
+
+    @Basic
+    @Column(name = "typeContrat", nullable = true, length = 20)
+    public String getTypeContrat() {
+        return typeContrat;
+    }
+
+    public void setTypeContrat(String typeContrat) {
+        this.typeContrat = typeContrat;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -88,6 +109,7 @@ public class EmployeEntity {
     }
 
     @OneToMany(mappedBy = "employeByIdEmploye")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public Collection<CongeEntity> getCongesById() {
         return congesById;
     }

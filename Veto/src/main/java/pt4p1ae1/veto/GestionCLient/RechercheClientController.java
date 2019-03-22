@@ -4,14 +4,12 @@ package pt4p1ae1.veto.GestionCLient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -27,32 +25,40 @@ import java.util.ResourceBundle;
 
 public class RechercheClientController extends ControllerSample implements Initializable {
 
-    public TextField nameClientField;
-    public TextField firstNameClientField;
-    public TextField emailClientField;
+    @FXML
+    private Label error;
 
-    public VBox vbox;
+    @FXML
+    private TextField nameClientField;
+    @FXML
+    private TextField firstNameClientField;
+    @FXML
+    private TextField emailClientField;
 
-    public BorderPane borderPane;
+    @FXML
+    private Button insertButton;
+    @FXML
+    private Button editButton;
+    @FXML
+    private Button deleteButton;
 
-    public Button filterButton;
-    public Button firstButton;
-    public Button previousButton;
-    public Button nextButton;
-    public Button lastButton;
-    public Button insertButton;
-    public Button editButton;
-    public Button deleteButton;
+    @FXML
+    private TableColumn<ClientEntityObservable, String> nameColumn;
+    @FXML
+    private TableColumn<ClientEntityObservable, String> firstNameColumn;
+    @FXML
+    private TableColumn<ClientEntityObservable, String> ageColumn;
+    @FXML
+    private TableColumn<ClientEntityObservable, String> phoneColumn;
+    @FXML
+    private TableColumn<ClientEntityObservable, String> emailColumn;
+    @FXML
+    private TableColumn<ClientEntityObservable, String> nextMeetingColumn;
 
-    public TableColumn<ClientEntityObservable, String> nameColumn;
-    public TableColumn<ClientEntityObservable, String> firstNameColumn;
-    public TableColumn<ClientEntityObservable, String> ageColumn;
-    public TableColumn<ClientEntityObservable, String> phoneColumn;
-    public TableColumn<ClientEntityObservable, String> emailColumn;
-    public TableColumn<ClientEntityObservable, String> nextMeetingColumn;
+    @FXML
+    private TableView<ClientEntityObservable> tableViewClient;
 
-    public TableView<ClientEntityObservable> tableViewClient;
-
+    private final ObservableList<ClientEntityObservable> observables = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -65,30 +71,39 @@ public class RechercheClientController extends ControllerSample implements Initi
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         nextMeetingColumn.setCellValueFactory(new PropertyValueFactory<>("nextRDV"));
 
-        ObservableList<ClientEntityObservable> observables = FXCollections.observableArrayList();
+        loadClients();
+    }
 
+    private void loadClients() {
+        this.observables.clear();
         List<ClientEntity> clients = Utils.CLIENT_DAO.findAll();
-
         for (ClientEntity client : clients) {
             ClientEntityObservable c = new ClientEntityObservable(client);
             observables.add(c);
         }
-
         tableViewClient.setItems(observables);
     }
 
-    public void insererClient(ActionEvent actionEvent) throws IOException {
+    @FXML
+    private void insererClient(ActionEvent actionEvent) throws IOException {
         Stage primaryStage = (Stage) insertButton.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/inscriptionClient.fxml"));
         primaryStage.setScene(new Scene(root, Utils.WIDTH, Utils.HEIGHT));
         primaryStage.centerOnScreen();
     }
 
-    public void supprimerClient(ActionEvent actionEvent) {
-        ClientEntityObservable selectedClient = tableViewClient.getSelectionModel().getSelectedItem();
-        ClientEntity client = selectedClient.toClientEntity();
-        System.out.println("Selected : " + client.getPersonneById().getNom() + " " + client.getPersonneById().getPrenom());
-        Utils.CLIENT_DAO.remove(client);
+    @FXML
+    private void supprimerClient(ActionEvent actionEvent) {
+        if (tableViewClient.getSelectionModel().getSelectedItem() != null) {
+            ClientEntityObservable selectedClient = tableViewClient.getSelectionModel().getSelectedItem();
+            ClientEntity client = selectedClient.toClientEntity();
+            Utils.createLog("Remove Client : " + client.getPersonneById().getNom() + " " + client.getPersonneById().getPrenom());
+            Utils.CLIENT_DAO.delete(client);
+            loadClients();
+        } else {
+            error.setStyle("-fx-text-fill: red");
+            error.setText("Aucun client selectionné");
+        }
     }
 }
 

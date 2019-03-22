@@ -5,6 +5,7 @@ import org.hibernate.annotations.Cascade;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
+import java.sql.Date;
 import java.util.Objects;
 
 @Entity
@@ -13,7 +14,7 @@ public class OrdonnanceEntity {
     private long id;
     private long idAnimal;
     private long idVeterinaire;
-    private Timestamp dateOrdonnance;
+    private Date dateOrdonnance;
     private String commentaire;
     private Collection<AppartenirEntity> appartenirsById;
     private AnimalEntity animalByIdAnimal;
@@ -51,11 +52,11 @@ public class OrdonnanceEntity {
 
     @Basic
     @Column(name = "dateOrdonnance", nullable = false)
-    public Timestamp getDateOrdonnance() {
+    public Date getDateOrdonnance() {
         return dateOrdonnance;
     }
 
-    public void setDateOrdonnance(Timestamp dateOrdonnance) {
+    public void setDateOrdonnance(Date dateOrdonnance) {
         this.dateOrdonnance = dateOrdonnance;
     }
 
@@ -97,7 +98,7 @@ public class OrdonnanceEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "idAnimal", referencedColumnName = "id", nullable = false)
+    @JoinColumn(insertable =false, updatable=false,name = "idAnimal", referencedColumnName = "id", nullable = false)
     public AnimalEntity getAnimalByIdAnimal() {
         return animalByIdAnimal;
     }
@@ -107,7 +108,7 @@ public class OrdonnanceEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "idVeterinaire", referencedColumnName = "id", nullable = false)
+    @JoinColumn(insertable =false, updatable=false,name = "idVeterinaire", referencedColumnName = "id", nullable = false)
     public VeterinaireEntity getVeterinaireByIdVeterinaire() {
         return veterinaireByIdVeterinaire;
     }

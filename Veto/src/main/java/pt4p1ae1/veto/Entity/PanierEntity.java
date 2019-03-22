@@ -93,7 +93,7 @@ public class PanierEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "idClient", referencedColumnName = "id", nullable = false)
+    @JoinColumn(insertable =false, updatable=false,name = "idClient", referencedColumnName = "id", nullable = false)
     public ClientEntity getClientByIdClient() {
         return clientByIdClient;
     }
@@ -103,7 +103,7 @@ public class PanierEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "idEmploye", referencedColumnName = "id", nullable = false)
+    @JoinColumn(insertable =false, updatable=false,name = "idEmploye", referencedColumnName = "id", nullable = false)
     public EmployeEntity getEmployeByIdEmploye() {
         return employeByIdEmploye;
     }
