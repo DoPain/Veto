@@ -2,7 +2,7 @@ package pt4p1ae1.veto.GestionStock;
 
 import pt4p1ae1.veto.Entity.ProduitEntity;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 public class ProduitEntityObservable {
 
@@ -12,15 +12,15 @@ public class ProduitEntityObservable {
     private Integer quantiteStock;
     private Double prix;
     private Integer quantiteMin;
-    private LocalDate peremption;
-    private LocalDate dateAcquisition;
+    private Date peremption;
+    private Date dateAcquisition;
     private String desc;
 
 
     public ProduitEntityObservable(ProduitEntity produitEntity) {
         this.produit = produitEntity;
         this.nom = produitEntity.getNom();
-        this.reference = produitEntity.getReference();
+        this.reference = produitEntity.getRefProduit();
         this.peremption = produitEntity.getPeremption();
         this.dateAcquisition= produitEntity.getDateAcquisition();
         this.quantiteStock = new Integer(produitEntity.getQuantiteEnStock());
@@ -49,11 +49,11 @@ public class ProduitEntityObservable {
         return quantiteMin;
     }
 
-    public LocalDate getPeremption() {
+    public Date getPeremption() {
         return peremption;
     }
 
-    public LocalDate getDateAcquisition() {
+    public Date getDateAcquisition() {
         return dateAcquisition;
     }
 
