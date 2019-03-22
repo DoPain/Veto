@@ -25,7 +25,6 @@ public final class App extends Application {
         try {
             Configuration configuration = new Configuration();
             configuration.configure();
-
             SESSION_FACTORY = configuration.buildSessionFactory();
         } catch (HibernateException ex) {
             throw new ExceptionInInitializerError(ex);
@@ -45,7 +44,7 @@ public final class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/authentification.fxml"));
-        primaryStage.setTitle("VetAg");
+        primaryStage.setTitle("VetoGestion");
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root, 700, 400));
         primaryStage.show();

@@ -20,12 +20,13 @@ import pt4p1ae1.veto.GestionAnimaux.AnimalEntityObservable;
 import pt4p1ae1.veto.GestionCLient.ClientEntityObservable;
 import pt4p1ae1.veto.Utils;
 
+import javax.swing.text.Document;
 import java.io.FileOutputStream;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -77,25 +78,25 @@ public class OrdonnanceController extends ControllerSample implements Initializa
 
     public void createDocPDF() {
         DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-        String dateToday = dateFormat.format(new Date());
+        String dateToday = dateFormat.format( new java.sql.Date(new java.util.Date().getTime()));
         EmployeEntity actualUser = Utils.getActualEmploye();
         VeterinaireEntity veterinaire = Utils.VETERINAIRE_DAO.findAll().get(0);
         try {
-            Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream(dateToday + "." + tableViewAnimal.getSelectionModel().getSelectedItem().getNom() + ".pdf"));
-            Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
-
-
-            document.open();
-            document.addTitle("Ordonnance");
-            document.addAuthor(actualUser.getPersonneById().getNom() + " " + actualUser.getPersonneById().getPrenom());
-            Image img = Image.getInstance("src/main/resources/img/ordonnance.png");
-            document.add(img);
-            document.add(new Chunk(dateToday, font));
-            document.add(new Chunk(veterinaire.getPersonneById().getAdresse(), font));
-            document.add(new Chunk("Dr. " + veterinaire.getPersonneById().getNom(), font));
-
-            document.close();
+//            Document document = new Document();
+//            PdfWriter.getInstance(document, new FileOutputStream(dateToday + "." + tableViewAnimal.getSelectionModel().getSelectedItem().getNom() + ".pdf"));
+//            Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
+//
+//
+//            document.open();
+//            document.addTitle("Ordonnance");
+//            document.addAuthor(actualUser.getPersonneById().getNom() + " " + actualUser.getPersonneById().getPrenom());
+//            Image img = Image.getInstance("src/main/resources/img/ordonnance.png");
+//            document.add(img);
+//            document.add(new Chunk(dateToday, font));
+//            document.add(new Chunk(veterinaire.getPersonneById().getAdresse(), font));
+//            document.add(new Chunk("Dr. " + veterinaire.getPersonneById().getNom(), font));
+//
+//            document.close();
         } catch (Exception e) {
             if (e.getClass() == NullPointerException.class) {
                 validateError.setText("Selectionnez un animal et au moins un produit");

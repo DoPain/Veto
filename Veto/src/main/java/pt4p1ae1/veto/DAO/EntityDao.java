@@ -19,7 +19,7 @@ public interface EntityDao<T> {
      *
      * @param entity object to persist
      */
-    void remove(T entity);
+    void delete(T entity);
 
     /**
      * @return the full entity list

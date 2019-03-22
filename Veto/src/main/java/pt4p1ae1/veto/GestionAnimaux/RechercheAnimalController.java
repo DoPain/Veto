@@ -41,6 +41,8 @@ public class RechercheAnimalController extends ControllerSample implements Initi
     private TableColumn<AnimalEntityObservable, String> poidsColumn;
     @FXML
     private TableColumn<AnimalEntityObservable, String> nextMeetingColumn;
+    @FXML
+    private TableColumn<AnimalEntityObservable, String> otherInfoColumn;
 
     @FXML
     private Button insertButton;
@@ -53,13 +55,14 @@ public class RechercheAnimalController extends ControllerSample implements Initi
     public void initialize(URL location, ResourceBundle resources) {
         super.start();
 
-        nomProprioColumn.setCellValueFactory(new PropertyValueFactory<>("Propriétaire"));
-        nomAnimalColumn.setCellValueFactory(new PropertyValueFactory<>("Animal"));
-        nomEspeceColumn.setCellValueFactory(new PropertyValueFactory<>("Espèce"));
-        nomRaceColumn.setCellValueFactory(new PropertyValueFactory<>("Race"));
-        ageColumn.setCellValueFactory(new PropertyValueFactory<>("Age"));
-        poidsColumn.setCellValueFactory(new PropertyValueFactory<>("Poids"));
-        nextMeetingColumn.setCellValueFactory(new PropertyValueFactory<>("Prochain RDV"));
+        nomProprioColumn.setCellValueFactory(new PropertyValueFactory<>("proprietaire"));
+        nomAnimalColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
+        nomEspeceColumn.setCellValueFactory(new PropertyValueFactory<>("espece"));
+        nomRaceColumn.setCellValueFactory(new PropertyValueFactory<>("race"));
+        ageColumn.setCellValueFactory(new PropertyValueFactory<>("age"));
+        poidsColumn.setCellValueFactory(new PropertyValueFactory<>("poids"));
+        nextMeetingColumn.setCellValueFactory(new PropertyValueFactory<>("prochainRDV"));
+        otherInfoColumn.setCellValueFactory(new PropertyValueFactory<>("autresInformations"));
 
         ObservableList<AnimalEntityObservable> observableList = FXCollections.observableArrayList();
         List<AnimalEntity> animals = Utils.ANIMAL_DAO.findAll();
@@ -82,7 +85,7 @@ public class RechercheAnimalController extends ControllerSample implements Initi
 
     public void editBtnOnAction(ActionEvent actionEvent) throws IOException {
         AnimalEntityObservable animalObservable = animalsTableView.getSelectionModel().getSelectedItem();
-        AnimalEntity animal = Utils.ANIMAL_DAO.findById(Long.valueOf(animalObservable.getId()));
+        AnimalEntity animal = Utils.ANIMAL_DAO.findById(animalObservable.getId());
         Utils.setCurrentAnimal(animal);
         Utils.setModifyAnimal(true);
         Stage primaryStage = (Stage) insertButton.getScene().getWindow();
