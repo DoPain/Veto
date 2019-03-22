@@ -1,6 +1,7 @@
 package pt4p1ae1.veto.GestionStock;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -16,17 +17,16 @@ import java.util.ResourceBundle;
 
 public class StockController extends ControllerSample implements Initializable {
 
-    public Button insertBtn;
+    @FXML
+    private Button insertBtn;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.start();
     }
 
-    public void insertionProduit(ActionEvent actionEvent) throws IOException {
-        Stage primaryStage = (Stage) insertBtn.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/inscriptionProduit.fxml"));
-        primaryStage.setScene(new Scene(root, Utils.WIDTH, Utils.HEIGHT));
-        primaryStage.centerOnScreen();
+    @FXML
+    private void insertionProduit(ActionEvent actionEvent) throws IOException {
+        super.creatBtn("/fxml/inscriptionProduit.fxml", (Stage) insertBtn.getScene().getWindow());
     }
 }

@@ -2,10 +2,11 @@ package pt4p1ae1.veto.GestionCLient;
 
 import pt4p1ae1.veto.Entity.AvoirRendezVousEntity;
 import pt4p1ae1.veto.Entity.ClientEntity;
+import pt4p1ae1.veto.Utils;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Collection;
+import java.util.Iterator;
 
 public class ClientEntityObservable {
     private ClientEntity clientEntity;
@@ -26,11 +27,24 @@ public class ClientEntityObservable {
         this.age = String.valueOf(Period.between(naissance, now).getYears());
         this.tel = clientEntity.getPersonneById().getTelephone();
         this.email = clientEntity.getPersonneById().getMail();
-        Collection<AvoirRendezVousEntity> rdv = clientEntity.getAvoirRendezVousById();
-        if (!rdv.isEmpty()) {
-            this.nextRDV = rdv.iterator().next().getDateHeure().toString();
+        this.nextRDV = getNextRDVOfClient(clientEntity);
+    }
+
+    private String getNextRDVOfClient(ClientEntity clientEntity) {
+        Iterator<AvoirRendezVousEntity> allRDV = Utils.AVOIR_RENDEZ_VOUS_DAO.findAll().iterator();
+        AvoirRendezVousEntity next = null;
+        while (allRDV.hasNext()) {
+            AvoirRendezVousEntity rdv = allRDV.next();
+            if (rdv.getIdClient() == clientEntity.getId()) {
+                if (next == null || next.getDateHeure().getTime() > rdv.getDateHeure().getTime()) {
+                    next = rdv;
+                }
+            }
+        }
+        if (next != null) {
+            return next.toString();
         } else {
-            this.nextRDV = "Pas de rendez-vous";
+            return "Pas de rendez-vous";
         }
     }
 

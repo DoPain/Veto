@@ -1,6 +1,7 @@
 package pt4p1ae1.veto.Entity;
 
 import org.hibernate.annotations.Cascade;
+import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -83,6 +84,7 @@ public class PersonneEntity {
     }
 
     @Basic
+    @Email
     @Column(name = "mail", nullable = true, length = 128)
     public String getMail() {
         return mail;
