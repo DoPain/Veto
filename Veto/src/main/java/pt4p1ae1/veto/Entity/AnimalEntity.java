@@ -124,7 +124,7 @@ public class AnimalEntity {
     }
 
     @ManyToOne
-    @JoinColumn(insertable = false, updatable = false, name = "idRace", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "idRace", referencedColumnName = "id", nullable = false)
     public RaceEntity getRaceByIdRace() {
         return raceByIdRace;
     }
@@ -134,7 +134,7 @@ public class AnimalEntity {
     }
 
     @ManyToOne
-    @JoinColumn(insertable = false, updatable = false, name = "idClient", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "idClient", referencedColumnName = "id", nullable = false)
     public ClientEntity getClientByIdClient() {
         return clientByIdClient;
     }

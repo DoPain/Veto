@@ -94,7 +94,7 @@ public class TraitementEntity {
     }
 
     @ManyToOne
-    @JoinColumn(insertable = false, updatable = false, name = "idAnimal", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "idAnimal", referencedColumnName = "id", nullable = false)
     public AnimalEntity getAnimalByIdAnimal() {
         return animalByIdAnimal;
     }
