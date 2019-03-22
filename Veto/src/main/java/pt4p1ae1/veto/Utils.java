@@ -4,8 +4,14 @@ import pt4p1ae1.veto.DAO.DaoFactory;
 import pt4p1ae1.veto.DAO.EntityDao;
 import pt4p1ae1.veto.Entity.*;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class Utils {
     public static final EntityDao<ClientEntity> CLIENT_DAO = DaoFactory.getDaoFor(ClientEntity.class);
@@ -24,7 +30,7 @@ public class Utils {
     public static final double WIDTH = 1280;
     public static final double HEIGHT = 800;
 
-    private static boolean admin;
+    private static boolean admin = true;
     private static EmployeEntity actualEmploye;
     private static AnimalEntity currentAnimal;
     private static ProduitEntity currentProduit;
@@ -39,6 +45,34 @@ public class Utils {
             log.setIdEmploye(actualEmploye.getId());
             DaoFactory.getDaoFor(LogEntity.class).saveOrUpdate(log);
         }).start();
+    }
+
+    public static String calculateAge(Date naissance) {
+        LocalDate now = LocalDate.now();
+        return String.valueOf(Period.between(naissance.toLocalDate(), now).getYears());
+    }
+
+    public static List<AvoirRendezVousEntity> getRDVAnimal(long idAnimal) {
+        Iterator<AvoirRendezVousEntity> allRDV = Utils.AVOIR_RENDEZ_VOUS_DAO.findAll().iterator();
+        List<AvoirRendezVousEntity> allRDVAnimal = null;
+        while (allRDV.hasNext()) {
+            AvoirRendezVousEntity rdv = allRDV.next();
+            if (rdv.getIdAnimal() == idAnimal) {
+                allRDVAnimal.add(rdv);
+            }
+        }
+        return allRDVAnimal;
+    }
+
+    public static List<AnimalEntity> getAnimalFromClient(long idClient){
+        List<AnimalEntity> allAnimal = Utils.ANIMAL_DAO.findAll();
+        List<AnimalEntity> animals = new ArrayList<>();
+        for (AnimalEntity animal : allAnimal) {
+            if (animal.getClientByIdClient().getId() == idClient) {
+                animals.add(animal);
+            }
+        }
+        return animals;
     }
 
     public static void setAdmin(boolean admin) {

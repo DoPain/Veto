@@ -11,7 +11,6 @@ import java.util.Objects;
 public class ClientEntity {
     private long id;
     private Collection<AnimalEntity> animalsById;
-    private Collection<AvoirRendezVousEntity> avoirRendezVousById;
     private PersonneEntity personneById;
     private Collection<PanierEntity> paniersById;
 
@@ -38,7 +37,7 @@ public class ClientEntity {
         return Objects.hash(id);
     }
 
-    @OneToMany( mappedBy = "clientByIdClient")
+    @OneToMany(mappedBy = "clientByIdClient")
     @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public Collection<AnimalEntity> getAnimalsById() {
         return animalsById;
@@ -46,16 +45,6 @@ public class ClientEntity {
 
     public void setAnimalsById(Collection<AnimalEntity> animalsById) {
         this.animalsById = animalsById;
-    }
-
-    @OneToMany( mappedBy = "clientByIdClient")
-    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
-    public Collection<AvoirRendezVousEntity> getAvoirRendezVousById() {
-        return avoirRendezVousById;
-    }
-
-    public void setAvoirRendezVousById(Collection<AvoirRendezVousEntity> avoirRendezVousById) {
-        this.avoirRendezVousById = avoirRendezVousById;
     }
 
     @OneToOne
@@ -68,7 +57,7 @@ public class ClientEntity {
         this.personneById = personneById;
     }
 
-    @OneToMany( mappedBy = "clientByIdClient")
+    @OneToMany(mappedBy = "clientByIdClient")
     @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public Collection<PanierEntity> getPaniersById() {
         return paniersById;

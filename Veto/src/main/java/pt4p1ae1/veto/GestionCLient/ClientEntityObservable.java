@@ -1,12 +1,15 @@
 package pt4p1ae1.veto.GestionCLient;
 
+import pt4p1ae1.veto.Entity.AnimalEntity;
 import pt4p1ae1.veto.Entity.AvoirRendezVousEntity;
 import pt4p1ae1.veto.Entity.ClientEntity;
+import pt4p1ae1.veto.GestionAnimaux.AnimalEntityObservable;
 import pt4p1ae1.veto.Utils;
 
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Iterator;
+import java.util.List;
 
 public class ClientEntityObservable {
     private ClientEntity clientEntity;
@@ -22,30 +25,34 @@ public class ClientEntityObservable {
         this.nom = clientEntity.getPersonneById().getNom();
         this.prenom = clientEntity.getPersonneById().getPrenom();
 
-        LocalDate naissance = clientEntity.getPersonneById().getDateNaissance().toLocalDate();
-        LocalDate now = LocalDate.now();
-        this.age = String.valueOf(Period.between(naissance, now).getYears());
+        this.age = Utils.calculateAge(clientEntity.getPersonneById().getDateNaissance());
+
         this.tel = clientEntity.getPersonneById().getTelephone();
         this.email = clientEntity.getPersonneById().getMail();
-        this.nextRDV = getNextRDVOfClient(clientEntity);
+        this.nextRDV = getNextRDVOfClient();
     }
 
-    private String getNextRDVOfClient(ClientEntity clientEntity) {
-        Iterator<AvoirRendezVousEntity> allRDV = Utils.AVOIR_RENDEZ_VOUS_DAO.findAll().iterator();
+    private String getNextRDVOfClient() {
+        List<AnimalEntity> allAnimals = Utils.getAnimalFromClient(this.clientEntity.getPersonneById().getId());
+        List<AvoirRendezVousEntity> allRDV = null;
         AvoirRendezVousEntity next = null;
-        while (allRDV.hasNext()) {
-            AvoirRendezVousEntity rdv = allRDV.next();
-            if (rdv.getIdClient() == clientEntity.getId()) {
-                if (next == null || next.getDateHeure().getTime() > rdv.getDateHeure().getTime()) {
-                    next = rdv;
+        if (allAnimals != null) {
+            for (AnimalEntity animal : allAnimals) {
+                List<AvoirRendezVousEntity> allRDVAnimal = Utils.getRDVAnimal(animal.getId());
+                if (allRDVAnimal != null) {
+                    allRDV.addAll(allRDVAnimal);
                 }
             }
+            if (allRDV != null) {
+                for (AvoirRendezVousEntity rdv : allRDV) {
+                    if (next != null || next.getDateHeure().getTime() > rdv.getDateHeure().getTime()){
+                        next = rdv;
+                    }
+                }
+            return next.getDateHeure().toString();
+            }
         }
-        if (next != null) {
-            return next.toString();
-        } else {
-            return "Pas de rendez-vous";
-        }
+        return "Pas de rendez-vous";
     }
 
     public ClientEntity toClientEntity() {

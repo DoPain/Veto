@@ -81,7 +81,6 @@ public class DossierAnimalController extends ControllerSample implements Initial
                         + "Nom : " + animalObservable.getNom()
                         + "Espèce : " + animalObservable.getEspece()
                         + "Race : " + animalObservable.getRace()
-                        + "Sexe : " + animalObservable.getSexe()
                         + "Date de naissance : " + animalObservable.getDateDeNaissance()
                         + "Poids : " + animalObservable.getPoids()
                         + "Autres informations : " + animalObservable.getAutresInformations()

@@ -44,8 +44,9 @@ public final class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/authentification.fxml"));
-        primaryStage.setTitle("VetAg");
+        primaryStage.setTitle("VetoGestion");
         primaryStage.setResizable(false);
+        //primaryStage.setScene(new Scene(root, Utils.WIDTH, Utils.HEIGHT));
         primaryStage.setScene(new Scene(root, 700, 400));
         primaryStage.show();
     }

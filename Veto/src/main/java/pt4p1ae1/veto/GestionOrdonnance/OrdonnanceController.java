@@ -26,7 +26,7 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -78,7 +78,7 @@ public class OrdonnanceController extends ControllerSample implements Initializa
 
     public void createDocPDF() {
         DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-        String dateToday = dateFormat.format(new Date());
+        String dateToday = dateFormat.format( new java.sql.Date(new java.util.Date().getTime()));
         EmployeEntity actualUser = Utils.getActualEmploye();
         VeterinaireEntity veterinaire = Utils.VETERINAIRE_DAO.findAll().get(0);
         try {

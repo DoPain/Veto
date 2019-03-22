@@ -57,6 +57,7 @@
                     <TableColumn fx:id="ageColumn" minWidth="29.0" prefWidth="54.0" text="Age" />
                     <TableColumn fx:id="poidsColumn" minWidth="30.0" prefWidth="126.0" text="Poids" />
                     <TableColumn fx:id="nextMeetingColumn" minWidth="30.0" prefWidth="247.0" text="Prochain rendez-vous" />
+                    <TableColumn fx:id="otherInfoColumn" minWidth="30.0" prefWidth="247.0" text="Autres Informations" />
                 </columns>
             </TableView>
             <Button fx:id="filterButton" layoutX="909.0" layoutY="87.0" mnemonicParsing="false" onAction="#filterBtnOnAction" prefHeight="26.0" prefWidth="75.0" text="Filtrer" />

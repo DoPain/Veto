@@ -1,6 +1,5 @@
 package pt4p1ae1.veto.Entity;
 
-import org.hibernate.annotations.Cascade;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
@@ -125,7 +124,6 @@ public class PersonneEntity {
     }
 
     @OneToOne(mappedBy = "personneById")
-    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public ClientEntity getClientById() {
         return clientById;
     }
@@ -135,7 +133,6 @@ public class PersonneEntity {
     }
 
     @OneToOne(mappedBy = "personneById")
-    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public EmployeEntity getEmployeById() {
         return employeById;
     }
@@ -155,7 +152,6 @@ public class PersonneEntity {
     }
 
     @OneToOne(mappedBy = "personneById")
-    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public VeterinaireEntity getVeterinaireById() {
         return veterinaireById;
     }

@@ -5,6 +5,7 @@ import org.hibernate.annotations.Cascade;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
+import java.sql.Date;
 import java.util.Objects;
 
 @Entity
@@ -13,7 +14,7 @@ public class OrdonnanceEntity {
     private long id;
     private long idAnimal;
     private long idVeterinaire;
-    private Timestamp dateOrdonnance;
+    private Date dateOrdonnance;
     private String commentaire;
     private Collection<AppartenirEntity> appartenirsById;
     private AnimalEntity animalByIdAnimal;
@@ -51,11 +52,11 @@ public class OrdonnanceEntity {
 
     @Basic
     @Column(name = "dateOrdonnance", nullable = false)
-    public Timestamp getDateOrdonnance() {
+    public Date getDateOrdonnance() {
         return dateOrdonnance;
     }
 
-    public void setDateOrdonnance(Timestamp dateOrdonnance) {
+    public void setDateOrdonnance(Date dateOrdonnance) {
         this.dateOrdonnance = dateOrdonnance;
     }
 
@@ -86,7 +87,7 @@ public class OrdonnanceEntity {
         return Objects.hash(id, idAnimal, idVeterinaire, dateOrdonnance, commentaire);
     }
 
-    @OneToMany( mappedBy = "ordonnanceByIdOrdonnance")
+    @OneToMany(mappedBy = "ordonnanceByIdOrdonnance")
     @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public Collection<AppartenirEntity> getAppartenirsById() {
         return appartenirsById;

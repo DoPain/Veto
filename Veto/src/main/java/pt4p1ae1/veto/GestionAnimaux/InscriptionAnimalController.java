@@ -22,6 +22,7 @@ import pt4p1ae1.veto.Utils;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -65,12 +66,7 @@ public class InscriptionAnimalController extends ControllerSample implements Ini
         if(Utils.isModifyAnimal()) {
             AnimalEntityObservable animalObservable = new AnimalEntityObservable(animal);
             nameTextField.setText(animalObservable.getNom());
-            if(animalObservable.getSexe()=="femelle") {
-                femaleRadioBtn.setSelected(true);
-            } else {
-                maleRadioBtn.setSelected(true);
-            }
-            birthDateTextField.setText(animalObservable.getDateDeNaissance());
+            //birthDateTextField.setText(animalObservable.getDateDeNaissance());
             weightTextField.setText(animalObservable.getPoids());
             furtherInformationsTextField.setText(animalObservable.getAutresInformations());
 
@@ -98,26 +94,18 @@ public class InscriptionAnimalController extends ControllerSample implements Ini
     @FXML
     private void onActionRegisterBtn() throws IOException {
 
-        //Insérer le nouvel animal dans la base
-        boolean male = true;
-        if(femaleRadioBtn.isSelected()){
-            male=false;
-        }
-
         if(!Utils.isModifyAnimal()) {
             AnimalEntity newAnimal = new AnimalEntity();
             newAnimal.setNom(nameTextField.getText());
             newAnimal.setIdRace(((Long) raceComboBox.getValue()));
-            newAnimal.setSexe(male ? "male" : "femelle");
-            newAnimal.setDateNaissance((Timestamp.valueOf(birthDateTextField.getText())));
+            newAnimal.setDateNaissance((Date.valueOf(birthDateTextField.getText())));
             newAnimal.setPoids(Double.parseDouble(weightTextField.getText()));
             newAnimal.setAutreInformations(furtherInformationsTextField.getText());
             Utils.ANIMAL_DAO.saveOrUpdate(newAnimal);
         } else {
             animal.setNom(nameTextField.getText());
             animal.setIdRace(((Long) raceComboBox.getValue()));
-            animal.setSexe(male ? "male" : "femelle");
-            animal.setDateNaissance((Timestamp.valueOf(birthDateTextField.getText())));
+            animal.setDateNaissance((Date.valueOf(birthDateTextField.getText())));
             animal.setPoids(Double.parseDouble(weightTextField.getText()));
             animal.setAutreInformations(furtherInformationsTextField.getText());
             Utils.ANIMAL_DAO.saveOrUpdate(animal);

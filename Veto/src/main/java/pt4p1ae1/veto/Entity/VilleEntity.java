@@ -1,5 +1,7 @@
 package pt4p1ae1.veto.Entity;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
@@ -345,7 +347,8 @@ public class VilleEntity {
         return Objects.hash(id, villeDepartement, villeSlug, villeNom, villeNomSimple, villeNomReel, villeNomSoundex, villeNomMetaphone, villeCodePostal, villeCommune, villeCodeCommune, villeArrondissement, villeCanton, villeAmdi, villePopulation2010, villePopulation1999, villePopulation2012, villeDensite2010, villeSurface, villeLongitudeDeg, villeLatitudeDeg, villeLongitudeGrd, villeLatitudeGrd, villeLongitudeDms, villeLatitudeDms, villeZmin, villeZmax);
     }
 
-    @OneToMany( mappedBy = "villeByIdVille")
+    @OneToMany(mappedBy = "villeByIdVille")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public Collection<PersonneEntity> getPersonnesById() {
         return personnesById;
     }
