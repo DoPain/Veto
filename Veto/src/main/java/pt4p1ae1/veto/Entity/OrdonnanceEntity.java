@@ -86,7 +86,7 @@ public class OrdonnanceEntity {
         return Objects.hash(id, idAnimal, idVeterinaire, dateOrdonnance, commentaire);
     }
 
-    @OneToMany(mappedBy = "ordonnanceByIdOrdonnance")
+    @OneToMany( mappedBy = "ordonnanceByIdOrdonnance")
     @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public Collection<AppartenirEntity> getAppartenirsById() {
         return appartenirsById;
@@ -97,7 +97,7 @@ public class OrdonnanceEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "idAnimal", referencedColumnName = "id", nullable = false)
+    @JoinColumn(insertable =false, updatable=false,name = "idAnimal", referencedColumnName = "id", nullable = false)
     public AnimalEntity getAnimalByIdAnimal() {
         return animalByIdAnimal;
     }
@@ -107,7 +107,7 @@ public class OrdonnanceEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "idVeterinaire", referencedColumnName = "id", nullable = false)
+    @JoinColumn(insertable =false, updatable=false,name = "idVeterinaire", referencedColumnName = "id", nullable = false)
     public VeterinaireEntity getVeterinaireByIdVeterinaire() {
         return veterinaireByIdVeterinaire;
     }

@@ -80,7 +80,7 @@ public class CommanderEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "idProduit", referencedColumnName = "id", nullable = false)
+    @JoinColumn(insertable =false, updatable=false,name = "idProduit", referencedColumnName = "id", nullable = false)
     public ProduitEntity getProduitByIdProduit() {
         return produitByIdProduit;
     }

@@ -52,7 +52,7 @@ public class VeterinaireEntity {
         return result;
     }
 
-    @OneToMany(mappedBy = "veterinaireByIdVeterinaire")
+    @OneToMany( mappedBy = "veterinaireByIdVeterinaire")
     @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public Collection<AvoirRendezVousEntity> getAvoirRendezVousById() {
         return avoirRendezVousById;
@@ -62,7 +62,7 @@ public class VeterinaireEntity {
         this.avoirRendezVousById = avoirRendezVousById;
     }
 
-    @OneToMany(mappedBy = "veterinaireByIdVeterinaire")
+    @OneToMany( mappedBy = "veterinaireByIdVeterinaire")
     @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public Collection<OrdonnanceEntity> getOrdonnancesById() {
         return ordonnancesById;

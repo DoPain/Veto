@@ -84,7 +84,7 @@ public class ProduitEntity {
         return Objects.hash(id, nom, quantiteEnStock, quantiteMinimum, prix);
     }
 
-    @OneToMany(mappedBy = "produitByIdProduit")
+    @OneToMany( mappedBy = "produitByIdProduit")
     @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public Collection<AppartenirEntity> getAppartenirsById() {
         return appartenirsById;
@@ -94,7 +94,7 @@ public class ProduitEntity {
         this.appartenirsById = appartenirsById;
     }
 
-    @OneToMany(mappedBy = "produitByIdProduit")
+    @OneToMany( mappedBy = "produitByIdProduit")
     @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public Collection<CommanderEntity> getCommandersById() {
         return commandersById;
