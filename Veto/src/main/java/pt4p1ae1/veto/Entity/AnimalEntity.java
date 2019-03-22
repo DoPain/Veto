@@ -1,5 +1,7 @@
 package pt4p1ae1.veto.Entity;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
@@ -142,6 +144,7 @@ public class AnimalEntity {
     }
 
     @OneToMany(mappedBy = "animalByIdAnimal")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public Collection<OrdonnanceEntity> getOrdonnancesById() {
         return ordonnancesById;
     }
@@ -151,6 +154,7 @@ public class AnimalEntity {
     }
 
     @OneToMany(mappedBy = "animalByIdAnimal")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public Collection<TraitementEntity> getTraitementsById() {
         return traitementsById;
     }

@@ -1,5 +1,7 @@
 package pt4p1ae1.veto.Entity;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Objects;
@@ -121,6 +123,7 @@ public class PersonneEntity {
     }
 
     @OneToOne(mappedBy = "personneById")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public ClientEntity getClientById() {
         return clientById;
     }
@@ -130,6 +133,7 @@ public class PersonneEntity {
     }
 
     @OneToOne(mappedBy = "personneById")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public EmployeEntity getEmployeById() {
         return employeById;
     }
@@ -149,6 +153,7 @@ public class PersonneEntity {
     }
 
     @OneToOne(mappedBy = "personneById")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public VeterinaireEntity getVeterinaireById() {
         return veterinaireById;
     }

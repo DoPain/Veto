@@ -1,5 +1,7 @@
 package pt4p1ae1.veto.Entity;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
@@ -85,6 +87,7 @@ public class OrdonnanceEntity {
     }
 
     @OneToMany(mappedBy = "ordonnanceByIdOrdonnance")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public Collection<AppartenirEntity> getAppartenirsById() {
         return appartenirsById;
     }
