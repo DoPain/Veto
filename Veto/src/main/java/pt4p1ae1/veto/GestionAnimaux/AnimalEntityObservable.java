@@ -17,7 +17,7 @@ public class AnimalEntityObservable {
     private String prochainRDV;
 
     public AnimalEntityObservable(AnimalEntity animal) {
-        this.proprietaire = animal.getClientByIdClient().getPersonneById().getNom();
+        this.proprietaire = animal.getClientByIdClient().getPersonneById().getNom() + " " + animal.getClientByIdClient().getPersonneById().getPrenom();
         this.nom = animal.getNom();
         this.espece = animal.getRaceByIdRace().getEspeceByIdEspece().getNom();
         this.race = animal.getRaceByIdRace().getNom();
