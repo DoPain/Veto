@@ -15,6 +15,13 @@ public interface EntityDao<T> {
     void saveOrUpdate(T entity);
 
     /**
+     * Remove entity.
+     *
+     * @param entity object to persist
+     */
+    void delete(T entity);
+
+    /**
      * @return the full entity list
      */
     List<T> findAll();

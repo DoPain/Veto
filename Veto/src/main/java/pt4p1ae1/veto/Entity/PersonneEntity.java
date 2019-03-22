@@ -1,5 +1,8 @@
 package pt4p1ae1.veto.Entity;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.validator.constraints.Email;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Objects;
@@ -81,6 +84,7 @@ public class PersonneEntity {
     }
 
     @Basic
+    @Email
     @Column(name = "mail", nullable = true, length = 128)
     public String getMail() {
         return mail;
@@ -121,6 +125,7 @@ public class PersonneEntity {
     }
 
     @OneToOne(mappedBy = "personneById")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public ClientEntity getClientById() {
         return clientById;
     }
@@ -130,6 +135,7 @@ public class PersonneEntity {
     }
 
     @OneToOne(mappedBy = "personneById")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public EmployeEntity getEmployeById() {
         return employeById;
     }
@@ -139,7 +145,7 @@ public class PersonneEntity {
     }
 
     @ManyToOne
-    @JoinColumn(insertable = false, updatable = false, name = "idVille", referencedColumnName = "id", nullable = false)
+    @JoinColumn(insertable =false, updatable=false,name = "idVille", referencedColumnName = "id", nullable = false)
     public VilleEntity getVilleByIdVille() {
         return villeByIdVille;
     }
@@ -149,6 +155,7 @@ public class PersonneEntity {
     }
 
     @OneToOne(mappedBy = "personneById")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public VeterinaireEntity getVeterinaireById() {
         return veterinaireById;
     }

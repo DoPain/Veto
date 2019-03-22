@@ -8,23 +8,26 @@ import java.sql.Timestamp;
 import java.time.Instant;
 
 public class Utils {
+    public static final EntityDao<ClientEntity> CLIENT_DAO = DaoFactory.getDaoFor(ClientEntity.class);
+    public static final EntityDao<LogEntity> LOG_DAO = DaoFactory.getDaoFor(LogEntity.class);
+    public static final EntityDao<PersonneEntity> PERSONNE_DAO = DaoFactory.getDaoFor(PersonneEntity.class);
+    public static final EntityDao<AnimalEntity> ANIMAL_DAO = DaoFactory.getDaoFor(AnimalEntity.class);
+    public static final EntityDao<AvoirRendezVousEntity> AVOIR_RENDEZ_VOUS_DAO = DaoFactory.getDaoFor(AvoirRendezVousEntity.class);
+    public static final EntityDao<EspeceEntity> ESPECE_DAO = DaoFactory.getDaoFor(EspeceEntity.class);
+    public static final EntityDao<RaceEntity> RACE_DAO= DaoFactory.getDaoFor(RaceEntity.class);
+    public static final EntityDao<OrdonnanceEntity> ORDONNANCE_DAO = DaoFactory.getDaoFor(OrdonnanceEntity.class);
+    public static final EntityDao<TraitementEntity> TRAITEMENT_DAO = DaoFactory.getDaoFor(TraitementEntity.class);
+    public static final EntityDao<EmployeEntity> EMPLOYE_DAO = DaoFactory.getDaoFor(EmployeEntity.class);
+    public static final EntityDao<VeterinaireEntity> VETERINAIRE_DAO = DaoFactory.getDaoFor(VeterinaireEntity.class);
 
-    public static final EntityDao<ClientEntity> clientDao = DaoFactory.getDaoFor(ClientEntity.class);
-    public static final EntityDao<LogEntity> logDao = DaoFactory.getDaoFor(LogEntity.class);
-    public static final EntityDao<PersonneEntity> personneDao = DaoFactory.getDaoFor(PersonneEntity.class);
-    public static final EntityDao<AnimalEntity> animalDao = DaoFactory.getDaoFor(AnimalEntity.class);
-    public static final EntityDao<EspeceEntity> especeDao = DaoFactory.getDaoFor(EspeceEntity.class);
-    public static final EntityDao<RaceEntity> raceDao = DaoFactory.getDaoFor(RaceEntity.class);
-    public static final EntityDao<OrdonnanceEntity> ordonnanceDao = DaoFactory.getDaoFor(OrdonnanceEntity.class);
-    public static final EntityDao<TraitementEntity> traitementDao = DaoFactory.getDaoFor(TraitementEntity.class);
-    public static final EntityDao<EmployeEntity> employeDao = DaoFactory.getDaoFor(EmployeEntity.class);
-    public static final EntityDao<VeterinaireEntity> veterinaireDao = DaoFactory.getDaoFor(VeterinaireEntity.class);
     public static final double WIDTH = 1280;
     public static final double HEIGHT = 800;
 
     private static boolean admin;
     private static EmployeEntity actualEmploye;
     private static AnimalEntity currentAnimal;
+
+    private static boolean modifyAnimal = false;
 
     public static void createLog(String action) {
         new Thread(() -> {
@@ -58,5 +61,13 @@ public class Utils {
 
     public static AnimalEntity getCurrentAnimal() {
         return currentAnimal;
+    }
+
+    public static boolean isModifyAnimal() {
+        return modifyAnimal;
+    }
+
+    public static void setModifyAnimal(boolean modifyAnimal) {
+        Utils.modifyAnimal = modifyAnimal;
     }
 }

@@ -1,5 +1,7 @@
 package pt4p1ae1.veto.Entity;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
@@ -85,7 +87,7 @@ public class EmployeEntity {
         return Objects.hash(id, login, motDePasse, salaire, dateDebutContrat);
     }
 
-    @OneToMany(mappedBy = "employeByIdEmploye")
+    @OneToMany( mappedBy = "employeByIdEmploye")
     public Collection<CongeEntity> getCongesById() {
         return congesById;
     }
@@ -104,7 +106,8 @@ public class EmployeEntity {
         this.personneById = personneById;
     }
 
-    @OneToMany(mappedBy = "employeByIdEmploye")
+    @OneToMany( mappedBy = "employeByIdEmploye")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public Collection<LogEntity> getLogsById() {
         return logsById;
     }
@@ -113,7 +116,8 @@ public class EmployeEntity {
         this.logsById = logsById;
     }
 
-    @OneToMany(mappedBy = "employeByIdEmploye")
+    @OneToMany( mappedBy = "employeByIdEmploye")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public Collection<PanierEntity> getPaniersById() {
         return paniersById;
     }
