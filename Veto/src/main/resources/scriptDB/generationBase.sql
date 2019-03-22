@@ -245,9 +245,13 @@ CREATE TABLE IF NOT EXISTS Produit
 (
   id              BIGINT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   nom             CHAR(255)             NOT NULL,
+  refProduit      CHAR(32)              NOT NULL UNIQUE,
   quantiteEnStock INTEGER(2)            NOT NULL,
-  quantiteMinimum INTEGER(2)            NOT NULL,
-  prix            REAL(25, 2)           NOT NULL
+  prix            REAL(25, 2)           NOT NULL,
+  quantiteMinimum INTEGER(2),
+  peremption      DATE,
+  dateAcquisition DATE,
+  description     VARCHAR(1000)
 );
 
 # -----------------------------------------------------------------------------

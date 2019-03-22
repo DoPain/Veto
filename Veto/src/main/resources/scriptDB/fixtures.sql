@@ -89,25 +89,26 @@ INSERT INTO Animal (idRace, idClient, nom, dateNaissance) VALUES
 ((SELECT id FROM Race WHERE Race.nom = 'Hamster hybride'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "TestC5"), 'Noisette', DATE("2007-5-13")),
 ((SELECT id FROM Race WHERE Race.nom = 'Hamster hybride'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "TestC5"), 'Gerbille', DATE("2007-5-24"));
 
-INSERT INTO Produit (nom, quantiteEnStock, quantiteMinimum, prix) VALUES
-('ABCEDYL PA', 350, 20,  9.62),
-('ACTI-TETRA I', 200, 10,  41.23),
-('AMPHOPRIM', 50, 5,  5.30),
-('AMPICOLINE', 75, 8,  14.20),
-('ALUSPRAY', 100, 10,  12.45),
-('ALFABEDYL', 230, 20,  19.99),
-('AMPIDEXALONE', 350, 30,  31.34),
-('ACETAL', 130, 10,  9.80),
-('AD-JECT', 160, 10,  34.98),
-('ACTILIVER I', 380, 30,  84.00),
-('AZIUM', 90, 9,  10.30),
-('ARA PNEUMOPATHIE', 70, 5,  16.83),
-('AMOXIVAL 40', 90, 7,  48.39),
-('AMFLEE 50', 75, 8,  6.43),
-('ABCEDYL PA', 95, 10,  13.11),
-('AEROSOL BIOALLETHRINE', 100, 10,  31.32),
-('AMIDERM', 125, 11,  11.00),
-('ALARM', 145, 15,  21.34);
+INSERT INTO Produit (nom, refProduit, quantiteEnStock, quantiteMinimum, prix) VALUES
+('ABCEDYL PA', 'KIVZEUFH', 350, 20,  9.62),
+('ACTI-TETRA I', 'HJSDGF34', 200, 10,  41.23),
+('AMPHOPRIM', 'J234DF', 50, 5,  5.30),
+('AMPICOLINE', 'KJHEFREZ73', 75, 8,  14.20),
+('ALUSPRAY', 'NJZEF7', 100, 10,  12.45),
+('ALFABEDYL', '82364BDS', 230, 20,  19.99),
+('AMPIDEXALONE', 'HGDSF6SD', 350, 30,  31.34),
+('ACETAL','JHDGF678ES', 130, 10,  9.80),
+('AD-JECT', 'KJHZAER86',160, 10,  34.98),
+('ACTILIVER I', 'LKZ342Q',380, 30,  84.00),
+('AZIUM', 'JSHDG8',90, 9,  10.30),
+('ARA PNEUMOPATHIE','KSFZAR', 70, 5,  16.83),
+('AMOXIVAL 40','QSFEAF', 90, 7,  48.39),
+('AMFLEE 50', 'SDSGEZ',75, 8,  6.43),
+('ABCEDYL PA','EZFSDFDSF', 95, 10,  13.11),
+('AEROSOL BIOALLETHRINE','EZFECA', 100, 10,  31.32),
+('AMIDERM','EZFCAAS', 125, 11,  11.00),
+('ALARM','VGAEIUOAF', 145, 15,  21.34);
+
 
 INSERT INTO Veterinaire (id, signature) VALUES
 ((SELECT id FROM Personne P WHERE P.nom = "Veterinaire"), "Signature Veterinaire");
