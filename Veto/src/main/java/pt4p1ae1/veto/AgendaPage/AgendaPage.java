@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class AgendaPage extends ControllerSample implements Initializable{
+public class AgendaPage extends ControllerSample implements Initializable {
 
     @FXML
     private BorderPane BorderPane;
@@ -40,7 +40,7 @@ public class AgendaPage extends ControllerSample implements Initializable{
         datePicker.setValue(agendaHome.getDisplayedLocalDateTime().toLocalDate());
         BorderPane.setCenter(agendaHome);
 
-       super.start();
+        super.start();
 
         increase_btn.setOnAction(event -> {
             LocalDateTime newLocalDateTime = agendaHome.getDisplayedLocalDateTime().plus(Period.ofWeeks(1));
@@ -66,9 +66,11 @@ public class AgendaPage extends ControllerSample implements Initializable{
 
     static public void saveEvent() {
         List<VEvent> vEvents = agendaHome.getVCalendar().getVEvents();
-        if(vEvents != null || !vEvents.isEmpty()){
-            System.out.println(vEvents.toString());
-            //TODO save all event
+        if (vEvents != null) {
+            if (!vEvents.isEmpty()) {
+                System.out.println(vEvents.toString());
+                //TODO save all event
+            }
         }
     }
 }
