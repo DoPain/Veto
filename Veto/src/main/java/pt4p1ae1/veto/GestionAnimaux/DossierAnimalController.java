@@ -89,16 +89,13 @@ public class DossierAnimalController extends ControllerSample implements Initial
 
 
         //Afficher historique des maladies dans diseaseHistoryList
-        numCol.setCellValueFactory(new PropertyValueFactory<>("N°"));
-        diseaseCol.setCellValueFactory(new PropertyValueFactory<>("Maladie"));
-        careCol.setCellValueFactory(new PropertyValueFactory<>("Soin"));
-        startDateCol.setCellValueFactory(new PropertyValueFactory<>("Date de début"));
-        endDateCol.setCellValueFactory(new PropertyValueFactory<>("Date de fin"));
+        diseaseCol.setCellValueFactory(new PropertyValueFactory<>("maladie"));
+        careCol.setCellValueFactory(new PropertyValueFactory<>("soin"));
+        startDateCol.setCellValueFactory(new PropertyValueFactory<>("dateDebut"));
+        endDateCol.setCellValueFactory(new PropertyValueFactory<>("dateFin"));
 
         ObservableList<TraitementEntityObservable> observableList = FXCollections.observableArrayList();
-
         List<TraitementEntity> traitements = Utils.TRAITEMENT_DAO.findAll();
-
         for (TraitementEntity traitement : traitements) {
             if(traitement.getIdAnimal() == animal.getId()) {
                 observableList.add(new TraitementEntityObservable(traitement));
