@@ -3,6 +3,7 @@ package pt4p1ae1.veto.Entity;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -14,6 +15,10 @@ public class ProduitEntity {
     private int quantiteEnStock;
     private int quantiteMinimum;
     private double prix;
+    private String reference;
+    private LocalDate peremption;
+    private LocalDate dateAcquisition;
+    private String description;
     private Collection<AppartenirEntity> appartenirsById;
     private Collection<CommanderEntity> commandersById;
 
@@ -65,6 +70,46 @@ public class ProduitEntity {
 
     public void setPrix(double prix) {
         this.prix = prix;
+    }
+
+    @Basic
+    @Column(name = "refProduit", nullable = false)
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
+
+    @Basic
+    @Column(name = "peremption", nullable = false)
+    public LocalDate getPeremption() {
+        return peremption;
+    }
+
+    public void setPeremption(LocalDate peremption) {
+        this.peremption = peremption;
+    }
+
+    @Basic
+    @Column(name = "dateAcquisition", nullable = false)
+    public LocalDate getDateAcquisition() {
+        return dateAcquisition;
+    }
+
+    public void setDateAcquisition(LocalDate dateAcquisition) {
+        this.dateAcquisition = dateAcquisition;
+    }
+
+    @Basic
+    @Column(name = "description", nullable = true)
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

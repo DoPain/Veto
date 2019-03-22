@@ -82,21 +82,21 @@ public class OrdonnanceController extends ControllerSample implements Initializa
         EmployeEntity actualUser = Utils.getActualEmploye();
         VeterinaireEntity veterinaire = Utils.VETERINAIRE_DAO.findAll().get(0);
         try {
-            Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream(dateToday + "." + tableViewAnimal.getSelectionModel().getSelectedItem().getNom() + ".pdf"));
-            Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
-
-
-            document.open();
-            document.addTitle("Ordonnance");
-            document.addAuthor(actualUser.getPersonneById().getNom() + " " + actualUser.getPersonneById().getPrenom());
-            Image img = Image.getInstance("src/main/resources/img/ordonnance.png");
-            document.add(img);
-            document.add(new Chunk(dateToday, font));
-            document.add(new Chunk(veterinaire.getPersonneById().getAdresse(), font));
-            document.add(new Chunk("Dr. " + veterinaire.getPersonneById().getNom(), font));
-
-            document.close();
+//            Document document = new Document();
+//            PdfWriter.getInstance(document, new FileOutputStream(dateToday + "." + tableViewAnimal.getSelectionModel().getSelectedItem().getNom() + ".pdf"));
+//            Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
+//
+//
+//            document.open();
+//            document.addTitle("Ordonnance");
+//            document.addAuthor(actualUser.getPersonneById().getNom() + " " + actualUser.getPersonneById().getPrenom());
+//            Image img = Image.getInstance("src/main/resources/img/ordonnance.png");
+//            document.add(img);
+//            document.add(new Chunk(dateToday, font));
+//            document.add(new Chunk(veterinaire.getPersonneById().getAdresse(), font));
+//            document.add(new Chunk("Dr. " + veterinaire.getPersonneById().getNom(), font));
+//
+//            document.close();
         } catch (Exception e) {
             if (e.getClass() == NullPointerException.class) {
                 validateError.setText("Selectionnez un animal et au moins un produit");
