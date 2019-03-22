@@ -97,7 +97,7 @@ public class OrdonnanceEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "idAnimal", referencedColumnName = "id", nullable = false)
+    @JoinColumn(insertable = false, updatable = false, name = "idAnimal", referencedColumnName = "id", nullable = false)
     public AnimalEntity getAnimalByIdAnimal() {
         return animalByIdAnimal;
     }
@@ -107,7 +107,7 @@ public class OrdonnanceEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "idVeterinaire", referencedColumnName = "id", nullable = false)
+    @JoinColumn(insertable = false, updatable = false, name = "idVeterinaire", referencedColumnName = "id", nullable = false)
     public VeterinaireEntity getVeterinaireByIdVeterinaire() {
         return veterinaireByIdVeterinaire;
     }

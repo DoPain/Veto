@@ -70,7 +70,7 @@ public class AppartenirEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "idOrdonnance", referencedColumnName = "id", nullable = false)
+    @JoinColumn(insertable = false, updatable = false, name = "idOrdonnance", referencedColumnName = "id", nullable = false)
     public OrdonnanceEntity getOrdonnanceByIdOrdonnance() {
         return ordonnanceByIdOrdonnance;
     }
@@ -80,7 +80,7 @@ public class AppartenirEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "idProduit", referencedColumnName = "id", nullable = false)
+    @JoinColumn(insertable = false, updatable = false, name = "idProduit", referencedColumnName = "id", nullable = false)
     public ProduitEntity getProduitByIdProduit() {
         return produitByIdProduit;
     }
