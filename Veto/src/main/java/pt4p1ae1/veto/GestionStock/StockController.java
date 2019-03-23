@@ -8,10 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
@@ -45,7 +42,6 @@ public class StockController extends ControllerSample implements Initializable {
 
     private final ObservableList<ProduitEntityObservable> observables = FXCollections.observableArrayList();
 
-    ObservableList<ProduitEntityObservable> observableTmpList = FXCollections.observableArrayList();
     @FXML
     private TextField referenceF;
     @FXML
@@ -59,6 +55,15 @@ public class StockController extends ControllerSample implements Initializable {
 
     @FXML
     private Button insertBtn;
+    @FXML
+    private Button deleteBtn;
+    @FXML
+    private Button ruptureBtn;
+    @FXML
+    private Label error;
+    @FXML
+    private TextField quantiteSupp;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -75,12 +80,12 @@ public class StockController extends ControllerSample implements Initializable {
 
         referenceF.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.ENTER) {
+                ObservableList<ProduitEntityObservable> observableTmpList = FXCollections.observableArrayList();
                 if (!referenceF.getText().equals("")) {
                     for (ProduitEntityObservable produit : observables)
                         if (produit.getReference().contains(referenceF.getText()))
                             observableTmpList.add(produit);
                     tableViewProduit.setItems(observableTmpList);
-                    observableTmpList.removeAll();
                 } else
                     tableViewProduit.setItems(observables);
             }
@@ -88,12 +93,12 @@ public class StockController extends ControllerSample implements Initializable {
 
         nomF.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.ENTER) {
+                ObservableList<ProduitEntityObservable> observableTmpList = FXCollections.observableArrayList();
                 if (!nomF.getText().equals("")) {
                     for (ProduitEntityObservable produit : observables)
                         if (produit.getNom().contains(nomF.getText()))
                             observableTmpList.add(produit);
                     tableViewProduit.setItems(observableTmpList);
-                    observableTmpList.removeAll();
                 } else
                     tableViewProduit.setItems(observables);
             }
@@ -101,17 +106,46 @@ public class StockController extends ControllerSample implements Initializable {
 
         prixF.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.ENTER) {
+                ObservableList<ProduitEntityObservable> observableTmpList = FXCollections.observableArrayList();
                 if (!prixF.getText().equals("")) {
                     for (ProduitEntityObservable produit : observables)
-                        if (produit.getPrix().equals(nomF.getText()))
+                        if (produit.getPrix().toString().contains(prixF.getText()))
                             observableTmpList.add(produit);
                     tableViewProduit.setItems(observableTmpList);
-                    observableTmpList.removeAll();
                 } else
                     tableViewProduit.setItems(observables);
             }
         });
 
+        dateAcquisitionF.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.ENTER) {
+                ObservableList<ProduitEntityObservable> observableTmpList = FXCollections.observableArrayList();
+                if (!dateAcquisitionF.getText().equals("")) {
+                    for (ProduitEntityObservable produit : observables)
+                        if (produit.getDateAcquisition() != null) {
+                            if (produit.getDateAcquisition().toString().contains(dateAcquisitionF.getText()))
+                                observableTmpList.add(produit);
+                            tableViewProduit.setItems(observableTmpList);
+                        }
+                } else
+                    tableViewProduit.setItems(observables);
+            }
+        });
+
+        datePeremptionF.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.ENTER) {
+                ObservableList<ProduitEntityObservable> observableTmpList = FXCollections.observableArrayList();
+                if (!datePeremptionF.getText().equals("")) {
+                    for (ProduitEntityObservable produit : observables)
+                        if (produit.getPeremption() != null) {
+                            if (produit.getPeremption().toString().contains(datePeremptionF.getText()))
+                                observableTmpList.add(produit);
+                            tableViewProduit.setItems(observableTmpList);
+                        }
+                } else
+                    tableViewProduit.setItems(observables);
+            }
+        });
 
 
     }
@@ -123,11 +157,60 @@ public class StockController extends ControllerSample implements Initializable {
 
     private void loadProduits() {
         this.observables.clear();
-        List<ProduitEntity> produits = Utils.PRODUIT_ENTITY.findAll();
+        List<ProduitEntity> produits = Utils.PRODUIT_DAO.findAll();
         for (ProduitEntity produit : produits) {
             ProduitEntityObservable p = new ProduitEntityObservable(produit);
             observables.add(p);
         }
         tableViewProduit.setItems(observables);
     }
-}
+
+    @FXML
+    private void ruptureProduit() {
+        if (ruptureBtn.getText().equals("Afficher les produits bientôt en rupture de stock")) {
+            ruptureBtn.setText("Afficher liste complète");
+            ObservableList<ProduitEntityObservable> observableTmpList = FXCollections.observableArrayList();
+            for (ProduitEntityObservable produit : observables) {
+                if (produit.getQuantiteStock() <= produit.getQuantiteMin()) {
+                    observableTmpList.add(produit);
+                }
+            }
+            tableViewProduit.setItems(observableTmpList);
+        } else {
+            ruptureBtn.setText("Afficher les produits bientôt en rupture de stock");
+            tableViewProduit.setItems(observables);
+        }
+    }
+
+    @FXML
+    private void supprimerProduit(ActionEvent actionEvent) {
+        if (tableViewProduit.getSelectionModel().getSelectedItem() != null && quantiteSupp.getText() != "") {
+            ProduitEntityObservable selectedProduit = tableViewProduit.getSelectionModel().getSelectedItem();
+            ProduitEntity produit = selectedProduit.toProduitEntity();
+            if (produit.getQuantiteEnStock() - Integer.valueOf(quantiteSupp.getText()) >= 0) {
+                Utils.createLog(quantiteSupp.getText() + produit.getNom() + " removed ");
+                produit.setQuantiteEnStock(produit.getQuantiteEnStock() - Integer.valueOf(quantiteSupp.getText()));
+                Utils.PRODUIT_DAO.saveOrUpdate(produit);
+                loadProduits();
+                quantiteSupp.setText("");
+            }else if(produit.getQuantiteEnStock() == 0){
+                Utils.createLog( produit.getNom() + " removed ");
+                Utils.PRODUIT_DAO.delete(produit);
+                loadProduits();
+                quantiteSupp.setText("");
+            } else {
+                Utils.createLog(quantiteSupp.getText() + produit.getNom() + " removed ");
+                produit.setQuantiteEnStock(0);
+                Utils.PRODUIT_DAO.saveOrUpdate(produit);
+                loadProduits();
+                quantiteSupp.setText("");
+            }
+            } else {
+                error.setStyle("-fx-text-fill: red");
+                error.setText("Aucun produit selectionné ou quantité vide");
+            }
+        }
+    }
+
+
+
