@@ -60,6 +60,8 @@ public class StockController extends ControllerSample implements Initializable {
     @FXML
     private Button ruptureBtn;
     @FXML
+    private Button modifierBtn;
+    @FXML
     private Label error;
     @FXML
     private TextField quantiteSupp;
@@ -147,6 +149,22 @@ public class StockController extends ControllerSample implements Initializable {
             }
         });
 
+        tableViewProduit.setRowFactory(tv -> {
+            TableRow<ProduitEntityObservable> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    ProduitEntityObservable produit = row.getItem();
+                    Utils.setCurrentProduit(produit.toProduitEntity());
+                    try {
+                        super.creatBtn("/fxml/dossierProduit.fxml", (Stage) tableViewProduit.getScene().getWindow());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            return row ;
+        });
+
 
     }
 
@@ -205,11 +223,23 @@ public class StockController extends ControllerSample implements Initializable {
                 loadProduits();
                 quantiteSupp.setText("");
             }
-            } else {
+        } else {
                 error.setStyle("-fx-text-fill: red");
                 error.setText("Aucun produit selectionné ou quantité vide");
-            }
         }
+    }
+
+    @FXML
+    private void modifierProduit() throws IOException {
+        if (tableViewProduit.getSelectionModel().getSelectedItem() != null) {
+            ProduitEntityObservable selectedProduit = tableViewProduit.getSelectionModel().getSelectedItem();
+            ProduitEntity produit = selectedProduit.toProduitEntity();
+            Utils.setCurrentProduit(produit);
+            super.creatBtn("/fxml/dossierProduit.fxml", (Stage) modifierBtn.getScene().getWindow());
+        }
+    }
+
+
     }
 
 

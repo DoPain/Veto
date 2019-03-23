@@ -6,9 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import pt4p1ae1.veto.ControllerSample;
 import pt4p1ae1.veto.Entity.ProduitEntity;
@@ -37,7 +35,7 @@ public class InscriptionProduitController extends ControllerSample implements In
     @FXML
     private TextField prix;
     @FXML
-    private TextField description;
+    private TextArea description;
     @FXML
     private TextField nbInsertion;
     @FXML
@@ -46,6 +44,8 @@ public class InscriptionProduitController extends ControllerSample implements In
     private TextField datePeremption;
     @FXML
     private TextField minQuantite;
+    @FXML
+    private Label error;
     @FXML
     private Button register;
 
@@ -63,7 +63,7 @@ public class InscriptionProduitController extends ControllerSample implements In
     private void ajouterProduit(ActionEvent actionEvent) throws ParseException {
         Boolean found = false;
         int i = 0;
-        if(nom.getText() != "" && minQuantite.getText() != "" && reference.getText() != "" && prix.getText() != "" && nbInsertion.getText() != "" && dateAcquisition.getAccessibleText() != "" && datePeremption.getAccessibleText() != ""){
+        if(!nom.getText().equals("") && !minQuantite.getText().equals("") && !reference.getText().equals("") && !prix.getText().equals("") && !nbInsertion.getText().equals("") && !dateAcquisition.getText().equals("") && !datePeremption.getText().equals("")){
             List<ProduitEntity> produits = Utils.PRODUIT_DAO.findAll();
             while(!found && i<produits.size()){
                 if(produits.get(i).getNom().equals(nom.getText())){
@@ -91,6 +91,9 @@ public class InscriptionProduitController extends ControllerSample implements In
                 newProduit.setPeremption(sqlDateP);
                 Utils.PRODUIT_DAO.saveOrUpdate(newProduit);
             }
+        } else {
+            error.setStyle("-fx-text-fill: red");
+            error.setText("Information(s) manquante(s)");
         }
     }
 }

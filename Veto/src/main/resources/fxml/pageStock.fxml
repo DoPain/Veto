@@ -62,7 +62,7 @@
               </columns>
             </TableView>
             <Button fx:id="insertBtn" layoutX="271.0" layoutY="612.0" mnemonicParsing="false" onAction="#insertionProduit" prefHeight="41.0" prefWidth="79.0" text="Insérer" />
-            <Button layoutX="548.0" layoutY="613.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="84.0" text="Modifier" />
+            <Button fx:id="modifierBtn" onAction="#modifierProduit" layoutX="548.0" layoutY="613.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="84.0" text="Modifier" />
             <Button fx:id="deleteBtn" layoutX="895.0" layoutY="615.0" mnemonicParsing="false" onAction="#supprimerProduit" prefHeight="35.0" prefWidth="99.0" text="Supprimer" />
             <Button fx:id="ruptureBtn" layoutX="100.0" layoutY="156.0" mnemonicParsing="false" onAction="#ruptureProduit" prefHeight="33.0" prefWidth="334.0" text="Afficher les produits bientôt en rupture de stock" />
             <Label fx:id="error" layoutX="496.0" layoutY="164.0" prefHeight="17.0" prefWidth="314.0" />

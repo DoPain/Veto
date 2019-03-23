@@ -106,4 +106,12 @@ public class Utils {
     public static void setModifyAnimal(boolean modifyAnimal) {
         Utils.modifyAnimal = modifyAnimal;
     }
+
+    public static ProduitEntity getCurrentProduit() {
+        return currentProduit;
+    }
+
+    public static void setCurrentProduit(ProduitEntity currentProduit) {
+        Utils.currentProduit = currentProduit;
+    }
 }
