@@ -73,7 +73,7 @@ public class ProduitEntity {
     }
 
     @Basic
-    @Column(name = "quantiteMinimum", nullable = true)
+    @Column(name = "quantiteMinimum", nullable = false)
     public Integer getQuantiteMinimum() {
         return quantiteMinimum;
     }
@@ -83,7 +83,7 @@ public class ProduitEntity {
     }
 
     @Basic
-    @Column(name = "peremption", nullable = true)
+    @Column(name = "peremption", nullable = false)
     public Date getPeremption() {
         return peremption;
     }
@@ -93,7 +93,7 @@ public class ProduitEntity {
     }
 
     @Basic
-    @Column(name = "dateAcquisition", nullable = true)
+    @Column(name = "dateAcquisition", nullable = false)
     public Date getDateAcquisition() {
         return dateAcquisition;
     }
