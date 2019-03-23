@@ -5,6 +5,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
+import javafx.scene.ParallelCamera;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -20,13 +21,11 @@ import pt4p1ae1.veto.GestionAnimaux.AnimalEntityObservable;
 import pt4p1ae1.veto.GestionCLient.ClientEntityObservable;
 import pt4p1ae1.veto.Utils;
 
-import javax.swing.text.Document;
 import java.io.FileOutputStream;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -38,17 +37,16 @@ public class OrdonnanceController extends ControllerSample implements Initializa
     public TableColumn<AnimalEntityObservable, String> clientNameAnimal;
     public Label validateError;
     public TextField nameClientField;
+    public TableView tableViewProduit;
+    public TableColumn referenceC;
+    public TableColumn nameC;
+    public TableColumn prixC;
+    public TableColumn quantiteC;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.start();
-
-        ObservableList<ClientEntityObservable> clientEntityObservables = FXCollections.observableArrayList();
-
-        List<ClientEntity> clients = Utils.CLIENT_DAO.findAll();
-
-        for (ClientEntity client : clients) clientEntityObservables.add(new ClientEntityObservable(client));
 
         this.nameAnimal.setCellValueFactory(new PropertyValueFactory<>("nom"));
         this.especeAnimal.setCellValueFactory(new PropertyValueFactory<>("espece"));
@@ -67,7 +65,7 @@ public class OrdonnanceController extends ControllerSample implements Initializa
                 ObservableList<AnimalEntityObservable> observableTmpList = FXCollections.observableArrayList();
                 if (!nameClientField.getText().equals("")) {
                     for (AnimalEntityObservable animal : animalEntityObservables)
-                        if (animal.getProprietaire().contains(nameClientField.getText()))
+                        if (animal.getProprietaire().toLowerCase().contains(nameClientField.getText().toLowerCase()))
                             observableTmpList.add(animal);
                     tableViewAnimal.setItems(observableTmpList);
                 } else
@@ -77,26 +75,30 @@ public class OrdonnanceController extends ControllerSample implements Initializa
     }
 
     public void createDocPDF() {
-        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-        String dateToday = dateFormat.format( new java.sql.Date(new java.util.Date().getTime()));
+        Date dateToday = new Date();
+        String dateFormatUser = new SimpleDateFormat("dd.MM.yyyy").format(dateToday);
         EmployeEntity actualUser = Utils.getActualEmploye();
         VeterinaireEntity veterinaire = Utils.VETERINAIRE_DAO.findAll().get(0);
         try {
-//            Document document = new Document();
-//            PdfWriter.getInstance(document, new FileOutputStream(dateToday + "." + tableViewAnimal.getSelectionModel().getSelectedItem().getNom() + ".pdf"));
-//            Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
-//
-//
-//            document.open();
-//            document.addTitle("Ordonnance");
-//            document.addAuthor(actualUser.getPersonneById().getNom() + " " + actualUser.getPersonneById().getPrenom());
-//            Image img = Image.getInstance("src/main/resources/img/ordonnance.png");
-//            document.add(img);
-//            document.add(new Chunk(dateToday, font));
-//            document.add(new Chunk(veterinaire.getPersonneById().getAdresse(), font));
-//            document.add(new Chunk("Dr. " + veterinaire.getPersonneById().getNom(), font));
-//
-//            document.close();
+            Document document = new Document();
+            FileOutputStream file = new FileOutputStream(new SimpleDateFormat("yyyy.MM.dd").format(dateToday)
+                    + "." + tableViewAnimal.getSelectionModel().getSelectedItem().getNom() + ".pdf");
+            PdfWriter.getInstance(document, file);
+            Font font = FontFactory.getFont(FontFactory.COURIER, 12, BaseColor.BLACK);
+
+
+            document.open();
+            document.addTitle("Ordonnance");
+            document.addAuthor(actualUser.getPersonneById().getNom() + " " + actualUser.getPersonneById().getPrenom());
+            Image img = Image.getInstance("src/main/resources/img/ordonnance.png");
+            img.scaleAbsoluteWidth(50);
+            img.scaleAbsoluteHeight((float) 49.5);
+            document.left(50);
+            document.add(new Paragraph(new Chunk(dateFormatUser + "\nDr. " + veterinaire.getPersonneById().getNom()
+                    + "\n" + veterinaire.getPersonneById().getAdresse(), font)));
+            document.add(img);
+
+            document.close();
         } catch (Exception e) {
             if (e.getClass() == NullPointerException.class) {
                 validateError.setText("Selectionnez un animal et au moins un produit");
