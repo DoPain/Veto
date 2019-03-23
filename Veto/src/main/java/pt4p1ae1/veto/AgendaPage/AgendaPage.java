@@ -7,16 +7,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.layout.BorderPane;
 import jfxtras.icalendarfx.VCalendar;
-import jfxtras.icalendarfx.utilities.Callback;
+import jfxtras.icalendarfx.components.VEvent;
 import jfxtras.scene.control.agenda.icalendar.ICalendarAgenda;
 import pt4p1ae1.veto.ControllerSample;
 
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
-public class AgendaPage extends ControllerSample implements Initializable{
+public class AgendaPage extends ControllerSample implements Initializable {
 
     @FXML
     private BorderPane BorderPane;
@@ -26,8 +28,10 @@ public class AgendaPage extends ControllerSample implements Initializable{
     private Button increase_btn;
     @FXML
     private Button decrease_btn;
+    @FXML
+    private Button save_btn;
     private VCalendar vCalendar;
-    private ICalendarAgenda agendaHome;
+    private static ICalendarAgenda agendaHome;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -36,7 +40,7 @@ public class AgendaPage extends ControllerSample implements Initializable{
         datePicker.setValue(agendaHome.getDisplayedLocalDateTime().toLocalDate());
         BorderPane.setCenter(agendaHome);
 
-       super.start();
+        super.start();
 
         increase_btn.setOnAction(event -> {
             LocalDateTime newLocalDateTime = agendaHome.getDisplayedLocalDateTime().plus(Period.ofWeeks(1));
@@ -50,16 +54,23 @@ public class AgendaPage extends ControllerSample implements Initializable{
             datePicker.setValue(newLocalDateTime.toLocalDate());
         });
 
+        save_btn.setOnAction(event -> {
+            saveEvent();
+        });
+
         datePicker.setOnAction(event -> {
             LocalDateTime newLocalDateTime = datePicker.getValue().atStartOfDay();
             agendaHome.setDisplayedLocalDateTime(newLocalDateTime);
-            System.out.println(vCalendar.toString());
         });
+    }
 
-        Callback uidCallback = (Void) ->
-                LocalDateTime.now().toString() + "-" +
-                        ".myapp.com";
-        agendaHome.setUidGeneratorCallback(uidCallback);
-
+    static public void saveEvent() {
+        List<VEvent> vEvents = agendaHome.getVCalendar().getVEvents();
+        if (vEvents != null) {
+            if (!vEvents.isEmpty()) {
+                System.out.println(vEvents.toString());
+                //TODO save all event
+            }
+        }
     }
 }
