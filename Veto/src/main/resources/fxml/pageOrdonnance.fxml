@@ -35,7 +35,7 @@
     </left>
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-            <TextField layoutX="36.0" layoutY="376.0" prefHeight="44.0" prefWidth="480.0" promptText="Posologie" />
+            <TextField fx:id="posologie" layoutX="36.0" layoutY="376.0" prefHeight="44.0" prefWidth="480.0" promptText="Posologie" />
             <TextField fx:id="nameClientField" layoutX="963.0" layoutY="46.0" prefHeight="26.0" prefWidth="158.0" promptText="Proprpiétaire" />
             <TableView fx:id="tableViewAnimal" layoutX="542.0" layoutY="72.0" prefHeight="286.0" prefWidth="595.0">
                 <columns>
@@ -54,9 +54,9 @@
                     <TableColumn fx:id="quantiteC" prefWidth="107.0" text="Quantité" />
                 </columns>
             </TableView>
-            <Button layoutX="310.0" layoutY="429.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="206.0" text="Ajouter la préscription" />
+            <Button layoutX="310.0" layoutY="429.0" mnemonicParsing="false" onMouseClicked="#createPrescription" prefHeight="45.0" prefWidth="206.0" text="Ajouter la préscription" />
             <Button layoutX="418.0" layoutY="531.0" mnemonicParsing="false" onMouseClicked="#createDocPDF" prefHeight="74.0" prefWidth="227.0" text="Valider Ordonnance" />
-            <Label fx:id="validateError" disable="true" layoutX="398.0" layoutY="612.0" prefHeight="24.0" prefWidth="107.0" textFill="red" />
+            <Label fx:id="ordonnanceMsg" disable="true" layoutX="398.0" layoutY="612.0" prefHeight="24.0" prefWidth="107.0"/>
         </AnchorPane>
     </center>
 </BorderPane>

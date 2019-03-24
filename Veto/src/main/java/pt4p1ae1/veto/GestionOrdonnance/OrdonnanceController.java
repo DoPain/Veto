@@ -5,28 +5,25 @@ import com.itextpdf.text.pdf.PdfWriter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
-import javafx.scene.ParallelCamera;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import pt4p1ae1.veto.ControllerSample;
-import pt4p1ae1.veto.Entity.AnimalEntity;
-import pt4p1ae1.veto.Entity.ClientEntity;
-import pt4p1ae1.veto.Entity.EmployeEntity;
-import pt4p1ae1.veto.Entity.VeterinaireEntity;
+import pt4p1ae1.veto.Entity.*;
 import pt4p1ae1.veto.GestionAnimaux.AnimalEntityObservable;
-import pt4p1ae1.veto.GestionCLient.ClientEntityObservable;
+import pt4p1ae1.veto.GestionStock.ProduitEntityObservable;
 import pt4p1ae1.veto.Utils;
 
 import java.io.FileOutputStream;
 import java.net.URL;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class OrdonnanceController extends ControllerSample implements Initializable {
@@ -35,30 +32,24 @@ public class OrdonnanceController extends ControllerSample implements Initializa
     public TableColumn<AnimalEntityObservable, String> especeAnimal;
     public TableColumn<AnimalEntityObservable, String> raceAnimal;
     public TableColumn<AnimalEntityObservable, String> clientNameAnimal;
-    public Label validateError;
+    public Label ordonnanceMsg;
     public TextField nameClientField;
-    public TableView tableViewProduit;
-    public TableColumn referenceC;
-    public TableColumn nameC;
-    public TableColumn prixC;
-    public TableColumn quantiteC;
+    public TableView<ProduitEntityObservable> tableViewProduit;
+    public TableColumn<ProduitEntityObservable, String> referenceC;
+    public TableColumn<ProduitEntityObservable, String> nameC;
+    public TableColumn<ProduitEntityObservable, String> prixC;
+    public TableColumn<ProduitEntityObservable, String> quantiteC;
+    public TextField posologie;
 
+    private ObservableList<AnimalEntityObservable> animalEntityObservables = FXCollections.observableArrayList();
+    private ObservableList<ProduitEntityObservable> productEntityObservables = FXCollections.observableArrayList();
+    private HashMap<ProduitEntityObservable, String> prescriptions = new HashMap<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.start();
-
-        this.nameAnimal.setCellValueFactory(new PropertyValueFactory<>("nom"));
-        this.especeAnimal.setCellValueFactory(new PropertyValueFactory<>("espece"));
-        this.raceAnimal.setCellValueFactory(new PropertyValueFactory<>("race"));
-        this.clientNameAnimal.setCellValueFactory(new PropertyValueFactory<>("proprietaire"));
-
-        ObservableList<AnimalEntityObservable> animalEntityObservables = FXCollections.observableArrayList();
-
-        for (AnimalEntity animal : Utils.ANIMAL_DAO.findAll())
-            animalEntityObservables.add(new AnimalEntityObservable(animal));
-
-        tableViewAnimal.setItems(animalEntityObservables);
+        setAnimalsTable();
+        setProductTable();
 
         nameClientField.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.ENTER) {
@@ -72,6 +63,30 @@ public class OrdonnanceController extends ControllerSample implements Initializa
                     tableViewAnimal.setItems(animalEntityObservables);
             }
         });
+    }
+
+    private void setProductTable() {
+
+        nameC.setCellValueFactory(new PropertyValueFactory<>("nom"));
+        prixC.setCellValueFactory(new PropertyValueFactory<>("prix"));
+        quantiteC.setCellValueFactory(new PropertyValueFactory<>("quantiteStock"));
+        referenceC.setCellValueFactory(new PropertyValueFactory<>("reference"));
+        for (ProduitEntity produit : Utils.PRODUIT_ENTITY.findAll())
+            productEntityObservables.add(new ProduitEntityObservable(produit));
+        tableViewProduit.setItems(productEntityObservables);
+    }
+
+    private void setAnimalsTable() {
+
+        this.nameAnimal.setCellValueFactory(new PropertyValueFactory<>("nom"));
+        this.especeAnimal.setCellValueFactory(new PropertyValueFactory<>("espece"));
+        this.raceAnimal.setCellValueFactory(new PropertyValueFactory<>("race"));
+        this.clientNameAnimal.setCellValueFactory(new PropertyValueFactory<>("proprietaire"));
+
+        for (AnimalEntity animal : Utils.ANIMAL_DAO.findAll())
+            animalEntityObservables.add(new AnimalEntityObservable(animal));
+
+        tableViewAnimal.setItems(animalEntityObservables);
     }
 
     public void createDocPDF() {
@@ -97,12 +112,35 @@ public class OrdonnanceController extends ControllerSample implements Initializa
             document.add(new Paragraph(new Chunk(dateFormatUser + "\nDr. " + veterinaire.getPersonneById().getNom()
                     + "\n" + veterinaire.getPersonneById().getAdresse(), font)));
             document.add(img);
-
+            for (ProduitEntityObservable p : prescriptions.keySet())
+                document.add(new Paragraph(new Chunk(p.getNom() + " : " + prescriptions.get(p) + "\n", font)));
             document.close();
+            ordonnanceMsg.setTextFill(Color.GREEN);
+            ordonnanceMsg.setText("L'ordonnance a bien été créer");
+            wait(5000);
+            ordonnanceMsg.setText("");
+            prescriptions.clear();
         } catch (Exception e) {
             if (e.getClass() == NullPointerException.class) {
-                validateError.setText("Selectionnez un animal et au moins un produit");
+                ordonnanceMsg.setTextFill(Color.RED);
+                ordonnanceMsg.setText("Selectionnez un animal");
             }
         }
     }
-}
+
+    public void createPrescription() {
+        try {
+            ProduitEntityObservable product = tableViewProduit.getSelectionModel().getSelectedItem();
+            prescriptions.put(product, posologie.getText());
+            posologie.setText("");
+            ordonnanceMsg.setTextFill(Color.GREEN);
+            ordonnanceMsg.setText("La prescriptions à été enregistré");
+            wait(5000);
+            ordonnanceMsg.setText("");
+        } catch (Exception e) {
+            if (e.getClass() == NullPointerException.class) {
+                ordonnanceMsg.setTextFill(Color.RED);
+                ordonnanceMsg.setText("Selectionnez un produit");
+            }
+        }
+    }

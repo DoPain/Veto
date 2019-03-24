@@ -35,7 +35,6 @@ public class RechercheOrdonnanceController extends ControllerSample implements I
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.start();
-
         nameAnimal.setCellValueFactory(new PropertyValueFactory<>("nameAnimal"));
         nameClient.setCellValueFactory(new PropertyValueFactory<>("nameClient"));
         dateOrdonnance.setCellValueFactory(new PropertyValueFactory<>("date"));
