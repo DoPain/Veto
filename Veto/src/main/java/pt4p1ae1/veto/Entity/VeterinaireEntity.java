@@ -12,7 +12,7 @@ import java.util.Objects;
 public class VeterinaireEntity {
     private long id;
     private byte[] signature;
-    private Collection<AvoirRendezVousEntity> avoirRendezVousById;
+    private Collection<RendezVousEntity> RendezVousById;
     private Collection<OrdonnanceEntity> ordonnancesById;
     private PersonneEntity personneById;
 
@@ -54,12 +54,12 @@ public class VeterinaireEntity {
 
     @OneToMany(mappedBy = "veterinaireByIdVeterinaire")
     @Cascade(org.hibernate.annotations.CascadeType.DELETE)
-    public Collection<AvoirRendezVousEntity> getAvoirRendezVousById() {
-        return avoirRendezVousById;
+    public Collection<RendezVousEntity> getRendezVousById() {
+        return RendezVousById;
     }
 
-    public void setAvoirRendezVousById(Collection<AvoirRendezVousEntity> avoirRendezVousById) {
-        this.avoirRendezVousById = avoirRendezVousById;
+    public void setRendezVousById(Collection<RendezVousEntity> RendezVousById) {
+        this.RendezVousById = RendezVousById;
     }
 
     @OneToMany(mappedBy = "veterinaireByIdVeterinaire")

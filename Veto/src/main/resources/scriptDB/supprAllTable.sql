@@ -1,6 +1,6 @@
 DROP TABLE Log;
 DROP TABLE Appartenir;
-DROP TABLE AvoirRendezVous;
+DROP TABLE RendezVous;
 DROP TABLE Commander;
 DROP TABLE Conge;
 DROP TABLE Panier;

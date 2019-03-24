@@ -16,7 +16,7 @@
 
         <mapping class="pt4p1ae1.veto.Entity.AnimalEntity"/>
         <mapping class="pt4p1ae1.veto.Entity.AppartenirEntity"/>
-        <mapping class="pt4p1ae1.veto.Entity.AvoirRendezVousEntity"/>
+        <mapping class="pt4p1ae1.veto.Entity.RendezVousEntity"/>
         <mapping class="pt4p1ae1.veto.Entity.ClientEntity"/>
         <mapping class="pt4p1ae1.veto.Entity.CommanderEntity"/>
         <mapping class="pt4p1ae1.veto.Entity.CongeEntity"/>

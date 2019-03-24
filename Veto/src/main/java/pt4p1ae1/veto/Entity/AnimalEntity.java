@@ -19,7 +19,7 @@ public class AnimalEntity {
     private Date dateNaissance;
     private RaceEntity raceByIdRace;
     private ClientEntity clientByIdClient;
-    private Collection<AvoirRendezVousEntity> avoirRendezVousById;
+    private Collection<RendezVousEntity> RendezVousById;
     private Collection<OrdonnanceEntity> ordonnancesById;
     private Collection<TraitementEntity> traitementsById;
 
@@ -134,12 +134,12 @@ public class AnimalEntity {
 
     @OneToMany(mappedBy = "animalByIdAnimal")
     @Cascade(org.hibernate.annotations.CascadeType.DELETE)
-    public Collection<AvoirRendezVousEntity> getAvoirRendezVousById() {
-        return avoirRendezVousById;
+    public Collection<RendezVousEntity> getRendezVousById() {
+        return RendezVousById;
     }
 
-    public void setAvoirRendezVousById(Collection<AvoirRendezVousEntity> avoirRendezVousById) {
-        this.avoirRendezVousById = avoirRendezVousById;
+    public void setRendezVousById(Collection<RendezVousEntity> RendezVousById) {
+        this.RendezVousById = RendezVousById;
     }
 
     @OneToMany(mappedBy = "animalByIdAnimal")
