@@ -62,6 +62,8 @@ public class StockController extends ControllerSample implements Initializable {
     @FXML
     private Button modifierBtn;
     @FXML
+    private Button filtrer;
+    @FXML
     private Label error;
     @FXML
     private TextField quantiteSupp;
@@ -95,57 +97,25 @@ public class StockController extends ControllerSample implements Initializable {
 
         nomF.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.ENTER) {
-                ObservableList<ProduitEntityObservable> observableTmpList = FXCollections.observableArrayList();
-                if (!nomF.getText().equals("")) {
-                    for (ProduitEntityObservable produit : observables)
-                        if (produit.getNom().contains(nomF.getText()))
-                            observableTmpList.add(produit);
-                    tableViewProduit.setItems(observableTmpList);
-                } else
-                    tableViewProduit.setItems(observables);
+               filtrerProduits();
             }
         });
 
         prixF.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.ENTER) {
-                ObservableList<ProduitEntityObservable> observableTmpList = FXCollections.observableArrayList();
-                if (!prixF.getText().equals("")) {
-                    for (ProduitEntityObservable produit : observables)
-                        if (produit.getPrix().toString().contains(prixF.getText()))
-                            observableTmpList.add(produit);
-                    tableViewProduit.setItems(observableTmpList);
-                } else
-                    tableViewProduit.setItems(observables);
+                filtrerProduits();
             }
         });
 
         dateAcquisitionF.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.ENTER) {
-                ObservableList<ProduitEntityObservable> observableTmpList = FXCollections.observableArrayList();
-                if (!dateAcquisitionF.getText().equals("")) {
-                    for (ProduitEntityObservable produit : observables)
-                        if (produit.getDateAcquisition() != null) {
-                            if (produit.getDateAcquisition().toString().contains(dateAcquisitionF.getText()))
-                                observableTmpList.add(produit);
-                            tableViewProduit.setItems(observableTmpList);
-                        }
-                } else
-                    tableViewProduit.setItems(observables);
+                filtrerProduits();
             }
         });
 
         datePeremptionF.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.ENTER) {
-                ObservableList<ProduitEntityObservable> observableTmpList = FXCollections.observableArrayList();
-                if (!datePeremptionF.getText().equals("")) {
-                    for (ProduitEntityObservable produit : observables)
-                        if (produit.getPeremption() != null) {
-                            if (produit.getPeremption().toString().contains(datePeremptionF.getText()))
-                                observableTmpList.add(produit);
-                            tableViewProduit.setItems(observableTmpList);
-                        }
-                } else
-                    tableViewProduit.setItems(observables);
+                filtrerProduits();
             }
         });
 
@@ -237,6 +207,113 @@ public class StockController extends ControllerSample implements Initializable {
             Utils.setCurrentProduit(produit);
             super.creatBtn("/fxml/dossierProduit.fxml", (Stage) modifierBtn.getScene().getWindow());
         }
+    }
+
+    @FXML
+    private void filtrerProduits(){
+        Boolean ajout = false;
+        ObservableList<ProduitEntityObservable> observableTmpList = FXCollections.observableArrayList();
+        ObservableList<ProduitEntityObservable> observableTmpListCopy = FXCollections.observableArrayList();
+        if(!nomF.getText().equals("")){
+                ajout = true;
+                for (ProduitEntityObservable produit : observables) {
+                    if (produit.getNom().contains(nomF.getText())) {
+                        observableTmpList.add(produit);
+                    }
+                }
+                observableTmpListCopy.addAll(observableTmpList);
+        }
+
+        if(!referenceF.getText().equals("")){
+            if(!ajout){
+                ajout = true;
+                for (ProduitEntityObservable produit : observables) {
+                    if (produit.getReference().contains(referenceF.getText())) {
+                        observableTmpList.add(produit);
+                    }
+                }
+                observableTmpListCopy.removeAll();
+                observableTmpListCopy.addAll(observableTmpList);
+            } else {
+                for(ProduitEntityObservable produitT : observableTmpListCopy){
+                    if(!produitT.getReference().contains(referenceF.getText())){
+                        observableTmpList.remove(produitT);
+                    }
+                }
+                observableTmpListCopy.removeAll();
+                observableTmpListCopy.addAll(observableTmpList);
+            }
+        }
+
+        if(!prixF.getText().equals("")){
+            if(!ajout){
+                ajout = true;
+                for (ProduitEntityObservable produit : observables) {
+                    if (produit.getPrix().toString().contains(prixF.getText())) {
+                        observableTmpList.add(produit);
+                    }
+                }
+                observableTmpListCopy.removeAll();
+                observableTmpListCopy.addAll(observableTmpList);
+            } else {
+                for(ProduitEntityObservable produitT : observableTmpListCopy){
+                    if(!produitT.getPrix().toString().contains(prixF.getText())){
+                        observableTmpList.remove(produitT);
+                    }
+                }
+                observableTmpListCopy.removeAll();
+                observableTmpListCopy.addAll(observableTmpList);
+            }
+        }
+
+        if(!dateAcquisitionF.getText().equals("")){
+            if(!ajout){
+                ajout = true;
+                for (ProduitEntityObservable produit : observables) {
+                    if (produit.getDateAcquisition().toString().contains(dateAcquisitionF.getText())) {
+                        observableTmpList.add(produit);
+                    }
+                }
+                observableTmpListCopy.removeAll();
+                observableTmpListCopy.addAll(observableTmpList);
+            } else {
+                for(ProduitEntityObservable produitT : observableTmpListCopy){
+                    if (!produitT.getDateAcquisition().toString().contains(dateAcquisitionF.getText())){
+                        observableTmpList.remove(produitT);
+                    }
+                }
+                observableTmpListCopy.removeAll();
+                observableTmpListCopy.addAll(observableTmpList);
+            }
+        }
+
+        if(!datePeremptionF.getText().equals("")){
+            if(!ajout){
+                ajout = true;
+                for (ProduitEntityObservable produit : observables) {
+                    if (produit.getPeremption().toString().contains(datePeremptionF.getText())) {
+                        observableTmpList.add(produit);
+                    }
+                }
+                observableTmpListCopy.removeAll();
+                observableTmpListCopy.addAll(observableTmpList);
+            } else {
+                for(ProduitEntityObservable produitT : observableTmpListCopy){
+                    if (!produitT.getPeremption().toString().contains(datePeremptionF.getText())){
+                        observableTmpList.remove(produitT);
+                    }
+                }
+                observableTmpListCopy.removeAll();
+                observableTmpListCopy.addAll(observableTmpList);
+            }
+        }
+
+        if(!ajout){
+            tableViewProduit.setItems(observables);
+        } else {
+            tableViewProduit.setItems(observableTmpList);
+        }
+
     }
 
 

@@ -50,7 +50,7 @@
             <TextField fx:id="datePeremptionF" layoutX="777.0" layoutY="104.0" />
             <Label layoutX="642.0" layoutY="49.0" text="Date d'acquisition :" />
             <Label layoutX="631.0" layoutY="108.0" text="Date de péremption :" />
-            <Button layoutX="844.0" layoutY="156.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="68.0" text="Filtrer" />
+            <Button fx:id="filtrer" onAction="#filtrerProduits" layoutX="844.0" layoutY="156.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="68.0" text="Filtrer" />
             <TableView fx:id="tableViewProduit" layoutX="93.0" layoutY="207.0" prefHeight="391.0" prefWidth="951.0">
               <columns>
                 <TableColumn fx:id="nameC" prefWidth="209.0" text="Nom" />
