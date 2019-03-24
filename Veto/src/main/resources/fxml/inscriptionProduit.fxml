@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -11,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="751.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.181" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt4p1ae1.veto.GestionStock.InscriptionProduitController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="751.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt4p1ae1.veto.GestionStock.InscriptionProduitController">
     <top>
         <Pane fx:id="pane" BorderPane.alignment="CENTER">
             <children>
@@ -40,22 +41,23 @@
             <children>
                 <Button fx:id="backToProducts" layoutX="27.0" layoutY="30.0" mnemonicParsing="false" onAction="#retourProduits" text="Retour liste produits" />
                 <Label layoutX="100.0" layoutY="179.0" text="Référence :" />
-                <Label layoutX="68.0" layoutY="308.0" text="Prix acquisition :" />
-                <Label layoutX="80.0" layoutY="378.0" text="Prix de vente :" />
+                <Label layoutX="86.0" layoutY="300.0" text="Prix de vente :" />
                 <Label layoutX="123.0" layoutY="229.0" text="Nom :" />
                 <Label layoutX="543.0" layoutY="179.0" text="Date d'acquisition :" />
                 <Label layoutX="543.0" layoutY="229.0" text="Date de péremption :" />
-                <Label layoutX="540.0" layoutY="300.0" text="Nombre d'insertion :" />
-                <TextField fx:id="nameClientText" layoutX="179.0" layoutY="174.0" prefHeight="26.0" prefWidth="175.0" />
-                <TextField fx:id="firstNameClientText" layoutX="179.0" layoutY="224.0" prefHeight="26.0" prefWidth="175.0" />
-                <TextField fx:id="phoneClientText" layoutX="179.0" layoutY="303.0" prefHeight="26.0" prefWidth="175.0" />
-                <TextField fx:id="emailClientText" layoutX="179.0" layoutY="373.0" prefHeight="26.0" prefWidth="175.0" />
-                <TextField fx:id="addressClientText" layoutX="685.0" layoutY="175.0" prefHeight="16.0" prefWidth="192.0" />
-                <TextField fx:id="cpClientText" layoutX="685.0" layoutY="225.0" prefHeight="25.0" prefWidth="193.0" />
-                <TextField fx:id="cityClientText" layoutX="685.0" layoutY="296.0" prefHeight="25.0" prefWidth="194.0" />
-                <Button fx:id="register" layoutX="776.0" layoutY="408.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="101.0" text="Ajouter" />
-            <Label layoutX="82.0" layoutY="435.0" text="Description :" />
-            <TextField layoutX="80.0" layoutY="469.0" prefHeight="109.0" prefWidth="275.0" />
+                <Label layoutX="545.0" layoutY="283.0" text="Nombre d'insertion :" />
+                <TextField fx:id="reference" layoutX="179.0" layoutY="174.0" prefHeight="26.0" prefWidth="175.0" />
+                <TextField fx:id="nom" layoutX="179.0" layoutY="224.0" prefHeight="26.0" prefWidth="175.0" />
+                <TextField fx:id="prix" layoutX="179.0" layoutY="296.0" prefHeight="26.0" prefWidth="96.0" />
+                <TextField fx:id="nbInsertion" layoutX="679.0" layoutY="279.0" prefHeight="25.0" prefWidth="76.0" />
+                <Button fx:id="register" layoutX="776.0" layoutY="408.0" mnemonicParsing="false" onAction="#ajouterProduit" prefHeight="53.0" prefWidth="101.0" text="Ajouter" />
+            <Label layoutX="90.0" layoutY="381.0" text="Description :" />
+            <TextField fx:id="minQuantite" layoutX="678.0" layoutY="324.0" prefHeight="25.0" prefWidth="79.0" />
+            <Label layoutX="550.0" layoutY="328.0" text="Quantité minimum :" />
+            <TextField fx:id="dateAcquisition" layoutX="678.0" layoutY="175.0" promptText="dd/MM/yyyy" />
+            <TextField fx:id="datePeremption" layoutX="678.0" layoutY="225.0" promptText="dd/MM/yyyy" />
+            <TextArea fx:id="description" layoutX="90.0" layoutY="414.0" prefHeight="131.0" prefWidth="279.0" />
+            <Label fx:id="error" layoutX="813.0" layoutY="501.0" />
             </children>
         </AnchorPane>
     </center>
