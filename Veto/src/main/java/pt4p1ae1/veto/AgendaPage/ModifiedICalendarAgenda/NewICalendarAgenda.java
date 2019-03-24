@@ -49,6 +49,9 @@ import jfxtras.scene.control.agenda.icalendar.factories.DefaultVComponentFactory
 import jfxtras.scene.control.agenda.icalendar.factories.RecurrenceFactory;
 import jfxtras.scene.control.agenda.icalendar.factories.VComponentFactory;
 import jfxtras.util.NodeUtil;
+import pt4p1ae1.veto.AgendaPage.AgendaPage;
+import pt4p1ae1.veto.AgendaPage.AvoirRendezVousEntityOservable;
+import pt4p1ae1.veto.Entity.AvoirRendezVousEntity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -480,13 +483,24 @@ public class NewICalendarAgenda extends Agenda
          */
         Callback<Appointment, Void> appointmentChangedCallback = (Appointment appointment) ->
         {
-            VDisplayable<?> vComponent = appointmentVComponentMap.get(System.identityHashCode(appointment));
+            VEvent vComponent = (VEvent) appointmentVComponentMap.get(System.identityHashCode(appointment));
             Object[] params = revisorParamGenerator(vComponent, appointment);
             List<VCalendar> iTIPMessage = SimpleRevisorFactory.newReviser(vComponent, params).revise();
             getVCalendar().processITIPMessage(iTIPMessage);
             calendarConsumer.accept(getVCalendar()); // provide notification of calendar change
             appointmentStartOriginalMap.put(System.identityHashCode(appointment), appointment.getStartTemporal()); // update start map
             Platform.runLater(() -> refresh());
+            /**
+             * Modified by VINCENT Bastien
+             */
+            String UID = vComponent.getUniqueIdentifier().getValue();
+            if(AgendaPage.vEventEntity.containsKey(UID)){
+                AvoirRendezVousEntity changedRDV = AvoirRendezVousEntityOservable.toEntity(vComponent);
+                AvoirRendezVousEntity oldRDV = AgendaPage.vEventEntity.get(UID);
+                changedRDV.setIdVeterinaire(oldRDV.getIdVeterinaire());
+                changedRDV.setIdAnimal(oldRDV.getIdAnimal());
+                AgendaPage.vEventEntity.put(UID,changedRDV);
+            }
             return null;
         };
         setAppointmentChangedCallback(appointmentChangedCallback);
@@ -500,10 +514,10 @@ public class NewICalendarAgenda extends Agenda
          */
         Callback<Appointment, Void> editAppointmentCallback = (Appointment appointment) ->
         {
-            VDisplayable<?> vComponent = appointmentVComponentMap.get(System.identityHashCode(appointment));
+            VEvent vComponent = (VEvent)appointmentVComponentMap.get(System.identityHashCode(appointment));
             if (vComponent == null)
             { // having no VComponent in map means the appointment is new and VComponent must be created
-                vComponent = getVComponentFactory().createVComponent(appointment);
+                vComponent = (VEvent) getVComponentFactory().createVComponent(appointment);
                 // NOTE: Can't throw exception here because in Agenda there is a mouse event that isn't consumed.
                 // Throwing an exception will leave the mouse unresponsive.
             }
@@ -547,6 +561,17 @@ public class NewICalendarAgenda extends Agenda
                     popupStage.hide();
                     refresh();
                 });
+            /**
+             * Modified by VINCENT Bastien
+             */
+            String UID = vComponent.getUniqueIdentifier().getValue();
+            if(AgendaPage.vEventEntity.containsKey(UID)){
+                AvoirRendezVousEntity changedRDV = AvoirRendezVousEntityOservable.toEntity(vComponent);
+                AvoirRendezVousEntity oldRDV = AgendaPage.vEventEntity.get(UID);
+                changedRDV.setIdVeterinaire(oldRDV.getIdVeterinaire());
+                changedRDV.setIdAnimal(oldRDV.getIdAnimal());
+                AgendaPage.vEventEntity.put(UID,changedRDV);
+            }
             return null;
         };
         setEditAppointmentCallback(editAppointmentCallback);

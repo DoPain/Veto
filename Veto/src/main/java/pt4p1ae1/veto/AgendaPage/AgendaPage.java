@@ -1,5 +1,7 @@
 package pt4p1ae1.veto.AgendaPage;
 
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableListBase;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -13,12 +15,13 @@ import jfxtras.scene.control.agenda.Agenda;
 import pt4p1ae1.veto.AgendaPage.ModifiedICalendarAgenda.NewICalendarAgenda;
 import pt4p1ae1.veto.ControllerSample;
 import pt4p1ae1.veto.Entity.AvoirRendezVousEntity;
+import pt4p1ae1.veto.Entity.ClientEntity;
+import pt4p1ae1.veto.Utils;
 
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.Period;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class AgendaPage extends ControllerSample implements Initializable {
 
@@ -43,11 +46,14 @@ public class AgendaPage extends ControllerSample implements Initializable {
     private VCalendar vCalendar;
     private static NewICalendarAgenda agendaHome;
     private AvoirRendezVousEntity selectedRDV;
+    private VEvent selectedVEvent;
+    public static HashMap<String,AvoirRendezVousEntity> vEventEntity;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         vCalendar = new VCalendar();
         agendaHome = new NewICalendarAgenda(vCalendar);
+        vEventEntity = new HashMap<>();
         datePicker.setValue(agendaHome.getDisplayedLocalDateTime().toLocalDate());
         BorderPane.setCenter(agendaHome);
 
@@ -62,35 +68,34 @@ public class AgendaPage extends ControllerSample implements Initializable {
         agendaHome.setSelectedOneAppointmentCallback(param ->
                 {
                     Agenda.Appointment selectedAppointment = (Agenda.Appointment)param;
-                    VEvent event = (VEvent)agendaHome.getAppointmentVComponentMap()
+                    selectedVEvent = (VEvent)agendaHome.getAppointmentVComponentMap()
                             .get(System.identityHashCode(selectedAppointment));
-                    if (event == null)
+                    if (selectedVEvent == null)
                     {
-                        event = (VEvent)agendaHome.getVComponentFactory().createVComponent(selectedAppointment);
+                        selectedVEvent = (VEvent)agendaHome.getVComponentFactory().createVComponent(selectedAppointment);
                     }
-                    selectedRDV = AvoirRendezVousEntityOservable.toEntity(event);
+                    selectedRDV = AvoirRendezVousEntityOservable.toEntity(selectedVEvent);
                     modifyEvent.setDisable(false);
-                    System.out.println("insérer l'event");
+
+                    modifyButton.setOnAction(event -> {
+                        if(animalBox.getValue()!=null && clientBox.getValue()!=null){
+                            selectedRDV.setIdAnimal(-1); //recup l'id de l'animal
+                            selectedRDV.setIdVeterinaire(-1); //recup l'id du client
+                            vEventEntity.put(selectedVEvent.getUniqueIdentifier().getValue(),selectedRDV);
+                            System.out.println("insérer event");
+                        }
+                    });
                     return null;
                 }
         );
 
-        /*
-        clientBox.setItems(null); //mettre la liste des clients
-        clientBox.setOnAction(event -> {
-            animalBox.setItems(null); //mettre la liste d'animaux du client
-        });
-        animalBox.setItems(null); //mettre la liste des animaux du client de base
-        */
-
-        modifyButton.setOnAction(event -> {
-            if(animalBox.getValue()!=null && clientBox.getValue()!=null){
-                selectedRDV.setIdAnimal(-1); //recup l'id de l'animal
-                selectedRDV.setIdVeterinaire(-1); //recup l'id du client
-                System.out.println("insérer event");
-            }
-        });
-
+//        ObservableList<ClientEntity> list= new ObservableListBase<ClientEntity>();
+//        list.addAll(Utils.CLIENT_DAO.findAll());
+//        clientBox.setItems(); //mettre la liste des clients
+//        clientBox.setOnAction(event -> {
+//            animalBox.setItems(null); //mettre la liste d'animaux du client
+//        });
+//        animalBox.setItems(null); //mettre la liste des animaux du client de base
     }
 
     private void setActionButton(){
@@ -122,9 +127,24 @@ public class AgendaPage extends ControllerSample implements Initializable {
         if (vEvents != null) {
             if (!vEvents.isEmpty()) {
                 vEvents.forEach(vEvent -> {
-                    AvoirRendezVousEntity rdv = AvoirRendezVousEntityOservable.toEntity(vEvent);
-
-                    System.out.println("insérer event");
+                    AvoirRendezVousEntity rdv;
+                    String UID = vEvent.getUniqueIdentifier().getValue();
+                    if(vEventEntity.containsKey(UID)){
+                        rdv = vEventEntity.get(UID);
+                    }else{
+                        rdv = AvoirRendezVousEntityOservable.toEntity(vEvent);
+                    }
+                    Utils.AVOIR_RENDEZ_VOUS_DAO.saveOrUpdate(rdv);
+                });
+                vEventEntity.keySet().forEach(s ->{
+                    boolean exist = false;
+                    Iterator<VEvent> iterator = vEvents.iterator();
+                    while (!exist && iterator.hasNext()){
+                        exist = iterator.next().getUniqueIdentifier().getValue().equals(s);
+                    }
+                    if(!exist){
+                        vEventEntity.remove(s);
+                    }
                 });
             }
         }
