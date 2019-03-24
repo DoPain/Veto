@@ -172,7 +172,7 @@ public class StockController extends ControllerSample implements Initializable {
 
     @FXML
     private void supprimerProduit(ActionEvent actionEvent) {
-        if (tableViewProduit.getSelectionModel().getSelectedItem() != null && quantiteSupp.getText() != "") {
+        if (tableViewProduit.getSelectionModel().getSelectedItem() != null && !quantiteSupp.getText().equals("")) {
             ProduitEntityObservable selectedProduit = tableViewProduit.getSelectionModel().getSelectedItem();
             ProduitEntity produit = selectedProduit.toProduitEntity();
             if (produit.getQuantiteEnStock() - Integer.valueOf(quantiteSupp.getText()) >= 0) {
@@ -206,6 +206,9 @@ public class StockController extends ControllerSample implements Initializable {
             ProduitEntity produit = selectedProduit.toProduitEntity();
             Utils.setCurrentProduit(produit);
             super.creatBtn("/fxml/dossierProduit.fxml", (Stage) modifierBtn.getScene().getWindow());
+        } else {
+            error.setStyle("-fx-text-fill: red");
+            error.setText("Aucun produit selectionné");
         }
     }
 
