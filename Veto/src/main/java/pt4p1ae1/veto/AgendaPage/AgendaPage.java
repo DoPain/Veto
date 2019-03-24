@@ -1,5 +1,6 @@
 package pt4p1ae1.veto.AgendaPage;
 
+import javafx.beans.property.SimpleListProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableListBase;
 import javafx.fxml.FXML;
@@ -14,8 +15,10 @@ import jfxtras.icalendarfx.components.VEvent;
 import jfxtras.scene.control.agenda.Agenda;
 import pt4p1ae1.veto.AgendaPage.ModifiedICalendarAgenda.NewICalendarAgenda;
 import pt4p1ae1.veto.ControllerSample;
-import pt4p1ae1.veto.Entity.AvoirRendezVousEntity;
+import pt4p1ae1.veto.Entity.AnimalEntity;
+import pt4p1ae1.veto.Entity.RendezVousEntity;
 import pt4p1ae1.veto.Entity.ClientEntity;
+import pt4p1ae1.veto.Entity.RendezVousEntity;
 import pt4p1ae1.veto.Utils;
 
 import java.net.URL;
@@ -45,9 +48,9 @@ public class AgendaPage extends ControllerSample implements Initializable {
     private Button save_btn;
     private VCalendar vCalendar;
     private static NewICalendarAgenda agendaHome;
-    private AvoirRendezVousEntity selectedRDV;
+    private RendezVousEntity selectedRDV;
     private VEvent selectedVEvent;
-    public static HashMap<String,AvoirRendezVousEntity> vEventEntity;
+    public static HashMap<String, RendezVousEntity> vEventEntity;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -64,24 +67,23 @@ public class AgendaPage extends ControllerSample implements Initializable {
 
     }
 
-    private void initializeAgenda(){
+    private void initializeAgenda() {
         agendaHome.setSelectedOneAppointmentCallback(param ->
                 {
-                    Agenda.Appointment selectedAppointment = (Agenda.Appointment)param;
-                    selectedVEvent = (VEvent)agendaHome.getAppointmentVComponentMap()
+                    Agenda.Appointment selectedAppointment = (Agenda.Appointment) param;
+                    selectedVEvent = (VEvent) agendaHome.getAppointmentVComponentMap()
                             .get(System.identityHashCode(selectedAppointment));
-                    if (selectedVEvent == null)
-                    {
-                        selectedVEvent = (VEvent)agendaHome.getVComponentFactory().createVComponent(selectedAppointment);
+                    if (selectedVEvent == null) {
+                        selectedVEvent = (VEvent) agendaHome.getVComponentFactory().createVComponent(selectedAppointment);
                     }
-                    selectedRDV = AvoirRendezVousEntityOservable.toEntity(selectedVEvent);
+                    selectedRDV = RendezVousEntityOservable.toEntity(selectedVEvent);
                     modifyEvent.setDisable(false);
 
                     modifyButton.setOnAction(event -> {
-                        if(animalBox.getValue()!=null && clientBox.getValue()!=null){
+                        if (animalBox.getValue() != null && clientBox.getValue() != null) {
                             selectedRDV.setIdAnimal(-1); //recup l'id de l'animal
                             selectedRDV.setIdVeterinaire(-1); //recup l'id du client
-                            vEventEntity.put(selectedVEvent.getUniqueIdentifier().getValue(),selectedRDV);
+                            vEventEntity.put(selectedVEvent.getUniqueIdentifier().getValue(), selectedRDV);
                             System.out.println("insérer event");
                         }
                     });
@@ -89,16 +91,24 @@ public class AgendaPage extends ControllerSample implements Initializable {
                 }
         );
 
-//        ObservableList<ClientEntity> list= new ObservableListBase<ClientEntity>();
-//        list.addAll(Utils.CLIENT_DAO.findAll());
-//        clientBox.setItems(); //mettre la liste des clients
-//        clientBox.setOnAction(event -> {
-//            animalBox.setItems(null); //mettre la liste d'animaux du client
-//        });
-//        animalBox.setItems(null); //mettre la liste des animaux du client de base
+        ObservableList<ClientEntity> clientEntities = new SimpleListProperty<ClientEntity>();
+        clientEntities.addAll(Utils.CLIENT_DAO.findAll());
+        clientBox.setItems(clientEntities);
+        ClientEntity client = (ClientEntity) clientBox.getValue();
+
+        ObservableList<AnimalEntity> animalEntities= new SimpleListProperty<AnimalEntity>();
+        animalEntities.addAll(Utils.getAnimalFromClient(client.getId()));
+        animalBox.setItems(animalEntities);
+
+        clientBox.setOnAction(event -> {
+            ClientEntity newClient = (ClientEntity) clientBox.getValue();
+            animalEntities.clear();
+            animalEntities.addAll(Utils.getAnimalFromClient(newClient.getId()));
+            animalBox.setItems(animalEntities);
+        });
     }
 
-    private void setActionButton(){
+    private void setActionButton() {
         increase_btn.setOnAction(event -> {
             LocalDateTime newLocalDateTime = agendaHome.getDisplayedLocalDateTime().plus(Period.ofWeeks(1));
             agendaHome.setDisplayedLocalDateTime(newLocalDateTime);
@@ -124,25 +134,26 @@ public class AgendaPage extends ControllerSample implements Initializable {
 
     static public void saveEvents() {
         List<VEvent> vEvents = agendaHome.getVCalendar().getVEvents();
+        Utils.RENDEZ_VOUS_DAO
         if (vEvents != null) {
             if (!vEvents.isEmpty()) {
                 vEvents.forEach(vEvent -> {
-                    AvoirRendezVousEntity rdv;
+                    RendezVousEntity rdv;
                     String UID = vEvent.getUniqueIdentifier().getValue();
-                    if(vEventEntity.containsKey(UID)){
+                    if (vEventEntity.containsKey(UID)) {
                         rdv = vEventEntity.get(UID);
-                    }else{
-                        rdv = AvoirRendezVousEntityOservable.toEntity(vEvent);
+                    } else {
+                        rdv = RendezVousEntityOservable.toEntity(vEvent);
                     }
-                    Utils.AVOIR_RENDEZ_VOUS_DAO.saveOrUpdate(rdv);
+                    Utils.RENDEZ_VOUS_DAO.saveOrUpdate(rdv);
                 });
-                vEventEntity.keySet().forEach(s ->{
+                vEventEntity.keySet().forEach(s -> {
                     boolean exist = false;
                     Iterator<VEvent> iterator = vEvents.iterator();
-                    while (!exist && iterator.hasNext()){
+                    while (!exist && iterator.hasNext()) {
                         exist = iterator.next().getUniqueIdentifier().getValue().equals(s);
                     }
-                    if(!exist){
+                    if (!exist) {
                         vEventEntity.remove(s);
                     }
                 });
