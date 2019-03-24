@@ -5,13 +5,13 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "AvoirRendezVous", schema = "PT_S4P1A_E1", catalog = "")
-public class AvoirRendezVousEntity {
+@Table(name = "RendezVous", schema = "PT_S4P1A_E1", catalog = "")
+public class RendezVousEntity {
     private long id;
     private long idAnimal;
     private long idVeterinaire;
-    private Timestamp dateHeure;
-    private int dureeMinutes;
+    private Timestamp dateHeureDebut;
+    private Timestamp dateHeureFin;
     private String message;
     private AnimalEntity animalByIdAnimal;
     private VeterinaireEntity veterinaireByIdVeterinaire;
@@ -27,7 +27,7 @@ public class AvoirRendezVousEntity {
     }
 
     @Basic
-    @Column(name = "idAnimal", nullable = false)
+    @Column(name = "idAnimal", nullable = true)
     public long getIdAnimal() {
         return idAnimal;
     }
@@ -37,7 +37,7 @@ public class AvoirRendezVousEntity {
     }
 
     @Basic
-    @Column(name = "idVeterinaire", nullable = false)
+    @Column(name = "idVeterinaire", nullable = true)
     public long getIdVeterinaire() {
         return idVeterinaire;
     }
@@ -47,23 +47,23 @@ public class AvoirRendezVousEntity {
     }
 
     @Basic
-    @Column(name = "dateHeure", nullable = false)
-    public Timestamp getDateHeure() {
-        return dateHeure;
+    @Column(name = "dateHeureDebut", nullable = false)
+    public Timestamp getDateHeureDebut() {
+        return dateHeureDebut;
     }
 
-    public void setDateHeure(Timestamp dateHeure) {
-        this.dateHeure = dateHeure;
+    public void setDateHeureDebut(Timestamp dateHeureDebut) {
+        this.dateHeureDebut = dateHeureDebut;
     }
 
     @Basic
-    @Column(name = "dureeMinutes", nullable = false)
-    public int getDureeMinutes() {
-        return dureeMinutes;
+    @Column(name = "dateHeureDebut", nullable = false)
+    public Timestamp getDateHeureFin() {
+        return dateHeureFin;
     }
 
-    public void setDureeMinutes(int dureeMinutes) {
-        this.dureeMinutes = dureeMinutes;
+    public void setDateHeureFin(Timestamp dateHeureFin) {
+        this.dateHeureFin = dateHeureFin;
     }
 
     @Basic
@@ -80,18 +80,18 @@ public class AvoirRendezVousEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AvoirRendezVousEntity that = (AvoirRendezVousEntity) o;
+        RendezVousEntity that = (RendezVousEntity) o;
         return id == that.id &&
                 idAnimal == that.idAnimal &&
                 idVeterinaire == that.idVeterinaire &&
-                dureeMinutes == that.dureeMinutes &&
-                Objects.equals(dateHeure, that.dateHeure) &&
+                Objects.equals(dateHeureFin, that.dateHeureFin) &&
+                Objects.equals(dateHeureDebut, that.dateHeureDebut) &&
                 Objects.equals(message, that.message);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, idAnimal, idVeterinaire, dateHeure, dureeMinutes, message);
+        return Objects.hash(id, idAnimal, idVeterinaire, dateHeureDebut, dateHeureFin, message);
     }
 
     @ManyToOne

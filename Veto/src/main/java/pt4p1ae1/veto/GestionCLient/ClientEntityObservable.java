@@ -1,7 +1,7 @@
 package pt4p1ae1.veto.GestionCLient;
 
 import pt4p1ae1.veto.Entity.AnimalEntity;
-import pt4p1ae1.veto.Entity.AvoirRendezVousEntity;
+import pt4p1ae1.veto.Entity.RendezVousEntity;
 import pt4p1ae1.veto.Entity.ClientEntity;
 import pt4p1ae1.veto.GestionAnimaux.AnimalEntityObservable;
 import pt4p1ae1.veto.Utils;
@@ -34,17 +34,17 @@ public class ClientEntityObservable {
 
     private String getNextRDVOfClient() {
         List<AnimalEntity> allAnimals = Utils.getAnimalFromClient(this.clientEntity.getPersonneById().getId());
-        List<AvoirRendezVousEntity> allRDV = null;
-        AvoirRendezVousEntity next = null;
+        List<RendezVousEntity> allRDV = null;
+        RendezVousEntity next = null;
         if (allAnimals != null) {
             for (AnimalEntity animal : allAnimals) {
-                List<AvoirRendezVousEntity> allRDVAnimal = Utils.getRDVAnimal(animal.getId());
+                List<RendezVousEntity> allRDVAnimal = Utils.getRDVAnimal(animal.getId());
                 if (allRDVAnimal != null) {
                     allRDV.addAll(allRDVAnimal);
                 }
             }
             if (allRDV != null) {
-                for (AvoirRendezVousEntity rdv : allRDV) {
+                for (RendezVousEntity rdv : allRDV) {
                     if (next != null || next.getDateHeure().getTime() > rdv.getDateHeure().getTime()){
                         next = rdv;
                     }
