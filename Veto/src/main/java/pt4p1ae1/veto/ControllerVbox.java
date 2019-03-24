@@ -47,7 +47,7 @@ public class ControllerVbox implements Initializable {
 
     protected void creatBtn(String ressourceName, Stage primaryStage) throws IOException {
         if(primaryStage.getTitle().equals("Agenda")){
-            AgendaPage.saveEvent();
+            AgendaPage.saveEvents();
         }
         Parent root = FXMLLoader.load(this.getClass().getResource(ressourceName));
         primaryStage.setScene(new Scene(root,Utils.WIDTH,Utils.HEIGHT));
