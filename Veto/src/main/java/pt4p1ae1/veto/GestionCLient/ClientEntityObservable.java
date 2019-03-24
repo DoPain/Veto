@@ -45,11 +45,11 @@ public class ClientEntityObservable {
             }
             if (allRDV != null) {
                 for (RendezVousEntity rdv : allRDV) {
-                    if (next != null || next.getDateHeure().getTime() > rdv.getDateHeure().getTime()){
+                    if (next != null || next.getDateHeureDebut().getTime() > rdv.getDateHeureDebut().getTime()){
                         next = rdv;
                     }
                 }
-            return next.getDateHeure().toString();
+            return next.getDateHeureDebut().toString();
             }
         }
         return "Pas de rendez-vous";

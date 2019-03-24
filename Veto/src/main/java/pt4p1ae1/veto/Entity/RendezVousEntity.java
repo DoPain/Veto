@@ -47,7 +47,7 @@ public class RendezVousEntity {
     }
 
     @Basic
-    @Column(name = "dateHeureDebut", nullable = false)
+    @Column(name = "dateHeureDebut", insertable = false,  updatable = false, nullable = false)
     public Timestamp getDateHeureDebut() {
         return dateHeureDebut;
     }
@@ -57,7 +57,7 @@ public class RendezVousEntity {
     }
 
     @Basic
-    @Column(name = "dateHeureDebut", nullable = false)
+    @Column(name = "dateHeureDebut", insertable = false,  updatable = false, nullable = false)
     public Timestamp getDateHeureFin() {
         return dateHeureFin;
     }

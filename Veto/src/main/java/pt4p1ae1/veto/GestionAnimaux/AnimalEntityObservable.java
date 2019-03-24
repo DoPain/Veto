@@ -44,7 +44,7 @@ public class AnimalEntityObservable {
 
         if (allRDV != null) {
             for (RendezVousEntity rdv : allRDV) {
-                if (next == null || rdv.getDateHeure().getTime() < next.getDateHeure().getTime()) {
+                if (next == null || rdv.getDateHeureDebut().getTime() < next.getDateHeureDebut().getTime()) {
                     next = rdv;
                 }
             }
