@@ -339,10 +339,10 @@ CREATE INDEX I_FK_Commander_Produit
   ON Commander (idProduit ASC);
 
 # -----------------------------------------------------------------------------
-#       TABLE : AvoirRendezVous
+#       TABLE : RendezVous
 # -----------------------------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS AvoirRendezVous
+CREATE TABLE IF NOT EXISTS RendezVous
 (
   id            BIGINT(4)  NOT NULL AUTO_INCREMENT,
   idAnimal      BIGINT(4)  NOT NULL,
@@ -354,17 +354,17 @@ CREATE TABLE IF NOT EXISTS AvoirRendezVous
 );
 
 # -----------------------------------------------------------------------------
-#       INDEX DE LA TABLE AvoirRendezVous
+#       INDEX DE LA TABLE RendezVous
 # -----------------------------------------------------------------------------
 
-CREATE INDEX I_FK_AvoirRendezVous
-  ON AvoirRendezVous (id ASC);
+CREATE INDEX I_FK_RendezVous
+  ON RendezVous (id ASC);
 
-CREATE INDEX I_FK_AvoirRendezVous_Animal
-  ON AvoirRendezVous (idAnimal ASC);
+CREATE INDEX I_FK_RendezVous_Animal
+  ON RendezVous (idAnimal ASC);
 
-CREATE INDEX I_FK_AvoirRendezVous_Veterinaire
-  ON AvoirRendezVous (idVeterinaire ASC);
+CREATE INDEX I_FK_RendezVous_Veterinaire
+  ON RendezVous (idVeterinaire ASC);
 
 
 # -----------------------------------------------------------------------------
@@ -444,12 +444,12 @@ ALTER TABLE Commander
   ADD FOREIGN KEY FK_Commander_Produit (idProduit)
     REFERENCES Produit (id);
 
-ALTER TABLE AvoirRendezVous
-  ADD FOREIGN KEY FK_AvoirRendezVous_Animal (idAnimal)
+ALTER TABLE RendezVous
+  ADD FOREIGN KEY FK_RendezVous_Animal (idAnimal)
     REFERENCES Animal (id);
 
-ALTER TABLE AvoirRendezVous
-  ADD FOREIGN KEY FK_AvoirRendezVous_Veterinaire (idVeterinaire)
+ALTER TABLE RendezVous
+  ADD FOREIGN KEY FK_RendezVous_Veterinaire (idVeterinaire)
     REFERENCES Veterinaire (id);
 
 ALTER TABLE Traitement

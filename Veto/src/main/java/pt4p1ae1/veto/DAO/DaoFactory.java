@@ -17,35 +17,29 @@ public class DaoFactory {
             @Transactional
             public void saveOrUpdate(T entity) {
                 Session session = App.getSession();
-                System.out.println("Open session");
                 session.beginTransaction();
                 session.saveOrUpdate(entity);
                 session.getTransaction().commit();
                 session.close();
-                System.out.println("Close session");
             }
 
             @Override
             @Transactional
             public void delete(T entity) {
                 Session session = App.getSession();
-                System.out.println("Open session");
                 session.beginTransaction();
                 session.delete(entity);
                 session.getTransaction().commit();
                 session.close();
-                System.out.println("Close session");
             }
 
             @Override
             @Transactional
             public List<T> findAll() {
                 Session session = App.getSession();
-                System.out.println("Open session");
                 Query query = session.createQuery("from " + className);
                 List<T> all = query.list();
                 session.close();
-                System.out.println("Close session");
                 return all;
             }
 
@@ -53,14 +47,20 @@ public class DaoFactory {
             @Transactional
             public T findById(Long id) {
                 Session session = App.getSession();
-                System.out.println("Open session");
                 Query query = session.createQuery("from " + className + " where " + className + ".id" + "= :name")
                         .setParameter("name", id);
                 T entity = (T) query.getResultList().get(0);
                 session.close();
-                System.out.println("Close session");
                 return entity;
+            }
 
+            @Override
+            @Transactional
+            public void removeAll() {
+                Session session = App.getSession();
+                Query q = session.createQuery("from " + className + " where 1");
+                q.executeUpdate();
+                session.close();
             }
         };
     }

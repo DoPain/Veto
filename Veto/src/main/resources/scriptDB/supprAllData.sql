@@ -1,6 +1,6 @@
 DELETE FROM Log where 1;
 DELETE FROM Appartenir where 1;
-DELETE FROM AvoirRendezVous where 1;
+DELETE FROM RendezVous where 1;
 DELETE FROM Commander where 1;
 DELETE FROM Conge where 1;
 DELETE FROM Ordonnance where 1;
