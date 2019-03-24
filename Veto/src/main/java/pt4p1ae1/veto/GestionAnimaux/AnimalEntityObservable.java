@@ -34,8 +34,7 @@ public class AnimalEntityObservable {
         else
             this.poids = "Non renseigné";
         this.autresInformations = animal.getAutreInformations();
-        this.prochainRDV = getNextRDVAnimal();
-
+        this.prochainRDV = "pas défini";
     }
 
     private String getNextRDVAnimal() {

@@ -56,7 +56,7 @@
             </TableView>
             <Button layoutX="310.0" layoutY="429.0" mnemonicParsing="false" onMouseClicked="#createPrescription" prefHeight="45.0" prefWidth="206.0" text="Ajouter la préscription" />
             <Button layoutX="418.0" layoutY="531.0" mnemonicParsing="false" onMouseClicked="#createDocPDF" prefHeight="74.0" prefWidth="227.0" text="Valider Ordonnance" />
-            <Label fx:id="ordonnanceMsg" disable="true" layoutX="398.0" layoutY="612.0" prefHeight="24.0" prefWidth="107.0"/>
+            <Label fx:id="ordonnanceMsg" disable="true" layoutX="398.0" layoutY="612.0" prefHeight="24.0"/>
         </AnchorPane>
     </center>
 </BorderPane>

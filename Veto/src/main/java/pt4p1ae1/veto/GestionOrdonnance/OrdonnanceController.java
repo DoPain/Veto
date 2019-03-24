@@ -71,7 +71,7 @@ public class OrdonnanceController extends ControllerSample implements Initializa
         prixC.setCellValueFactory(new PropertyValueFactory<>("prix"));
         quantiteC.setCellValueFactory(new PropertyValueFactory<>("quantiteStock"));
         referenceC.setCellValueFactory(new PropertyValueFactory<>("reference"));
-        for (ProduitEntity produit : Utils.PRODUIT_ENTITY.findAll())
+        for (ProduitEntity produit : Utils.PRODUIT_DAO.findAll())
             productEntityObservables.add(new ProduitEntityObservable(produit));
         tableViewProduit.setItems(productEntityObservables);
     }
@@ -113,7 +113,7 @@ public class OrdonnanceController extends ControllerSample implements Initializa
                     + "\n" + veterinaire.getPersonneById().getAdresse(), font)));
             document.add(img);
             for (ProduitEntityObservable p : prescriptions.keySet())
-                document.add(new Paragraph(new Chunk(p.getNom() + " : " + prescriptions.get(p) + "\n", font)));
+                document.add(new Paragraph(new Chunk(p.getNom() + " : \n\t\t- " + prescriptions.get(p) + "\n", font)));
             document.close();
             ordonnanceMsg.setTextFill(Color.GREEN);
             ordonnanceMsg.setText("L'ordonnance a bien été créer");
@@ -135,7 +135,7 @@ public class OrdonnanceController extends ControllerSample implements Initializa
             posologie.setText("");
             ordonnanceMsg.setTextFill(Color.GREEN);
             ordonnanceMsg.setText("La prescriptions à été enregistré");
-            wait(5000);
+            tableViewProduit.getSelectionModel().select(null);
             ordonnanceMsg.setText("");
         } catch (Exception e) {
             if (e.getClass() == NullPointerException.class) {
@@ -144,3 +144,4 @@ public class OrdonnanceController extends ControllerSample implements Initializa
             }
         }
     }
+}
