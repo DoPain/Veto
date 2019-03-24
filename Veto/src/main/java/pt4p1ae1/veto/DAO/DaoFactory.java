@@ -54,6 +54,7 @@ public class DaoFactory {
                 return entity;
             }
 
+            @Override
             @Transactional
             public void removeAll() {
                 Session session = App.getSession();
