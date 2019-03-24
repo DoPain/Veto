@@ -8,8 +8,8 @@ import java.util.Objects;
 @Table(name = "RendezVous", schema = "PT_S4P1A_E1", catalog = "")
 public class RendezVousEntity {
     private long id;
-    private long idAnimal;
-    private long idVeterinaire;
+    private Long idAnimal;
+    private Long idVeterinaire;
     private Timestamp dateHeureDebut;
     private Timestamp dateHeureFin;
     private String message;
@@ -28,26 +28,26 @@ public class RendezVousEntity {
 
     @Basic
     @Column(name = "idAnimal", nullable = true)
-    public long getIdAnimal() {
+    public Long getIdAnimal() {
         return idAnimal;
     }
 
-    public void setIdAnimal(long idAnimal) {
+    public void setIdAnimal(Long idAnimal) {
         this.idAnimal = idAnimal;
     }
 
     @Basic
     @Column(name = "idVeterinaire", nullable = true)
-    public long getIdVeterinaire() {
+    public Long getIdVeterinaire() {
         return idVeterinaire;
     }
 
-    public void setIdVeterinaire(long idVeterinaire) {
+    public void setIdVeterinaire(Long idVeterinaire) {
         this.idVeterinaire = idVeterinaire;
     }
 
     @Basic
-    @Column(name = "dateHeureDebut", insertable = false,  updatable = false, nullable = false)
+    @Column(name = "dateHeureDebut", nullable = false)
     public Timestamp getDateHeureDebut() {
         return dateHeureDebut;
     }
@@ -57,7 +57,7 @@ public class RendezVousEntity {
     }
 
     @Basic
-    @Column(name = "dateHeureDebut", insertable = false,  updatable = false, nullable = false)
+    @Column(name = "dateHeureFin", nullable = false)
     public Timestamp getDateHeureFin() {
         return dateHeureFin;
     }

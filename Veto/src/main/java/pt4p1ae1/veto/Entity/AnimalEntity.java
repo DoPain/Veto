@@ -23,6 +23,11 @@ public class AnimalEntity {
     private Collection<OrdonnanceEntity> ordonnancesById;
     private Collection<TraitementEntity> traitementsById;
 
+    @Override
+    public String toString() {
+        return raceByIdRace.getNom()+" : "+nom;
+    }
+
     @Id
     @Column(name = "id", nullable = false)
     public long getId() {

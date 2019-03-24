@@ -555,6 +555,7 @@ public class NewICalendarAgenda extends Agenda {
                 changedRDV.setIdAnimal(oldRDV.getIdAnimal());
                 AgendaPage.vEventEntity.put(UID, changedRDV);
             }
+            AgendaPage.saveEvents();
             return null;
         };
         setAppointmentChangedCallback(appointmentChangedCallback);
@@ -625,6 +626,7 @@ public class NewICalendarAgenda extends Agenda {
                 changedRDV.setIdAnimal(oldRDV.getIdAnimal());
                 AgendaPage.vEventEntity.put(UID, changedRDV);
             }
+            AgendaPage.saveEvents();
             return null;
         };
         setEditAppointmentCallback(editAppointmentCallback);

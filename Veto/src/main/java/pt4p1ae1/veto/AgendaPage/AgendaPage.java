@@ -1,12 +1,11 @@
 package pt4p1ae1.veto.AgendaPage;
 
-import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableListBase;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -16,7 +15,6 @@ import jfxtras.scene.control.agenda.Agenda;
 import pt4p1ae1.veto.AgendaPage.ModifiedICalendarAgenda.NewICalendarAgenda;
 import pt4p1ae1.veto.ControllerSample;
 import pt4p1ae1.veto.Entity.AnimalEntity;
-import pt4p1ae1.veto.Entity.RendezVousEntity;
 import pt4p1ae1.veto.Entity.ClientEntity;
 import pt4p1ae1.veto.Entity.RendezVousEntity;
 import pt4p1ae1.veto.Utils;
@@ -29,9 +27,9 @@ import java.util.*;
 public class AgendaPage extends ControllerSample implements Initializable {
 
     @FXML
-    public ChoiceBox animalBox;
+    public ComboBox<AnimalEntity> animalBox;
     @FXML
-    public ChoiceBox clientBox;
+    public ComboBox<ClientEntity> clientBox;
     @FXML
     public Button modifyButton;
     @FXML
@@ -81,29 +79,27 @@ public class AgendaPage extends ControllerSample implements Initializable {
 
                     modifyButton.setOnAction(event -> {
                         if (animalBox.getValue() != null && clientBox.getValue() != null) {
-                            selectedRDV.setIdAnimal(-1); //recup l'id de l'animal
-                            selectedRDV.setIdVeterinaire(-1); //recup l'id du client
+                            selectedRDV.setIdAnimal(animalBox.getValue().getId()); //recup l'id de l'animal
+                            selectedRDV.setIdVeterinaire(clientBox.getValue().getId()); //recup l'id du client
+                            //selectedRDV.setDescrption("Rendez vous :\n" +clientBox+"\n" +animalBox);
                             vEventEntity.put(selectedVEvent.getUniqueIdentifier().getValue(), selectedRDV);
-                            System.out.println("insérer event");
+                            saveEvents();
                         }
                     });
                     return null;
                 }
         );
 
-        ObservableList<ClientEntity> clientEntities = new SimpleListProperty<ClientEntity>();
-        clientEntities.addAll(Utils.CLIENT_DAO.findAll());
-        clientBox.setItems(clientEntities);
-        ClientEntity client = (ClientEntity) clientBox.getValue();
 
-        ObservableList<AnimalEntity> animalEntities= new SimpleListProperty<AnimalEntity>();
-        animalEntities.addAll(Utils.getAnimalFromClient(client.getId()));
-        animalBox.setItems(animalEntities);
+
+        ArrayList<ClientEntity> listClient = new ArrayList<>(Utils.CLIENT_DAO.findAll());
+        ObservableList<ClientEntity> clientEntities = FXCollections.observableArrayList(listClient);
+        clientBox.setItems(clientEntities);
 
         clientBox.setOnAction(event -> {
-            ClientEntity newClient = (ClientEntity) clientBox.getValue();
-            animalEntities.clear();
-            animalEntities.addAll(Utils.getAnimalFromClient(newClient.getId()));
+            ClientEntity client = (ClientEntity) clientBox.getValue();
+            ArrayList<AnimalEntity> listAnimal = new ArrayList<>(Utils.getAnimalFromClient(client.getId()));
+            ObservableList<AnimalEntity> animalEntities = FXCollections.observableArrayList(listAnimal);
             animalBox.setItems(animalEntities);
         });
     }
@@ -134,10 +130,11 @@ public class AgendaPage extends ControllerSample implements Initializable {
 
     static public void saveEvents() {
         List<VEvent> vEvents = agendaHome.getVCalendar().getVEvents();
-        Utils.RENDEZ_VOUS_DAO
+        Utils.RENDEZ_VOUS_DAO.removeAll();
         if (vEvents != null) {
             if (!vEvents.isEmpty()) {
                 vEvents.forEach(vEvent -> {
+                    System.out.println(vEvent.getCategories().toString());
                     RendezVousEntity rdv;
                     String UID = vEvent.getUniqueIdentifier().getValue();
                     if (vEventEntity.containsKey(UID)) {

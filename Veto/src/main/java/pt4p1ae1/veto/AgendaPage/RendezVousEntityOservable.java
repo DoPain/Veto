@@ -26,9 +26,19 @@ public class RendezVousEntityOservable {
         RendezVousEntity rdv = new RendezVousEntity();
         Temporal temporalStart = vEvent.getDateTimeStart().getValue();
         rdv.setDateHeureDebut(Timestamp.valueOf(LocalDateTime.from(temporalStart)));
-        Temporal temporalEnd = vEvent.getDateTimeStart().getValue();
+        Temporal temporalEnd = vEvent.getDateTimeEnd().getValue();
         rdv.setDateHeureFin(Timestamp.valueOf(LocalDateTime.from(temporalEnd)));
         rdv.setMessage(vEvent.getSummary().getValue());
         return rdv;
+    }
+
+    public static VEvent toVEvent(RendezVousEntity entity){
+        VEvent event = new VEvent();
+        event.setDateTimeStart((Temporal) entity.getDateHeureDebut());
+        event.setDateTimeEnd((Temporal) entity.getDateHeureFin());
+        event.setSummary(entity.getMessage());
+        event.setDescription("");
+        //event.setCategories();
+        return event;
     }
 }
