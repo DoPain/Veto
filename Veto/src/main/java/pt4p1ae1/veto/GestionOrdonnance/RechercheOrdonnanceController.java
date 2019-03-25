@@ -97,10 +97,14 @@ public class RechercheOrdonnanceController extends ControllerSample implements I
         try {
             OrdonnanceEntity ord = tableViewOrdonnace.getSelectionModel().getSelectedItem().getOrdonnance();
             OrdonnanceController.createOrdonnancePDF(ord);
-
+            System.out.println(ord.getAnimalByIdAnimal().getNom() + " " + ord.getDateOrdonnance());
         } catch (Exception e) {
-            errorMsg.setTextFill(Color.RED);
-            errorMsg.setText("Selectionnez une ordonnance")
+            if (e.getClass() == NullPointerException.class) {
+                errorMsg.setTextFill(Color.RED);
+                errorMsg.setText("Selectionnez une ordonnance");
+            }
+            else
+                System.out.println(e.getMessage());
         }
     }
 }

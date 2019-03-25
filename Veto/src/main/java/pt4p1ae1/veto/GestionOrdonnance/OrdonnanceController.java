@@ -118,7 +118,6 @@ public class OrdonnanceController extends ControllerSample implements Initializa
         try {
             AnimalEntityObservable animal = tableViewAnimal.getSelectionModel().getSelectedItem();
             tableViewAnimal.getSelectionModel().select(null);
-            prescriptions.clear();
 
             OrdonnanceEntity ord = new OrdonnanceEntity();
             ord.setIdVeterinaire(veterinaire.getId());
@@ -127,6 +126,7 @@ public class OrdonnanceController extends ControllerSample implements Initializa
             ord.setAnimalByIdAnimal(animal.getAnimalEntity());
             ord.setDateOrdonnance(new java.sql.Date(dateToday.getTime()));
             ArrayList<AppartenirEntity> entities = new ArrayList<>();
+            Utils.ORDONNANCE_DAO.saveOrUpdate(ord);
             for (ProduitEntityObservable p : prescriptions.keySet()) {
                 AppartenirEntity a = new AppartenirEntity();
                 a.setIdOrdonnance(ord.getId());
@@ -134,19 +134,24 @@ public class OrdonnanceController extends ControllerSample implements Initializa
                 a.setOrdonnanceByIdOrdonnance(ord);
                 a.setProduitByIdProduit(p.toProduitEntity());
                 a.setQuantite(1);
+                a.setDescription(prescriptions.get(p));
                 entities.add(a);
+                Utils.APPARTENIR_DAO.saveOrUpdate(a);
             }
+
             ord.setAppartenirsById(entities);
             createOrdonnancePDF(ord);
-            Utils.ORDONNANCE_DAO.saveOrUpdate(ord);
             ordonnanceMsg.setTextFill(Color.GREEN);
             ordonnanceMsg.setText("L'ordonnance a bien été créer");
+            prescriptions.clear();
         } catch (Exception e) {
             if (e.getClass() == NullPointerException.class) {
                 ordonnanceMsg.setTextFill(Color.RED);
                 ordonnanceMsg.setText("Selectionnez un animal");
-            } else
+            } else{
+                ordonnanceMsg.setTextFill(Color.RED);
                 ordonnanceMsg.setText("Erreur lors de la création");
+            }
         }
     }
 
@@ -204,19 +209,20 @@ public class OrdonnanceController extends ControllerSample implements Initializa
         AnimalEntityObservable animal = new AnimalEntityObservable(ord.getAnimalByIdAnimal());
         try {
             Document document = new Document();
-            FileOutputStream file = null;
+            FileOutputStream file = new FileOutputStream(new SimpleDateFormat("yyyy.MM.dd").format(dateToday)
+                    + "." + animal.getNom() + ".pdf");
             PdfWriter.getInstance(document, file);
             Font font = FontFactory.getFont(FontFactory.COURIER, 12, BaseColor.BLACK);
 
             StringBuilder header = new StringBuilder();
-            header.append(dateFormatUser).append("\nDocteur ").append(veterinaire.getPersonneById().getPrenom()).append(veterinaire.getPersonneById().getNom())
+            header.append(dateFormatUser).append("\nDocteur ").append(veterinaire.getPersonneById().getPrenom()).append(" ").append(veterinaire.getPersonneById().getNom())
                     .append("\n").append(veterinaire.getPersonneById().getAdresse())
                     .append("\n").append(veterinaire.getPersonneById().getTelephone())
                     .append("\n").append(veterinaire.getPersonneById().getMail()).append("\n\n\n\n\n");
             StringBuilder content = new StringBuilder();
             content.append("Pour ").append(animal.getNom()).append(", ").append(animal.getEspece()).append(", ").append(animal.getAge()).append(" :\n");
-            for (AppartenirEntity a : ord.getAppartenirsById()){
-                content.append("     - ").append(a.getProduitByIdProduit().getNom()).append(" :").append().append("\n");
+            for (AppartenirEntity a : ord.getAppartenirsById()) {
+                content.append("     - ").append(a.getProduitByIdProduit().getNom()).append(" :").append(" ").append(a.getDescription()).append("\n");
             }
 
             document.open();
@@ -226,12 +232,8 @@ public class OrdonnanceController extends ControllerSample implements Initializa
             document.left(1000);
             document.add(new Paragraph(new Chunk(content.toString(), font)));
             document.close();
-            file = new FileOutputStream(new SimpleDateFormat("yyyy.MM.dd").format(dateToday)
-                    + "." + animal.getNom() + ".pdf");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (DocumentException e) {
-            e.printStackTrace();
+        } catch (FileNotFoundException | DocumentException e) {
+            System.out.println(e.getMessage());
         }
     }
 }

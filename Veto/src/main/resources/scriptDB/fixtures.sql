@@ -121,7 +121,7 @@ INSERT INTO Produit (nom, refProduit, quantiteEnStock, quantiteMinimum, prix, pe
 INSERT INTO Veterinaire (id, signature) VALUES
 ((SELECT id FROM Personne P WHERE P.nom = "MAUX"), "Signature MAUX");
 
-INSERT INTO Ordonnance (Ordonnance.idAnimal, Ordonnance.idVeterinaire, dateOrdonnance, commentaire) VALUES
+INSERT INTO Ordonnance (Ordonnance.idAnimal, Ordonnance.idVeterinaire, dateOrdonnance) VALUES
 ((SELECT A.id FROM Animal A
 		INNER JOIN Race R ON R.id = A.idRace
 		INNER JOIN Client C ON C.id = A.idClient 
@@ -134,8 +134,7 @@ INSERT INTO Ordonnance (Ordonnance.idAnimal, Ordonnance.idVeterinaire, dateOrdon
 		INNER JOIN Personne P ON P.id = V.id
 		WHERE P.nom = 'MAUX' 
 		AND P.prenom = 'Annie'), 
-CURDATE(),
-"Ordonnance1"),
+CURDATE()),
 ((SELECT A.id FROM Animal A
 		INNER JOIN Race R ON R.id = A.idRace
 		INNER JOIN Client C ON C.id = A.idClient 
@@ -148,8 +147,7 @@ CURDATE(),
 		INNER JOIN Personne P ON P.id = V.id
 		WHERE P.nom = 'MAUX' 
 		AND P.prenom = 'Annie'), 
-CURDATE(),
-"Ordonnance2"),
+CURDATE()),
 ((SELECT A.id FROM Animal A
 		INNER JOIN Race R ON R.id = A.idRace
 		INNER JOIN Client C ON C.id = A.idClient 
@@ -162,8 +160,7 @@ CURDATE(),
 		INNER JOIN Personne P ON P.id = V.id
 		WHERE P.nom = 'MAUX' 
 		AND P.prenom = 'Annie'), 
-CURDATE(),
-"Ordonnance3"),
+CURDATE()),
 ((SELECT A.id FROM Animal A
 		INNER JOIN Race R ON R.id = A.idRace
 		INNER JOIN Client C ON C.id = A.idClient 
@@ -176,8 +173,7 @@ CURDATE(),
 		INNER JOIN Personne P ON P.id = V.id
 		WHERE P.nom = 'MAUX' 
 		AND P.prenom = 'Annie'), 
-CURDATE(),
-"Ordonnance4"),
+CURDATE()),
 ((SELECT A.id FROM Animal A
 		INNER JOIN Race R ON R.id = A.idRace
 		INNER JOIN Client C ON C.id = A.idClient 
@@ -190,8 +186,7 @@ CURDATE(),
 		INNER JOIN Personne P ON P.id = V.id
 		WHERE P.nom = 'MAUX' 
 		AND P.prenom = 'Annie'), 
-CURDATE(),
-"Ordonnance5"),
+CURDATE()),
 ((SELECT A.id FROM Animal A
 		INNER JOIN Race R ON R.id = A.idRace
 		INNER JOIN Client C ON C.id = A.idClient 
@@ -204,8 +199,7 @@ CURDATE(),
 		INNER JOIN Personne P ON P.id = V.id
 		WHERE P.nom = 'MAUX' 
 		AND P.prenom = 'Annie'), 
-CURDATE(),
-"Ordonnance6"),
+CURDATE()),
 ((SELECT A.id FROM Animal A
 		INNER JOIN Race R ON R.id = A.idRace
 		INNER JOIN Client C ON C.id = A.idClient 
@@ -218,8 +212,7 @@ CURDATE(),
 		INNER JOIN Personne P ON P.id = V.id
 		WHERE P.nom = 'MAUX' 
 		AND P.prenom = 'Annie'), 
-CURDATE(),
-"Ordonnance7"),
+CURDATE()),
 ((SELECT A.id FROM Animal A
 		INNER JOIN Race R ON R.id = A.idRace
 		INNER JOIN Client C ON C.id = A.idClient 
@@ -232,8 +225,7 @@ CURDATE(),
 		INNER JOIN Personne P ON P.id = V.id
 		WHERE P.nom = 'MAUX' 
 		AND P.prenom = 'Annie'), 
-CURDATE(),
-"Ordonnance8"),
+CURDATE()),
 ((SELECT A.id FROM Animal A
 		INNER JOIN Race R ON R.id = A.idRace
 		INNER JOIN Client C ON C.id = A.idClient 
@@ -246,8 +238,7 @@ CURDATE(),
 		INNER JOIN Personne P ON P.id = V.id
 		WHERE P.nom = 'MAUX' 
 		AND P.prenom = 'Annie'), 
-CURDATE(),
-"Ordonnance9"),
+CURDATE()),
 ((SELECT A.id FROM Animal A
 		INNER JOIN Race R ON R.id = A.idRace
 		INNER JOIN Client C ON C.id = A.idClient 
@@ -260,8 +251,7 @@ CURDATE(),
 		INNER JOIN Personne P ON P.id = V.id
 		WHERE P.nom = 'MAUX' 
 		AND P.prenom = 'Annie'), 
-CURDATE(),
-"Ordonnance10");
+CURDATE());
 
 INSERT INTO Traitement (idAnimal, maladie, soin, dateDebut, dateFin) VALUES
 ((SELECT A.id FROM Animal A

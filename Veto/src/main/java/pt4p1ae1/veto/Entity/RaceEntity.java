@@ -58,7 +58,7 @@ public class RaceEntity {
         return Objects.hash(id, idEspece, nom);
     }
 
-    @OneToMany(mappedBy = "raceByIdRace")
+    @OneToMany( mappedBy = "raceByIdRace")
     public Collection<AnimalEntity> getAnimalsById() {
         return animalsById;
     }

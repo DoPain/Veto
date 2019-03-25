@@ -131,7 +131,7 @@ public class ProduitEntity {
         return Objects.hash(id, nom, refProduit, quantiteEnStock, prix, quantiteMinimum, peremption, dateAcquisition, description);
     }
 
-    @OneToMany(mappedBy = "produitByIdProduit")
+    @OneToMany( mappedBy = "produitByIdProduit")
     public Collection<AppartenirEntity> getAppartenirsById() {
         return appartenirsById;
     }
@@ -140,7 +140,7 @@ public class ProduitEntity {
         this.appartenirsById = appartenirsById;
     }
 
-    @OneToMany(mappedBy = "produitByIdProduit")
+    @OneToMany( mappedBy = "produitByIdProduit")
     public Collection<CommanderEntity> getCommandersById() {
         return commandersById;
     }

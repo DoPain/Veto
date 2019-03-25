@@ -55,7 +55,7 @@ public class VeterinaireEntity {
         return result;
     }
 
-    @OneToMany(mappedBy = "veterinaireByIdVeterinaire")
+    @OneToMany( mappedBy = "veterinaireByIdVeterinaire")
     public Collection<OrdonnanceEntity> getOrdonnancesById() {
         return ordonnancesById;
     }
@@ -64,7 +64,7 @@ public class VeterinaireEntity {
         this.ordonnancesById = ordonnancesById;
     }
 
-    @OneToMany(mappedBy = "veterinaireByIdVeterinaire")
+    @OneToMany( mappedBy = "veterinaireByIdVeterinaire")
     public Collection<RendezVousEntity> getRendezVousById() {
         return rendezVousById;
     }

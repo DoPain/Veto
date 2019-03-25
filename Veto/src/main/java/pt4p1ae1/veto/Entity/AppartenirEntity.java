@@ -10,6 +10,7 @@ public class AppartenirEntity {
     private long idOrdonnance;
     private long idProduit;
     private int quantite;
+    private String description;
     private OrdonnanceEntity ordonnanceByIdOrdonnance;
     private ProduitEntity produitByIdProduit;
 
@@ -24,7 +25,7 @@ public class AppartenirEntity {
     }
 
     @Basic
-    @Column(name = "idOrdonnance", nullable = false)
+    @Column(name = "idOrdonnance", nullable = true)
     public long getIdOrdonnance() {
         return idOrdonnance;
     }
@@ -53,6 +54,18 @@ public class AppartenirEntity {
         this.quantite = quantite;
     }
 
+    @Basic
+    @Column(name = "description")
+    public String getDescription() {
+        if (description != null)
+            return description;
+        return "";
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -61,7 +74,8 @@ public class AppartenirEntity {
         return id == that.id &&
                 idOrdonnance == that.idOrdonnance &&
                 idProduit == that.idProduit &&
-                quantite == that.quantite;
+                quantite == that.quantite &&
+                description.equals(that.description);
     }
 
     @Override
@@ -70,7 +84,7 @@ public class AppartenirEntity {
     }
 
     @ManyToOne
-    @JoinColumn(insertable =false, updatable=false, name = "idOrdonnance", referencedColumnName = "id", nullable = false)
+    @JoinColumn(insertable = false, updatable = false, name = "idOrdonnance", referencedColumnName = "id", nullable = false)
     public OrdonnanceEntity getOrdonnanceByIdOrdonnance() {
         return ordonnanceByIdOrdonnance;
     }
@@ -80,7 +94,7 @@ public class AppartenirEntity {
     }
 
     @ManyToOne
-    @JoinColumn(insertable =false, updatable=false, name = "idProduit", referencedColumnName = "id", nullable = false)
+    @JoinColumn(insertable = false, updatable = false, name = "idProduit", referencedColumnName = "id", nullable = false)
     public ProduitEntity getProduitByIdProduit() {
         return produitByIdProduit;
     }
