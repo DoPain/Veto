@@ -24,7 +24,7 @@ public class AnimalEntity {
 
     @Override
     public String toString() {
-        return raceByIdRace.getNom()+" : "+nom;
+        return raceByIdRace.getEspeceByIdEspece().getNom()+" : "+nom;
     }
 
     @Id
@@ -147,7 +147,7 @@ public class AnimalEntity {
         this.clientByIdClient = clientByIdClient;
     }
 
-    @OneToMany(mappedBy = "animalByIdAnimal")
+    @OneToMany( mappedBy = "animalByIdAnimal")
     public Collection<OrdonnanceEntity> getOrdonnancesById() {
         return ordonnancesById;
     }
@@ -156,7 +156,7 @@ public class AnimalEntity {
         this.ordonnancesById = ordonnancesById;
     }
 
-    @OneToMany(mappedBy = "animalByIdAnimal")
+    @OneToMany( mappedBy = "animalByIdAnimal")
     public Collection<RendezVousEntity> getRendezVousById() {
         return rendezVousById;
     }
@@ -165,7 +165,7 @@ public class AnimalEntity {
         this.rendezVousById = rendezVousById;
     }
 
-    @OneToMany(mappedBy = "animalByIdAnimal")
+    @OneToMany( mappedBy = "animalByIdAnimal")
     public Collection<TraitementEntity> getTraitementsById() {
         return traitementsById;
     }

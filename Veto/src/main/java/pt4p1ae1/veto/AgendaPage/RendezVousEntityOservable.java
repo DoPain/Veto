@@ -1,6 +1,7 @@
 package pt4p1ae1.veto.AgendaPage;
 
 import jfxtras.icalendarfx.components.VEvent;
+import jfxtras.icalendarfx.properties.component.change.DateTimeCreated;
 import jfxtras.icalendarfx.properties.component.descriptive.Categories;
 import pt4p1ae1.veto.Entity.AnimalEntity;
 import pt4p1ae1.veto.Entity.RendezVousEntity;
@@ -8,6 +9,9 @@ import pt4p1ae1.veto.Entity.VeterinaireEntity;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.time.temporal.Temporal;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +56,12 @@ public class RendezVousEntityOservable {
         stringList.add(entity.getCategorie());
         categories.add(new Categories(stringList));
         event.setCategories(categories);
+
+        ZoneId zoneId = ZoneId.of("Z");
+        LocalDateTime nowTime = LocalDateTime.now();
+        ZonedDateTime zonedDateTime = nowTime.atZone(zoneId);
+        DateTimeCreated created = new DateTimeCreated(zonedDateTime);
+        event.setDateTimeCreated(created);
         return event;
     }
 }

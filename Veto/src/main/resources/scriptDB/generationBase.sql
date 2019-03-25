@@ -120,8 +120,7 @@ CREATE TABLE IF NOT EXISTS Ordonnance
   id             BIGINT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   idAnimal       BIGINT(4)             NOT NULL,
   idVeterinaire  BIGINT(4)             NOT NULL,
-  dateOrdonnance DATE                  NOT NULL,
-  commentaire    CHAR(32)              NULL
+  dateOrdonnance DATE                  NOT NULL
 );
 
 # -----------------------------------------------------------------------------
@@ -302,6 +301,7 @@ CREATE TABLE IF NOT EXISTS Appartenir
   idOrdonnance BIGINT(4)  NOT NULL,
   idProduit    BIGINT(4)  NOT NULL,
   quantite     INTEGER(2) NOT NULL,
+  description  VARCHAR(1000),
   PRIMARY KEY (id)
 );
 

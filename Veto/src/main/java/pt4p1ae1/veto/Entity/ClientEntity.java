@@ -40,7 +40,7 @@ public class ClientEntity {
         return Objects.hash(id);
     }
 
-    @OneToMany(mappedBy = "clientByIdClient")
+    @OneToMany( mappedBy = "clientByIdClient")
     public Collection<AnimalEntity> getAnimalsById() {
         return animalsById;
     }
@@ -59,7 +59,7 @@ public class ClientEntity {
         this.personneById = personneById;
     }
 
-    @OneToMany(mappedBy = "clientByIdClient")
+    @OneToMany( mappedBy = "clientByIdClient")
     public Collection<PanierEntity> getPaniersById() {
         return paniersById;
     }

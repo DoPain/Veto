@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import jfxtras.scene.control.agenda.Agenda;
 import pt4p1ae1.veto.AgendaPage.AgendaPage;
 
 import java.io.IOException;
@@ -29,7 +28,7 @@ public class ControllerVbox implements Initializable {
     @FXML
     protected VBox vBox;
 
-    HashMap<String,String> titleMap;
+    private static HashMap<String,String> titleMap = new HashMap<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -37,15 +36,15 @@ public class ControllerVbox implements Initializable {
             btn_log.setVisible(false);
             btn_emp.setVisible(false);
         }
-        titleMap = new HashMap<>();
         titleMap.put("/fxml/agendaPage.fxml","Agenda");
-        titleMap.put("/fxml/home.fxml","Home");
+        titleMap.put("/fxml/home.fxml","VetoGestion");
         titleMap.put("/fxml/rechercheAnimal.fxml","Animaux");
         titleMap.put("/fxml/rechercheClient.fxml","Client");
         titleMap.put("/fxml/rechercheOrdonnance.fxml","Ordonnance");
-        titleMap.put("/fxml/pageStock.fxml","Stock");
+        titleMap.put("/fxml/rechercheProduit.fxml","Stock");
         titleMap.put("/fxml/pageLog.fxml","Log");
         titleMap.put("/fxml/rechercheEmployes.fxml","Employé");
+        titleMap.put("/fxml/rechercheProduit.fxml","Produit");
     }
 
     protected void creatBtn(String ressourceName, Stage primaryStage) throws IOException {
@@ -54,7 +53,9 @@ public class ControllerVbox implements Initializable {
         }
         Parent root = FXMLLoader.load(this.getClass().getResource(ressourceName));
         primaryStage.setScene(new Scene(root,Utils.WIDTH,Utils.HEIGHT));
-        primaryStage.setTitle(titleMap.get(ressourceName));
+        if(titleMap.containsKey(ressourceName)){
+            primaryStage.setTitle(titleMap.get(ressourceName));
+        }
     }
 
     @FXML
@@ -82,7 +83,7 @@ public class ControllerVbox implements Initializable {
 
     @FXML
     protected void onActionStockBTN() throws IOException  {
-        creatBtn("/fxml/pageStock.fxml", (Stage) btn_home.getScene().getWindow());
+        creatBtn("/fxml/rechercheProduit.fxml", (Stage) btn_home.getScene().getWindow());
     }
 
     @FXML

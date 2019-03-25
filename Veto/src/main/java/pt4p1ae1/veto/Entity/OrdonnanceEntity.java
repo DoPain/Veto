@@ -1,5 +1,7 @@
 package pt4p1ae1.veto.Entity;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
@@ -12,7 +14,6 @@ public class OrdonnanceEntity {
     private long idAnimal;
     private long idVeterinaire;
     private Date dateOrdonnance;
-    private String commentaire;
     private Collection<AppartenirEntity> appartenirsById;
     private AnimalEntity animalByIdAnimal;
     private VeterinaireEntity veterinaireByIdVeterinaire;
@@ -57,16 +58,6 @@ public class OrdonnanceEntity {
         this.dateOrdonnance = dateOrdonnance;
     }
 
-    @Basic
-    @Column(name = "commentaire", nullable = true, length = 32)
-    public String getCommentaire() {
-        return commentaire;
-    }
-
-    public void setCommentaire(String commentaire) {
-        this.commentaire = commentaire;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -75,16 +66,16 @@ public class OrdonnanceEntity {
         return id == that.id &&
                 idAnimal == that.idAnimal &&
                 idVeterinaire == that.idVeterinaire &&
-                Objects.equals(dateOrdonnance, that.dateOrdonnance) &&
-                Objects.equals(commentaire, that.commentaire);
+                Objects.equals(dateOrdonnance, that.dateOrdonnance);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, idAnimal, idVeterinaire, dateOrdonnance, commentaire);
+        return Objects.hash(id, idAnimal, idVeterinaire, dateOrdonnance);
     }
 
-    @OneToMany(mappedBy = "ordonnanceByIdOrdonnance")
+    @OneToMany( mappedBy = "ordonnanceByIdOrdonnance")
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     public Collection<AppartenirEntity> getAppartenirsById() {
         return appartenirsById;
     }
