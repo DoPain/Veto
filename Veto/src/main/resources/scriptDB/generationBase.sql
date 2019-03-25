@@ -96,8 +96,8 @@ CREATE TABLE IF NOT EXISTS Conge
 (
   id        BIGINT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   idEmploye BIGINT(4)             NOT NULL,
-  dateDebut DATE              NOT NULL,
-  dateFin   DATE              NOT NULL
+  dateDebut DATE                  NOT NULL,
+  dateFin   DATE                  NOT NULL
 );
 
 # -----------------------------------------------------------------------------
@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS Ordonnance
   id             BIGINT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   idAnimal       BIGINT(4)             NOT NULL,
   idVeterinaire  BIGINT(4)             NOT NULL,
-  dateOrdonnance DATE              NOT NULL,
+  dateOrdonnance DATE                  NOT NULL,
   commentaire    CHAR(32)              NULL
 );
 
@@ -211,6 +211,7 @@ CREATE TABLE IF NOT EXISTS Animal
   idRace            BIGINT(4)             NOT NULL,
   idClient          BIGINT(4)             NOT NULL,
   nom               CHAR(32)              NOT NULL,
+  sexe              CHAR(1)               NOT NULL,
   poids             REAL(4, 2),
   autreInformations LONGTEXT,
   dateNaissance     DATE
@@ -339,32 +340,34 @@ CREATE INDEX I_FK_Commander_Produit
   ON Commander (idProduit ASC);
 
 # -----------------------------------------------------------------------------
-#       TABLE : AvoirRendezVous
+#       TABLE : RendezVous
 # -----------------------------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS AvoirRendezVous
+CREATE TABLE IF NOT EXISTS RendezVous
 (
-  id            BIGINT(4)  NOT NULL AUTO_INCREMENT,
-  idAnimal      BIGINT(4)  NOT NULL,
-  idVeterinaire BIGINT(4)  NOT NULL,
-  dateHeure     DATETIME   NOT NULL,
-  dureeMinutes  INTEGER(4) NOT NULL,
-  message       CHAR(255)  NULL,
+  id             BIGINT(4) NOT NULL AUTO_INCREMENT,
+  idAnimal       BIGINT(4) NOT NULL,
+  idVeterinaire  BIGINT(4) NOT NULL,
+  dateHeureDebut DATETIME  NOT NULL,
+  dateHeureFin   DATETIME  NOT NULL,
+  resume         CHAR(50)  NULL,
+  description    CHAR(255) NULL,
+  categorie      CHAR(50)  NULL,
   PRIMARY KEY (id)
 );
 
 # -----------------------------------------------------------------------------
-#       INDEX DE LA TABLE AvoirRendezVous
+#       INDEX DE LA TABLE RendezVous
 # -----------------------------------------------------------------------------
 
-CREATE INDEX I_FK_AvoirRendezVous
-  ON AvoirRendezVous (id ASC);
+CREATE INDEX I_FK_RendezVous
+  ON RendezVous (id ASC);
 
-CREATE INDEX I_FK_AvoirRendezVous_Animal
-  ON AvoirRendezVous (idAnimal ASC);
+CREATE INDEX I_FK_RendezVous_Animal
+  ON RendezVous (idAnimal ASC);
 
-CREATE INDEX I_FK_AvoirRendezVous_Veterinaire
-  ON AvoirRendezVous (idVeterinaire ASC);
+CREATE INDEX I_FK_RendezVous_Veterinaire
+  ON RendezVous (idVeterinaire ASC);
 
 
 # -----------------------------------------------------------------------------
@@ -444,12 +447,12 @@ ALTER TABLE Commander
   ADD FOREIGN KEY FK_Commander_Produit (idProduit)
     REFERENCES Produit (id);
 
-ALTER TABLE AvoirRendezVous
-  ADD FOREIGN KEY FK_AvoirRendezVous_Animal (idAnimal)
+ALTER TABLE RendezVous
+  ADD FOREIGN KEY FK_RendezVous_Animal (idAnimal)
     REFERENCES Animal (id);
 
-ALTER TABLE AvoirRendezVous
-  ADD FOREIGN KEY FK_AvoirRendezVous_Veterinaire (idVeterinaire)
+ALTER TABLE RendezVous
+  ADD FOREIGN KEY FK_RendezVous_Veterinaire (idVeterinaire)
     REFERENCES Veterinaire (id);
 
 ALTER TABLE Traitement

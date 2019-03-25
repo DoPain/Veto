@@ -18,7 +18,7 @@ public class Utils {
     public static final EntityDao<LogEntity> LOG_DAO = DaoFactory.getDaoFor(LogEntity.class);
     public static final EntityDao<PersonneEntity> PERSONNE_DAO = DaoFactory.getDaoFor(PersonneEntity.class);
     public static final EntityDao<AnimalEntity> ANIMAL_DAO = DaoFactory.getDaoFor(AnimalEntity.class);
-    public static final EntityDao<AvoirRendezVousEntity> AVOIR_RENDEZ_VOUS_DAO = DaoFactory.getDaoFor(AvoirRendezVousEntity.class);
+    public static final EntityDao<RendezVousEntity> AVOIR_RENDEZ_VOUS_DAO = DaoFactory.getDaoFor(RendezVousEntity.class);
     public static final EntityDao<EspeceEntity> ESPECE_DAO = DaoFactory.getDaoFor(EspeceEntity.class);
     public static final EntityDao<RaceEntity> RACE_DAO= DaoFactory.getDaoFor(RaceEntity.class);
     public static final EntityDao<OrdonnanceEntity> ORDONNANCE_DAO = DaoFactory.getDaoFor(OrdonnanceEntity.class);
@@ -56,11 +56,11 @@ public class Utils {
         return String.valueOf(Period.between(naissance.toLocalDate(), now).getYears());
     }
 
-    public static List<AvoirRendezVousEntity> getRDVAnimal(long idAnimal) {
-        Iterator<AvoirRendezVousEntity> allRDV = Utils.AVOIR_RENDEZ_VOUS_DAO.findAll().iterator();
-        List<AvoirRendezVousEntity> allRDVAnimal = null;
+    public static List<RendezVousEntity> getRDVAnimal(long idAnimal) {
+        Iterator<RendezVousEntity> allRDV = Utils.AVOIR_RENDEZ_VOUS_DAO.findAll().iterator();
+        List<RendezVousEntity> allRDVAnimal = null;
         while (allRDV.hasNext()) {
-            AvoirRendezVousEntity rdv = allRDV.next();
+            RendezVousEntity rdv = allRDV.next();
             if (rdv.getIdAnimal() == idAnimal) {
                 allRDVAnimal.add(rdv);
             }
