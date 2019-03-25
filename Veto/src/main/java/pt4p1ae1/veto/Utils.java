@@ -26,6 +26,7 @@ public class Utils {
     public static final EntityDao<EmployeEntity> EMPLOYE_DAO = DaoFactory.getDaoFor(EmployeEntity.class);
     public static final EntityDao<VeterinaireEntity> VETERINAIRE_DAO = DaoFactory.getDaoFor(VeterinaireEntity.class);
     public static final EntityDao<ProduitEntity> PRODUIT_DAO = DaoFactory.getDaoFor(ProduitEntity.class);
+    public static final EntityDao<VilleEntity> VILLE_DAO = DaoFactory.getDaoFor(VilleEntity.class);
 
     public static final double WIDTH = 1280;
     public static final double HEIGHT = 800;
