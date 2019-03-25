@@ -57,7 +57,12 @@ public class DaoFactory {
             @Override
             @Transactional
             public void removeAll() {
-                findAll().forEach(t -> findAll().remove(t));
+                Session session = App.getSession();
+                session.beginTransaction();
+                Query query = session.createQuery("delete from " + className);
+                query.executeUpdate();
+                session.getTransaction().commit();
+                session.close();
             }
         };
     }

@@ -1,14 +1,16 @@
 package pt4p1ae1.veto.AgendaPage;
 
 import jfxtras.icalendarfx.components.VEvent;
+import jfxtras.icalendarfx.properties.component.descriptive.Categories;
 import pt4p1ae1.veto.Entity.AnimalEntity;
 import pt4p1ae1.veto.Entity.RendezVousEntity;
 import pt4p1ae1.veto.Entity.VeterinaireEntity;
 
-
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.temporal.Temporal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RendezVousEntityOservable {
     private RendezVousEntity rendezVousEntity;
@@ -29,16 +31,25 @@ public class RendezVousEntityOservable {
         Temporal temporalEnd = vEvent.getDateTimeEnd().getValue();
         rdv.setDateHeureFin(Timestamp.valueOf(LocalDateTime.from(temporalEnd)));
         rdv.setMessage(vEvent.getSummary().getValue());
+        //rdv.setDescription(vEvent.getDescription());
+        //rdv.setCategorie(vEvent.getCategories().get(0).getValue().get(0));
         return rdv;
     }
 
     public static VEvent toVEvent(RendezVousEntity entity){
         VEvent event = new VEvent();
-        event.setDateTimeStart((Temporal) entity.getDateHeureDebut());
-        event.setDateTimeEnd((Temporal) entity.getDateHeureFin());
+        Temporal start = (Temporal) entity.getDateHeureDebut().toLocalDateTime();
+        event.setDateTimeStart(start);
+        Temporal end = (Temporal) entity.getDateHeureFin().toLocalDateTime();
+        event.setDateTimeEnd(end);
         event.setSummary(entity.getMessage());
-        event.setDescription("");
-        //event.setCategories();
+        //event.setDescription(entity.getDescription());
+        event.setUniqueIdentifier();
+        List<String> stringList = new ArrayList<>();
+        List<Categories> categories = new ArrayList<>();
+        //stringList.add(entity.getCategorie());
+        //categories.add(new Categories(stringList));
+        //event.setCategories(categories);
         return event;
     }
 }

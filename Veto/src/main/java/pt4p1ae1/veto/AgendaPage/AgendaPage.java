@@ -20,8 +20,10 @@ import pt4p1ae1.veto.Entity.RendezVousEntity;
 import pt4p1ae1.veto.Utils;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
+import java.time.ZoneId;
 import java.util.*;
 
 public class AgendaPage extends ControllerSample implements Initializable {
@@ -61,8 +63,19 @@ public class AgendaPage extends ControllerSample implements Initializable {
         super.start();
         setActionButton();
         initializeAgenda();
+        addAllEvent();
+    }
 
-
+    private void addAllEvent() {
+        List<VEvent> vEventList = new ArrayList<>();
+        Utils.RENDEZ_VOUS_DAO.findAll().forEach(entity -> {
+            VEvent vEvent = RendezVousEntityOservable.toVEvent(entity);
+            if(entity.getIdAnimal() != null && entity.getIdVeterinaire()!=null){
+                vEventEntity.put(vEvent.getUniqueIdentifier().getValue(),entity);
+            }
+            vEventList.add(vEvent);
+        });
+        agendaHome.getVCalendar().setVEvents(vEventList);
     }
 
     private void initializeAgenda() {
@@ -89,8 +102,6 @@ public class AgendaPage extends ControllerSample implements Initializable {
                     return null;
                 }
         );
-
-
 
         ArrayList<ClientEntity> listClient = new ArrayList<>(Utils.CLIENT_DAO.findAll());
         ObservableList<ClientEntity> clientEntities = FXCollections.observableArrayList(listClient);
@@ -131,30 +142,29 @@ public class AgendaPage extends ControllerSample implements Initializable {
     static public void saveEvents() {
         List<VEvent> vEvents = agendaHome.getVCalendar().getVEvents();
         Utils.RENDEZ_VOUS_DAO.removeAll();
-        if (vEvents != null) {
-            if (!vEvents.isEmpty()) {
-                vEvents.forEach(vEvent -> {
-                    System.out.println(vEvent.getCategories().toString());
-                    RendezVousEntity rdv;
-                    String UID = vEvent.getUniqueIdentifier().getValue();
-                    if (vEventEntity.containsKey(UID)) {
-                        rdv = vEventEntity.get(UID);
-                    } else {
-                        rdv = RendezVousEntityOservable.toEntity(vEvent);
-                    }
-                    Utils.RENDEZ_VOUS_DAO.saveOrUpdate(rdv);
-                });
-                vEventEntity.keySet().forEach(s -> {
-                    boolean exist = false;
-                    Iterator<VEvent> iterator = vEvents.iterator();
-                    while (!exist && iterator.hasNext()) {
-                        exist = iterator.next().getUniqueIdentifier().getValue().equals(s);
-                    }
-                    if (!exist) {
-                        vEventEntity.remove(s);
-                    }
-                });
-            }
-        }
+//        if (vEvents != null) {
+//            if (!vEvents.isEmpty()) {
+//                vEvents.forEach(vEvent -> {
+//                    RendezVousEntity rdv;
+//                    String UID = vEvent.getUniqueIdentifier().getValue();
+//                    if (vEventEntity.containsKey(UID)) {
+//                        rdv = vEventEntity.get(UID);
+//                    } else {
+//                        rdv = RendezVousEntityOservable.toEntity(vEvent);
+//                    }
+//                    Utils.RENDEZ_VOUS_DAO.saveOrUpdate(rdv);
+//                });
+//                vEventEntity.keySet().forEach(s -> {
+//                    boolean exist = false;
+//                    Iterator<VEvent> iterator = vEvents.iterator();
+//                    while (!exist && iterator.hasNext()) {
+//                        exist = iterator.next().getUniqueIdentifier().getValue().equals(s);
+//                    }
+//                    if (!exist) {
+//                        vEventEntity.remove(s);
+//                    }
+//                });
+//            }
+//        }
     }
 }
