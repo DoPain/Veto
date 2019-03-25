@@ -14,6 +14,11 @@ public class VeterinaireEntity {
     private Collection<RendezVousEntity> rendezVousById;
     private PersonneEntity personneById;
 
+    @Override
+    public String toString() {
+        return personneById.getNom() + " " + personneById.getPrenom();
+    }
+
     @Id
     @Column(name = "id", nullable = false)
     public long getId() {

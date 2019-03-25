@@ -30,9 +30,11 @@ public class RendezVousEntityOservable {
         rdv.setDateHeureDebut(Timestamp.valueOf(LocalDateTime.from(temporalStart)));
         Temporal temporalEnd = vEvent.getDateTimeEnd().getValue();
         rdv.setDateHeureFin(Timestamp.valueOf(LocalDateTime.from(temporalEnd)));
-        rdv.setMessage(vEvent.getSummary().getValue());
-        //rdv.setDescription(vEvent.getDescription());
-        //rdv.setCategorie(vEvent.getCategories().get(0).getValue().get(0));
+        rdv.setResume(vEvent.getSummary().getValue());
+        if(vEvent.getDescription()!=null){
+            rdv.setDescription(vEvent.getDescription().getValue());
+        }
+        rdv.setCategorie(vEvent.getCategories().get(0).getValue().get(0));
         return rdv;
     }
 
@@ -42,14 +44,14 @@ public class RendezVousEntityOservable {
         event.setDateTimeStart(start);
         Temporal end = (Temporal) entity.getDateHeureFin().toLocalDateTime();
         event.setDateTimeEnd(end);
-        event.setSummary(entity.getMessage());
-        //event.setDescription(entity.getDescription());
+        event.setSummary(entity.getResume());
+        event.setDescription(entity.getDescription());
         event.setUniqueIdentifier();
         List<String> stringList = new ArrayList<>();
         List<Categories> categories = new ArrayList<>();
-        //stringList.add(entity.getCategorie());
-        //categories.add(new Categories(stringList));
-        //event.setCategories(categories);
+        stringList.add(entity.getCategorie());
+        categories.add(new Categories(stringList));
+        event.setCategories(categories);
         return event;
     }
 }

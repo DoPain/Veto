@@ -7,8 +7,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import jfxtras.icalendarfx.VCalendar;
 import jfxtras.icalendarfx.components.VEvent;
 import jfxtras.scene.control.agenda.Agenda;
@@ -17,13 +19,12 @@ import pt4p1ae1.veto.ControllerSample;
 import pt4p1ae1.veto.Entity.AnimalEntity;
 import pt4p1ae1.veto.Entity.ClientEntity;
 import pt4p1ae1.veto.Entity.RendezVousEntity;
+import pt4p1ae1.veto.Entity.VeterinaireEntity;
 import pt4p1ae1.veto.Utils;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
-import java.time.ZoneId;
 import java.util.*;
 
 public class AgendaPage extends ControllerSample implements Initializable {
@@ -32,6 +33,8 @@ public class AgendaPage extends ControllerSample implements Initializable {
     public ComboBox<AnimalEntity> animalBox;
     @FXML
     public ComboBox<ClientEntity> clientBox;
+    @FXML
+    public ComboBox<VeterinaireEntity> vetoBox;
     @FXML
     public Button modifyButton;
     @FXML
@@ -46,6 +49,10 @@ public class AgendaPage extends ControllerSample implements Initializable {
     private Button decrease_btn;
     @FXML
     private Button save_btn;
+    @FXML
+    private Label messageAfterModif;
+
+
     private VCalendar vCalendar;
     private static NewICalendarAgenda agendaHome;
     private RendezVousEntity selectedRDV;
@@ -93,15 +100,26 @@ public class AgendaPage extends ControllerSample implements Initializable {
                     modifyButton.setOnAction(event -> {
                         if (animalBox.getValue() != null && clientBox.getValue() != null) {
                             selectedRDV.setIdAnimal(animalBox.getValue().getId()); //recup l'id de l'animal
-                            selectedRDV.setIdVeterinaire(clientBox.getValue().getId()); //recup l'id du client
-                            //selectedRDV.setDescrption("Rendez vous :\n" +clientBox+"\n" +animalBox);
+                            selectedRDV.setIdVeterinaire(vetoBox.getValue().getId()); //recup l'id du client
+                            selectedRDV.setDescription("Rendez vous :\n" +clientBox.getValue()+"\n" +animalBox.getValue());
+                            selectedVEvent.setDescription("Rendez vous :\n" +clientBox.getValue()+"\n" +animalBox.getValue());
                             vEventEntity.put(selectedVEvent.getUniqueIdentifier().getValue(), selectedRDV);
                             saveEvents();
+                            agendaHome.refresh();
+                            messageAfterModif.setTextFill(Color.web("#15e246"));
+                            messageAfterModif.setText("Rendez Vous Ajouté");
+                        }else{
+                            messageAfterModif.setTextFill(Color.web("#e23a15"));
+                            messageAfterModif.setText("Champs invalides");
                         }
                     });
                     return null;
                 }
         );
+
+        ArrayList<VeterinaireEntity> listVeto = new ArrayList<>(Utils.VETERINAIRE_DAO.findAll());
+        ObservableList<VeterinaireEntity> vetoEntities = FXCollections.observableArrayList(listVeto);
+        vetoBox.setItems(vetoEntities);
 
         ArrayList<ClientEntity> listClient = new ArrayList<>(Utils.CLIENT_DAO.findAll());
         ObservableList<ClientEntity> clientEntities = FXCollections.observableArrayList(listClient);
@@ -142,29 +160,33 @@ public class AgendaPage extends ControllerSample implements Initializable {
     static public void saveEvents() {
         List<VEvent> vEvents = agendaHome.getVCalendar().getVEvents();
         Utils.RENDEZ_VOUS_DAO.removeAll();
-//        if (vEvents != null) {
-//            if (!vEvents.isEmpty()) {
-//                vEvents.forEach(vEvent -> {
-//                    RendezVousEntity rdv;
-//                    String UID = vEvent.getUniqueIdentifier().getValue();
-//                    if (vEventEntity.containsKey(UID)) {
-//                        rdv = vEventEntity.get(UID);
-//                    } else {
-//                        rdv = RendezVousEntityOservable.toEntity(vEvent);
-//                    }
-//                    Utils.RENDEZ_VOUS_DAO.saveOrUpdate(rdv);
-//                });
-//                vEventEntity.keySet().forEach(s -> {
-//                    boolean exist = false;
-//                    Iterator<VEvent> iterator = vEvents.iterator();
-//                    while (!exist && iterator.hasNext()) {
-//                        exist = iterator.next().getUniqueIdentifier().getValue().equals(s);
-//                    }
-//                    if (!exist) {
-//                        vEventEntity.remove(s);
-//                    }
-//                });
-//            }
-//        }
+        if (vEvents != null) {
+            if (!vEvents.isEmpty()) {
+                vEvents.forEach(vEvent -> {
+                    RendezVousEntity rdv;
+                    String UID = vEvent.getUniqueIdentifier().getValue();
+                    if (vEventEntity.containsKey(UID)) {
+                        rdv = vEventEntity.get(UID);
+                    } else {
+                        rdv = RendezVousEntityOservable.toEntity(vEvent);
+                    }
+                    Utils.RENDEZ_VOUS_DAO.saveOrUpdate(rdv);
+                });
+                List<String> eventRemove = new ArrayList<>();
+                vEventEntity.keySet().forEach(s -> {
+                    boolean exist = false;
+                    Iterator<VEvent> iterator = vEvents.iterator();
+                    while (!exist && iterator.hasNext()) {
+                        exist = iterator.next().getUniqueIdentifier().getValue().equals(s);
+                    }
+                    if (!exist) {
+                        eventRemove.add(s);
+                    }
+                });
+                eventRemove.forEach(s -> {
+                    vEventEntity.remove(s);
+                });
+            }
+        }
     }
 }
