@@ -112,47 +112,52 @@ public class OrdonnanceController extends ControllerSample implements Initializa
         tableViewAnimal.setItems(animalEntityObservables);
     }
 
-    public void createOrdonnance() {
+    public void createOrdonnance() throws FileNotFoundException, DocumentException {
         Date dateToday = new Date();
         VeterinaireEntity veterinaire = Utils.VETERINAIRE_DAO.findAll().get(0);
-        try {
-            AnimalEntityObservable animal = tableViewAnimal.getSelectionModel().getSelectedItem();
-            tableViewAnimal.getSelectionModel().select(null);
+//        try {
+        AnimalEntityObservable animal = tableViewAnimal.getSelectionModel().getSelectedItem();
 
-            OrdonnanceEntity ord = new OrdonnanceEntity();
-            ord.setIdVeterinaire(veterinaire.getId());
-            ord.setIdAnimal(animal.getId());
-            ord.setVeterinaireByIdVeterinaire(veterinaire);
-            ord.setAnimalByIdAnimal(animal.getAnimalEntity());
-            ord.setDateOrdonnance(new java.sql.Date(dateToday.getTime()));
-            ArrayList<AppartenirEntity> entities = new ArrayList<>();
-            Utils.ORDONNANCE_DAO.saveOrUpdate(ord);
-            for (ProduitEntityObservable p : prescriptions.keySet()) {
-                AppartenirEntity a = new AppartenirEntity();
-                a.setIdOrdonnance(ord.getId());
-                a.setIdProduit(p.toProduitEntity().getId());
-                a.setOrdonnanceByIdOrdonnance(ord);
-                a.setProduitByIdProduit(p.toProduitEntity());
-                a.setQuantite(1);
-                a.setDescription(prescriptions.get(p));
-                entities.add(a);
-                Utils.APPARTENIR_DAO.saveOrUpdate(a);
-            }
-
-            ord.setAppartenirsById(entities);
-            createOrdonnancePDF(ord);
-            ordonnanceMsg.setTextFill(Color.GREEN);
-            ordonnanceMsg.setText("L'ordonnance a bien été créer");
-            prescriptions.clear();
-        } catch (Exception e) {
-            if (e.getClass() == NullPointerException.class) {
-                ordonnanceMsg.setTextFill(Color.RED);
-                ordonnanceMsg.setText("Selectionnez un animal");
-            } else{
-                ordonnanceMsg.setTextFill(Color.RED);
-                ordonnanceMsg.setText("Erreur lors de la création");
-            }
+        OrdonnanceEntity ord = new OrdonnanceEntity();
+        ord.setIdVeterinaire(veterinaire.getId());
+        ord.setIdAnimal(animal.getId());
+        ord.setVeterinaireByIdVeterinaire(veterinaire);
+        ord.setAnimalByIdAnimal(animal.getAnimalEntity());
+        ord.setDateOrdonnance(new java.sql.Date(dateToday.getTime()));
+        ArrayList<AppartenirEntity> entities = new ArrayList<>();
+        Utils.ORDONNANCE_DAO.saveOrUpdate(ord);
+        long idOrdonnance = 0;
+        for (OrdonnanceEntity o : Utils.ORDONNANCE_DAO.findAll())
+            idOrdonnance = o.getId();
+        for (ProduitEntityObservable p : prescriptions.keySet()) {
+            AppartenirEntity a = new AppartenirEntity();
+            for (ProduitEntity prd : Utils.PRODUIT_DAO.findAll())
+                if (p.toProduitEntity().getRefProduit().equals(prd.getRefProduit()))
+                    a.setIdProduit(prd.getId());
+            a.setIdOrdonnance(idOrdonnance);
+            a.setIdProduit(p.toProduitEntity().getId());
+            a.setQuantite(1);
+            a.setDescription(prescriptions.get(p));
+            entities.add(a);
+            Utils.APPARTENIR_DAO.saveOrUpdate(a);
         }
+
+        ord.setAppartenirsById(entities);
+        createOrdonnancePDF(ord);
+//            tableViewAnimal.getSelectionModel().select(null);
+        ordonnanceMsg.setTextFill(Color.GREEN);
+        ordonnanceMsg.setText("L'ordonnance a bien été créer");
+        prescriptions.clear();
+//        } catch (Exception e) {
+//            if (e.getClass() == NullPointerException.class) {
+//                ordonnanceMsg.setTextFill(Color.RED);
+//                ordonnanceMsg.setText("Selectionnez un animal");
+//                System.out.println(e.getMessage());
+//            } else {
+//                ordonnanceMsg.setTextFill(Color.RED);
+//                ordonnanceMsg.setText("Erreur lors de la création du PDF");
+//            }
+//        }
     }
 
     public void createPrescription() {
@@ -201,39 +206,44 @@ public class OrdonnanceController extends ControllerSample implements Initializa
         }
     }
 
-    public static void createOrdonnancePDF(OrdonnanceEntity ord) {
+    public static void createOrdonnancePDF(OrdonnanceEntity ord) throws FileNotFoundException, DocumentException {
+        long idOrdonnance = 0;
+        for (OrdonnanceEntity o : Utils.ORDONNANCE_DAO.findAll())
+            idOrdonnance = o.getId();
+
         Date dateToday = new Date();
         String dateFormatUser = new SimpleDateFormat("dd/MM/yyyy").format(dateToday);
         EmployeEntity actualUser = Utils.getActualEmploye();
         VeterinaireEntity veterinaire = Utils.VETERINAIRE_DAO.findAll().get(0);
         AnimalEntityObservable animal = new AnimalEntityObservable(ord.getAnimalByIdAnimal());
-        try {
-            Document document = new Document();
-            FileOutputStream file = new FileOutputStream(new SimpleDateFormat("yyyy.MM.dd").format(dateToday)
-                    + "." + animal.getNom() + ".pdf");
-            PdfWriter.getInstance(document, file);
-            Font font = FontFactory.getFont(FontFactory.COURIER, 12, BaseColor.BLACK);
 
-            StringBuilder header = new StringBuilder();
-            header.append(dateFormatUser).append("\nDocteur ").append(veterinaire.getPersonneById().getPrenom()).append(" ").append(veterinaire.getPersonneById().getNom())
-                    .append("\n").append(veterinaire.getPersonneById().getAdresse())
-                    .append("\n").append(veterinaire.getPersonneById().getTelephone())
-                    .append("\n").append(veterinaire.getPersonneById().getMail()).append("\n\n\n\n\n");
-            StringBuilder content = new StringBuilder();
-            content.append("Pour ").append(animal.getNom()).append(", ").append(animal.getEspece()).append(", ").append(animal.getAge()).append(" :\n");
-            for (AppartenirEntity a : ord.getAppartenirsById()) {
-                content.append("     - ").append(a.getProduitByIdProduit().getNom()).append(" :").append(" ").append(a.getDescription()).append("\n");
-            }
+        Document document = new Document();
+        FileOutputStream file = new FileOutputStream(new SimpleDateFormat("yyyy.MM.dd").format(dateToday)
+                + "." + animal.getNom() + ".pdf");
+        PdfWriter.getInstance(document, file);
+        Font font = FontFactory.getFont(FontFactory.COURIER, 12, BaseColor.BLACK);
 
-            document.open();
-            document.addTitle("Ordonnance");
-            document.addAuthor(actualUser.getPersonneById().getNom() + " " + actualUser.getPersonneById().getPrenom());
-            document.add(new Paragraph(new Chunk(header.toString(), font)));
-            document.left(1000);
-            document.add(new Paragraph(new Chunk(content.toString(), font)));
-            document.close();
-        } catch (FileNotFoundException | DocumentException e) {
-            System.out.println(e.getMessage());
+        StringBuilder header = new StringBuilder();
+        header.append(dateFormatUser).append("\nDocteur ").append(veterinaire.getPersonneById().getPrenom()).append(" ").append(veterinaire.getPersonneById().getNom())
+                .append("\n").append(veterinaire.getPersonneById().getAdresse())
+                .append("\n").append(veterinaire.getPersonneById().getTelephone())
+                .append("\n").append(veterinaire.getPersonneById().getMail()).append("\n\n\n\n\n");
+        StringBuilder content = new StringBuilder();
+        content.append("Pour ").append(animal.getNom()).append(", ").append(animal.getEspece()).append(", ").append(animal.getAge()).append(" :\n");
+        for (AppartenirEntity a : Utils.APPARTENIR_DAO.findAll()) {
+            if (a.getIdOrdonnance() == idOrdonnance)
+                for (ProduitEntity p : Utils.PRODUIT_DAO.findAll())
+                    if (a.getIdProduit() == p.getId())
+                        content.append("     - ").append(p.getNom()).append(" :").append(" ").append(a.getDescription()).append("\n");
         }
+
+        document.open();
+        document.addTitle("Ordonnance");
+        document.addAuthor(actualUser.getPersonneById().getNom() + " " + actualUser.getPersonneById().getPrenom());
+        document.add(new Paragraph(new Chunk(header.toString(), font)));
+        document.left(1000);
+        document.add(new Paragraph(new Chunk(content.toString(), font)));
+        document.close();
+
     }
 }
