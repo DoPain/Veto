@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -43,7 +42,6 @@
             <children>
                 <Label fx:id="nameEmpText" layoutX="125.0" layoutY="39.0" text="Nom employé :" />
                 <TextField fx:id="nomEmpField" layoutX="234.0" layoutY="34.0" />
-                <Label layoutX="530.0" layoutY="39.0" text="Poste :" />
                 <Label layoutX="106.0" layoutY="92.0" text="Prénom employé :" />
                 <TextField fx:id="prenomEmpField" layoutX="234.0" layoutY="87.0" />
                 <Label layoutX="498.0" layoutY="92.0" text="Téléphone :" />
@@ -52,20 +50,20 @@
                           <TableColumn fx:id="nomEmpColumn" minWidth="30.0" prefWidth="110.0" text="Nom" />
                           <TableColumn fx:id="firstNameEmpColomn" minWidth="30.0" prefWidth="126.0" text="Prenom" />
                           <TableColumn fx:id="phoneEmpColomn" minWidth="24.0" prefWidth="143.0" text="Téléphone" />
-                          <TableColumn fx:id="emailEmpColomn" minWidth="0.0" prefWidth="189.0" text="Email" />
-                          <TableColumn fx:id="posteEmpColomn" minWidth="29.0" prefWidth="118.0" text="Poste" />
-                          <TableColumn fx:id="typeContratEmpColomn" minWidth="0.0" prefWidth="145.0" text="Type de contrat" />
-                          <TableColumn fx:id="debutContratEmpColomn" minWidth="30.0" prefWidth="171.0" text="Début de contrat" />
-                  <TableColumn fx:id="finContratEmpColomn" prefWidth="151.0" text="Fin de contrat" />
+                          <TableColumn fx:id="emailEmpColomn" minWidth="0.0" prefWidth="217.0" text="Email" />
+                          <TableColumn fx:id="typeContratEmpColomn" minWidth="0.0" prefWidth="144.0" text="Type de contrat" />
+                          <TableColumn fx:id="debutContratEmpColomn" minWidth="30.0" prefWidth="183.0" text="Début de contrat" />
+                  <TableColumn fx:id="finContratEmpColomn" prefWidth="229.0" text="Fin de contrat" />
                       </columns>
                   </TableView>
-                <Button fx:id="filterButton" layoutX="909.0" layoutY="87.0" mnemonicParsing="false" onAction="#filtrageRecherche" prefHeight="26.0" prefWidth="75.0" text="Filtrer" />
+                <Button fx:id="filterButton" layoutX="837.0" layoutY="87.0" mnemonicParsing="false" onAction="#filtrerEmp" prefHeight="26.0" prefWidth="75.0" text="Filtrer" />
                 <Button fx:id="insertEmpButton" layoutX="260.0" layoutY="614.0" mnemonicParsing="false" onAction="#insererEmploye" prefHeight="30.0" prefWidth="145.0" text="Insérer" />
                 <Button fx:id="editEmpButton" layoutX="509.0" layoutY="614.0" mnemonicParsing="false" onAction="#modifierEmploye" prefHeight="30.0" prefWidth="145.0" text="Modifier" />
                 <Button fx:id="deleteEmpButton" layoutX="764.0" layoutY="614.0" mnemonicParsing="false" onAction="#supprimerEmp" prefHeight="30.0" prefWidth="145.0" text="Supprimer" />
-            <ComboBox fx:id="posteEmpComboBox" layoutX="589.0" layoutY="34.0" prefWidth="150.0" />
             <TextField fx:id="telEmpField" layoutX="589.0" layoutY="87.0" />
             <Label fx:id="error" layoutX="819.0" layoutY="39.0" prefHeight="23.0" prefWidth="184.0" />
+            <Label layoutX="463.0" layoutY="39.0" text="Type de contrat :" />
+            <TextField fx:id="typeContratEmp" layoutX="589.0" layoutY="38.0" />
             </children>
         </AnchorPane>
     </center>

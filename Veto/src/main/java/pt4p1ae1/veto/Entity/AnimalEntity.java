@@ -24,7 +24,7 @@ public class AnimalEntity {
 
     @Override
     public String toString() {
-        return raceByIdRace.getNom()+" : "+nom;
+        return raceByIdRace.getEspeceByIdEspece().getNom()+" : "+nom;
     }
 
     @Id
