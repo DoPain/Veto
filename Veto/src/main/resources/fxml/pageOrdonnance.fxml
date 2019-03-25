@@ -55,8 +55,20 @@
                 </columns>
             </TableView>
             <Button layoutX="310.0" layoutY="429.0" mnemonicParsing="false" onMouseClicked="#createPrescription" prefHeight="45.0" prefWidth="206.0" text="Ajouter la préscription" />
-            <Button layoutX="418.0" layoutY="531.0" mnemonicParsing="false" onMouseClicked="#createDocPDF" prefHeight="74.0" prefWidth="227.0" text="Valider Ordonnance" />
-            <Label fx:id="ordonnanceMsg" disable="true" layoutX="398.0" layoutY="612.0" prefHeight="24.0"/>
+            <Button layoutX="911.0" layoutY="570.0" mnemonicParsing="false" onMouseClicked="#createDocPDF" prefHeight="65.0" prefWidth="245.0" text="Valider Ordonnance" />
+            <Button layoutX="580.0" layoutY="430.0" mnemonicParsing="false" onMouseClicked="#editModeDisplay" prefHeight="43.0" prefWidth="227.0" text="Editer" />
+            <Label fx:id="ordonnanceMsg" layoutX="398.0" layoutY="605.0" prefHeight="50.0" prefWidth="317.0" style="-fx-font-size: 16;"/>
+
+            <AnchorPane fx:id="editMode" layoutX="138.0" layoutY="47.0" prefHeight="569.0" prefWidth="801.0" style="-fx-background-color: white;" visible="false" BorderPane.alignment="CENTER">
+                <TableView fx:id="tableViewPrescriptions" editable="true" layoutX="22.0" layoutY="18.0" prefHeight="408.0" prefWidth="763.0">
+                    <columns>
+                        <TableColumn fx:id="productName" prefWidth="168.0" text="Produit" />
+                        <TableColumn fx:id="comment" prefWidth="582.0" text="Posologie    " />
+                    </columns>
+                </TableView>
+                <Button layoutX="31.0" layoutY="445.0" mnemonicParsing="false" onMouseClicked="#deletePoso" prefHeight="33.0" prefWidth="158.0" text="Supprimer" />
+                <Button layoutX="585.0" layoutY="492.0" mnemonicParsing="false" onMouseClicked="#editModeUndisplay" prefHeight="63.0" prefWidth="200.0" text="Valider" />
+            </AnchorPane>
         </AnchorPane>
     </center>
 </BorderPane>

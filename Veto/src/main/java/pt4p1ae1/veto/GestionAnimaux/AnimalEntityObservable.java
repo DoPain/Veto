@@ -23,12 +23,12 @@ public class AnimalEntityObservable {
     public AnimalEntityObservable(AnimalEntity animal) {
         animalEntity = animal;
         this.id = animal.getId();
-        this.proprietaire = animal.getClientByIdClient().getPersonneById().getNom();
+        this.proprietaire = animal.getClientByIdClient().getPersonneById().getNom() + " " + animal.getClientByIdClient().getPersonneById().getPrenom();
         this.nom = animal.getNom();
         this.espece = animal.getRaceByIdRace().getEspeceByIdEspece().getNom();
         this.race = animal.getRaceByIdRace().getNom();
         this.dateDeNaissance = animal.getDateNaissance();
-        this.age = Utils.calculateAge(animal.getDateNaissance());
+        this.age = Utils.calculateAge(animal.getDateNaissance()) + " ans";
         if (animal.getPoids() != null)
             this.poids = animal.getPoids().toString();
         else
@@ -54,6 +54,10 @@ public class AnimalEntityObservable {
         } else {
             return "Pas de prochain rendez-vous";
         }
+    }
+
+    public AnimalEntity getAnimalEntity() {
+        return animalEntity;
     }
 
     public String getProprietaire() {
