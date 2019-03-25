@@ -112,12 +112,11 @@ public class OrdonnanceController extends ControllerSample implements Initializa
         tableViewAnimal.setItems(animalEntityObservables);
     }
 
-    public void createOrdonnance() {
+    public void createOrdonnance() throws FileNotFoundException, DocumentException {
         Date dateToday = new Date();
         VeterinaireEntity veterinaire = Utils.VETERINAIRE_DAO.findAll().get(0);
-        try {
+//        try {
             AnimalEntityObservable animal = tableViewAnimal.getSelectionModel().getSelectedItem();
-            tableViewAnimal.getSelectionModel().select(null);
 
             OrdonnanceEntity ord = new OrdonnanceEntity();
             ord.setIdVeterinaire(veterinaire.getId());
@@ -131,8 +130,6 @@ public class OrdonnanceController extends ControllerSample implements Initializa
                 AppartenirEntity a = new AppartenirEntity();
                 a.setIdOrdonnance(ord.getId());
                 a.setIdProduit(p.toProduitEntity().getId());
-                a.setOrdonnanceByIdOrdonnance(ord);
-                a.setProduitByIdProduit(p.toProduitEntity());
                 a.setQuantite(1);
                 a.setDescription(prescriptions.get(p));
                 entities.add(a);
@@ -141,18 +138,20 @@ public class OrdonnanceController extends ControllerSample implements Initializa
 
             ord.setAppartenirsById(entities);
             createOrdonnancePDF(ord);
+//            tableViewAnimal.getSelectionModel().select(null);
             ordonnanceMsg.setTextFill(Color.GREEN);
             ordonnanceMsg.setText("L'ordonnance a bien été créer");
             prescriptions.clear();
-        } catch (Exception e) {
-            if (e.getClass() == NullPointerException.class) {
-                ordonnanceMsg.setTextFill(Color.RED);
-                ordonnanceMsg.setText("Selectionnez un animal");
-            } else{
-                ordonnanceMsg.setTextFill(Color.RED);
-                ordonnanceMsg.setText("Erreur lors de la création");
-            }
-        }
+//        } catch (Exception e) {
+//            if (e.getClass() == NullPointerException.class) {
+//                ordonnanceMsg.setTextFill(Color.RED);
+//                ordonnanceMsg.setText("Selectionnez un animal");
+//                System.out.println(e.getMessage());
+//            } else {
+//                ordonnanceMsg.setTextFill(Color.RED);
+//                ordonnanceMsg.setText("Erreur lors de la création du PDF");
+//            }
+//        }
     }
 
     public void createPrescription() {
@@ -201,39 +200,37 @@ public class OrdonnanceController extends ControllerSample implements Initializa
         }
     }
 
-    public static void createOrdonnancePDF(OrdonnanceEntity ord) {
+    public static void createOrdonnancePDF(OrdonnanceEntity ord) throws FileNotFoundException, DocumentException {
         Date dateToday = new Date();
         String dateFormatUser = new SimpleDateFormat("dd/MM/yyyy").format(dateToday);
         EmployeEntity actualUser = Utils.getActualEmploye();
         VeterinaireEntity veterinaire = Utils.VETERINAIRE_DAO.findAll().get(0);
         AnimalEntityObservable animal = new AnimalEntityObservable(ord.getAnimalByIdAnimal());
-        try {
-            Document document = new Document();
-            FileOutputStream file = new FileOutputStream(new SimpleDateFormat("yyyy.MM.dd").format(dateToday)
-                    + "." + animal.getNom() + ".pdf");
-            PdfWriter.getInstance(document, file);
-            Font font = FontFactory.getFont(FontFactory.COURIER, 12, BaseColor.BLACK);
 
-            StringBuilder header = new StringBuilder();
-            header.append(dateFormatUser).append("\nDocteur ").append(veterinaire.getPersonneById().getPrenom()).append(" ").append(veterinaire.getPersonneById().getNom())
-                    .append("\n").append(veterinaire.getPersonneById().getAdresse())
-                    .append("\n").append(veterinaire.getPersonneById().getTelephone())
-                    .append("\n").append(veterinaire.getPersonneById().getMail()).append("\n\n\n\n\n");
-            StringBuilder content = new StringBuilder();
-            content.append("Pour ").append(animal.getNom()).append(", ").append(animal.getEspece()).append(", ").append(animal.getAge()).append(" :\n");
-            for (AppartenirEntity a : ord.getAppartenirsById()) {
-                content.append("     - ").append(a.getProduitByIdProduit().getNom()).append(" :").append(" ").append(a.getDescription()).append("\n");
-            }
+        Document document = new Document();
+        FileOutputStream file = new FileOutputStream(new SimpleDateFormat("yyyy.MM.dd").format(dateToday)
+                + "." + animal.getNom() + ".pdf");
+        PdfWriter.getInstance(document, file);
+        Font font = FontFactory.getFont(FontFactory.COURIER, 12, BaseColor.BLACK);
 
-            document.open();
-            document.addTitle("Ordonnance");
-            document.addAuthor(actualUser.getPersonneById().getNom() + " " + actualUser.getPersonneById().getPrenom());
-            document.add(new Paragraph(new Chunk(header.toString(), font)));
-            document.left(1000);
-            document.add(new Paragraph(new Chunk(content.toString(), font)));
-            document.close();
-        } catch (FileNotFoundException | DocumentException e) {
-            System.out.println(e.getMessage());
+        StringBuilder header = new StringBuilder();
+        header.append(dateFormatUser).append("\nDocteur ").append(veterinaire.getPersonneById().getPrenom()).append(" ").append(veterinaire.getPersonneById().getNom())
+                .append("\n").append(veterinaire.getPersonneById().getAdresse())
+                .append("\n").append(veterinaire.getPersonneById().getTelephone())
+                .append("\n").append(veterinaire.getPersonneById().getMail()).append("\n\n\n\n\n");
+        StringBuilder content = new StringBuilder();
+        content.append("Pour ").append(animal.getNom()).append(", ").append(animal.getEspece()).append(", ").append(animal.getAge()).append(" :\n");
+        for (AppartenirEntity a : ord.getAppartenirsById()) {
+            content.append("     - ").append(a.getProduitByIdProduit().getNom()).append(" :").append(" ").append(a.getDescription()).append("\n");
         }
+
+        document.open();
+        document.addTitle("Ordonnance");
+        document.addAuthor(actualUser.getPersonneById().getNom() + " " + actualUser.getPersonneById().getPrenom());
+        document.add(new Paragraph(new Chunk(header.toString(), font)));
+        document.left(1000);
+        document.add(new Paragraph(new Chunk(content.toString(), font)));
+        document.close();
+
     }
 }
