@@ -1,19 +1,20 @@
 package pt4p1ae1.veto.Entity;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.util.Collection;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Ordonnance", schema = "PT_S4P1A_E1", catalog = "")
-public class OrdonnanceEntity {
+@Table(name = "RendezVous", schema = "PT_S4P1A_E1", catalog = "")
+public class RendezVousEntity {
     private long id;
     private long idAnimal;
     private long idVeterinaire;
-    private Date dateOrdonnance;
-    private String commentaire;
-    private Collection<AppartenirEntity> appartenirsById;
+    private Timestamp dateHeureDebut;
+    private Timestamp dateHeureFin;
+    private String resume;
+    private String description;
+    private String categorie;
     private AnimalEntity animalByIdAnimal;
     private VeterinaireEntity veterinaireByIdVeterinaire;
 
@@ -48,49 +49,73 @@ public class OrdonnanceEntity {
     }
 
     @Basic
-    @Column(name = "dateOrdonnance", nullable = false)
-    public Date getDateOrdonnance() {
-        return dateOrdonnance;
+    @Column(name = "dateHeureDebut", nullable = false)
+    public Timestamp getDateHeureDebut() {
+        return dateHeureDebut;
     }
 
-    public void setDateOrdonnance(Date dateOrdonnance) {
-        this.dateOrdonnance = dateOrdonnance;
+    public void setDateHeureDebut(Timestamp dateHeureDebut) {
+        this.dateHeureDebut = dateHeureDebut;
     }
 
     @Basic
-    @Column(name = "commentaire", nullable = true, length = 32)
-    public String getCommentaire() {
-        return commentaire;
+    @Column(name = "dateHeureFin", nullable = false)
+    public Timestamp getDateHeureFin() {
+        return dateHeureFin;
     }
 
-    public void setCommentaire(String commentaire) {
-        this.commentaire = commentaire;
+    public void setDateHeureFin(Timestamp dateHeureFin) {
+        this.dateHeureFin = dateHeureFin;
+    }
+
+    @Basic
+    @Column(name = "resume", nullable = true, length = 50)
+    public String getResume() {
+        return resume;
+    }
+
+    public void setResume(String resume) {
+        this.resume = resume;
+    }
+
+    @Basic
+    @Column(name = "description", nullable = true, length = 255)
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @Basic
+    @Column(name = "categorie", nullable = true, length = 50)
+    public String getCategorie() {
+        return categorie;
+    }
+
+    public void setCategorie(String categorie) {
+        this.categorie = categorie;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        OrdonnanceEntity that = (OrdonnanceEntity) o;
+        RendezVousEntity that = (RendezVousEntity) o;
         return id == that.id &&
                 idAnimal == that.idAnimal &&
                 idVeterinaire == that.idVeterinaire &&
-                Objects.equals(dateOrdonnance, that.dateOrdonnance) &&
-                Objects.equals(commentaire, that.commentaire);
+                Objects.equals(dateHeureDebut, that.dateHeureDebut) &&
+                Objects.equals(dateHeureFin, that.dateHeureFin) &&
+                Objects.equals(resume, that.resume) &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(categorie, that.categorie);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, idAnimal, idVeterinaire, dateOrdonnance, commentaire);
-    }
-
-    @OneToMany(mappedBy = "ordonnanceByIdOrdonnance")
-    public Collection<AppartenirEntity> getAppartenirsById() {
-        return appartenirsById;
-    }
-
-    public void setAppartenirsById(Collection<AppartenirEntity> appartenirsById) {
-        this.appartenirsById = appartenirsById;
+        return Objects.hash(id, idAnimal, idVeterinaire, dateHeureDebut, dateHeureFin, resume, description, categorie);
     }
 
     @ManyToOne

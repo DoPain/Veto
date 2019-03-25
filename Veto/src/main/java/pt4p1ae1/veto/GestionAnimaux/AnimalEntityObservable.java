@@ -1,7 +1,7 @@
 package pt4p1ae1.veto.GestionAnimaux;
 
 import pt4p1ae1.veto.Entity.AnimalEntity;
-import pt4p1ae1.veto.Entity.AvoirRendezVousEntity;
+import pt4p1ae1.veto.Entity.RendezVousEntity;
 import pt4p1ae1.veto.Utils;
 
 import java.sql.Date;
@@ -39,12 +39,12 @@ public class AnimalEntityObservable {
     }
 
     private String getNextRDVAnimal() {
-        List<AvoirRendezVousEntity> allRDV = Utils.getRDVAnimal(animalEntity.getId());
-        AvoirRendezVousEntity next = null;
+        List<RendezVousEntity> allRDV = Utils.getRDVAnimal(animalEntity.getId());
+        RendezVousEntity next = null;
 
         if (allRDV != null) {
-            for (AvoirRendezVousEntity rdv : allRDV) {
-                if (next == null || rdv.getDateHeure().getTime() < next.getDateHeure().getTime()) {
+            for (RendezVousEntity rdv : allRDV) {
+                if (next == null || rdv.getDateHeureDebut().getTime() < next.getDateHeureDebut().getTime()) {
                     next = rdv;
                 }
             }
