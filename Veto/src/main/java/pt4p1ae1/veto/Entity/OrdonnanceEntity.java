@@ -1,11 +1,8 @@
 package pt4p1ae1.veto.Entity;
 
-import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
-import java.sql.Timestamp;
-import java.util.Collection;
 import java.sql.Date;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -88,7 +85,6 @@ public class OrdonnanceEntity {
     }
 
     @OneToMany(mappedBy = "ordonnanceByIdOrdonnance")
-    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public Collection<AppartenirEntity> getAppartenirsById() {
         return appartenirsById;
     }
@@ -98,7 +94,7 @@ public class OrdonnanceEntity {
     }
 
     @ManyToOne
-    @JoinColumn(insertable =false, updatable=false,name = "idAnimal", referencedColumnName = "id", nullable = false)
+    @JoinColumn(insertable =false, updatable=false, name = "idAnimal", referencedColumnName = "id", nullable = false)
     public AnimalEntity getAnimalByIdAnimal() {
         return animalByIdAnimal;
     }
@@ -108,7 +104,7 @@ public class OrdonnanceEntity {
     }
 
     @ManyToOne
-    @JoinColumn(insertable =false, updatable=false,name = "idVeterinaire", referencedColumnName = "id", nullable = false)
+    @JoinColumn(insertable =false, updatable=false, name = "idVeterinaire", referencedColumnName = "id", nullable = false)
     public VeterinaireEntity getVeterinaireByIdVeterinaire() {
         return veterinaireByIdVeterinaire;
     }
