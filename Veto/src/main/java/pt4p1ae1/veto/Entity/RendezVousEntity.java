@@ -4,6 +4,9 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
+/**
+ * Entité des rendez vous de l'agenda
+ */
 @Entity
 @Table(name = "RendezVous", schema = "PT_S4P1A_E1", catalog = "")
 public class RendezVousEntity {
