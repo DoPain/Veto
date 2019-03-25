@@ -20,6 +20,7 @@ import pt4p1ae1.veto.GestionAnimaux.AnimalEntityObservable;
 import pt4p1ae1.veto.GestionStock.ProduitEntityObservable;
 import pt4p1ae1.veto.Utils;
 
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -111,46 +112,18 @@ public class OrdonnanceController extends ControllerSample implements Initializa
         tableViewAnimal.setItems(animalEntityObservables);
     }
 
-    public void createDocPDF() {
+    public void createOrdonnance() {
         Date dateToday = new Date();
-        String dateFormatUser = new SimpleDateFormat("dd.MM.yyyy").format(dateToday);
-        EmployeEntity actualUser = Utils.getActualEmploye();
         VeterinaireEntity veterinaire = Utils.VETERINAIRE_DAO.findAll().get(0);
         try {
             AnimalEntityObservable animal = tableViewAnimal.getSelectionModel().getSelectedItem();
-
-            Document document = new Document();
-            FileOutputStream file = new FileOutputStream(new SimpleDateFormat("yyyy.MM.dd").format(dateToday)
-                    + "." + animal.getNom() + ".pdf");
-            PdfWriter.getInstance(document, file);
-            Font font = FontFactory.getFont(FontFactory.COURIER, 12, BaseColor.BLACK);
-
-            StringBuilder header = new StringBuilder();
-            header.append(dateFormatUser).append("\nDocteur ").append(veterinaire.getPersonneById().getPrenom()).append(veterinaire.getPersonneById().getNom())
-                    .append("\n").append(veterinaire.getPersonneById().getAdresse())
-                    .append("\n").append(veterinaire.getPersonneById().getTelephone())
-                    .append("\n").append(veterinaire.getPersonneById().getMail()).append("\n\n\n\n\n");
-            StringBuilder content = new StringBuilder();
-            content.append("Pour ").append(animal.getNom()).append(", ").append(animal.getEspece()).append(", ").append(animal.getAge()).append(" :\n");
-            for (ProduitEntityObservable p : prescriptions.keySet())
-                content.append("     - ").append(p.getNom()).append(" :").append(prescriptions.get(p)).append("\n");
-
-            document.open();
-            document.addTitle("Ordonnance");
-            document.addAuthor(actualUser.getPersonneById().getNom() + " " + actualUser.getPersonneById().getPrenom());
-            document.add(new Paragraph(new Chunk(header.toString(), font)));
-            document.left(1000);
-            document.add(new Paragraph(new Chunk(content.toString(), font)));
-            document.close();
-
-            ordonnanceMsg.setTextFill(Color.GREEN);
-            ordonnanceMsg.setText("L'ordonnance a bien été créer");
             tableViewAnimal.getSelectionModel().select(null);
             prescriptions.clear();
 
             OrdonnanceEntity ord = new OrdonnanceEntity();
+            ord.setIdVeterinaire(veterinaire.getId());
+            ord.setIdAnimal(animal.getId());
             ord.setVeterinaireByIdVeterinaire(veterinaire);
-            ord.setCommentaire(content.toString());
             ord.setAnimalByIdAnimal(animal.getAnimalEntity());
             ord.setDateOrdonnance(new java.sql.Date(dateToday.getTime()));
             ArrayList<AppartenirEntity> entities = new ArrayList<>();
@@ -164,12 +137,16 @@ public class OrdonnanceController extends ControllerSample implements Initializa
                 entities.add(a);
             }
             ord.setAppartenirsById(entities);
+            createOrdonnancePDF(ord);
             Utils.ORDONNANCE_DAO.saveOrUpdate(ord);
+            ordonnanceMsg.setTextFill(Color.GREEN);
+            ordonnanceMsg.setText("L'ordonnance a bien été créer");
         } catch (Exception e) {
             if (e.getClass() == NullPointerException.class) {
                 ordonnanceMsg.setTextFill(Color.RED);
                 ordonnanceMsg.setText("Selectionnez un animal");
-            }
+            } else
+                ordonnanceMsg.setText("Erreur lors de la création");
         }
     }
 
@@ -216,6 +193,45 @@ public class OrdonnanceController extends ControllerSample implements Initializa
             prescriptions.remove(tableViewPrescriptions.getSelectionModel().getSelectedItem().getProduitEntityObservable());
             tableViewPrescriptions.getSelectionModel().select(null);
             setPrescriptionTable();
+        }
+    }
+
+    public static void createOrdonnancePDF(OrdonnanceEntity ord) {
+        Date dateToday = new Date();
+        String dateFormatUser = new SimpleDateFormat("dd/MM/yyyy").format(dateToday);
+        EmployeEntity actualUser = Utils.getActualEmploye();
+        VeterinaireEntity veterinaire = Utils.VETERINAIRE_DAO.findAll().get(0);
+        AnimalEntityObservable animal = new AnimalEntityObservable(ord.getAnimalByIdAnimal());
+        try {
+            Document document = new Document();
+            FileOutputStream file = null;
+            PdfWriter.getInstance(document, file);
+            Font font = FontFactory.getFont(FontFactory.COURIER, 12, BaseColor.BLACK);
+
+            StringBuilder header = new StringBuilder();
+            header.append(dateFormatUser).append("\nDocteur ").append(veterinaire.getPersonneById().getPrenom()).append(veterinaire.getPersonneById().getNom())
+                    .append("\n").append(veterinaire.getPersonneById().getAdresse())
+                    .append("\n").append(veterinaire.getPersonneById().getTelephone())
+                    .append("\n").append(veterinaire.getPersonneById().getMail()).append("\n\n\n\n\n");
+            StringBuilder content = new StringBuilder();
+            content.append("Pour ").append(animal.getNom()).append(", ").append(animal.getEspece()).append(", ").append(animal.getAge()).append(" :\n");
+            for (AppartenirEntity a : ord.getAppartenirsById()){
+                content.append("     - ").append(a.getProduitByIdProduit().getNom()).append(" :").append().append("\n");
+            }
+
+            document.open();
+            document.addTitle("Ordonnance");
+            document.addAuthor(actualUser.getPersonneById().getNom() + " " + actualUser.getPersonneById().getPrenom());
+            document.add(new Paragraph(new Chunk(header.toString(), font)));
+            document.left(1000);
+            document.add(new Paragraph(new Chunk(content.toString(), font)));
+            document.close();
+            file = new FileOutputStream(new SimpleDateFormat("yyyy.MM.dd").format(dateToday)
+                    + "." + animal.getNom() + ".pdf");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (DocumentException e) {
+            e.printStackTrace();
         }
     }
 }

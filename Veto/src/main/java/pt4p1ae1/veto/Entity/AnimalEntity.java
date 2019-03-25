@@ -143,22 +143,12 @@ public class AnimalEntity {
     }
 
     @OneToMany(mappedBy = "animalByIdAnimal")
-<<<<<<< HEAD
-    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
-    public Collection<RendezVousEntity> getRendezVousById() {
-        return RendezVousById;
-    }
-
-    public void setRendezVousById(Collection<RendezVousEntity> RendezVousById) {
-        this.RendezVousById = RendezVousById;
-=======
     public Collection<OrdonnanceEntity> getOrdonnancesById() {
         return ordonnancesById;
     }
 
     public void setOrdonnancesById(Collection<OrdonnanceEntity> ordonnancesById) {
         this.ordonnancesById = ordonnancesById;
->>>>>>> master
     }
 
     @OneToMany(mappedBy = "animalByIdAnimal")
