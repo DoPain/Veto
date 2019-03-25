@@ -34,6 +34,7 @@ public class Utils {
     private static EmployeEntity actualEmploye;
     private static AnimalEntity currentAnimal;
     private static ProduitEntity currentProduit;
+    private static boolean confirmation;
 
     private static boolean modifyAnimal = false;
 
@@ -113,5 +114,13 @@ public class Utils {
 
     public static void setCurrentProduit(ProduitEntity currentProduit) {
         Utils.currentProduit = currentProduit;
+    }
+
+    public static boolean getConfirmation() {
+        return confirmation;
+    }
+
+    public static void setConfirmation(boolean confirmation) {
+        Utils.confirmation = confirmation;
     }
 }

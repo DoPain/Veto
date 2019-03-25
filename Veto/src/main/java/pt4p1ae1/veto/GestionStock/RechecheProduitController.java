@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import pt4p1ae1.veto.ControllerSample;
 import pt4p1ae1.veto.Entity.ProduitEntity;
 import pt4p1ae1.veto.GestionCLient.ClientEntityObservable;
+import pt4p1ae1.veto.PopupController;
 import pt4p1ae1.veto.Utils;
 
 import java.io.IOException;
@@ -23,7 +24,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class StockController extends ControllerSample implements Initializable {
+public class RechecheProduitController extends ControllerSample implements Initializable {
 
     @FXML
     private TableColumn<ClientEntityObservable, String> nameC;
@@ -171,32 +172,41 @@ public class StockController extends ControllerSample implements Initializable {
     }
 
     @FXML
-    private void supprimerProduit(ActionEvent actionEvent) {
-        if (tableViewProduit.getSelectionModel().getSelectedItem() != null && !quantiteSupp.getText().equals("")) {
-            ProduitEntityObservable selectedProduit = tableViewProduit.getSelectionModel().getSelectedItem();
-            ProduitEntity produit = selectedProduit.toProduitEntity();
-            if (produit.getQuantiteEnStock() - Integer.valueOf(quantiteSupp.getText()) >= 0) {
-                Utils.createLog(quantiteSupp.getText() + produit.getNom() + " removed ");
-                produit.setQuantiteEnStock(produit.getQuantiteEnStock() - Integer.valueOf(quantiteSupp.getText()));
-                Utils.PRODUIT_DAO.saveOrUpdate(produit);
-                loadProduits();
-                quantiteSupp.setText("");
-            }else if(produit.getQuantiteEnStock() == 0){
-                Utils.createLog( produit.getNom() + " removed ");
-                Utils.PRODUIT_DAO.delete(produit);
-                loadProduits();
-                quantiteSupp.setText("");
+    private void supprimerProduit(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(this.getClass().getResource("/fxml/popup.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.showAndWait();
+
+        if(Utils.getConfirmation()) {
+            if (tableViewProduit.getSelectionModel().getSelectedItem() != null && !quantiteSupp.getText().equals("")) {
+                ProduitEntityObservable selectedProduit = tableViewProduit.getSelectionModel().getSelectedItem();
+                ProduitEntity produit = selectedProduit.toProduitEntity();
+                if (produit.getQuantiteEnStock() - Integer.valueOf(quantiteSupp.getText()) >= 0) {
+                    Utils.createLog(quantiteSupp.getText() + produit.getNom() + " " + "removed");
+                    produit.setQuantiteEnStock(produit.getQuantiteEnStock() - Integer.valueOf(quantiteSupp.getText()));
+                    Utils.PRODUIT_DAO.saveOrUpdate(produit);
+                    loadProduits();
+                    quantiteSupp.setText("");
+                } else if (produit.getQuantiteEnStock() == 0) {
+                    Utils.createLog(produit.getNom() + " " + "removed ");
+                    Utils.PRODUIT_DAO.delete(produit);
+                    loadProduits();
+                    quantiteSupp.setText("");
+                } else {
+                    Utils.createLog(quantiteSupp.getText() + produit.getNom() + " " + "removed ");
+                    produit.setQuantiteEnStock(0);
+                    Utils.PRODUIT_DAO.saveOrUpdate(produit);
+                    loadProduits();
+                    quantiteSupp.setText("");
+                }
             } else {
-                Utils.createLog(quantiteSupp.getText() + produit.getNom() + " removed ");
-                produit.setQuantiteEnStock(0);
-                Utils.PRODUIT_DAO.saveOrUpdate(produit);
-                loadProduits();
-                quantiteSupp.setText("");
-            }
-        } else {
                 error.setStyle("-fx-text-fill: red");
                 error.setText("Aucun produit selectionné ou quantité vide");
+            }
         }
+
     }
 
     @FXML

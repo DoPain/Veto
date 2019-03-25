@@ -3,10 +3,7 @@ package pt4p1ae1.veto.GestionStock;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -72,7 +69,7 @@ public class dossierProduitController extends ControllerSample implements Initia
     }
 
     public void retourProduits(ActionEvent actionEvent) throws IOException {
-        super.creatBtn("/fxml/pageStock.fxml", (Stage) backToProducts.getScene().getWindow());
+        super.creatBtn("/fxml/rechercheProduit.fxml", (Stage) backToProducts.getScene().getWindow());
     }
 
     @FXML
@@ -101,7 +98,11 @@ public class dossierProduitController extends ControllerSample implements Initia
     @FXML
     private void supprimerProduit() throws IOException {
         Utils.PRODUIT_DAO.delete(currentProduit);
-        super.creatBtn("/fxml/pageStock.fxml", (Stage) supprimer.getScene().getWindow());
+        super.creatBtn("/fxml/rechercheProduit.fxml", (Stage) supprimer.getScene().getWindow());
+    }
+
+    public void display(){
+
     }
 
 }

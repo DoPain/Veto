@@ -2,10 +2,7 @@ package pt4p1ae1.veto.GestionStock;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import pt4p1ae1.veto.ControllerSample;
@@ -17,8 +14,6 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -56,7 +51,7 @@ public class InscriptionProduitController extends ControllerSample implements In
     }
 
     public void retourProduits(ActionEvent actionEvent) throws IOException {
-        super.creatBtn("/fxml/pageStock.fxml", (Stage) backToProducts.getScene().getWindow());
+        super.creatBtn("/fxml/rechercheProduit.fxml", (Stage) backToProducts.getScene().getWindow());
     }
 
     @FXML
