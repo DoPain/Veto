@@ -47,5 +47,6 @@ public class AjoutMaladieController extends ControllerSample implements Initiali
     }
 
     public void validateBtnOnAction(ActionEvent actionEvent) {
+
     }
 }
