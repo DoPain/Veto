@@ -1,7 +1,5 @@
 package pt4p1ae1.veto.Entity;
 
-import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
@@ -91,6 +89,7 @@ public class EmployeEntity {
     public void setTypeContrat(String typeContrat) {
         this.typeContrat = typeContrat;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -100,16 +99,17 @@ public class EmployeEntity {
                 Objects.equals(login, that.login) &&
                 Objects.equals(motDePasse, that.motDePasse) &&
                 Objects.equals(salaire, that.salaire) &&
-                Objects.equals(dateDebutContrat, that.dateDebutContrat);
+                Objects.equals(dateDebutContrat, that.dateDebutContrat) &&
+                Objects.equals(dateFinContrat, that.dateFinContrat) &&
+                Objects.equals(typeContrat, that.typeContrat);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, login, motDePasse, salaire, dateDebutContrat);
+        return Objects.hash(id, login, motDePasse, salaire, dateDebutContrat, dateFinContrat, typeContrat);
     }
 
     @OneToMany(mappedBy = "employeByIdEmploye")
-    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public Collection<CongeEntity> getCongesById() {
         return congesById;
     }
@@ -129,7 +129,6 @@ public class EmployeEntity {
     }
 
     @OneToMany(mappedBy = "employeByIdEmploye")
-    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public Collection<LogEntity> getLogsById() {
         return logsById;
     }
@@ -139,7 +138,6 @@ public class EmployeEntity {
     }
 
     @OneToMany(mappedBy = "employeByIdEmploye")
-    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public Collection<PanierEntity> getPaniersById() {
         return paniersById;
     }

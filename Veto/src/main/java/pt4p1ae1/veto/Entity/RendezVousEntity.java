@@ -8,11 +8,11 @@ import java.util.Objects;
 @Table(name = "RendezVous", schema = "PT_S4P1A_E1", catalog = "")
 public class RendezVousEntity {
     private long id;
-    private Long idAnimal;
-    private Long idVeterinaire;
     private Timestamp dateHeureDebut;
     private Timestamp dateHeureFin;
-    private String message;
+    private String resume;
+    private String description;
+    private String categorie;
     private AnimalEntity animalByIdAnimal;
     private VeterinaireEntity veterinaireByIdVeterinaire;
 
@@ -27,22 +27,22 @@ public class RendezVousEntity {
     }
 
     @Basic
-    @Column(name = "idAnimal", nullable = true)
-    public Long getIdAnimal() {
+    @Column(name = "idAnimal", nullable = false)
+    public long getIdAnimal() {
         return idAnimal;
     }
 
-    public void setIdAnimal(Long idAnimal) {
+    public void setIdAnimal(long idAnimal) {
         this.idAnimal = idAnimal;
     }
 
     @Basic
-    @Column(name = "idVeterinaire", nullable = true)
-    public Long getIdVeterinaire() {
+    @Column(name = "idVeterinaire", nullable = false)
+    public long getIdVeterinaire() {
         return idVeterinaire;
     }
 
-    public void setIdVeterinaire(Long idVeterinaire) {
+    public void setIdVeterinaire(long idVeterinaire) {
         this.idVeterinaire = idVeterinaire;
     }
 
@@ -67,13 +67,33 @@ public class RendezVousEntity {
     }
 
     @Basic
-    @Column(name = "message", nullable = true, length = 255)
-    public String getMessage() {
-        return message;
+    @Column(name = "resume", nullable = true, length = 50)
+    public String getResume() {
+        return resume;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setResume(String resume) {
+        this.resume = resume;
+    }
+
+    @Basic
+    @Column(name = "description", nullable = true, length = 255)
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @Basic
+    @Column(name = "categorie", nullable = true, length = 50)
+    public String getCategorie() {
+        return categorie;
+    }
+
+    public void setCategorie(String categorie) {
+        this.categorie = categorie;
     }
 
     @Override
@@ -84,18 +104,20 @@ public class RendezVousEntity {
         return id == that.id &&
                 idAnimal == that.idAnimal &&
                 idVeterinaire == that.idVeterinaire &&
-                Objects.equals(dateHeureFin, that.dateHeureFin) &&
                 Objects.equals(dateHeureDebut, that.dateHeureDebut) &&
-                Objects.equals(message, that.message);
+                Objects.equals(dateHeureFin, that.dateHeureFin) &&
+                Objects.equals(resume, that.resume) &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(categorie, that.categorie);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, idAnimal, idVeterinaire, dateHeureDebut, dateHeureFin, message);
+        return Objects.hash(id, idAnimal, idVeterinaire, dateHeureDebut, dateHeureFin, resume, description, categorie);
     }
 
     @ManyToOne
-    @JoinColumn(insertable =false, updatable=false,name = "idAnimal", referencedColumnName = "id", nullable = false)
+    @JoinColumn(insertable =false, updatable=false, name = "idAnimal", referencedColumnName = "id", nullable = false)
     public AnimalEntity getAnimalByIdAnimal() {
         return animalByIdAnimal;
     }
@@ -105,7 +127,7 @@ public class RendezVousEntity {
     }
 
     @ManyToOne
-    @JoinColumn(insertable =false, updatable=false,name = "idVeterinaire", referencedColumnName = "id", nullable = false)
+    @JoinColumn(insertable =false, updatable=false, name = "idVeterinaire", referencedColumnName = "id", nullable = false)
     public VeterinaireEntity getVeterinaireByIdVeterinaire() {
         return veterinaireByIdVeterinaire;
     }
@@ -114,3 +136,6 @@ public class RendezVousEntity {
         this.veterinaireByIdVeterinaire = veterinaireByIdVeterinaire;
     }
 }
+
+    private long idAnimal;
+    private long idVeterinaire;

@@ -1,7 +1,5 @@
 package pt4p1ae1.veto.Entity;
 
-import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
 import java.util.Arrays;
 import java.util.Collection;
@@ -12,8 +10,8 @@ import java.util.Objects;
 public class VeterinaireEntity {
     private long id;
     private byte[] signature;
-    private Collection<RendezVousEntity> RendezVousById;
     private Collection<OrdonnanceEntity> ordonnancesById;
+    private Collection<RendezVousEntity> rendezVousById;
     private PersonneEntity personneById;
 
     @Id
@@ -53,23 +51,21 @@ public class VeterinaireEntity {
     }
 
     @OneToMany(mappedBy = "veterinaireByIdVeterinaire")
-    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
-    public Collection<RendezVousEntity> getRendezVousById() {
-        return RendezVousById;
-    }
-
-    public void setRendezVousById(Collection<RendezVousEntity> RendezVousById) {
-        this.RendezVousById = RendezVousById;
-    }
-
-    @OneToMany(mappedBy = "veterinaireByIdVeterinaire")
-    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public Collection<OrdonnanceEntity> getOrdonnancesById() {
         return ordonnancesById;
     }
 
     public void setOrdonnancesById(Collection<OrdonnanceEntity> ordonnancesById) {
         this.ordonnancesById = ordonnancesById;
+    }
+
+    @OneToMany(mappedBy = "veterinaireByIdVeterinaire")
+    public Collection<RendezVousEntity> getRendezVousById() {
+        return rendezVousById;
+    }
+
+    public void setRendezVousById(Collection<RendezVousEntity> rendezVousById) {
+        this.rendezVousById = rendezVousById;
     }
 
     @OneToOne

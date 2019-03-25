@@ -1,10 +1,8 @@
 package pt4p1ae1.veto.Entity;
 
-import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
-import java.util.Collection;
 import java.sql.Date;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -14,13 +12,14 @@ public class AnimalEntity {
     private long idRace;
     private long idClient;
     private String nom;
+    private String sexe;
     private Double poids;
     private String autreInformations;
     private Date dateNaissance;
     private RaceEntity raceByIdRace;
     private ClientEntity clientByIdClient;
-    private Collection<RendezVousEntity> RendezVousById;
     private Collection<OrdonnanceEntity> ordonnancesById;
+    private Collection<RendezVousEntity> rendezVousById;
     private Collection<TraitementEntity> traitementsById;
 
     @Override
@@ -69,6 +68,16 @@ public class AnimalEntity {
     }
 
     @Basic
+    @Column(name = "sexe", nullable = false, length = 1)
+    public String getSexe() {
+        return sexe;
+    }
+
+    public void setSexe(String sexe) {
+        this.sexe = sexe;
+    }
+
+    @Basic
     @Column(name = "poids", nullable = true, precision = 2)
     public Double getPoids() {
         return poids;
@@ -107,6 +116,7 @@ public class AnimalEntity {
                 idRace == that.idRace &&
                 idClient == that.idClient &&
                 Objects.equals(nom, that.nom) &&
+                Objects.equals(sexe, that.sexe) &&
                 Objects.equals(poids, that.poids) &&
                 Objects.equals(autreInformations, that.autreInformations) &&
                 Objects.equals(dateNaissance, that.dateNaissance);
@@ -114,11 +124,11 @@ public class AnimalEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, idRace, idClient, nom, poids, autreInformations, dateNaissance);
+        return Objects.hash(id, idRace, idClient, nom, sexe, poids, autreInformations, dateNaissance);
     }
 
     @ManyToOne
-    @JoinColumn(insertable =false, updatable=false,name = "idRace", referencedColumnName = "id", nullable = false)
+    @JoinColumn(insertable =false, updatable=false, name = "idRace", referencedColumnName = "id", nullable = false)
     public RaceEntity getRaceByIdRace() {
         return raceByIdRace;
     }
@@ -128,7 +138,7 @@ public class AnimalEntity {
     }
 
     @ManyToOne
-    @JoinColumn(insertable =false, updatable=false,name = "idClient", referencedColumnName = "id", nullable = false)
+    @JoinColumn(insertable =false, updatable=false, name = "idClient", referencedColumnName = "id", nullable = false)
     public ClientEntity getClientByIdClient() {
         return clientByIdClient;
     }
@@ -138,17 +148,6 @@ public class AnimalEntity {
     }
 
     @OneToMany(mappedBy = "animalByIdAnimal")
-    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
-    public Collection<RendezVousEntity> getRendezVousById() {
-        return RendezVousById;
-    }
-
-    public void setRendezVousById(Collection<RendezVousEntity> RendezVousById) {
-        this.RendezVousById = RendezVousById;
-    }
-
-    @OneToMany(mappedBy = "animalByIdAnimal")
-    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public Collection<OrdonnanceEntity> getOrdonnancesById() {
         return ordonnancesById;
     }
@@ -158,7 +157,15 @@ public class AnimalEntity {
     }
 
     @OneToMany(mappedBy = "animalByIdAnimal")
-    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
+    public Collection<RendezVousEntity> getRendezVousById() {
+        return rendezVousById;
+    }
+
+    public void setRendezVousById(Collection<RendezVousEntity> rendezVousById) {
+        this.rendezVousById = rendezVousById;
+    }
+
+    @OneToMany(mappedBy = "animalByIdAnimal")
     public Collection<TraitementEntity> getTraitementsById() {
         return traitementsById;
     }

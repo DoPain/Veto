@@ -60,7 +60,7 @@ public class InscriptionProduitController extends ControllerSample implements In
     }
 
     @FXML
-    private void ajouterProduit(ActionEvent actionEvent) throws ParseException {
+    private void ajouterProduit(ActionEvent actionEvent){
         Boolean found = false;
         int i = 0;
         if(!nom.getText().equals("") && !minQuantite.getText().equals("") && !reference.getText().equals("") && !prix.getText().equals("") && !nbInsertion.getText().equals("") && !dateAcquisition.getText().equals("") && !datePeremption.getText().equals("")){
@@ -83,12 +83,18 @@ public class InscriptionProduitController extends ControllerSample implements In
                 newProduit.setDescription(description.getText());
                 newProduit.setRefProduit(reference.getText());
                 DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy",Locale.FRANCE);
-                Date dateP = formatter.parse(datePeremption.getText());
-                Date dateA = formatter.parse(dateAcquisition.getText());
-                java.sql.Date sqlDateA = new java.sql.Date(dateA.getTime());
-                java.sql.Date sqlDateP = new java.sql.Date(dateP.getTime());
-                newProduit.setDateAcquisition(sqlDateA);
-                newProduit.setPeremption(sqlDateP);
+
+                try {
+                    Date dateP  = formatter.parse(datePeremption.getText());
+                    Date dateA = formatter.parse(dateAcquisition.getText());
+                    java.sql.Date sqlDateA = new java.sql.Date(dateA.getTime());
+                    java.sql.Date sqlDateP = new java.sql.Date(dateP.getTime());
+                    newProduit.setDateAcquisition(sqlDateA);
+                    newProduit.setPeremption(sqlDateP);
+                } catch (ParseException e) {
+                    error.setText("Date(s) invalide(s)");
+                    error.setText("Information(s) manquante(s)");
+                }
                 Utils.PRODUIT_DAO.saveOrUpdate(newProduit);
             }
         } else {
