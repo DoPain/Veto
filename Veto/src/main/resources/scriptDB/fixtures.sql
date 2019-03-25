@@ -20,7 +20,7 @@ INSERT INTO Employe (id, login, motDePasse, dateDebutContrat, salaire) VALUES
 ((SELECT id FROM Personne WHERE Personne.nom = 'POTIN'), 'mpotin', 'test', DATE("2013-01-3") , null),
 ((SELECT id FROM Personne WHERE Personne.nom = 'VINCENT'), 'bvincent', 'test', DATE("2013-01-3") , null),
 ((SELECT id FROM Personne WHERE Personne.nom = 'RAYNAL'), 'mraynal', 'test', DATE("2013-01-3") , null),
-((SELECT id FROM Personne WHERE Personne.nom = 'ARAGON'), 'nagaron', 'test', DATE("2013-01-3") , null),
+((SELECT id FROM Personne WHERE Personne.nom = 'ARAGON'), 'naragon', 'test', DATE("2013-01-3") , null),
 ((SELECT id FROM Personne WHERE Personne.nom = 'MAUX'), 'amaux', 'test', DATE("2013-01-3") , null);
 
 INSERT INTO Client (id) VALUES
@@ -73,29 +73,29 @@ INSERT INTO Race (idEspece, nom) VALUES
 ((SELECT id FROM Espece WHERE Espece.nom = 'Hamster'),'Hamster de Campbell'),
 ((SELECT id FROM Espece WHERE Espece.nom = 'Hamster'),'Hamster hybride');
 
-INSERT INTO Animal (idRace, idClient, nom, dateNaissance) VALUES
-((SELECT id FROM Race WHERE Race.nom = 'Japonais'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "NISLA"), 'PamPam', DATE("2007-10-23")),
-((SELECT id FROM Race WHERE Race.nom = 'Golden retriever'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "NISLA"), 'Capucine', DATE("2007-10-13")),
-((SELECT id FROM Race WHERE Race.nom = 'Golden retriever'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "NISLA"), 'Aristide', DATE("2007-10-4")),
-((SELECT id FROM Race WHERE Race.nom = 'Balinais'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "NISLA"), 'Barney', DATE("2007-10-5")),
-((SELECT id FROM Race WHERE Race.nom = 'Hamster hybride'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "NISLA"), 'Chanel', DATE("2007-10-10")),
-((SELECT id FROM Race WHERE Race.nom = 'Golden retriever'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "RIVE"), 'Dolph', DATE("2007-2-1")),
-((SELECT id FROM Race WHERE Race.nom = 'Japonais'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "RIVE"), 'Fripouille', DATE("2007-2-5")),
-((SELECT id FROM Race WHERE Race.nom = 'Balinais'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "PASO"), 'Noisette', DATE("2007-3-1")),
-((SELECT id FROM Race WHERE Race.nom = 'Balinais'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "PASO"), 'Ducros', DATE("2007-3-2")),
-((SELECT id FROM Race WHERE Race.nom = 'Baladi'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "PASO"), 'Diego', DATE("2007-3-3")),
-((SELECT id FROM Race WHERE Race.nom = 'Japonais'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "PASO"), 'Ed', DATE("2007-3-4")),
-((SELECT id FROM Race WHERE Race.nom = 'Balinais'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "PASO"), 'Earl', DATE("2007-3-5")),
-((SELECT id FROM Race WHERE Race.nom = 'Balinais'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "PASO"), 'Dolf', DATE("2007-3-6")),
-((SELECT id FROM Race WHERE Race.nom = 'Balinais'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "PASO"), 'Boris', DATE("2007-3-7")),
-((SELECT id FROM Race WHERE Race.nom = 'Hamster hybride'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "PASO"), 'Barney', DATE("2007-3-8")),
-((SELECT id FROM Race WHERE Race.nom = 'Balinais'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "VALICE"), 'Alex', DATE("2007-4-1")),
-((SELECT id FROM Race WHERE Race.nom = 'Balinais'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "VALICE"), 'Choupette', DATE("2007-4-5")),
-((SELECT id FROM Race WHERE Race.nom = 'Hamster hybride'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "VALICE"), 'PamPam', DATE("2007-4-4")),
-((SELECT id FROM Race WHERE Race.nom = 'Hamster hybride'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "VALICE"), 'Houmou', DATE("2007-4-13")),
-((SELECT id FROM Race WHERE Race.nom = 'Baladi'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "BACRE"), 'Bounty', DATE("2007-5-5")),
-((SELECT id FROM Race WHERE Race.nom = 'Hamster hybride'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "BACRE"), 'Noisette', DATE("2007-5-13")),
-((SELECT id FROM Race WHERE Race.nom = 'Hamster hybride'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "BACRE"), 'Gerbille', DATE("2007-5-24"));
+INSERT INTO Animal (idRace, idClient, nom, dateNaissance, sexe) VALUES
+((SELECT id FROM Race WHERE Race.nom = 'Japonais'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "NISLA"), 'PamPam', DATE("2007-10-23"), 'F'),
+((SELECT id FROM Race WHERE Race.nom = 'Golden retriever'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "NISLA"), 'Capucine', DATE("2007-10-13"), 'F'),
+((SELECT id FROM Race WHERE Race.nom = 'Golden retriever'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "NISLA"), 'Aristide', DATE("2007-10-4"), 'F'),
+((SELECT id FROM Race WHERE Race.nom = 'Balinais'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "NISLA"), 'Barney', DATE("2007-10-5"), 'F'),
+((SELECT id FROM Race WHERE Race.nom = 'Hamster hybride'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "NISLA"), 'Chanel', DATE("2007-10-10"), 'F'),
+((SELECT id FROM Race WHERE Race.nom = 'Golden retriever'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "RIVE"), 'Dolph', DATE("2007-2-1"), 'F'),
+((SELECT id FROM Race WHERE Race.nom = 'Japonais'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "RIVE"), 'Fripouille', DATE("2007-2-5"), 'F'),
+((SELECT id FROM Race WHERE Race.nom = 'Balinais'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "PASO"), 'Noisette', DATE("2007-3-1"), 'F'),
+((SELECT id FROM Race WHERE Race.nom = 'Balinais'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "PASO"), 'Ducros', DATE("2007-3-2"), 'F'),
+((SELECT id FROM Race WHERE Race.nom = 'Baladi'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "PASO"), 'Diego', DATE("2007-3-3"), 'F'),
+((SELECT id FROM Race WHERE Race.nom = 'Japonais'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "PASO"), 'Ed', DATE("2007-3-4"), 'F'),
+((SELECT id FROM Race WHERE Race.nom = 'Balinais'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "PASO"), 'Earl', DATE("2007-3-5"), 'F'),
+((SELECT id FROM Race WHERE Race.nom = 'Balinais'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "PASO"), 'Dolf', DATE("2007-3-6"), 'F'),
+((SELECT id FROM Race WHERE Race.nom = 'Balinais'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "PASO"), 'Boris', DATE("2007-3-7"), 'F'),
+((SELECT id FROM Race WHERE Race.nom = 'Hamster hybride'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "PASO"), 'Barney', DATE("2007-3-8"), 'F'),
+((SELECT id FROM Race WHERE Race.nom = 'Balinais'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "VALICE"), 'Alex', DATE("2007-4-1"), 'F'),
+((SELECT id FROM Race WHERE Race.nom = 'Balinais'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "VALICE"), 'Choupette', DATE("2007-4-5"), 'F'),
+((SELECT id FROM Race WHERE Race.nom = 'Hamster hybride'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "VALICE"), 'PamPam', DATE("2007-4-4"), 'F'),
+((SELECT id FROM Race WHERE Race.nom = 'Hamster hybride'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "VALICE"), 'Houmou', DATE("2007-4-13"), 'F'),
+((SELECT id FROM Race WHERE Race.nom = 'Baladi'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "BACRE"), 'Bounty', DATE("2007-5-5"), 'F'),
+((SELECT id FROM Race WHERE Race.nom = 'Hamster hybride'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "BACRE"), 'Noisette', DATE("2007-5-13"), 'F'),
+((SELECT id FROM Race WHERE Race.nom = 'Hamster hybride'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "BACRE"), 'Gerbille', DATE("2007-5-24"), 'F');
 
 INSERT INTO Produit (nom, refProduit, quantiteEnStock, quantiteMinimum, prix) VALUES
 ('ABCEDYL PA', 'KIVZEUFH', 350, 20,  9.62),

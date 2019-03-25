@@ -1,7 +1,5 @@
 package pt4p1ae1.veto.Entity;
 
-import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
@@ -73,7 +71,7 @@ public class ProduitEntity {
     }
 
     @Basic
-    @Column(name = "quantiteMinimum", nullable = false)
+    @Column(name = "quantiteMinimum", nullable = true)
     public Integer getQuantiteMinimum() {
         return quantiteMinimum;
     }
@@ -83,7 +81,7 @@ public class ProduitEntity {
     }
 
     @Basic
-    @Column(name = "peremption", nullable = false)
+    @Column(name = "peremption", nullable = true)
     public Date getPeremption() {
         return peremption;
     }
@@ -93,7 +91,7 @@ public class ProduitEntity {
     }
 
     @Basic
-    @Column(name = "dateAcquisition", nullable = false)
+    @Column(name = "dateAcquisition", nullable = true)
     public Date getDateAcquisition() {
         return dateAcquisition;
     }
@@ -134,7 +132,6 @@ public class ProduitEntity {
     }
 
     @OneToMany(mappedBy = "produitByIdProduit")
-    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public Collection<AppartenirEntity> getAppartenirsById() {
         return appartenirsById;
     }
@@ -144,7 +141,6 @@ public class ProduitEntity {
     }
 
     @OneToMany(mappedBy = "produitByIdProduit")
-    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public Collection<CommanderEntity> getCommandersById() {
         return commandersById;
     }
