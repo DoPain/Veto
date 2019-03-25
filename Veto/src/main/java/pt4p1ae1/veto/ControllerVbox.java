@@ -23,6 +23,8 @@ public class ControllerVbox implements Initializable {
 
     @FXML
     protected Button btn_log;
+    @FXML
+    protected Button btn_emp;
 
     @FXML
     protected VBox vBox;
@@ -33,6 +35,7 @@ public class ControllerVbox implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         if (!Utils.isAdmin()) {
             btn_log.setVisible(false);
+            btn_emp.setVisible(false);
         }
         titleMap = new HashMap<>();
         titleMap.put("/fxml/agendaPage.fxml","Agenda");

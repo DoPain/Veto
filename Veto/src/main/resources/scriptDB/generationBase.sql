@@ -346,8 +346,8 @@ CREATE INDEX I_FK_Commander_Produit
 CREATE TABLE IF NOT EXISTS RendezVous
 (
   id             BIGINT(4) NOT NULL AUTO_INCREMENT,
-  idAnimal       BIGINT(4) NOT NULL,
-  idVeterinaire  BIGINT(4) NOT NULL,
+  idAnimal       BIGINT(4) NULL,
+  idVeterinaire  BIGINT(4) NULL,
   dateHeureDebut DATETIME  NOT NULL,
   dateHeureFin   DATETIME  NOT NULL,
   resume         CHAR(50)  NULL,
