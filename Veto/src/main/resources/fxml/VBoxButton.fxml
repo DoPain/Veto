@@ -48,7 +48,7 @@
     <Button ellipsisString="" graphicTextGap="0.0" mnemonicParsing="false" onAction="#onActionStockBTN" prefHeight="75.0" prefWidth="82.0">
         <graphic>
             <ImageView fitHeight="65.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                <Image url="@../img/facture.png" />
+                <Image url="@../img/stock.png" />
             </ImageView>
         </graphic>
     </Button>

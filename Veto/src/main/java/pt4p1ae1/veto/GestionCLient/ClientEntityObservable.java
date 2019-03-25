@@ -29,7 +29,7 @@ public class ClientEntityObservable {
 
         this.tel = clientEntity.getPersonneById().getTelephone();
         this.email = clientEntity.getPersonneById().getMail();
-        this.nextRDV = getNextRDVOfClient();
+        this.nextRDV = "Pas de Rendez-vous";//getNextRDVOfClient();
     }
 
     private String getNextRDVOfClient() {

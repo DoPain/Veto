@@ -37,7 +37,7 @@ public class ControllerVbox implements Initializable {
             btn_emp.setVisible(false);
         }
         titleMap.put("/fxml/agendaPage.fxml","Agenda");
-        titleMap.put("/fxml/home.fxml","Home");
+        titleMap.put("/fxml/home.fxml","VetoGestion");
         titleMap.put("/fxml/rechercheAnimal.fxml","Animaux");
         titleMap.put("/fxml/rechercheClient.fxml","Client");
         titleMap.put("/fxml/rechercheOrdonnance.fxml","Ordonnance");
