@@ -39,8 +39,9 @@ public class PopupController{
 
     @FXML
     public void Refuser(){
+        stage = (Stage) refuser.getScene().getWindow();
         Utils.setConfirmation(false);
-        Platform.exit();
+        stage.close();
     }
 
 
