@@ -1,5 +1,7 @@
 package pt4p1ae1.veto.Entity;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
@@ -143,25 +145,7 @@ public class AnimalEntity {
     }
 
     @OneToMany(mappedBy = "animalByIdAnimal")
-<<<<<<< HEAD
     @Cascade(org.hibernate.annotations.CascadeType.DELETE)
-    public Collection<RendezVousEntity> getRendezVousById() {
-        return RendezVousById;
-    }
-
-    public void setRendezVousById(Collection<RendezVousEntity> RendezVousById) {
-        this.RendezVousById = RendezVousById;
-=======
-    public Collection<OrdonnanceEntity> getOrdonnancesById() {
-        return ordonnancesById;
-    }
-
-    public void setOrdonnancesById(Collection<OrdonnanceEntity> ordonnancesById) {
-        this.ordonnancesById = ordonnancesById;
->>>>>>> master
-    }
-
-    @OneToMany(mappedBy = "animalByIdAnimal")
     public Collection<RendezVousEntity> getRendezVousById() {
         return rendezVousById;
     }
