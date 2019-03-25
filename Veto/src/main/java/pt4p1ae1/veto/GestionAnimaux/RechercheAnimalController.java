@@ -35,12 +35,6 @@ public class RechercheAnimalController extends ControllerSample implements Initi
     private TableColumn<AnimalEntityObservable, String> nomEspeceColumn;
     @FXML
     private TableColumn<AnimalEntityObservable, String> nomRaceColumn;
-    @FXML
-    private TableColumn<AnimalEntityObservable, String> ageColumn;
-    @FXML
-    private TableColumn<AnimalEntityObservable, String> poidsColumn;
-    @FXML
-    private TableColumn<AnimalEntityObservable, String> nextMeetingColumn;
 
     @FXML
     private Button insertButton;
@@ -57,9 +51,6 @@ public class RechercheAnimalController extends ControllerSample implements Initi
         nomAnimalColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
         nomEspeceColumn.setCellValueFactory(new PropertyValueFactory<>("espece"));
         nomRaceColumn.setCellValueFactory(new PropertyValueFactory<>("race"));
-        ageColumn.setCellValueFactory(new PropertyValueFactory<>("dateDeNaissance"));
-        poidsColumn.setCellValueFactory(new PropertyValueFactory<>("poids"));
-        nextMeetingColumn.setCellValueFactory(new PropertyValueFactory<>("prochainRDV"));
 
         ObservableList<AnimalEntityObservable> observableList = FXCollections.observableArrayList();
         List<AnimalEntity> animals = Utils.ANIMAL_DAO.findAll();
@@ -81,7 +72,9 @@ public class RechercheAnimalController extends ControllerSample implements Initi
     }
 
     public void editBtnOnAction(ActionEvent actionEvent) throws IOException {
-        Utils.setCurrentAnimal(animalsTableView.getSelectionModel().getSelectedItem().toAnimalEntity());
+        AnimalEntityObservable animalObservable = animalsTableView.getSelectionModel().getSelectedItem();
+        AnimalEntity animal = Utils.ANIMAL_DAO.findById(animalObservable.getId());
+        Utils.setCurrentAnimal(animal);
         Utils.setModifyAnimal(true);
         Stage primaryStage = (Stage) insertButton.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/inscriptionAnimal.fxml"));

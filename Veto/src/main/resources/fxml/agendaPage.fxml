@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="BorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="751.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.181" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt4p1ae1.veto.AgendaPage.AgendaPage">
+<BorderPane fx:id="BorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="751.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt4p1ae1.veto.AgendaPage.AgendaPage">
 <top>
    <Pane fx:id="pane" BorderPane.alignment="CENTER">
       <children>
@@ -33,6 +33,7 @@
                <Button fx:id="decrease_btn" mnemonicParsing="false" text="&lt;" />
                <DatePicker fx:id="datePicker" />
                <Button fx:id="increase_btn" mnemonicParsing="false" text="&gt;" />
+                  <Button fx:id="save_btn" layoutX="374.0" layoutY="10.0" mnemonicParsing="false" text="Enregistrer"/>
             </children>
          </HBox>
       </children>

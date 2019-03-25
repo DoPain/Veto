@@ -10,6 +10,7 @@
         <property name="hibernate.connection.username">PT_S4P1A_E1</property>
         <property name="hibernate.connection.password">cBYW9Gus</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
+
         <property name="show_sql">true</property>
         <property name="connection.pool_size">5</property>
 

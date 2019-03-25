@@ -1,7 +1,7 @@
 package pt4p1ae1.veto.Entity;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.Objects;
 
 @Entity
@@ -9,8 +9,8 @@ import java.util.Objects;
 public class CongeEntity {
     private long id;
     private long idEmploye;
-    private Timestamp dateDebut;
-    private Timestamp dateFin;
+    private Date dateDebut;
+    private Date dateFin;
     private EmployeEntity employeByIdEmploye;
 
     @Id
@@ -35,21 +35,21 @@ public class CongeEntity {
 
     @Basic
     @Column(name = "dateDebut", nullable = false)
-    public Timestamp getDateDebut() {
+    public Date getDateDebut() {
         return dateDebut;
     }
 
-    public void setDateDebut(Timestamp dateDebut) {
+    public void setDateDebut(Date dateDebut) {
         this.dateDebut = dateDebut;
     }
 
     @Basic
     @Column(name = "dateFin", nullable = false)
-    public Timestamp getDateFin() {
+    public Date getDateFin() {
         return dateFin;
     }
 
-    public void setDateFin(Timestamp dateFin) {
+    public void setDateFin(Date dateFin) {
         this.dateFin = dateFin;
     }
 
