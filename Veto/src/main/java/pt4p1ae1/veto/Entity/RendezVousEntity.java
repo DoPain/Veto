@@ -12,7 +12,7 @@ public class RendezVousEntity {
     private long idVeterinaire;
     private Timestamp dateHeureDebut;
     private Timestamp dateHeureFin;
-    private String message;
+    private String resume;
     private AnimalEntity animalByIdAnimal;
     private VeterinaireEntity veterinaireByIdVeterinaire;
 
@@ -67,13 +67,13 @@ public class RendezVousEntity {
     }
 
     @Basic
-    @Column(name = "message", nullable = true, length = 255)
-    public String getMessage() {
-        return message;
+    @Column(name = "resume", nullable = true, length = 255)
+    public String getResume() {
+        return resume;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setResume(String resume) {
+        this.resume = resume;
     }
 
     @Override
@@ -86,12 +86,12 @@ public class RendezVousEntity {
                 idVeterinaire == that.idVeterinaire &&
                 Objects.equals(dateHeureFin, that.dateHeureFin) &&
                 Objects.equals(dateHeureDebut, that.dateHeureDebut) &&
-                Objects.equals(message, that.message);
+                Objects.equals(resume, that.resume);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, idAnimal, idVeterinaire, dateHeureDebut, dateHeureFin, message);
+        return Objects.hash(id, idAnimal, idVeterinaire, dateHeureDebut, dateHeureFin, resume);
     }
 
     @ManyToOne
