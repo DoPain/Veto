@@ -27,6 +27,7 @@ public class Utils {
     public static final EntityDao<VeterinaireEntity> VETERINAIRE_DAO = DaoFactory.getDaoFor(VeterinaireEntity.class);
     public static final EntityDao<ProduitEntity> PRODUIT_DAO = DaoFactory.getDaoFor(ProduitEntity.class);
     public static final EntityDao<AppartenirEntity> APPARTENIR_DAO = DaoFactory.getDaoFor(AppartenirEntity.class);
+    public static final EntityDao<VilleEntity> VILLE_DAO = DaoFactory.getDaoFor(VilleEntity.class);
 
     public static final double WIDTH = 1280;
     public static final double HEIGHT = 800;
@@ -35,6 +36,7 @@ public class Utils {
     private static EmployeEntity actualEmploye;
     private static AnimalEntity currentAnimal;
     private static ProduitEntity currentProduit;
+    private static boolean confirmation;
 
     private static boolean modifyAnimal = false;
 
@@ -114,5 +116,13 @@ public class Utils {
 
     public static void setCurrentProduit(ProduitEntity currentProduit) {
         Utils.currentProduit = currentProduit;
+    }
+
+    public static boolean getConfirmation() {
+        return confirmation;
+    }
+
+    public static void setConfirmation(boolean confirmation) {
+        Utils.confirmation = confirmation;
     }
 }

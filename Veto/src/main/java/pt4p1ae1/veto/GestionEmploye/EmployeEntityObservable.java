@@ -1,17 +1,17 @@
 package pt4p1ae1.veto.GestionEmploye;
 
-import pt4p1ae1.veto.Entity.ClientEntity;
 import pt4p1ae1.veto.Entity.EmployeEntity;
 
-import java.sql.Date;
-
 public class EmployeEntityObservable {
+
     private EmployeEntity empEntity;
     private long id;
     private String login;
     private String motDePasse;
     private Double salaire;
-    private Date dateDebutContrat;
+    private String dateDebutContrat;
+    private String dateFinContrat;
+    private String typeContrat;
     private String nom;
     private String prenom;
     private String telephone;
@@ -23,11 +23,13 @@ public class EmployeEntityObservable {
         this.prenom = employeEntity.getPersonneById().getPrenom();
         this.telephone = employeEntity.getPersonneById().getTelephone();
         this.mail = employeEntity.getPersonneById().getMail();
-        this.dateDebutContrat = employeEntity.getDateDebutContrat();
+        this.dateDebutContrat = employeEntity.getDateDebutContrat().toString();
+        this.dateFinContrat = (employeEntity.getDateFinContrat() == null) ? "Indéfinie " : employeEntity.getDateFinContrat().toString();
         this.salaire = employeEntity.getSalaire();
         this.motDePasse = employeEntity.getMotDePasse();
         this.login = employeEntity.getLogin();
         this.id = employeEntity.getId();
+        this.typeContrat = employeEntity.getTypeContrat();
     }
 
     public String getNom() {
@@ -63,7 +65,7 @@ public class EmployeEntityObservable {
         return salaire;
     }
 
-    public Date getDateDebutContrat() {
+    public String getDateDebutContrat() {
         return dateDebutContrat;
     }
 
@@ -77,6 +79,18 @@ public class EmployeEntityObservable {
 
     public EmployeEntity toEmpEntity() {
         return this.empEntity;
+    }
+
+    public String getDateFinContrat() {
+        return dateFinContrat;
+    }
+
+    public EmployeEntity getEmpEntity() {
+        return empEntity;
+    }
+
+    public String getTypeContrat() {
+        return typeContrat;
     }
 }
 

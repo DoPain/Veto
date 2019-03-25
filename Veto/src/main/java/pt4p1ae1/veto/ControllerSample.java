@@ -34,10 +34,19 @@ public class ControllerSample extends ControllerVbox implements Initializable {
 
     @FXML
     private void onActionDisconnectBTN() throws IOException {
-        Stage primaryStage = (Stage) pane.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/authentification.fxml"));
-        primaryStage.setScene(new Scene(root, 700, 400));
-        primaryStage.centerOnScreen();
-        Utils.createLog("Disconnect");
+        Parent root1 = FXMLLoader.load(this.getClass().getResource("/fxml/popup.fxml"));
+        Scene scene = new Scene(root1);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle("Confirmation");
+        stage.showAndWait();
+
+        if(Utils.getConfirmation()) {
+            Stage primaryStage = (Stage) pane.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/authentification.fxml"));
+            primaryStage.setScene(new Scene(root, 700, 400));
+            primaryStage.centerOnScreen();
+            Utils.createLog("Disconnect");
+        }
     }
 }
