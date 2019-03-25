@@ -16,13 +16,18 @@ import pt4p1ae1.veto.Utils;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class AjoutMaladieController extends ControllerSample implements Initializable {
 
     @FXML
     private Label animalNameLab;
+    @FXML
+    private Label error;
     @FXML
     private Button backBtn;
     @FXML
@@ -44,6 +49,8 @@ public class AjoutMaladieController extends ControllerSample implements Initiali
         traitement = Utils.getCurrentTraitement();
 
         animalNameLab.setText(Utils.getCurrentAnimal().getNom());
+        beginDateText.setPromptText("aaaa-mm-jj");
+        endDateText.setPromptText("aaaa-mm-jj");
     }
 
 
@@ -55,18 +62,31 @@ public class AjoutMaladieController extends ControllerSample implements Initiali
     }
 
     public void validateBtnOnAction(ActionEvent actionEvent) throws IOException {
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE);
+        java.util.Date dateD = null;
+        java.util.Date dateF = null;
+        try {
+            dateD = formatter.parse(beginDateText.getText());
+            dateF = formatter.parse(endDateText.getText());
+        } catch (ParseException e) {
+            error.setStyle("-fx-text-fill: red");
+            error.setText("Date(s) invalide(s)");
+        }
+        java.sql.Date sqlDateD = new java.sql.Date(dateD.getTime());
+        java.sql.Date sqlDateF = new java.sql.Date(dateF.getTime());
+
         if(!Utils.isModifyDisease()) {
             TraitementEntity newTraitement = new TraitementEntity();
             newTraitement.setMaladie(diseaseText.getText());
             newTraitement.setSoin(careText.getText());
-            newTraitement.setDateDebut((Date.valueOf(beginDateText.getText())));
-            newTraitement.setDateFin(Date.valueOf(endDateText.getText()));
+            newTraitement.setDateDebut(sqlDateD);
+            newTraitement.setDateFin(sqlDateF);
             Utils.TRAITEMENT_DAO.saveOrUpdate(newTraitement);
         } else {
             traitement.setMaladie(diseaseText.getText());
             traitement.setSoin(careText.getText());
-            traitement.setDateDebut((Date.valueOf(beginDateText.getText())));
-            traitement.setDateFin(Date.valueOf(endDateText.getText()));
+            traitement.setDateDebut(sqlDateD);
+            traitement.setDateFin(sqlDateF);
             Utils.TRAITEMENT_DAO.saveOrUpdate(traitement);
         }
 

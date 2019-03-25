@@ -1,7 +1,6 @@
 package pt4p1ae1.veto.GestionAnimaux;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import pt4p1ae1.veto.ControllerSample;
@@ -18,14 +18,12 @@ import pt4p1ae1.veto.Entity.AnimalEntity;
 import pt4p1ae1.veto.Entity.RaceEntity;
 import pt4p1ae1.veto.Utils;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Vector;
 
 public class InscriptionAnimalController extends ControllerSample implements Initializable {
 
@@ -40,7 +38,7 @@ public class InscriptionAnimalController extends ControllerSample implements Ini
     @FXML
     private Button newCustomer;
     @FXML
-    private TextField nameTextField;
+    private javafx.scene.control.TextField nameText;
     @FXML
     private ComboBox speciesComboBox;
     @FXML
@@ -50,11 +48,11 @@ public class InscriptionAnimalController extends ControllerSample implements Ini
     @FXML
     private RadioButton femaleRadioBtn;
     @FXML
-    private TextField birthDateTextField;
+    private TextField birthDateText;
     @FXML
-    private TextField weightTextField;
+    private TextField weightText;
     @FXML
-    private TextField furtherInformationsTextField;
+    private TextField furtherInformationsText;
 
     AnimalEntity animal = Utils.getCurrentAnimal();
 
@@ -71,16 +69,28 @@ public class InscriptionAnimalController extends ControllerSample implements Ini
         Utils.CLIENT_DAO.findAll().forEach(client -> ownersList.add(client.getPersonneById().getNom()));
         ownerComboBox.setItems(FXCollections.observableList(ownersList));
 
+        birthDateText.setPromptText("aaaa-mm-jj");
+
         if(Utils.isModifyAnimal()) {
             AnimalEntityObservable animalObservable = new AnimalEntityObservable(animal);
-            nameTextField.setText(animalObservable.getNom());
-            //birthDateTextField.setText(animalObservable.getDateDeNaissance());
-            weightTextField.setText(animalObservable.getPoids());
-            furtherInformationsTextField.setText(animalObservable.getAutresInformations());
+            ownerComboBox.getSelectionModel().select(animalObservable.getProprietaire());
+            nameText.setText(animal.getNom());
+            speciesComboBox.getSelectionModel().select(animalObservable.getEspece());
+            raceComboBox.getSelectionModel().select(animalObservable.getRace());
+            if(animalObservable.getSexe().equals("M"))
+                maleRadioBtn.setSelected(true);
+            if(animalObservable.getSexe().equals("F"))
+                femaleRadioBtn.setSelected(true);
+            birthDateText.setText(animalObservable.getDateDeNaissance().toString());
+            weightText.setText(animalObservable.getPoids());
+            furtherInformationsText.setText(animalObservable.getAutresInformations());
 
             registerBtn.setText("Enregistrer les modifications");
-
             titleLabel.setText("Modification de " + animalObservable.getNom());
+
+            if(speciesComboBox.getValue() != null) {
+                onActionSpeciesComboBox();
+            }
         }
     }
 
@@ -98,16 +108,21 @@ public class InscriptionAnimalController extends ControllerSample implements Ini
     @FXML
     private void onActionBackToAnimalsBtn() throws IOException {
         Stage primaryStage = (Stage) backToAnimalsBtn.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/rechercheAnimal.fxml"));
+        Parent root;
+        if(Utils.isModifyAnimal())
+            root = FXMLLoader.load(getClass().getResource("/fxml/dossierAnimal.fxml"));
+        else
+            root = FXMLLoader.load(getClass().getResource("/fxml/rechercheAnimal.fxml"));
         primaryStage.setScene(new Scene(root, 1280, 720));
         primaryStage.centerOnScreen();
+
     }
 
     @FXML
     private void onActionRegisterBtn() throws IOException {
         if(!Utils.isModifyAnimal()) {
             AnimalEntity newAnimal = new AnimalEntity();
-            newAnimal.setNom(nameTextField.getText());
+            newAnimal.setNom(nameText.getText());
             long idRace = -1;
             for(RaceEntity race : Utils.RACE_DAO.findAll()) {
                 if(race.getNom().equals(raceComboBox.getValue().toString())) {
@@ -115,14 +130,14 @@ public class InscriptionAnimalController extends ControllerSample implements Ini
                 }
             }
             newAnimal.setIdRace(idRace);
-            if(maleRadioBtn.isSelected()) newAnimal.setSexe('M');
-            else newAnimal.setSexe('F');
-            newAnimal.setDateNaissance((Date.valueOf(birthDateTextField.getText())));
-            newAnimal.setPoids(Double.parseDouble(weightTextField.getText()));
-            newAnimal.setAutreInformations(furtherInformationsTextField.getText());
+            if(maleRadioBtn.isSelected()) newAnimal.setSexe("M");
+            else newAnimal.setSexe("F");
+            newAnimal.setDateNaissance((Date.valueOf(birthDateText.getText())));
+            newAnimal.setPoids(Double.parseDouble(weightText.getText()));
+            newAnimal.setAutreInformations(furtherInformationsText.getText());
             Utils.ANIMAL_DAO.saveOrUpdate(newAnimal);
         } else {
-            animal.setNom(nameTextField.getText());
+            animal.setNom(nameText.getText());
             long idRace = -1;
             for(RaceEntity race : Utils.RACE_DAO.findAll()) {
                 if(race.getNom().equals(raceComboBox.getValue().toString())) {
@@ -130,11 +145,11 @@ public class InscriptionAnimalController extends ControllerSample implements Ini
                 }
             }
             animal.setIdRace(idRace);
-            if(maleRadioBtn.isSelected()) animal.setSexe('M');
-            else animal.setSexe('F');
-            animal.setDateNaissance((Date.valueOf(birthDateTextField.getText())));
-            animal.setPoids(Double.parseDouble(weightTextField.getText()));
-            animal.setAutreInformations(furtherInformationsTextField.getText());
+            if(maleRadioBtn.isSelected()) animal.setSexe("M");
+            else animal.setSexe("F");
+            animal.setDateNaissance((Date.valueOf(birthDateText.getText())));
+            animal.setPoids(Double.parseDouble(weightText.getText()));
+            animal.setAutreInformations(furtherInformationsText.getText());
             Utils.ANIMAL_DAO.saveOrUpdate(animal);
         }
 

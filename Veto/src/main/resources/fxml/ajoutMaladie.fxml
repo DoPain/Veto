@@ -52,6 +52,7 @@
             <TextField fx:id="careText" layoutX="287.0" layoutY="222.0" prefHeight="102.0" prefWidth="407.0" />
             <TextField fx:id="beginDateText" layoutX="287.0" layoutY="354.0" />
             <TextField fx:id="endDateText" layoutX="287.0" layoutY="385.0" />
+            <Label fx:id="error" layoutX="795.0" layoutY="571.0" />
             </children>
         </AnchorPane>
     </center>

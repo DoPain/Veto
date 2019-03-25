@@ -54,7 +54,7 @@
             <TextField fx:id="weightText" layoutX="752.0" layoutY="237.0" prefHeight="26.0" prefWidth="72.0" />
             <Label layoutX="568.0" layoutY="311.0" text="Informations complémentaires :" />
             <TextField fx:id="furtherInformationsText" layoutX="569.0" layoutY="356.0" prefHeight="86.0" prefWidth="487.0" />
-            <Button fx:id="register" layoutX="503.0" layoutY="538.0" mnemonicParsing="false" onAction="#onActionRegisterBtn" text="Inscription" />
+            <Button fx:id="registerBtn" layoutX="503.0" layoutY="538.0" mnemonicParsing="false" onAction="#onActionRegisterBtn" text="Inscription" />
             <Label fx:id="titleLabel" layoutX="472.0" layoutY="21.0" text="Création profil animal" />
             <ButtonBar layoutX="182.0" layoutY="424.0" prefHeight="40.0" prefWidth="206.0">
                <buttons>

@@ -28,25 +28,26 @@ public class DossierAnimalController extends ControllerSample implements Initial
     @FXML
     private Button backToAnimals;
     @FXML
-    private Label animalNameLabel;
+    private Label animalNameLab;
     @FXML
     private Label resumeAnimalLabel;
+    @FXML
+    private Label diseaseHistoryTitle;
+
+    @FXML
+    private Label error;
+    @FXML
+    private Label resumeAnimalTitle;
 
     //les boutons du bas
     @FXML
-    private Button animalModifyBtn;
+    private Button animalModify;
     @FXML
-    private Button animalDeleteBtn;
-    @FXML
-    private Button prescriptionGenerateBtn;
-    @FXML
-    private Button billGenerateBtn;
+    private Button animalDelete;
 
     //liste des maladies
     @FXML
     private TableView <TraitementEntityObservable> diseaseHistory;
-    @FXML
-    private TableColumn<TraitementEntityObservable, String> numCol;
     @FXML
     private TableColumn<TraitementEntityObservable, String> diseaseCol;
     @FXML
@@ -59,8 +60,6 @@ public class DossierAnimalController extends ControllerSample implements Initial
     private Button insertDiseaseBtn;
     @FXML
     private Button editDiseaseBtn;
-    @FXML
-    private Button deleteDiseaseBtn;
 
     @FXML
     private AnimalEntity animal;
@@ -73,17 +72,21 @@ public class DossierAnimalController extends ControllerSample implements Initial
         AnimalEntityObservable animalObservable = new AnimalEntityObservable(animal);
 
         //Mettre le nom de l'animal dans animalNameLabel
-        animalNameLabel.setText(animal.getNom());
+        animalNameLab.setText(animal.getNom());
+        error.setText("");
+        animalNameLab.setStyle("-fx-font-weight: bold");
+        resumeAnimalTitle.setStyle("-fx-font-weight: bold");
+        diseaseHistoryTitle.setStyle("-fx-font-weight: bold");
 
         //Afficher résumé de l'animal dans resumeAnimalLabel
         resumeAnimalLabel.setText(
                 "Propriétaire : " + animalObservable.getProprietaire()
-                        + "Nom : " + animalObservable.getNom()
-                        + "Espèce : " + animalObservable.getEspece()
-                        + "Race : " + animalObservable.getRace()
-                        + "Date de naissance : " + animalObservable.getDateDeNaissance()
-                        + "Poids : " + animalObservable.getPoids()
-                        + "Autres informations : " + animalObservable.getAutresInformations()
+                        + "\n\nNom : " + animalObservable.getNom()
+                        + "\n\nEspèce : " + animalObservable.getEspece()
+                        + "\n\nRace : " + animalObservable.getRace()
+                        + "\n\nDate de naissance : " + animalObservable.getDateDeNaissance()
+                        + "\n\nPoids : " + animalObservable.getPoids()
+                        + "\n\nAutres informations : " + animalObservable.getAutresInformations()
         );
 
 
@@ -93,15 +96,7 @@ public class DossierAnimalController extends ControllerSample implements Initial
         startDateCol.setCellValueFactory(new PropertyValueFactory<>("dateDebut"));
         endDateCol.setCellValueFactory(new PropertyValueFactory<>("dateFin"));
 
-        ObservableList<TraitementEntityObservable> observableList = FXCollections.observableArrayList();
-        List<TraitementEntity> traitements = Utils.TRAITEMENT_DAO.findAll();
-        for (TraitementEntity traitement : traitements) {
-            if(traitement.getIdAnimal() == animal.getId()) {
-                observableList.add(new TraitementEntityObservable(traitement));
-            }
-        }
-
-        diseaseHistory.setItems(observableList);
+        loadTraitements();
     }
 
     //boutons du bas
@@ -109,32 +104,30 @@ public class DossierAnimalController extends ControllerSample implements Initial
     @FXML
     private void onActionAnimalModifyBtn() throws IOException {
         Utils.setModifyAnimal(true);
-        Stage primaryStage = (Stage) animalModifyBtn.getScene().getWindow();
+        Stage primaryStage = (Stage) animalModify.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/inscriptionAnimal.fxml"));
         primaryStage.setScene(new Scene(root, 1280, 720));
         primaryStage.centerOnScreen();
     }
 
     @FXML
-    private void onActionAnimalDeleteBtn() {
+    private void onActionAnimalDeleteBtn() throws IOException {
         //TODO Supprimer l'animal (afficher fenêtre de confirmation)
-    }
+        Utils.createLog("Remove Animal : " + animal.getNom() +
+                " appartenant à " + animal.getClientByIdClient().getPersonneById().getNom());
+        Utils.ANIMAL_DAO.delete(animal);
 
-    @FXML
-    private void onActionPrescriptionGenerateBtn() {
-        //TODO Générer l'ordonnance
-    }
-
-    @FXML
-    private void onActionBillGenerateBtn() {
-        //TODO Générer la facture
+        Stage primaryStage = (Stage) animalDelete.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/rechercheAnimal.fxml"));
+        primaryStage.setScene(new Scene(root, 1280, 720));
+        primaryStage.centerOnScreen();
     }
 
     @FXML
     private void onActionInsertCareBtn() throws IOException {
         //TODO Afficher la fenêtre d'insertion d'un soin
         Utils.setModifyAnimal(false);
-        Stage primaryStage = (Stage) backToAnimals.getScene().getWindow();
+        Stage primaryStage = (Stage) insertDiseaseBtn.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/ajoutMaladie.fxml"));
         primaryStage.setScene(new Scene(root, 1280, 720));
         primaryStage.centerOnScreen();
@@ -142,20 +135,37 @@ public class DossierAnimalController extends ControllerSample implements Initial
 
     @FXML
     private void onActionEditCareBtn() throws IOException {
-        //TODO Afficher la fenêtre d'édition d'un soin (du soin sélectionné ?)
-        TraitementEntityObservable traitementObservable = diseaseHistory.getSelectionModel().getSelectedItem();
-        TraitementEntity traitement = Utils.TRAITEMENT_DAO.findById(traitementObservable.getId());
-        Utils.setCurrentTraitement(traitement);
-        Utils.setModifyAnimal(true);
-        Stage primaryStage = (Stage) backToAnimals.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/ajoutMaladie.fxml"));
-        primaryStage.setScene(new Scene(root, 1280, 720));
-        primaryStage.centerOnScreen();
+        if (diseaseHistory.getSelectionModel().getSelectedItem() != null) {
+            error.setText("");
+            TraitementEntityObservable traitementObservable = diseaseHistory.getSelectionModel().getSelectedItem();
+            TraitementEntity traitement = Utils.TRAITEMENT_DAO.findById(traitementObservable.getId());
+            Utils.setCurrentTraitement(traitement);
+            Utils.setModifyAnimal(true);
+            Stage primaryStage = (Stage) editDiseaseBtn.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/ajoutMaladie.fxml"));
+            primaryStage.setScene(new Scene(root, 1280, 720));
+            primaryStage.centerOnScreen();
+        } else {
+            error.setStyle("-fx-text-fill: red");
+            error.setText("Aucune maladie selectionnée");
+        }
     }
 
     @FXML
     private void onActionDeleteCareBtn() {
-        //TODO Afficher la fenêtre de suppression d'un soin (du soin sélectionné ?)
+        if (diseaseHistory.getSelectionModel().getSelectedItem() != null) {
+            error.setText("");
+            TraitementEntityObservable selectedTraitement = diseaseHistory.getSelectionModel().getSelectedItem();
+            TraitementEntity traitement = Utils.TRAITEMENT_DAO.findById(selectedTraitement.getId());
+            Utils.createLog("Remove Traitement : " + traitement.getMaladie() +
+                    " à " + traitement.getAnimalByIdAnimal().getNom() +
+                    " appartenant à " + traitement.getAnimalByIdAnimal().getClientByIdClient().getPersonneById().getNom());
+            Utils.TRAITEMENT_DAO.delete(traitement);
+            loadTraitements();
+        } else {
+            error.setStyle("-fx-text-fill: red");
+            error.setText("Aucune maladie selectionnée");
+        }
     }
 
     public void onActionBackToAnimalsBtn(ActionEvent actionEvent) throws IOException {
@@ -163,5 +173,16 @@ public class DossierAnimalController extends ControllerSample implements Initial
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/rechercheAnimal.fxml"));
         primaryStage.setScene(new Scene(root, 1280, 720));
         primaryStage.centerOnScreen();
+    }
+
+    private void loadTraitements() {
+        ObservableList<TraitementEntityObservable> observableList = FXCollections.observableArrayList();
+        List<TraitementEntity> traitements = Utils.TRAITEMENT_DAO.findAll();
+        for (TraitementEntity traitement : traitements) {
+            if(traitement.getIdAnimal() == animal.getId()) {
+                observableList.add(new TraitementEntityObservable(traitement));
+            }
+        }
+        diseaseHistory.setItems(observableList);
     }
 }

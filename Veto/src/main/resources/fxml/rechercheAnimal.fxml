@@ -57,9 +57,9 @@
                 </columns>
             </TableView>
             <Button fx:id="filterButton" layoutX="909.0" layoutY="87.0" mnemonicParsing="false" onAction="#filterBtnOnAction" prefHeight="26.0" prefWidth="75.0" text="Filtrer" />
-            <Button fx:id="insertButton" layoutX="320.0" layoutY="613.0" mnemonicParsing="false" onAction="#insertBtnOnAction" prefHeight="30.0" prefWidth="145.0" text="Insérer" />
-            <Button fx:id="editButton" layoutX="464.0" layoutY="613.0" mnemonicParsing="false" onAction="#editBtnOnAction" prefHeight="30.0" prefWidth="145.0" text="Modifier" />
-            <Button fx:id="deleteButton" layoutX="609.0" layoutY="613.0" mnemonicParsing="false" onAction="#deleteBtnOnAction" prefHeight="30.0" prefWidth="145.0" text="Supprimer" />
+            <Button fx:id="insertButton" layoutX="165.0" layoutY="598.0" mnemonicParsing="false" onAction="#insertBtnOnAction" prefHeight="30.0" prefWidth="221.0" text="Ajouter un nouvel animal" />
+            <Button fx:id="detailButton" layoutX="702.0" layoutY="598.0" mnemonicParsing="false" onAction="#detailBtnOnAction" prefHeight="30.0" prefWidth="145.0" text="Détail de l'animal" />
+            <Label fx:id="error" layoutX="405.0" layoutY="605.0" prefHeight="16.0" prefWidth="189.0" />
          </children>
       </AnchorPane>
    </center>

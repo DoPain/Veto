@@ -8,13 +8,13 @@ import java.sql.Date;
 import java.util.List;
 
 public class AnimalEntityObservable {
-    private AnimalEntity animalEntity;
     private long id;
     private String proprietaire;
     private String nom;
     private String espece;
     private String race;
     private Date dateDeNaissance;
+    private String sexe;
     private String age;
     private String poids;
     private String autresInformations;
@@ -23,25 +23,26 @@ public class AnimalEntityObservable {
     private AnimalEntity animal;
 
     public AnimalEntityObservable(AnimalEntity animal) {
-        animalEntity = animal;
+        this.animal = animal;
         this.id = animal.getId();
         this.proprietaire = animal.getClientByIdClient().getPersonneById().getNom();
         this.nom = animal.getNom();
         this.espece = animal.getRaceByIdRace().getEspeceByIdEspece().getNom();
         this.race = animal.getRaceByIdRace().getNom();
+        this.sexe = animal.getSexe();
         this.dateDeNaissance = animal.getDateNaissance();
         this.age = Utils.calculateAge(animal.getDateNaissance());
-        if (animal.getPoids() != null)
+        if(animal.getPoids()!=null)
             this.poids = animal.getPoids().toString();
         else
-            this.poids = "Non renseigné";
+            this.poids = "";
         this.autresInformations = animal.getAutreInformations();
         //this.prochainRDV = getNextRDVAnimal();
 
     }
 
     private String getNextRDVAnimal() {
-        List<RendezVousEntity> allRDV = Utils.getRDVAnimal(animalEntity.getId());
+        List<RendezVousEntity> allRDV = Utils.getRDVAnimal(animal.getId());
         RendezVousEntity next = null;
 
         if (allRDV != null) {
@@ -101,5 +102,13 @@ public class AnimalEntityObservable {
 
     public AnimalEntity toAnimalEntity() {
         return animal;
+    }
+
+    public AnimalEntity getAnimal() {
+        return animal;
+    }
+
+    public String getSexe() {
+        return sexe;
     }
 }
