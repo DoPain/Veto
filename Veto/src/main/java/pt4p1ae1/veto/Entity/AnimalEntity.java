@@ -22,6 +22,11 @@ public class AnimalEntity {
     private Collection<RendezVousEntity> rendezVousById;
     private Collection<TraitementEntity> traitementsById;
 
+    @Override
+    public String toString() {
+        return raceByIdRace.getNom()+" : "+nom;
+    }
+
     @Id
     @Column(name = "id", nullable = false)
     public long getId() {

@@ -10,10 +10,14 @@ import java.util.Objects;
 public class VeterinaireEntity {
     private long id;
     private byte[] signature;
-
     private Collection<OrdonnanceEntity> ordonnancesById;
     private Collection<RendezVousEntity> rendezVousById;
     private PersonneEntity personneById;
+
+    @Override
+    public String toString() {
+        return personneById.getNom() + " " + personneById.getPrenom();
+    }
 
     @Id
     @Column(name = "id", nullable = false)

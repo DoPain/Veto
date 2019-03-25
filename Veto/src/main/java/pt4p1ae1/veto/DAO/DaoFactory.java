@@ -58,8 +58,10 @@ public class DaoFactory {
             @Transactional
             public void removeAll() {
                 Session session = App.getSession();
-                Query q = session.createQuery("from " + className + " where 1");
-                q.executeUpdate();
+                session.beginTransaction();
+                Query query = session.createQuery("delete from " + className);
+                query.executeUpdate();
+                session.getTransaction().commit();
                 session.close();
             }
         };
