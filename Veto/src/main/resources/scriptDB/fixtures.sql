@@ -31,17 +31,14 @@ INSERT INTO Client (id) VALUES
 ((SELECT id FROM Personne WHERE Personne.nom = "BACRE"));
 
 INSERT INTO Log (idEmploye, action) VALUES 
-((SELECT id FROM Employe WHERE Employe.login = 'cquerre'), "New Client"),
-((SELECT id FROM Employe WHERE Employe.login = 'cquerre'), "New Race"),
-((SELECT id FROM Employe WHERE Employe.login = 'eboury'), "Remove Client"),
-((SELECT id FROM Employe WHERE Employe.login = 'cquerre'), "Remove Produit"),
-((SELECT id FROM Employe WHERE Employe.login = 'dmorax'), "Edit Produit"),
-((SELECT id FROM Employe WHERE Employe.login = 'dmorax'), "New Produit"),
-((SELECT id FROM Employe WHERE Employe.login = 'eboury'), "New Client"),
-((SELECT id FROM Employe WHERE Employe.login = 'eboury'), "New Race"),
-((SELECT id FROM Employe WHERE Employe.login = 'cquerre'), "New Espece"),
-((SELECT id FROM Employe WHERE Employe.login = 'cquerre'), "New Race"),
-((SELECT id FROM Employe WHERE Employe.login = 'cquerre'), "Remove Ordonnance");
+((SELECT id FROM Employe WHERE Employe.login = 'cquerre'), "Creation Client : NISLA Jean"),
+((SELECT id FROM Employe WHERE Employe.login = 'eboury'), "Suppression Client : COUTLI Thierry"),
+((SELECT id FROM Employe WHERE Employe.login = 'cquerre'), "Suppression Produit : ADHEC 500"),
+((SELECT id FROM Employe WHERE Employe.login = 'dmorax'), "Modifier Produit : MOURIC "),
+((SELECT id FROM Employe WHERE Employe.login = 'dmorax'), "Creation Produit : AMPHOPRIM"),
+((SELECT id FROM Employe WHERE Employe.login = 'eboury'), "Creation Client "),
+((SELECT id FROM Employe WHERE Employe.login = 'cquerre'), "Creation Espece : Serpent"),
+((SELECT id FROM Employe WHERE Employe.login = 'cquerre'), "Creation Race : Hierophis");
 
 INSERT INTO Espece (nom) VALUES 
 ('Lapin'), 
@@ -71,7 +68,8 @@ INSERT INTO Race (idEspece, nom) VALUES
 ((SELECT id FROM Espece WHERE Espece.nom = 'Hamster'),'Hamster de Syrie'),
 ((SELECT id FROM Espece WHERE Espece.nom = 'Hamster'),'Hamster d\'Europe'),
 ((SELECT id FROM Espece WHERE Espece.nom = 'Hamster'),'Hamster de Campbell'),
-((SELECT id FROM Espece WHERE Espece.nom = 'Hamster'),'Hamster hybride');
+((SELECT id FROM Espece WHERE Espece.nom = 'Hamster'),'Hamster hybride'),
+((SELECT id FROM Espece WHERE Espece.nom = 'Serpent'),'Hierophis');
 
 INSERT INTO Animal (idRace, idClient, nom, dateNaissance, sexe) VALUES
 ((SELECT id FROM Race WHERE Race.nom = 'Japonais'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "NISLA"), 'PamPam', DATE("2007-10-23"), 'F'),

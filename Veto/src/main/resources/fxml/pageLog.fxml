@@ -17,7 +17,7 @@
                     layoutX="1192.0" mnemonicParsing="false" onAction="#onActionDisconnectBTN" prefHeight="75.0"
                     prefWidth="70.0">
                 <graphic>
-                    <ImageView fitHeight="75.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                    <ImageView pickOnBounds="true" preserveRatio="true">
                         <Image url="@../img/power.png"/>
                     </ImageView>
                 </graphic>
