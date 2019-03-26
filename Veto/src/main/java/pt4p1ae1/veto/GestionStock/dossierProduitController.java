@@ -71,12 +71,12 @@ public class dossierProduitController extends ControllerSample implements Initia
 
     }
 
-    public void retourProduits(ActionEvent actionEvent) throws IOException {
+    public void retourProduits() throws IOException {
         super.creatBtn("/fxml/rechercheProduit.fxml", (Stage) backToProducts.getScene().getWindow());
     }
 
     @FXML
-    private void modifierProduit() throws ParseException {
+    private void modifierProduit() throws ParseException, IOException {
         if(!nom.getText().equals("") && !prix.getText().equals("") && !quantite.getText().equals("") && !quantiteMin.getText().equals("") && !reference.getText().equals("") && !datePeremption.getText().equals("") && !dateAcquisition.getText().equals("")) {
             currentProduit.setRefProduit(reference.getText());
             currentProduit.setDescription(description.getText());
@@ -96,6 +96,7 @@ public class dossierProduitController extends ControllerSample implements Initia
             error.setStyle("-fx-text-fill: red");
             error.setText("Information(s) manquante(s)");
         }
+        retourProduits();
     }
 
     @FXML
