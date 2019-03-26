@@ -38,6 +38,8 @@ public class RechercheAnimalController extends ControllerSample implements Initi
     @FXML
     private TableColumn<AnimalEntityObservable, String> nomProprioColumn;
     @FXML
+    private TableColumn<AnimalEntityObservable, String> nextRDVColumn;
+    @FXML
     private TableColumn<AnimalEntityObservable, String> nomAnimalColumn;
     @FXML
     private TableColumn<AnimalEntityObservable, String> nomEspeceColumn;
@@ -62,6 +64,7 @@ public class RechercheAnimalController extends ControllerSample implements Initi
         nomAnimalColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
         nomEspeceColumn.setCellValueFactory(new PropertyValueFactory<>("espece"));
         nomRaceColumn.setCellValueFactory(new PropertyValueFactory<>("race"));
+        nextRDVColumn.setCellValueFactory(new PropertyValueFactory<>("prochainRDV"));
 
         loadAnimals();
 
@@ -131,7 +134,7 @@ public class RechercheAnimalController extends ControllerSample implements Initi
     }
 
     private void filterAnimals(){
-        Boolean ajout = false;
+        boolean ajout = false;
         ObservableList<AnimalEntityObservable> observableTmpList = FXCollections.observableArrayList();
         ObservableList<AnimalEntityObservable> observableTmpListCopy = FXCollections.observableArrayList();
 

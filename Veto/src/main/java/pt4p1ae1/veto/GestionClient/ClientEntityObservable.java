@@ -3,8 +3,12 @@ package pt4p1ae1.veto.GestionClient;
 import pt4p1ae1.veto.Entity.AnimalEntity;
 import pt4p1ae1.veto.Entity.RendezVousEntity;
 import pt4p1ae1.veto.Entity.ClientEntity;
+import pt4p1ae1.veto.GestionAnimaux.AnimalEntityObservable;
 import pt4p1ae1.veto.Utils;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClientEntityObservable {
@@ -35,30 +39,25 @@ public class ClientEntityObservable {
         } else {
             this.email = "Non renseigné";
         }
-        this.nextRDV = "Pas de Rendez-vous";//getNextRDVOfClient();
+        this.nextRDV = getNextRDVOfClient();
     }
 
     private String getNextRDVOfClient() {
-        List<AnimalEntity> allAnimals = Utils.getAnimalFromClient(this.clientEntity.getPersonneById().getId());
-        List<RendezVousEntity> allRDV = null;
-        RendezVousEntity next = null;
-        if (allAnimals != null) {
-            for (AnimalEntity animal : allAnimals) {
-                List<RendezVousEntity> allRDVAnimal = Utils.getRDVAnimal(animal.getId());
-                if (allRDVAnimal != null) {
-                    allRDV.addAll(allRDVAnimal);
+        List<AnimalEntity> animalsClient = Utils.getAnimalFromClient(this.clientEntity.getId());
+        RendezVousEntity nextRDV = null;
+        for (AnimalEntity animal : animalsClient) {
+            RendezVousEntity rdv = Utils.getNextRDVAnimal(animal.getId());
+            if (null != rdv) {
+                if (null == nextRDV || nextRDV.getDateHeureDebut().getTime() > rdv.getDateHeureDebut().getTime()) {
+                    nextRDV = rdv;
                 }
-            }
-            if (allRDV != null) {
-                for (RendezVousEntity rdv : allRDV) {
-                    if (next != null || next.getDateHeureDebut().getTime() > rdv.getDateHeureDebut().getTime()){
-                        next = rdv;
-                    }
-                }
-            return next.getDateHeureDebut().toString();
             }
         }
-        return "Pas de rendez-vous";
+        if (null != nextRDV){
+            return nextRDV.getDateHeureDebut().toString();
+        } else {
+            return "Pas de rendez-vous";
+        }
     }
 
     public ClientEntity toClientEntity() {

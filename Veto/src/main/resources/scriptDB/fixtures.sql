@@ -119,6 +119,30 @@ INSERT INTO Produit (nom, refProduit, quantiteEnStock, quantiteMinimum, prix, pe
 INSERT INTO Veterinaire (id, signature) VALUES
 ((SELECT id FROM Personne P WHERE P.nom = "MAUX"), "Signature MAUX");
 
+INSERT INTO RendezVous(RendezVous.idAnimal, RendezVous.idVeterinaire, RendezVous.dateHeureDebut, RendezVous.dateHeureFin) VALUES
+((SELECT A.id FROM Animal A
+										 INNER JOIN Race R ON R.id = A.idRace
+										 INNER JOIN Client C ON C.id = A.idClient
+										 INNER JOIN Personne P ON P.id = C.id
+	WHERE R.nom = 'Hamster hybride'
+		AND P.nom = 'BACRE'
+		AND P.prenom = 'Marc'
+		AND A.nom = 'Noisette'),(SELECT V.id FROM Veterinaire V
+																								 INNER JOIN Personne P ON P.id = V.id
+														 WHERE P.nom = 'MAUX'
+															 AND P.prenom = 'Annie'), CURTIME(), CURTIME()+10),
+((SELECT A.id FROM Animal A
+										 INNER JOIN Race R ON R.id = A.idRace
+										 INNER JOIN Client C ON C.id = A.idClient
+										 INNER JOIN Personne P ON P.id = C.id
+	WHERE R.nom = 'Hamster hybride'
+		AND P.nom = 'BACRE'
+		AND P.prenom = 'Marc'
+		AND A.nom = 'Noisette'),(SELECT V.id FROM Veterinaire V
+																								INNER JOIN Personne P ON P.id = V.id
+														 WHERE P.nom = 'MAUX'
+															 AND P.prenom = 'Annie'), CURTIME()+20, CURTIME()+30);
+
 INSERT INTO Ordonnance (Ordonnance.idAnimal, Ordonnance.idVeterinaire, dateOrdonnance) VALUES
 ((SELECT A.id FROM Animal A
 		INNER JOIN Race R ON R.id = A.idRace
