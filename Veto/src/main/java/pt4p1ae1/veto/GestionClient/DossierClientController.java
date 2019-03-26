@@ -13,6 +13,7 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import pt4p1ae1.veto.ControllerSample;
 import pt4p1ae1.veto.Entity.AnimalEntity;
+import pt4p1ae1.veto.Entity.ClientEntity;
 import pt4p1ae1.veto.Entity.VilleEntity;
 import pt4p1ae1.veto.GestionAnimaux.AnimalEntityObservable;
 import pt4p1ae1.veto.Utils;
@@ -68,7 +69,7 @@ public class DossierClientController extends ControllerSample implements Initial
     public void initialize(URL location, ResourceBundle resources) {
         super.start();
         ObservableList<VilleEntityObservable> villesObservables = FXCollections.observableArrayList();
-        cpClient.setOnKeyPressed(e->{
+        cpClient.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.ENTER) {
                 villesObservables.clear();
                 villesObservables.clear();
@@ -86,13 +87,24 @@ public class DossierClientController extends ControllerSample implements Initial
 
         firstNameClient.setText(Utils.currentClient.getPersonneById().getPrenom());
         nameClient.setText(Utils.currentClient.getPersonneById().getNom());
-        mailClient.setText(Utils.currentClient.getPersonneById().getMail());
-        telClient.setText(Utils.currentClient.getPersonneById().getTelephone());
-        adresseClient.setText(Utils.currentClient.getPersonneById().getAdresse());
-        naissanceClient.setText(Utils.currentClient.getPersonneById().getDateNaissance().toString());
-        cpClient.setText(Utils.currentClient.getPersonneById().getVilleByIdVille().getVilleCodePostal());
-        villeClient.setValue(new VilleEntityObservable(Utils.currentClient.getPersonneById().getVilleByIdVille()));
-
+        if (null != Utils.currentClient.getPersonneById().getMail()) {
+            mailClient.setText(Utils.currentClient.getPersonneById().getMail());
+        }
+        if (null != Utils.currentClient.getPersonneById().getTelephone()) {
+            telClient.setText(Utils.currentClient.getPersonneById().getTelephone());
+        }
+        if (null != Utils.currentClient.getPersonneById().getAdresse()) {
+            adresseClient.setText(Utils.currentClient.getPersonneById().getAdresse());
+        }
+        if (Utils.currentClient.getPersonneById().getDateNaissance() != null) {
+            naissanceClient.setText(Utils.currentClient.getPersonneById().getDateNaissance().toString());
+        }
+        if (!Utils.currentClient.getPersonneById().getVilleByIdVille().getVilleCodePostal().equals("")) {
+            cpClient.setText(Utils.currentClient.getPersonneById().getVilleByIdVille().getVilleCodePostal());
+        }
+        if (Utils.currentClient.getPersonneById().getVilleByIdVille() != null) {
+            villeClient.setValue(new VilleEntityObservable(Utils.currentClient.getPersonneById().getVilleByIdVille()));
+        }
         nameAnimal.setCellValueFactory(new PropertyValueFactory<>("nom"));
         ageAnimal.setCellValueFactory(new PropertyValueFactory<>("age"));
         poidsAnimal.setCellValueFactory(new PropertyValueFactory<>("poids"));
@@ -137,26 +149,46 @@ public class DossierClientController extends ControllerSample implements Initial
     }
 
     @FXML
-    private void supprClient() {
-        System.out.println("oui");
+    private void supprClient() throws IOException {
+        Parent root1 = FXMLLoader.load(this.getClass().getResource("/fxml/popup.fxml"));
+        Scene scene = new Scene(root1);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle("Confirmation");
+        stage.showAndWait();
+        if (Utils.getConfirmation()) {
+            Utils.createLog("Remove Client : " + Utils.currentClient.getPersonneById().getNom() + " " + Utils.currentClient.getPersonneById().getPrenom());
+            Utils.CLIENT_DAO.delete(Utils.currentClient);
+            creatBtn("/fxml/rechercheClient.fxml", (Stage) backToClients.getScene().getWindow());
+        }
     }
 
     @FXML
     private void validateModification() throws IOException, ParseException {
-        applyChanges();
-        System.out.println(Utils.currentClient.getPersonneById().getNom());
-        Utils.CLIENT_DAO.saveOrUpdate(Utils.currentClient);
-        Utils.PERSONNE_DAO.saveOrUpdate(Utils.currentClient.getPersonneById());
-        backToClientsBtn();
-        Utils.createLog("Modifier Client : "
-                + Utils.currentClient.getPersonneById().getNom()
-                + " "
-                + Utils.currentClient.getPersonneById().getPrenom());
+        Parent root1 = FXMLLoader.load(this.getClass().getResource("/fxml/popup.fxml"));
+        Scene scene = new Scene(root1);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle("Confirmation");
+        stage.showAndWait();
+
+        if (Utils.getConfirmation()) {
+            applyChanges();
+            System.out.println(Utils.currentClient.getPersonneById().getNom());
+            Utils.CLIENT_DAO.saveOrUpdate(Utils.currentClient);
+            Utils.PERSONNE_DAO.saveOrUpdate(Utils.currentClient.getPersonneById());
+            backToClientsBtn();
+            Utils.createLog("Modifier Client : "
+                    + Utils.currentClient.getPersonneById().getNom()
+                    + " "
+                    + Utils.currentClient.getPersonneById().getPrenom());
+            super.creatBtn("/fxml/rechercheClient.fxml", (Stage) backToClients.getScene().getWindow());
+        }
     }
 
     private void applyChanges() throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        if (Utils.currentClient.getPersonneById().getDateNaissance().toString() != naissanceClient.getText()){
+        if (!naissanceClient.getText().equals("")) {
             Utils.currentClient.getPersonneById().setDateNaissance(new java.sql.Date(dateFormat.parse(naissanceClient.getText()).getTime()));
         }
         if (Utils.currentClient.getPersonneById().getPrenom() != firstNameClient.getText()) {
@@ -165,13 +197,13 @@ public class DossierClientController extends ControllerSample implements Initial
         if (Utils.currentClient.getPersonneById().getNom() != nameClient.getText()) {
             Utils.currentClient.getPersonneById().setNom(nameClient.getText());
         }
-        if (Utils.currentClient.getPersonneById().getMail() != mailClient.getText()) {
+        if (!mailClient.getText().equals("")) {
             Utils.currentClient.getPersonneById().setMail(mailClient.getText());
         }
-        if (Utils.currentClient.getPersonneById().getTelephone() != telClient.getText()) {
+        if (!telClient.getText().equals("")) {
             Utils.currentClient.getPersonneById().setTelephone(telClient.getText());
         }
-        if (Utils.currentClient.getPersonneById().getAdresse() != adresseClient.getText()) {
+        if (!adresseClient.getText().equals("")) {
             Utils.currentClient.getPersonneById().setAdresse(adresseClient.getText());
         }
     }

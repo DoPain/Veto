@@ -120,13 +120,21 @@ public class RechercheClientController extends ControllerSample implements Initi
     }
 
     @FXML
-    private void supprimerClient() {
+    private void supprimerClient() throws IOException {
         if (tableViewClient.getSelectionModel().getSelectedItem() != null) {
-            ClientEntityObservable selectedClient = tableViewClient.getSelectionModel().getSelectedItem();
-            ClientEntity client = selectedClient.toClientEntity();
-            Utils.createLog("Remove Client : " + client.getPersonneById().getNom() + " " + client.getPersonneById().getPrenom());
-            Utils.CLIENT_DAO.delete(client);
-            loadClients();
+            Parent root1 = FXMLLoader.load(this.getClass().getResource("/fxml/popup.fxml"));
+            Scene scene = new Scene(root1);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Confirmation");
+            stage.showAndWait();
+            if (Utils.getConfirmation()) {
+                ClientEntityObservable selectedClient = tableViewClient.getSelectionModel().getSelectedItem();
+                ClientEntity client = selectedClient.toClientEntity();
+                Utils.createLog("Remove Client : " + client.getPersonneById().getNom() + " " + client.getPersonneById().getPrenom());
+                Utils.CLIENT_DAO.delete(client);
+                loadClients();
+            }
         } else {
             error.setStyle("-fx-text-fill: red");
             error.setText("Aucun client selectionné");
