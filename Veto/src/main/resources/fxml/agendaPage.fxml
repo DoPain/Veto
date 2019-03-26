@@ -28,7 +28,7 @@
                 </Button>
                 <Text layoutX="565.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Agenda">
                     <font>
-                        <Font size="19.0" />
+                        <Font size="19.0"/>
                     </font>
                 </Text>
                 <HBox alignment="TOP_CENTER" layoutX="340.0" layoutY="40.0" prefHeight="35.0" prefWidth="530.0" BorderPane.alignment="CENTER">
