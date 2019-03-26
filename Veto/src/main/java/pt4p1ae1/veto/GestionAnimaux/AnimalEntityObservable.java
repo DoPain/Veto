@@ -5,6 +5,7 @@ import pt4p1ae1.veto.Entity.RendezVousEntity;
 import pt4p1ae1.veto.Utils;
 
 import java.sql.Date;
+import java.time.Instant;
 import java.util.List;
 
 public class AnimalEntityObservable {
@@ -37,25 +38,15 @@ public class AnimalEntityObservable {
         else
             this.poids = "";
         this.autresInformations = animal.getAutreInformations();
-        this.prochainRDV = "pas défini";
+        this.prochainRDV = getNextRDVAnimal();
     }
 
-    private String getNextRDVAnimal() {
-        List<RendezVousEntity> allRDV = Utils.getRDVAnimal(animal.getId());
-        RendezVousEntity next = null;
-
-        if (allRDV != null) {
-            for (RendezVousEntity rdv : allRDV) {
-                if (next == null || rdv.getDateHeureDebut().getTime() < next.getDateHeureDebut().getTime()) {
-                    next = rdv;
-                }
-            }
-        }
-
-        if (next != null) {
-            return next.toString();
+    public String getNextRDVAnimal() {
+        RendezVousEntity nextRDV = Utils.getNextRDVAnimal(animal.getId());
+        if (null != nextRDV) {
+            return nextRDV.getDateHeureDebut().toString();
         } else {
-            return "Pas de prochain rendez-vous";
+            return "Pas de rendez-vous";
         }
     }
 

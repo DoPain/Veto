@@ -28,7 +28,6 @@ public class Utils {
     public static final EntityDao<ProduitEntity> PRODUIT_DAO = DaoFactory.getDaoFor(ProduitEntity.class);
     public static final EntityDao<AppartenirEntity> APPARTENIR_DAO = DaoFactory.getDaoFor(AppartenirEntity.class);
     public static final EntityDao<VilleEntity> VILLE_DAO = DaoFactory.getDaoFor(VilleEntity.class);
-
     public static final double WIDTH = 1280;
     public static final double HEIGHT = 800;
 
@@ -58,16 +57,21 @@ public class Utils {
         return String.valueOf(Period.between(naissance.toLocalDate(), now).getYears());
     }
 
-    public static List<RendezVousEntity> getRDVAnimal(long idAnimal) {
-        Iterator<RendezVousEntity> allRDV = Utils.RENDEZ_VOUS_DAO.findAll().iterator();
-        List<RendezVousEntity> allRDVAnimal = null;
-        while (allRDV.hasNext()) {
-            RendezVousEntity rdv = allRDV.next();
-            if (rdv.getIdAnimal() == idAnimal) {
-                allRDVAnimal.add(rdv);
+    public static RendezVousEntity getNextRDVAnimal(long idAnimal) {
+        List<RendezVousEntity> allRdv = Utils.RENDEZ_VOUS_DAO.findAll();
+        Iterator<RendezVousEntity> it = allRdv.iterator();
+        boolean found = false;
+        RendezVousEntity next = null;
+        RendezVousEntity nextRDV = null;
+        while (!found && it.hasNext()) {
+            next = it.next();
+            if (null != next.getIdAnimal() && next.getIdAnimal() == idAnimal) {
+                   nextRDV = next;
+                   found = true;
             }
         }
-        return allRDVAnimal;
+        if (found) return nextRDV;
+        else return null;
     }
 
     public static List<AnimalEntity> getAnimalFromClient(long idClient){
