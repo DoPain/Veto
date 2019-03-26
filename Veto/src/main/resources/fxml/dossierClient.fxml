@@ -58,7 +58,7 @@
                 <ButtonBar fx:id="clientsButtonList" layoutX="61.0" layoutY="564.0" prefHeight="40.0" prefWidth="335.0">
                     <buttons>
                         <Button fx:id="clientModify" mnemonicParsing="false" onAction="#validateModification" prefHeight="63.0" prefWidth="182.0" style="-fx-background-color: green;" text="Valider Modification" textFill="WHITE" />
-                        <Button fx:id="clientDelete" mnemonicParsing="false" onAction="#supprClient" style="-fx-background-color: red;" text="Supprimer client" textFill="WHITE" />
+                        <Button fx:id="clientDelete" mnemonicParsing="false" onAction="#supprClient" style="-fx-background-color: #C9223E;" text="Supprimer client" textFill="WHITE" />
                     </buttons>
                 </ButtonBar>
                 <ButtonBar buttonMinWidth="30.0" layoutX="658.0" layoutY="564.0" maxWidth="784.0" prefHeight="40.0" prefWidth="341.0">
@@ -71,7 +71,7 @@
                             <font>
                                 <Font size="12.0" />
                             </font></Button>
-                        <Button fx:id="deleteAnimalClient" mnemonicParsing="false" prefHeight="31.0" style="-fx-background-color: red;" text="Delete" textFill="WHITE">
+                        <Button fx:id="deleteAnimalClient" mnemonicParsing="false" prefHeight="31.0" style="-fx-background-color: #C9223E;" text="Delete" textFill="WHITE">
                             <font>
                                 <Font size="12.0" />
                             </font></Button>
@@ -98,7 +98,7 @@
             <HBox layoutX="590.0" layoutY="19.0" prefHeight="26.0" prefWidth="187.0" />
             <Label layoutX="518.0" layoutY="81.0" text="Nom animal : " />
             <TextField fx:id="nomAnimalClientText" layoutX="647.0" layoutY="76.0" />
-            <Button fx:id="filterButton" layoutX="999.0" layoutY="76.0" mnemonicParsing="false" onAction="#filtrer" style="-fx-background-color: yellow;" text="Filtrer" />
+            <Button fx:id="filterButton" layoutX="999.0" layoutY="76.0" mnemonicParsing="false" onAction="#filtrer" text="Filtrer" />
                 <Label layoutX="22.0" layoutY="81.0" text="Fiche client :" />
             </children>
         </AnchorPane>

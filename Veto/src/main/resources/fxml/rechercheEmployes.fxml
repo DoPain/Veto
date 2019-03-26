@@ -57,9 +57,9 @@
                       </columns>
                   </TableView>
                 <Button fx:id="filterButton" layoutX="837.0" layoutY="87.0" mnemonicParsing="false" onAction="#filtrerEmp" prefHeight="26.0" prefWidth="75.0" text="Filtrer" />
-                <Button fx:id="insertEmpButton" layoutX="260.0" layoutY="614.0" mnemonicParsing="false" onAction="#insererEmploye" prefHeight="30.0" prefWidth="145.0" text="Insérer" />
-                <Button fx:id="editEmpButton" layoutX="509.0" layoutY="614.0" mnemonicParsing="false" onAction="#modifierEmploye" prefHeight="30.0" prefWidth="145.0" text="Modifier" />
-                <Button fx:id="deleteEmpButton" layoutX="764.0" layoutY="614.0" mnemonicParsing="false" onAction="#supprimerEmp" prefHeight="30.0" prefWidth="145.0" text="Supprimer" />
+                <Button fx:id="insertEmpButton" layoutX="260.0" layoutY="614.0" style="-fx-background-color: green" textFill="WHITE" mnemonicParsing="false" onAction="#insererEmploye" prefHeight="30.0" prefWidth="145.0" text="Insérer" />
+                <Button fx:id="editEmpButton" layoutX="509.0" layoutY="614.0" style="-fx-background-color: blue" textFill="WHITE" mnemonicParsing="false" onAction="#modifierEmploye" prefHeight="30.0" prefWidth="145.0" text="Modifier" />
+                <Button fx:id="deleteEmpButton" layoutX="764.0" layoutY="614.0" style="-fx-background-color: #C9223E;" textFill="WHITE" mnemonicParsing="false" onAction="#supprimerEmp" prefHeight="30.0" prefWidth="145.0" text="Supprimer" />
             <TextField fx:id="telEmpField" layoutX="589.0" layoutY="87.0" />
             <Label fx:id="error" layoutX="819.0" layoutY="39.0" prefHeight="23.0" prefWidth="184.0" />
             <Label layoutX="463.0" layoutY="39.0" text="Type de contrat :" />
