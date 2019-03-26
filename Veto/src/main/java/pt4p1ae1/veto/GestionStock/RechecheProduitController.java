@@ -14,8 +14,7 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import pt4p1ae1.veto.ControllerSample;
 import pt4p1ae1.veto.Entity.ProduitEntity;
-import pt4p1ae1.veto.GestionCLient.ClientEntityObservable;
-import pt4p1ae1.veto.PopupController;
+import pt4p1ae1.veto.GestionClient.ClientEntityObservable;
 import pt4p1ae1.veto.Utils;
 
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package pt4p1ae1.veto.GestionCLient;
+package pt4p1ae1.veto.GestionClient;
 
 import javafx.fxml.Initializable;
 import pt4p1ae1.veto.ControllerSample;

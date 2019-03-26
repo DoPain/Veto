@@ -1,14 +1,10 @@
-package pt4p1ae1.veto.GestionCLient;
+package pt4p1ae1.veto.GestionClient;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import pt4p1ae1.veto.ControllerSample;
-import pt4p1ae1.veto.Utils;
 
 import java.io.IOException;
 import java.net.URL;
