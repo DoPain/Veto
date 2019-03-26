@@ -66,8 +66,8 @@
                         <TableColumn fx:id="comment" prefWidth="582.0" text="Posologie    " />
                     </columns>
                 </TableView>
-                <Button layoutX="31.0" layoutY="445.0" mnemonicParsing="false" onMouseClicked="#deletePoso" prefHeight="33.0" prefWidth="158.0" text="Supprimer" />
-                <Button layoutX="585.0" layoutY="492.0" mnemonicParsing="false" onMouseClicked="#editModeUndisplay" prefHeight="63.0" prefWidth="200.0" text="Valider" />
+                <Button layoutX="31.0" layoutY="445.0" mnemonicParsing="false" onMouseClicked="#deletePoso" style="-fx-background-color: #C9223E;"  textFill="WHITE" prefHeight="33.0" prefWidth="158.0" text="Supprimer" />
+                <Button layoutX="585.0" layoutY="492.0" mnemonicParsing="false" onMouseClicked="#editModeUndisplay" style="-fx-background-color: green"  textFill="WHITE" prefHeight="63.0" prefWidth="200.0" text="Valider" />
             </AnchorPane>
         </AnchorPane>
     </center>

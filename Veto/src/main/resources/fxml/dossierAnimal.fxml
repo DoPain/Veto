@@ -44,21 +44,21 @@
             <Button fx:id="backToAnimals" layoutX="37.0" layoutY="19.0" mnemonicParsing="false" onAction="#onActionBackToAnimalsBtn" text="Retour liste animaux" />
             <ButtonBar fx:id="animalButtonList" layoutX="299.0" layoutY="582.0" prefHeight="40.0" prefWidth="327.0">
               <buttons>
-                  <Button fx:id="animalModify" mnemonicParsing="false" onAction="#onActionAnimalModifyBtn" text="Modifier l'animal" />
-                  <Button fx:id="animalDelete" mnemonicParsing="false" onAction="#onActionAnimalDeleteBtn" text="Supprimer l'animal" />
+                  <Button fx:id="animalModify" mnemonicParsing="false" style="-fx-background-color: green;" textFill="WHITE" onAction="#onActionAnimalModifyBtn" text="Modifier l'animal" />
+                  <Button fx:id="animalDelete" mnemonicParsing="false" style="-fx-background-color: #C9223E;" textFill="WHITE" onAction="#onActionAnimalDeleteBtn" text="Supprimer l'animal" />
               </buttons>
             </ButtonBar>
             <ButtonBar buttonMinWidth="30.0" layoutX="502.0" layoutY="406.0" maxWidth="784.0" prefHeight="61.0" prefWidth="586.0">
               <buttons>
-                  <Button fx:id="insertDiseaseBtn" mnemonicParsing="false" onAction="#onActionInsertCareBtn" prefHeight="37.0" prefWidth="200.0" text="Nouvelle maladie">
+                  <Button fx:id="insertDiseaseBtn" mnemonicParsing="false" onAction="#onActionInsertCareBtn" prefHeight="37.0" style="-fx-background-color: green;" textFill="WHITE" prefWidth="200.0" text="Nouvelle maladie">
                      <font>
                         <Font size="12.0" />
                      </font></Button>
-                  <Button fx:id="editDiseaseBtn" mnemonicParsing="false" onAction="#onActionEditCareBtn" prefHeight="37.0" text="Modifier maladie">
+                  <Button fx:id="editDiseaseBtn" mnemonicParsing="false" onAction="#onActionEditCareBtn" prefHeight="37.0" style="-fx-background-color: blue;" textFill="WHITE" text="Modifier maladie">
                      <font>
                         <Font size="12.0" />
                      </font></Button>
-                  <Button fx:id="deleteDiseaseBtn" mnemonicParsing="false" onAction="#onActionDeleteCareBtn" prefHeight="37.0" prefWidth="91.0" text="Supprimer maladie">
+                  <Button fx:id="deleteDiseaseBtn" mnemonicParsing="false" onAction="#onActionDeleteCareBtn" prefHeight="37.0" prefWidth="91.0" style="-fx-background-color: #C9223E;" textFill="WHITE" text="Supprimer maladie">
                      <font>
                         <Font size="12.0" />
                      </font></Button>

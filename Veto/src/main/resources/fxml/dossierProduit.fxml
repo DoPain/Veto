@@ -50,7 +50,7 @@
                </font>
             </Label>
             <Button fx:id="modifier" layoutX="97.0" layoutY="597.0" mnemonicParsing="false" onAction="#modifierProduit" prefHeight="49.0" prefWidth="94.0" style="-fx-background-color: green;" text="Valider" textFill="WHITE" />
-            <Button fx:id="supprimer" layoutX="482.0" layoutY="595.0" mnemonicParsing="false" onAction="#supprimerProduit" prefHeight="53.0" prefWidth="90.0" style="-fx-background-color: red;" text="Supprimer" textFill="WHITE" />
+            <Button fx:id="supprimer" layoutX="482.0" layoutY="595.0" mnemonicParsing="false" onAction="#supprimerProduit" prefHeight="53.0" prefWidth="90.0" style="-fx-background-color: #C9223E;" text="Supprimer" textFill="WHITE" />
             <TextArea fx:id="description" layoutX="599.0" layoutY="208.0" prefHeight="200.0" prefWidth="323.0" />
             <Label layoutX="86.0" layoutY="208.0" text="Nom :" />
             <Label layoutX="86.0" layoutY="255.0" text="Référence :" />

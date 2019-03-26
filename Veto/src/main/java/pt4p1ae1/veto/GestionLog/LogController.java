@@ -48,12 +48,17 @@ public class LogController extends ControllerSample implements Initializable {
         temps.setCellValueFactory(new PropertyValueFactory<>("temps"));
 
         ObservableList<LogEntityObservable> observableList = FXCollections.observableArrayList();
+        ObservableList<LogEntityObservable> observableListInverse = FXCollections.observableArrayList();
 
         List<LogEntity> logs = Utils.LOG_DAO.findAll();
 
-        for (LogEntity log : logs)
+        for (LogEntity log : logs) {
             observableList.add(new LogEntityObservable(log));
+        }
+        for (int i = observableList.size()-1; i>=0; i--) {
+            observableListInverse.add(observableList.get(i));
+        }
 
-        tableView.setItems(observableList);
+        tableView.setItems(observableListInverse);
     }
 }
