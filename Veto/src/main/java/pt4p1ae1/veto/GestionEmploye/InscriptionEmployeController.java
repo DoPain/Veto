@@ -55,11 +55,6 @@ public class InscriptionEmployeController extends ControllerSample implements In
     public Label error;
 
     @FXML
-    private RadioButton maleRadioBtn;
-    @FXML
-    private RadioButton femaleRadioBtn;
-
-    @FXML
     private void retourEmp(ActionEvent actionEvent) throws IOException {
         super.creatBtn("/fxml/rechercheEmployes.fxml", (Stage) backToEmp.getScene().getWindow());
     }

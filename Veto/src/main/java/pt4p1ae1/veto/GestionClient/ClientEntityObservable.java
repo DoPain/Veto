@@ -20,11 +20,21 @@ public class ClientEntityObservable {
         this.clientEntity = clientEntity;
         this.nom = clientEntity.getPersonneById().getNom();
         this.prenom = clientEntity.getPersonneById().getPrenom();
-
-        this.age = Utils.calculateAge(clientEntity.getPersonneById().getDateNaissance());
-
-        this.tel = clientEntity.getPersonneById().getTelephone();
-        this.email = clientEntity.getPersonneById().getMail();
+        if (clientEntity.getPersonneById().getDateNaissance() != null) {
+            this.age = Utils.calculateAge(clientEntity.getPersonneById().getDateNaissance());
+        } else {
+            this.age = "Non renseigné";
+        }
+        if (clientEntity.getPersonneById().getTelephone() != null) {
+            this.tel = clientEntity.getPersonneById().getTelephone();
+        } else {
+            this.tel = "Non renseigné";
+        }
+        if (clientEntity.getPersonneById().getMail() != null) {
+            this.email = clientEntity.getPersonneById().getMail();
+        } else {
+            this.email = "Non renseigné";
+        }
         this.nextRDV = "Pas de Rendez-vous";//getNextRDVOfClient();
     }
 

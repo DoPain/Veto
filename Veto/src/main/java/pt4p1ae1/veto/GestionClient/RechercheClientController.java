@@ -14,6 +14,7 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import pt4p1ae1.veto.ControllerSample;
 import pt4p1ae1.veto.Entity.ClientEntity;
+import pt4p1ae1.veto.GestionEmploye.EmployeEntityObservable;
 import pt4p1ae1.veto.Utils;
 
 import java.io.IOException;
@@ -68,6 +69,22 @@ public class RechercheClientController extends ControllerSample implements Initi
         phoneColumn.setCellValueFactory(new PropertyValueFactory<>("tel"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         nextMeetingColumn.setCellValueFactory(new PropertyValueFactory<>("nextRDV"));
+
+        tableViewClient.setRowFactory(tv -> {
+            TableRow<ClientEntityObservable> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    ClientEntityObservable client = row.getItem();
+                    Utils.currentClient = client.toClientEntity();
+                    try {
+                        super.creatBtn("/fxml/dossierClient.fxml", (Stage) tableViewClient.getScene().getWindow());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            return row ;
+        });
 
         loadClients();
 

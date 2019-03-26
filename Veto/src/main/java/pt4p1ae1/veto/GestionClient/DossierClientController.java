@@ -23,7 +23,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.concurrent.atomic.AtomicLong;
 
 public class DossierClientController extends ControllerSample implements Initializable {
 
@@ -56,15 +55,34 @@ public class DossierClientController extends ControllerSample implements Initial
     @FXML
     private TextField adresseClient;
     @FXML
-    private TextField villeClient;
+    private TextField cpClient;
+    @FXML
+    private ComboBox<VilleEntityObservable> villeClient;
     @FXML
     private TextField naissanceClient;
 
-    private final ObservableList<AnimalEntityObservable> observables = FXCollections.observableArrayList();
+    private final ObservableList<AnimalEntityObservable> animalsObservables = FXCollections.observableArrayList();
+    private final List<VilleEntity> villes = Utils.VILLE_DAO.findAll();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.start();
+        ObservableList<VilleEntityObservable> villesObservables = FXCollections.observableArrayList();
+        cpClient.setOnKeyPressed(e->{
+            if (e.getCode() == KeyCode.ENTER) {
+                villesObservables.clear();
+                villesObservables.clear();
+                for (VilleEntity v : villes) {
+                    if (v.getVilleCodePostal().contains(cpClient.getText())) {
+                        villesObservables.add(new VilleEntityObservable(v));
+                    }
+                }
+                villeClient.setItems(villesObservables);
+            }
+        });
+        villeClient.setOnAction(e -> {
+            cpClient.setText(villeClient.getValue().getCp());
+        });
 
         firstNameClient.setText(Utils.currentClient.getPersonneById().getPrenom());
         nameClient.setText(Utils.currentClient.getPersonneById().getNom());
@@ -72,7 +90,8 @@ public class DossierClientController extends ControllerSample implements Initial
         telClient.setText(Utils.currentClient.getPersonneById().getTelephone());
         adresseClient.setText(Utils.currentClient.getPersonneById().getAdresse());
         naissanceClient.setText(Utils.currentClient.getPersonneById().getDateNaissance().toString());
-        villeClient.setText(Utils.currentClient.getPersonneById().getVilleByIdVille().getVilleNom());
+        cpClient.setText(Utils.currentClient.getPersonneById().getVilleByIdVille().getVilleCodePostal());
+        villeClient.setValue(new VilleEntityObservable(Utils.currentClient.getPersonneById().getVilleByIdVille()));
 
         nameAnimal.setCellValueFactory(new PropertyValueFactory<>("nom"));
         ageAnimal.setCellValueFactory(new PropertyValueFactory<>("age"));
@@ -82,10 +101,10 @@ public class DossierClientController extends ControllerSample implements Initial
 
         List<AnimalEntity> allAnimal = Utils.getAnimalFromClient(Utils.currentClient.getId());
         for (AnimalEntity a : allAnimal) {
-            observables.add(new AnimalEntityObservable(a));
+            animalsObservables.add(new AnimalEntityObservable(a));
         }
 
-        animals.setItems(observables);
+        animals.setItems(animalsObservables);
 
         nomAnimalClientText.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.ENTER) {
@@ -98,14 +117,14 @@ public class DossierClientController extends ControllerSample implements Initial
     private void filtrer() {
         ObservableList<AnimalEntityObservable> observableTmpList = FXCollections.observableArrayList();
         if (!nomAnimalClientText.getText().equals("")) {
-            for (AnimalEntityObservable client : observables) {
+            for (AnimalEntityObservable client : animalsObservables) {
                 if (client.getNom().contains(nomAnimalClientText.getText())) {
                     observableTmpList.add(client);
                 }
             }
             animals.setItems(observableTmpList);
         } else {
-            animals.setItems(observables);
+            animals.setItems(animalsObservables);
         }
     }
 
@@ -127,6 +146,7 @@ public class DossierClientController extends ControllerSample implements Initial
         applyChanges();
         System.out.println(Utils.currentClient.getPersonneById().getNom());
         Utils.CLIENT_DAO.saveOrUpdate(Utils.currentClient);
+        Utils.PERSONNE_DAO.saveOrUpdate(Utils.currentClient.getPersonneById());
         backToClientsBtn();
         Utils.createLog("Modifier Client : "
                 + Utils.currentClient.getPersonneById().getNom()

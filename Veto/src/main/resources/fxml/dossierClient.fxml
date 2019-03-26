@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -83,7 +84,8 @@
                    <TextField fx:id="mailClient" layoutY="70.0" prefHeight="26.0" prefWidth="356.0" />
                    <TextField fx:id="telClient" layoutY="103.0" prefHeight="26.0" prefWidth="356.0" />
                    <TextField fx:id="adresseClient" layoutY="136.0" prefHeight="26.0" prefWidth="356.0" />
-                   <TextField fx:id="villeClient" layoutY="169.0" prefHeight="26.0" prefWidth="356.0" />
+                   <TextField fx:id="cpClient" layoutY="169.0" prefHeight="26.0" prefWidth="162.0" />
+                   <ComboBox fx:id="villeClient" layoutX="170.0" layoutY="169.0" prefHeight="26.0" prefWidth="186.0" />
                    <TextField fx:id="naissanceClient" layoutY="202.0" prefHeight="26.0" prefWidth="356.0" />
                </children>
                 </AnchorPane>

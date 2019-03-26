@@ -7,7 +7,7 @@ USE PT_S4P1A_E1;
 CREATE TABLE IF NOT EXISTS Personne
 (
   id            BIGINT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  idVille       BIGINT(4)             NOT NULL,
+  idVille       BIGINT(4)             NULL,
   nom           VARCHAR(128)          NOT NULL,
   prenom        VARCHAR(128)          NOT NULL,
   dateNaissance DATE                  NULL,

@@ -60,7 +60,6 @@ public final class App extends Application {
                     final String entityName = entityType.getName();
                     final Query query = session
                             .createQuery("from " + entityName);
-                    System.out.println("executing : " + query.getQueryString());
                 }
             }
         }).start();
