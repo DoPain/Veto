@@ -89,7 +89,7 @@ public class RechercheOrdonnanceController extends ControllerSample implements I
             OrdonnanceController.createOrdonnancePDF(ord);
             System.out.println(ord.getAnimalByIdAnimal().getNom() + " " + ord.getDateOrdonnance());
             errorMsg.setTextFill(Color.GREEN);
-            errorMsg.setText("L'ordonnance a bien été regénérée");
+            errorMsg.setText("L'ordonnance à bien été regénérée");
         } catch (Exception e) {
             if (e.getClass() == NullPointerException.class) {
                 errorMsg.setTextFill(Color.RED);

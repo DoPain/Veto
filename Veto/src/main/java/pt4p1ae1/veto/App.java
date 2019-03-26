@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -47,6 +48,7 @@ public final class App extends Application {
         primaryStage.setTitle("VetoGestion");
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root, 700, 400));
+        primaryStage.getIcons().add(new Image("img/icon.png"));
         primaryStage.show();
     }
 

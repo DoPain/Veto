@@ -146,7 +146,7 @@ public class OrdonnanceController extends ControllerSample implements Initializa
             createOrdonnancePDF(ord);
             tableViewAnimal.getSelectionModel().select(null);
             ordonnanceMsg.setTextFill(Color.GREEN);
-            ordonnanceMsg.setText("L'ordonnance a bien été créer");
+            ordonnanceMsg.setText("L'ordonnance à bien été crée");
             prescriptions.clear();
         } catch (Exception e) {
             if (e.getClass() == NullPointerException.class) {
