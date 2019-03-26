@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="751.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt4p1ae1.veto.GestionAnimaux.DossierAnimalController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="751.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt4p1ae1.veto.GestionAnimaux.DossierAnimalController">
     <top>
         <Pane fx:id="pane" BorderPane.alignment="CENTER">
             <children>
@@ -40,27 +40,25 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="animalNameLab" layoutX="495.0" layoutY="24.0" text="Nom animal" />
+            <Label fx:id="animalNameLab" layoutX="463.0" layoutY="24.0" text="Nom animal" />
             <Button fx:id="backToAnimals" layoutX="37.0" layoutY="19.0" mnemonicParsing="false" onAction="#onActionBackToAnimalsBtn" text="Retour liste animaux" />
-            <ButtonBar fx:id="animalButtonList" layoutX="226.0" layoutY="592.0" prefHeight="40.0" prefWidth="651.0">
+            <ButtonBar fx:id="animalButtonList" layoutX="299.0" layoutY="582.0" prefHeight="40.0" prefWidth="327.0">
               <buttons>
                   <Button fx:id="animalModify" mnemonicParsing="false" onAction="#onActionAnimalModifyBtn" text="Modifier l'animal" />
                   <Button fx:id="animalDelete" mnemonicParsing="false" onAction="#onActionAnimalDeleteBtn" text="Supprimer l'animal" />
-                  <Button fx:id="prescriptionGenerate" mnemonicParsing="false" onAction="#onActionPrescriptionGenerateBtn" text="Générer ordonnance" />
-                <Button fx:id="billGenerate" mnemonicParsing="false" onAction="#onActionBillGenerateBtn" text="Générer facture" />
               </buttons>
             </ButtonBar>
             <ButtonBar buttonMinWidth="30.0" layoutX="502.0" layoutY="406.0" maxWidth="784.0" prefHeight="61.0" prefWidth="586.0">
               <buttons>
-                  <Button fx:id="insertDiseaseBtn" mnemonicParsing="false" onAction="#onActionInsertDiseaseBtn" prefHeight="37.0" prefWidth="200.0" text="Insert">
+                  <Button fx:id="insertDiseaseBtn" mnemonicParsing="false" onAction="#onActionInsertCareBtn" prefHeight="37.0" prefWidth="200.0" text="Nouvelle maladie">
                      <font>
                         <Font size="12.0" />
                      </font></Button>
-                  <Button fx:id="editDiseaseBtn" mnemonicParsing="false" onAction="#onActionEditDiseaseBtn" prefHeight="37.0" text="Edit">
+                  <Button fx:id="editDiseaseBtn" mnemonicParsing="false" onAction="#onActionEditCareBtn" prefHeight="37.0" text="Modifier maladie">
                      <font>
                         <Font size="12.0" />
                      </font></Button>
-                  <Button fx:id="deleteDiseaseBtn" mnemonicParsing="false" onAction="#onActionDeleteDiseaseBtn" prefHeight="37.0" prefWidth="91.0" text="Delete">
+                  <Button fx:id="deleteDiseaseBtn" mnemonicParsing="false" onAction="#onActionDeleteCareBtn" prefHeight="37.0" prefWidth="91.0" text="Supprimer maladie">
                      <font>
                         <Font size="12.0" />
                      </font></Button>
@@ -68,16 +66,16 @@
             </ButtonBar>
                   <TableView fx:id="diseaseHistory" layoutX="462.0" layoutY="156.0" prefHeight="250.0" prefWidth="665.0">
                      <columns>
-                        <TableColumn fx:id="numCol" maxWidth="205.0" prefWidth="66.0" text="N°" />
-                        <TableColumn fx:id="diseaseCol" maxWidth="367.0" prefWidth="158.0" text="Maladie" />
-                        <TableColumn fx:id="careCol" prefWidth="162.0" text="Soin" />
-                        <TableColumn fx:id="startDateCol" prefWidth="130.0" text="Date début" />
-                        <TableColumn fx:id="endDateCol" prefWidth="130.0" text="Date fin" />
+                        <TableColumn fx:id="diseaseCol" maxWidth="367.0" prefWidth="164.0" text="Maladie" />
+                        <TableColumn fx:id="careCol" prefWidth="211.0" text="Soin" />
+                        <TableColumn fx:id="startDateCol" prefWidth="156.0" text="Date début" />
+                        <TableColumn fx:id="endDateCol" prefWidth="133.0" text="Date fin" />
                      </columns>
                   </TableView>
-            <Label layoutX="492.0" layoutY="105.0" text="Historique maladies :" />
-            <Label layoutX="37.0" layoutY="105.0" text="Fiche animal :" />
+            <Label fx:id="diseaseHistoryTitle" layoutX="492.0" layoutY="105.0" text="Historique maladies :" />
+            <Label fx:id="resumeAnimalTitle" layoutX="37.0" layoutY="105.0" text="Fiche animal :" />
             <Label fx:id="resumeAnimalLabel" layoutX="37.0" layoutY="156.0" prefHeight="272.0" prefWidth="385.0" text="Label" />
+            <Label fx:id="error" layoutX="694.0" layoutY="459.0" prefHeight="16.0" prefWidth="217.0" />
          </children>
       </AnchorPane>
    </center>
