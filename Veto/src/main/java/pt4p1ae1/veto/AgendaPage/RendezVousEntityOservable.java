@@ -2,6 +2,7 @@ package pt4p1ae1.veto.AgendaPage;
 
 import jfxtras.icalendarfx.components.VEvent;
 import jfxtras.icalendarfx.properties.component.change.DateTimeCreated;
+import jfxtras.icalendarfx.properties.component.change.DateTimeStamp;
 import jfxtras.icalendarfx.properties.component.descriptive.Categories;
 import pt4p1ae1.veto.Entity.RendezVousEntity;
 
@@ -17,6 +18,19 @@ public class RendezVousEntityOservable {
 
     public static RendezVousEntity toEntity(VEvent vEvent){
         RendezVousEntity rdv = new RendezVousEntity();
+        Temporal temporalStart = vEvent.getDateTimeStart().getValue();
+        rdv.setDateHeureDebut(Timestamp.valueOf(LocalDateTime.from(temporalStart)));
+        Temporal temporalEnd = vEvent.getDateTimeEnd().getValue();
+        rdv.setDateHeureFin(Timestamp.valueOf(LocalDateTime.from(temporalEnd)));
+        rdv.setResume(vEvent.getSummary().getValue());
+        if(vEvent.getDescription()!=null){
+            rdv.setDescription(vEvent.getDescription().getValue());
+        }
+        rdv.setCategorie(vEvent.getCategories().get(0).getValue().get(0));
+        return rdv;
+    }
+
+    public static RendezVousEntity updateEntity(VEvent vEvent, RendezVousEntity rdv){
         Temporal temporalStart = vEvent.getDateTimeStart().getValue();
         rdv.setDateHeureDebut(Timestamp.valueOf(LocalDateTime.from(temporalStart)));
         Temporal temporalEnd = vEvent.getDateTimeEnd().getValue();
@@ -47,8 +61,8 @@ public class RendezVousEntityOservable {
         ZoneId zoneId = ZoneId.of("Z");
         LocalDateTime nowTime = LocalDateTime.now();
         ZonedDateTime zonedDateTime = nowTime.atZone(zoneId);
-        DateTimeCreated created = new DateTimeCreated(zonedDateTime);
-        event.setDateTimeCreated(created);
+        DateTimeStamp stamped = new DateTimeStamp(zonedDateTime);
+        event.setDateTimeStamp(stamped);
         return event;
     }
 }

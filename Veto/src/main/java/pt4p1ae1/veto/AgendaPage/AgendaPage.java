@@ -166,7 +166,7 @@ public class AgendaPage extends ControllerSample implements Initializable {
                     RendezVousEntity rdv;
                     String UID = vEvent.getUniqueIdentifier().getValue();
                     if (vEventEntity.containsKey(UID)) {
-                        rdv = vEventEntity.get(UID);
+                        rdv = RendezVousEntityOservable.updateEntity(vEvent,vEventEntity.get(UID));
                     } else {
                         rdv = RendezVousEntityOservable.toEntity(vEvent);
                     }
