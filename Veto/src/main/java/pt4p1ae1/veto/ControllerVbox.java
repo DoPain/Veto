@@ -28,7 +28,7 @@ public class ControllerVbox implements Initializable {
     @FXML
     protected VBox vBox;
 
-    private static HashMap<String,String> titleMap = new HashMap<>();
+    private static Boolean isAgenda = false;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -36,26 +36,17 @@ public class ControllerVbox implements Initializable {
             btn_log.setVisible(false);
             btn_emp.setVisible(false);
         }
-        titleMap.put("/fxml/agendaPage.fxml","Agenda");
-        titleMap.put("/fxml/home.fxml","VetoGestion");
-        titleMap.put("/fxml/rechercheAnimal.fxml","Animaux");
-        titleMap.put("/fxml/rechercheClient.fxml","Client");
-        titleMap.put("/fxml/rechercheOrdonnance.fxml","Ordonnance");
-        titleMap.put("/fxml/rechercheProduit.fxml","Stock");
-        titleMap.put("/fxml/pageLog.fxml","Log");
-        titleMap.put("/fxml/rechercheEmployes.fxml","Employé");
-        titleMap.put("/fxml/rechercheProduit.fxml","Produit");
+        vBox.setSpacing(3);
+        vBox.getChildren().forEach(node -> node.setStyle("-fx-background-radius : 6; -fx-background-insets:0,1;"));
     }
 
     protected void creatBtn(String ressourceName, Stage primaryStage) throws IOException {
-        if(primaryStage.getTitle().equals("Agenda")){
+        if(isAgenda){
             AgendaPage.saveEvents();
         }
         Parent root = FXMLLoader.load(this.getClass().getResource(ressourceName));
         primaryStage.setScene(new Scene(root,Utils.WIDTH,Utils.HEIGHT));
-        if(titleMap.containsKey(ressourceName)){
-            primaryStage.setTitle(titleMap.get(ressourceName));
-        }
+        isAgenda = ressourceName.equals("/fxml/agendaPage.fxml");
     }
 
     @FXML
