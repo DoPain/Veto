@@ -1,5 +1,7 @@
 package pt4p1ae1.veto.Entity;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
@@ -7,6 +9,11 @@ import java.util.Objects;
 @Entity
 @Table(name = "Client", schema = "PT_S4P1A_E1", catalog = "")
 public class ClientEntity {
+    @Override
+    public String toString() {
+        return personneById.getNom()+" "+personneById.getPrenom();
+    }
+
     private long id;
     private Collection<AnimalEntity> animalsById;
     private PersonneEntity personneById;
@@ -35,7 +42,8 @@ public class ClientEntity {
         return Objects.hash(id);
     }
 
-    @OneToMany(mappedBy = "clientByIdClient")
+    @OneToMany( mappedBy = "clientByIdClient")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public Collection<AnimalEntity> getAnimalsById() {
         return animalsById;
     }
@@ -54,7 +62,8 @@ public class ClientEntity {
         this.personneById = personneById;
     }
 
-    @OneToMany(mappedBy = "clientByIdClient")
+    @OneToMany( mappedBy = "clientByIdClient")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public Collection<PanierEntity> getPaniersById() {
         return paniersById;
     }

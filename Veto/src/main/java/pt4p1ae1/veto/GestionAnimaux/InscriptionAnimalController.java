@@ -15,14 +15,19 @@ import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import pt4p1ae1.veto.ControllerSample;
 import pt4p1ae1.veto.Entity.AnimalEntity;
+import pt4p1ae1.veto.Entity.ClientEntity;
 import pt4p1ae1.veto.Entity.RaceEntity;
 import pt4p1ae1.veto.Utils;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class InscriptionAnimalController extends ControllerSample implements Initializable {
@@ -34,7 +39,7 @@ public class InscriptionAnimalController extends ControllerSample implements Ini
     @FXML
     private Button registerBtn;
     @FXML
-    private ComboBox ownerComboBox;
+    private ComboBox<ClientEntity> ownerComboBox;
     @FXML
     private Button newCustomer;
     @FXML
@@ -53,6 +58,8 @@ public class InscriptionAnimalController extends ControllerSample implements Ini
     private TextField weightText;
     @FXML
     private TextField furtherInformationsText;
+    @FXML
+    private Label error;
 
     AnimalEntity animal = Utils.getCurrentAnimal();
 
@@ -60,20 +67,19 @@ public class InscriptionAnimalController extends ControllerSample implements Ini
     public void initialize(URL location, ResourceBundle resources) {
         super.start();
 
-        //Remplir ComboBox des espèces
         List<String> speciesList = new ArrayList<>();
         Utils.ESPECE_DAO.findAll().forEach(espece -> speciesList.add(espece.getNom()));
         speciesComboBox.setItems(FXCollections.observableList(speciesList));
 
-        ArrayList<String> ownersList = new ArrayList<>();
-        Utils.CLIENT_DAO.findAll().forEach(client -> ownersList.add(client.getPersonneById().getNom()));
+        ArrayList<ClientEntity> ownersList = new ArrayList<>();
+        Utils.CLIENT_DAO.findAll().forEach(client -> ownersList.add(client));
         ownerComboBox.setItems(FXCollections.observableList(ownersList));
 
         birthDateText.setPromptText("aaaa-mm-jj");
 
         if(Utils.isModifyAnimal()) {
             AnimalEntityObservable animalObservable = new AnimalEntityObservable(animal);
-            ownerComboBox.getSelectionModel().select(animalObservable.getProprietaire());
+            ownerComboBox.getSelectionModel().select(animal.getClientByIdClient());
             nameText.setText(animal.getNom());
             speciesComboBox.getSelectionModel().select(animalObservable.getEspece());
             raceComboBox.getSelectionModel().select(animalObservable.getRace());
@@ -91,6 +97,8 @@ public class InscriptionAnimalController extends ControllerSample implements Ini
             if(speciesComboBox.getValue() != null) {
                 onActionSpeciesComboBox();
             }
+        } else {
+            furtherInformationsText.setText("Aucune autre information.");
         }
     }
 
@@ -120,53 +128,83 @@ public class InscriptionAnimalController extends ControllerSample implements Ini
 
     @FXML
     private void onActionRegisterBtn() throws IOException {
-        if(!Utils.isModifyAnimal()) {
-            AnimalEntity newAnimal = new AnimalEntity();
-            newAnimal.setNom(nameText.getText());
-            long idRace = -1;
-            for(RaceEntity race : Utils.RACE_DAO.findAll()) {
-                if(race.getNom().equals(raceComboBox.getValue().toString())) {
-                    idRace = race.getId();
-                }
+        if(ownerComboBox.getValue() != null && nameText.getText() != null && speciesComboBox.getValue() != null &&
+        raceComboBox.getValue() != null && (maleRadioBtn.isSelected() || femaleRadioBtn.isSelected()) &&
+        birthDateText.getText() != null && weightText.getText() != null && furtherInformationsText.getText() != null) {
+            DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE);
+            java.util.Date dateB = null;
+            try {
+                dateB = formatter.parse(birthDateText.getText());
+            } catch (ParseException e) {
+                error.setStyle("-fx-text-fill: red");
+                error.setText("Date invalide");
             }
-            newAnimal.setIdRace(idRace);
-            if(maleRadioBtn.isSelected()) newAnimal.setSexe("M");
-            else newAnimal.setSexe("F");
-            newAnimal.setDateNaissance((Date.valueOf(birthDateText.getText())));
-            newAnimal.setPoids(Double.parseDouble(weightText.getText()));
-            newAnimal.setAutreInformations(furtherInformationsText.getText());
-            Utils.ANIMAL_DAO.saveOrUpdate(newAnimal);
-        } else {
-            animal.setNom(nameText.getText());
-            long idRace = -1;
-            for(RaceEntity race : Utils.RACE_DAO.findAll()) {
-                if(race.getNom().equals(raceComboBox.getValue().toString())) {
-                    idRace = race.getId();
+            java.sql.Date sqlDateB = new java.sql.Date(dateB.getTime());
+            if (!Utils.isModifyAnimal()) {
+                AnimalEntity newAnimal = new AnimalEntity();
+                newAnimal.setIdClient(ownerComboBox.getValue().getId());
+                newAnimal.setNom(nameText.getText());
+                long idRace = -1;
+                for (RaceEntity race : Utils.RACE_DAO.findAll()) {
+                    if (race.getNom().equals(raceComboBox.getValue().toString())) {
+                        idRace = race.getId();
+                    }
                 }
+                newAnimal.setIdRace(idRace);
+                if (maleRadioBtn.isSelected()) newAnimal.setSexe("M");
+                else newAnimal.setSexe("F");
+                newAnimal.setDateNaissance(sqlDateB);
+                newAnimal.setPoids(Double.parseDouble(weightText.getText()));
+                newAnimal.setAutreInformations(furtherInformationsText.getText());
+                Utils.ANIMAL_DAO.saveOrUpdate(newAnimal);
+                Utils.createLog("Ajout animal : " + newAnimal.getNom() + " appartenant à " +
+                        newAnimal.getClientByIdClient().getPersonneById().getNom());
+            } else {
+                animal.setIdClient(ownerComboBox.getValue().getId());
+                animal.setNom(nameText.getText());
+                long idRace = -1;
+                for (RaceEntity race : Utils.RACE_DAO.findAll()) {
+                    if (race.getNom().equals(raceComboBox.getValue().toString())) {
+                        idRace = race.getId();
+                    }
+                }
+                animal.setIdRace(idRace);
+                if (maleRadioBtn.isSelected()) animal.setSexe("M");
+                else animal.setSexe("F");
+                animal.setDateNaissance(sqlDateB);
+                animal.setPoids(Double.parseDouble(weightText.getText()));
+                animal.setAutreInformations(furtherInformationsText.getText());
+                Utils.ANIMAL_DAO.saveOrUpdate(animal);
+                Utils.createLog("Modification animal : " + animal.getNom() + " appartenant à " +
+                        animal.getClientByIdClient().getPersonneById().getNom());
             }
-            animal.setIdRace(idRace);
-            if(maleRadioBtn.isSelected()) animal.setSexe("M");
-            else animal.setSexe("F");
-            animal.setDateNaissance((Date.valueOf(birthDateText.getText())));
-            animal.setPoids(Double.parseDouble(weightText.getText()));
-            animal.setAutreInformations(furtherInformationsText.getText());
-            Utils.ANIMAL_DAO.saveOrUpdate(animal);
-        }
 
-        Utils.setModifyAnimal(false);
-        //Rediriger vers la liste animaux
-        Stage primaryStage = (Stage) registerBtn.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/rechercheAnimal.fxml"));
-        primaryStage.setScene(new Scene(root, 1280, 720));
-        primaryStage.centerOnScreen();
+            Utils.setModifyAnimal(false);
+            //Rediriger vers la liste animaux
+            Stage primaryStage = (Stage) registerBtn.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/rechercheAnimal.fxml"));
+            primaryStage.setScene(new Scene(root, 1280, 720));
+            primaryStage.centerOnScreen();
+        } else {
+            error.setStyle("-fx-text-fill: red");
+            error.setText("Veuillez remplir tous les champs");
+        }
     }
 
     public void newCustomerOnAction(ActionEvent actionEvent) throws IOException {
-        //TODO Modifier redirections de inscriptionClient en fonction de fromAddAnimal
-        Utils.setFromAddAnimal(true);
         Stage primaryStage = (Stage) newCustomer.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/inscriptionClient.fxml"));
         primaryStage.setScene(new Scene(root, 1280, 720));
         primaryStage.centerOnScreen();
+    }
+
+    public void maleRBOnAction(ActionEvent actionEvent) {
+        if(maleRadioBtn.isSelected())
+            femaleRadioBtn.setSelected(false);
+    }
+
+    public void femaleRBOnAction(ActionEvent actionEvent) {
+        if(femaleRadioBtn.isSelected())
+            maleRadioBtn.setSelected(false);
     }
 }

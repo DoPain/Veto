@@ -14,6 +14,11 @@ public class VeterinaireEntity {
     private Collection<RendezVousEntity> rendezVousById;
     private PersonneEntity personneById;
 
+    @Override
+    public String toString() {
+        return personneById.getNom() + " " + personneById.getPrenom();
+    }
+
     @Id
     @Column(name = "id", nullable = false)
     public long getId() {
@@ -50,7 +55,7 @@ public class VeterinaireEntity {
         return result;
     }
 
-    @OneToMany(mappedBy = "veterinaireByIdVeterinaire")
+    @OneToMany( mappedBy = "veterinaireByIdVeterinaire")
     public Collection<OrdonnanceEntity> getOrdonnancesById() {
         return ordonnancesById;
     }
@@ -59,7 +64,7 @@ public class VeterinaireEntity {
         this.ordonnancesById = ordonnancesById;
     }
 
-    @OneToMany(mappedBy = "veterinaireByIdVeterinaire")
+    @OneToMany( mappedBy = "veterinaireByIdVeterinaire")
     public Collection<RendezVousEntity> getRendezVousById() {
         return rendezVousById;
     }

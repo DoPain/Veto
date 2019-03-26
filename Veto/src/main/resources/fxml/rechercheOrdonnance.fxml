@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -44,7 +45,9 @@
                     <TableColumn fx:id="dateOrdonnance" minWidth="1.0" prefWidth="193.0" text="Date de création" />
                 </columns>
             </TableView>
-            <Button fx:id="createOrdonnace" layoutX="525.0" layoutY="614.0" mnemonicParsing="false" onAction="#createOrdonnanceView" prefHeight="30.0" prefWidth="201.0" text="Créer une ordonnance" />
+            <Button fx:id="createOrdonnance" layoutX="800.0" layoutY="614.0" mnemonicParsing="false" onAction="#createOrdonnanceView" prefHeight="30.0" prefWidth="268.0" text="Créer une ordonnance" />
+            <Button fx:id="generateOrdonnance" layoutX="165.0" layoutY="614.0" mnemonicParsing="false" onAction="#generateOrdonnance" prefHeight="30.0" prefWidth="283.0" text="Regénéré l'ordonnance sélectionnée" />
+            <Label fx:id="errorMsg" layoutX="570.0" layoutY="598.0" />
         </AnchorPane>
     </center>
 </BorderPane>

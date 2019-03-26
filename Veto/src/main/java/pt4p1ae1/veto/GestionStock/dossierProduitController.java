@@ -71,12 +71,12 @@ public class dossierProduitController extends ControllerSample implements Initia
 
     }
 
-    public void retourProduits(ActionEvent actionEvent) throws IOException {
-        super.creatBtn("/fxml/pageStock.fxml", (Stage) backToProducts.getScene().getWindow());
+    public void retourProduits() throws IOException {
+        super.creatBtn("/fxml/rechercheProduit.fxml", (Stage) backToProducts.getScene().getWindow());
     }
 
     @FXML
-    private void modifierProduit() throws ParseException {
+    private void modifierProduit() throws ParseException, IOException {
         if(!nom.getText().equals("") && !prix.getText().equals("") && !quantite.getText().equals("") && !quantiteMin.getText().equals("") && !reference.getText().equals("") && !datePeremption.getText().equals("") && !dateAcquisition.getText().equals("")) {
             currentProduit.setRefProduit(reference.getText());
             currentProduit.setDescription(description.getText());
@@ -96,12 +96,26 @@ public class dossierProduitController extends ControllerSample implements Initia
             error.setStyle("-fx-text-fill: red");
             error.setText("Information(s) manquante(s)");
         }
+        retourProduits();
     }
 
     @FXML
     private void supprimerProduit() throws IOException {
-        Utils.PRODUIT_DAO.delete(currentProduit);
-        super.creatBtn("/fxml/pageStock.fxml", (Stage) supprimer.getScene().getWindow());
+        Parent root = FXMLLoader.load(this.getClass().getResource("/fxml/popup.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle("Confirmation");
+        stage.showAndWait();
+
+        if(Utils.getConfirmation()) {
+            Utils.PRODUIT_DAO.delete(currentProduit);
+            super.creatBtn("/fxml/rechercheProduit.fxml", (Stage) supprimer.getScene().getWindow());
+        }
+    }
+
+    public void display(){
+
     }
 
 }

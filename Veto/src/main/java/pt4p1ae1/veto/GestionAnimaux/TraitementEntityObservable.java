@@ -10,7 +10,10 @@ public class TraitementEntityObservable {
     private String dateDebut;
     private String dateFin;
 
+    private TraitementEntity traitement;
+
     public TraitementEntityObservable(TraitementEntity traitement) {
+        this.traitement = traitement;
         this.id = traitement.getId();
         this.animal = traitement.getAnimalByIdAnimal().getNom();
         this.maladie = traitement.getMaladie();
@@ -41,5 +44,9 @@ public class TraitementEntityObservable {
 
     public Long getId() {
         return id;
+    }
+
+    public TraitementEntity getTraitement() {
+        return traitement;
     }
 }

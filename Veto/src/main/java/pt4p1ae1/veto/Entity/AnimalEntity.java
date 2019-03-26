@@ -1,5 +1,7 @@
 package pt4p1ae1.veto.Entity;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
@@ -21,6 +23,11 @@ public class AnimalEntity {
     private Collection<OrdonnanceEntity> ordonnancesById;
     private Collection<RendezVousEntity> rendezVousById;
     private Collection<TraitementEntity> traitementsById;
+
+    @Override
+    public String toString() {
+        return raceByIdRace.getEspeceByIdEspece().getNom()+" : "+nom;
+    }
 
     @Id
     @Column(name = "id", nullable = false)
@@ -142,7 +149,8 @@ public class AnimalEntity {
         this.clientByIdClient = clientByIdClient;
     }
 
-    @OneToMany(mappedBy = "animalByIdAnimal")
+    @OneToMany( mappedBy = "animalByIdAnimal")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public Collection<OrdonnanceEntity> getOrdonnancesById() {
         return ordonnancesById;
     }
@@ -151,7 +159,8 @@ public class AnimalEntity {
         this.ordonnancesById = ordonnancesById;
     }
 
-    @OneToMany(mappedBy = "animalByIdAnimal")
+    @OneToMany( mappedBy = "animalByIdAnimal")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public Collection<RendezVousEntity> getRendezVousById() {
         return rendezVousById;
     }
@@ -160,7 +169,8 @@ public class AnimalEntity {
         this.rendezVousById = rendezVousById;
     }
 
-    @OneToMany(mappedBy = "animalByIdAnimal")
+    @OneToMany( mappedBy = "animalByIdAnimal")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     public Collection<TraitementEntity> getTraitementsById() {
         return traitementsById;
     }

@@ -13,15 +13,15 @@ INSERT INTO Personne (idVille, nom, prenom, dateNaissance, adresse, mail, teleph
 ((SELECT id FROM Ville WHERE Ville.ville_nom_reel = 'Ozan'), 'BACRE', 'Client5', DATE("1999-12-23"), '45 Route de Client5 34530 Mutch', 'cli5.test@email.com', '06.01.01.02.05'),
 ((SELECT id FROM Ville WHERE Ville.ville_nom_reel = 'Gradignan'), 'MAUX', 'Annie', DATE("1999-12-23"), '45 Route de Veto 34530 Mutch', 'vet.test@email.com', '06.34.35.36.37');
 
-INSERT INTO Employe (id, login, motDePasse, dateDebutContrat, salaire) VALUES
-((SELECT id FROM Personne WHERE Personne.nom = 'QUERRE'), 'cquerre', 'test', DATE("2015-10-23"), 2340.35),
-((SELECT id FROM Personne WHERE Personne.nom = 'BOURY'), 'eboury', 'test', DATE("2004-12-10"), 15000.34),
-((SELECT id FROM Personne WHERE Personne.nom = 'MORAX'), 'dmorax', 'test', DATE("2013-01-3") , null),
-((SELECT id FROM Personne WHERE Personne.nom = 'POTIN'), 'mpotin', 'test', DATE("2013-01-3") , null),
-((SELECT id FROM Personne WHERE Personne.nom = 'VINCENT'), 'bvincent', 'test', DATE("2013-01-3") , null),
-((SELECT id FROM Personne WHERE Personne.nom = 'RAYNAL'), 'mraynal', 'test', DATE("2013-01-3") , null),
-((SELECT id FROM Personne WHERE Personne.nom = 'ARAGON'), 'naragon', 'test', DATE("2013-01-3") , null),
-((SELECT id FROM Personne WHERE Personne.nom = 'MAUX'), 'amaux', 'test', DATE("2013-01-3") , null);
+INSERT INTO Employe (id, login, motDePasse, dateDebutContrat, salaire,typeContrat) VALUES
+((SELECT id FROM Personne WHERE Personne.nom = 'QUERRE'), 'cquerre', 'test', DATE("2015-10-23"), 2340.35,'CDI'),
+((SELECT id FROM Personne WHERE Personne.nom = 'BOURY'), 'eboury', 'test', DATE("2004-12-10"), 15000.34,'CDI'),
+((SELECT id FROM Personne WHERE Personne.nom = 'MORAX'), 'dmorax', 'test', DATE("2013-01-3") , 15000,'CDI'),
+((SELECT id FROM Personne WHERE Personne.nom = 'POTIN'), 'mpotin', 'test', DATE("2013-01-3") , 15000,'CDI'),
+((SELECT id FROM Personne WHERE Personne.nom = 'VINCENT'), 'bvincent', 'test', DATE("2013-01-3") , 15000,'CDI'),
+((SELECT id FROM Personne WHERE Personne.nom = 'RAYNAL'), 'mraynal', 'test', DATE("2013-01-3") , 15000,'CDI'),
+((SELECT id FROM Personne WHERE Personne.nom = 'ARAGON'), 'naragon', 'test', DATE("2013-01-3") , 15000,'CDI'),
+((SELECT id FROM Personne WHERE Personne.nom = 'MAUX'), 'amaux', 'test', DATE("2013-01-3") , 15000,'CDI');
 
 INSERT INTO Client (id) VALUES
 ((SELECT id FROM Personne WHERE Personne.nom = "NISLA")),
@@ -97,31 +97,31 @@ INSERT INTO Animal (idRace, idClient, nom, dateNaissance, sexe) VALUES
 ((SELECT id FROM Race WHERE Race.nom = 'Hamster hybride'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "BACRE"), 'Noisette', DATE("2007-5-13"), 'F'),
 ((SELECT id FROM Race WHERE Race.nom = 'Hamster hybride'), (SELECT C.id FROM Client C INNER JOIN Personne P ON P.id = C.id WHERE P.nom = "BACRE"), 'Gerbille', DATE("2007-5-24"), 'F');
 
-INSERT INTO Produit (nom, refProduit, quantiteEnStock, quantiteMinimum, prix) VALUES
-('ABCEDYL PA', 'KIVZEUFH', 350, 20,  9.62),
-('ACTI-TETRA I', 'HJSDGF34', 200, 10,  41.23),
-('AMPHOPRIM', 'J234DF', 50, 5,  5.30),
-('AMPICOLINE', 'KJHEFREZ73', 75, 8,  14.20),
-('ALUSPRAY', 'NJZEF7', 100, 10,  12.45),
-('ALFABEDYL', '82364BDS', 230, 20,  19.99),
-('AMPIDEXALONE', 'HGDSF6SD', 350, 30,  31.34),
-('ACETAL','JHDGF678ES', 130, 10,  9.80),
-('AD-JECT', 'KJHZAER86',160, 10,  34.98),
-('ACTILIVER I', 'LKZ342Q',380, 30,  84.00),
-('AZIUM', 'JSHDG8',90, 9,  10.30),
-('ARA PNEUMOPATHIE','KSFZAR', 70, 5,  16.83),
-('AMOXIVAL 40','QSFEAF', 90, 7,  48.39),
-('AMFLEE 50', 'SDSGEZ',75, 8,  6.43),
-('ABCEDYL PA','EZFSDFDSF', 95, 10,  13.11),
-('AEROSOL BIOALLETHRINE','EZFECA', 100, 10,  31.32),
-('AMIDERM','EZFCAAS', 125, 11,  11.00),
-('ALARM','VGAEIUOAF', 145, 15,  21.34);
+INSERT INTO Produit (nom, refProduit, quantiteEnStock, quantiteMinimum, prix, peremption, dateAcquisition) VALUES
+('ABCEDYL PA', 'KIVZEUFH', 350, 20,  9.62, '2019-9-12', '2018-10-25'),
+('ACTI-TETRA I', 'HJSDGF34', 200, 10,  41.23, '2019-11-28', '2018-2-13'),
+('AMPHOPRIM', 'J234DF', 50, 5,  5.30, '2019-6-8', '2018-5-26'),
+('AMPICOLINE', 'KJHEFREZ73', 75, 8,  14.20, '2019-12-12', '2018-5-2'),
+('ALUSPRAY', 'NJZEF7', 100, 10,  12.45, '2020-2-12', '2018-11-14'),
+('ALFABEDYL', '82364BDS', 230, 20,  19.99, '2019-11-17', '2018-4-29'),
+('AMPIDEXALONE', 'HGDSF6SD', 350, 30,  31.34, '2020-1-3', '2018-10-12'),
+('ACETAL','JHDGF678ES', 130, 10,  9.80, '2019-7-15', '2018-3-21'),
+('AD-JECT', 'KJHZAER86',160, 10,  34.98, '2019-9-12', '2018-10-25'),
+('ACTILIVER I', 'LKZ342Q',380, 30,  84.00, '2019-9-12', '2018-10-25'),
+('AZIUM', 'JSHDG8',90, 9,  10.30, '2019-9-12', '2018-10-25'),
+('ARA PNEUMOPATHIE','KSFZAR', 70, 5,  16.83, '2020-2-12', '2018-3-21'),
+('AMOXIVAL 40','QSFEAF', 90, 7,  48.39, '2019-11-28', '2018-10-25'),
+('AMFLEE 50', 'SDSGEZ',75, 8,  6.43, '2019-9-12', '2018-10-25'),
+('ABCEDYL PA','EZFSDFDSF', 95, 10,  13.11, '2019-9-12', '2018-10-25'),
+('AEROSOL BIOALLETHRINE','EZFECA', 100, 10,  31.32, '2019-9-12', '2018-5-26'),
+('AMIDERM','EZFCAAS', 125, 11,  11.00, '2019-11-17', '2018-10-25'),
+('ALARM','VGAEIUOAF', 145, 15,  21.34, '2019-9-12', '2018-5-2');
 
 
 INSERT INTO Veterinaire (id, signature) VALUES
 ((SELECT id FROM Personne P WHERE P.nom = "MAUX"), "Signature MAUX");
 
-INSERT INTO Ordonnance (Ordonnance.idAnimal, Ordonnance.idVeterinaire, dateOrdonnance, commentaire) VALUES
+INSERT INTO Ordonnance (Ordonnance.idAnimal, Ordonnance.idVeterinaire, dateOrdonnance) VALUES
 ((SELECT A.id FROM Animal A
 		INNER JOIN Race R ON R.id = A.idRace
 		INNER JOIN Client C ON C.id = A.idClient 
@@ -134,8 +134,7 @@ INSERT INTO Ordonnance (Ordonnance.idAnimal, Ordonnance.idVeterinaire, dateOrdon
 		INNER JOIN Personne P ON P.id = V.id
 		WHERE P.nom = 'MAUX' 
 		AND P.prenom = 'Annie'), 
-CURDATE(),
-"Ordonnance1"),
+CURDATE()),
 ((SELECT A.id FROM Animal A
 		INNER JOIN Race R ON R.id = A.idRace
 		INNER JOIN Client C ON C.id = A.idClient 
@@ -148,8 +147,7 @@ CURDATE(),
 		INNER JOIN Personne P ON P.id = V.id
 		WHERE P.nom = 'MAUX' 
 		AND P.prenom = 'Annie'), 
-CURDATE(),
-"Ordonnance2"),
+CURDATE()),
 ((SELECT A.id FROM Animal A
 		INNER JOIN Race R ON R.id = A.idRace
 		INNER JOIN Client C ON C.id = A.idClient 
@@ -162,8 +160,7 @@ CURDATE(),
 		INNER JOIN Personne P ON P.id = V.id
 		WHERE P.nom = 'MAUX' 
 		AND P.prenom = 'Annie'), 
-CURDATE(),
-"Ordonnance3"),
+CURDATE()),
 ((SELECT A.id FROM Animal A
 		INNER JOIN Race R ON R.id = A.idRace
 		INNER JOIN Client C ON C.id = A.idClient 
@@ -176,8 +173,7 @@ CURDATE(),
 		INNER JOIN Personne P ON P.id = V.id
 		WHERE P.nom = 'MAUX' 
 		AND P.prenom = 'Annie'), 
-CURDATE(),
-"Ordonnance4"),
+CURDATE()),
 ((SELECT A.id FROM Animal A
 		INNER JOIN Race R ON R.id = A.idRace
 		INNER JOIN Client C ON C.id = A.idClient 
@@ -190,8 +186,7 @@ CURDATE(),
 		INNER JOIN Personne P ON P.id = V.id
 		WHERE P.nom = 'MAUX' 
 		AND P.prenom = 'Annie'), 
-CURDATE(),
-"Ordonnance5"),
+CURDATE()),
 ((SELECT A.id FROM Animal A
 		INNER JOIN Race R ON R.id = A.idRace
 		INNER JOIN Client C ON C.id = A.idClient 
@@ -204,8 +199,7 @@ CURDATE(),
 		INNER JOIN Personne P ON P.id = V.id
 		WHERE P.nom = 'MAUX' 
 		AND P.prenom = 'Annie'), 
-CURDATE(),
-"Ordonnance6"),
+CURDATE()),
 ((SELECT A.id FROM Animal A
 		INNER JOIN Race R ON R.id = A.idRace
 		INNER JOIN Client C ON C.id = A.idClient 
@@ -218,8 +212,7 @@ CURDATE(),
 		INNER JOIN Personne P ON P.id = V.id
 		WHERE P.nom = 'MAUX' 
 		AND P.prenom = 'Annie'), 
-CURDATE(),
-"Ordonnance7"),
+CURDATE()),
 ((SELECT A.id FROM Animal A
 		INNER JOIN Race R ON R.id = A.idRace
 		INNER JOIN Client C ON C.id = A.idClient 
@@ -232,8 +225,7 @@ CURDATE(),
 		INNER JOIN Personne P ON P.id = V.id
 		WHERE P.nom = 'MAUX' 
 		AND P.prenom = 'Annie'), 
-CURDATE(),
-"Ordonnance8"),
+CURDATE()),
 ((SELECT A.id FROM Animal A
 		INNER JOIN Race R ON R.id = A.idRace
 		INNER JOIN Client C ON C.id = A.idClient 
@@ -246,8 +238,7 @@ CURDATE(),
 		INNER JOIN Personne P ON P.id = V.id
 		WHERE P.nom = 'MAUX' 
 		AND P.prenom = 'Annie'), 
-CURDATE(),
-"Ordonnance9"),
+CURDATE()),
 ((SELECT A.id FROM Animal A
 		INNER JOIN Race R ON R.id = A.idRace
 		INNER JOIN Client C ON C.id = A.idClient 
@@ -260,8 +251,7 @@ CURDATE(),
 		INNER JOIN Personne P ON P.id = V.id
 		WHERE P.nom = 'MAUX' 
 		AND P.prenom = 'Annie'), 
-CURDATE(),
-"Ordonnance10");
+CURDATE());
 
 INSERT INTO Traitement (idAnimal, maladie, soin, dateDebut, dateFin) VALUES
 ((SELECT A.id FROM Animal A

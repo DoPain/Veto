@@ -6,13 +6,13 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -29,7 +29,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Text layoutX="565.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gestion Employé">
+                <Text layoutX="565.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fiche Employé">
                     <font>
                         <Font size="19.0" />
                     </font>
@@ -43,7 +43,6 @@
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
-                <Label fx:id="empNameLabel" layoutX="462.0" layoutY="11.0" text="Nom employé : " />
                 <Button fx:id="backToEmp" layoutX="37.0" layoutY="19.0" mnemonicParsing="false" onAction="#retourEmploye" text="Retour liste employé" />
                 <Label layoutX="498.0" layoutY="342.0" text="Liste de ses congés :" />
                 <ScrollPane layoutX="498.0" layoutY="366.0" prefHeight="268.0" prefWidth="640.0">
@@ -58,29 +57,40 @@
                 </ScrollPane>
                 <ButtonBar fx:id="animalButtonList" layoutX="7.0" layoutY="564.0" prefHeight="40.0" prefWidth="327.0">
                     <buttons>
-                        <Button fx:id="empModifyBtn" mnemonicParsing="false" text="Modifier employé" />
+                        <Button fx:id="empModifyBtn" mnemonicParsing="false" onAction="#modifierEmp" text="Modifier employé" />
                         <Button fx:id="empDeleteBtn" mnemonicParsing="false" text="Supprimer employé" />
                     </buttons>
                 </ButtonBar>
                 <Label layoutX="14.0" layoutY="102.0" text="Fiche employé :" />
-                <AnchorPane layoutX="14.0" layoutY="155.0" prefHeight="337.0" prefWidth="406.0">
-                    <children>
-                        <VBox fx:id="resumeEmpVbox" prefHeight="337.0" prefWidth="406.0" />
-                    </children>
-                </AnchorPane>
-                <AnchorPane layoutX="37.0" layoutY="364.0" prefHeight="200.0" prefWidth="345.0">
-                    <children>
-                        <VBox fx:id="historiqueRdvClient" layoutX="-1.0" prefHeight="200.0" prefWidth="346.0" />
-                    </children>
-                </AnchorPane>
                 <HBox layoutX="590.0" layoutY="19.0" prefHeight="26.0" prefWidth="187.0" />
-            <AnchorPane layoutX="498.0" layoutY="102.0" prefHeight="219.0" prefWidth="638.0">
-               <children>
-                  <VBox fx:id="ficheCongesVbox" prefHeight="219.0" prefWidth="651.0" />
-               </children>
-            </AnchorPane>
-            <Label layoutX="498.0" layoutY="78.0" text="Fiche congés" />
             <Button fx:id="ajouterCongesBtn" layoutX="124.0" layoutY="608.0" mnemonicParsing="false" text="Ajouter congés" />
+            <TextField fx:id="nomEmp" layoutX="163.0" layoutY="151.0" />
+            <TextField fx:id="prenomEmp" layoutX="163.0" layoutY="199.0" />
+            <TextField fx:id="dateNaiss" layoutX="163.0" layoutY="249.0" />
+            <TextField fx:id="telEmp" layoutX="163.0" layoutY="296.0" />
+            <TextField fx:id="mailEmp" layoutX="163.0" layoutY="345.0" />
+            <TextField fx:id="addrEmp" layoutX="163.0" layoutY="397.0" prefHeight="91.0" prefWidth="171.0" />
+            <TextField fx:id="villeEmp" layoutX="163.0" layoutY="500.0" />
+            <TextField fx:id="dateD" layoutX="579.0" layoutY="107.0" />
+            <TextField fx:id="dateF" layoutX="579.0" layoutY="151.0" promptText="Indéfinie" />
+            <TextField fx:id="salaireEmp" layoutX="579.0" layoutY="199.0" />
+            <TextField fx:id="loginEmp" layoutX="579.0" layoutY="249.0" />
+            <TextField fx:id="pwdEmp" layoutX="579.0" layoutY="296.0" />
+            <TextField fx:id="typeContrat" layoutX="579.0" layoutY="61.0" />
+            <Label fx:id="error" layoutX="457.0" layoutY="23.0" prefHeight="17.0" prefWidth="190.0" />
+            <Label layoutX="47.0" layoutY="156.0" text="Nom employé :" />
+            <Label layoutX="28.0" layoutY="204.0" text="Prénom employé :" />
+            <Label layoutX="23.0" layoutY="254.0" text="Date de naissance :" />
+            <Label layoutX="76.0" layoutY="301.0" text="Téléphone :" />
+            <Label layoutX="58.0" layoutY="350.0" text="Adresse mail :" />
+            <Label layoutX="27.0" layoutY="397.0" text="Adresse employé :" />
+            <Label layoutX="106.0" layoutY="505.0" text="Ville :" />
+            <Label layoutX="457.0" layoutY="66.0" text="Type de contrat :" />
+            <Label layoutX="416.0" layoutY="112.0" text="Date début de contrat :" />
+            <Label layoutX="437.0" layoutY="156.0" text="Date fin de contrat :" />
+            <Label layoutX="513.0" layoutY="204.0" text="Salaire :" />
+            <Label layoutX="518.0" layoutY="254.0" text="Login :" />
+            <Label layoutX="473.0" layoutY="301.0" text="Mot de passe :" />
             </children>
         </AnchorPane>
     </center>

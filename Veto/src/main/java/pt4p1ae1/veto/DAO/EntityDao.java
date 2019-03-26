@@ -33,4 +33,9 @@ public interface EntityDao<T> {
      */
     T findById(Long id);
 
+    /**
+     * Remove all entity in the table.
+     */
+    void removeAll();
+
 }

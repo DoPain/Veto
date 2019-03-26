@@ -5,23 +5,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 
 import javafx.stage.Stage;
 import pt4p1ae1.veto.ControllerSample;
-import pt4p1ae1.veto.Entity.ClientEntity;
 import pt4p1ae1.veto.Entity.EmployeEntity;
-import pt4p1ae1.veto.GestionCLient.ClientEntityObservable;
 import pt4p1ae1.veto.Utils;
 
 import java.io.IOException;
@@ -32,32 +28,42 @@ import java.util.ResourceBundle;
 
 public class RechercheEmployeController extends ControllerSample implements Initializable {
 
-
-    public TextField nomEmpField;
-    public TextField prenomEmpField;
-    public TextField telEmpField;
-
-    public Label error;
-
-    public ComboBox<EmployeEntityObservable> posteEmpComboBox;
-
-    public Button filterButton;
-    public Button insertEmpButton;
-    public Button editEmpButton;
-    public Button deleteEmpButton;
-
-    public BorderPane borderPane;
-
-    public TableColumn<EmployeEntityObservable, String> nomEmpColumn;
-    public TableColumn<EmployeEntityObservable, String> firstNameEmpColomn;
-    public TableColumn<EmployeEntityObservable, String> phoneEmpColomn;
-    public TableColumn<EmployeEntityObservable, String> emailEmpColomn;
-    public TableColumn<EmployeEntityObservable, String> posteEmpColomn;
-    public TableColumn<EmployeEntityObservable, String> typeContratEmpColomn;
-    public TableColumn<EmployeEntityObservable, String> debutContratEmpColomn;
-    public TableColumn<EmployeEntityObservable, String> finContratEmpColomn;
-
-    public TableView<EmployeEntityObservable> tableViewEmp;
+    @FXML
+    private TextField nomEmpField;
+    @FXML
+    private TextField prenomEmpField;
+    @FXML
+    private TextField telEmpField;
+    @FXML
+    private TextField typeContratEmp;
+    @FXML
+    private Label error;
+    @FXML
+    private Button filterButton;
+    @FXML
+    private Button insertEmpButton;
+    @FXML
+    private Button editEmpButton;
+    @FXML
+    private Button deleteEmpButton;
+    @FXML
+    private BorderPane borderPane;
+    @FXML
+    private TableColumn<EmployeEntityObservable, String> nomEmpColumn;
+    @FXML
+    private TableColumn<EmployeEntityObservable, String> firstNameEmpColomn;
+    @FXML
+    private TableColumn<EmployeEntityObservable, String> phoneEmpColomn;
+    @FXML
+    private TableColumn<EmployeEntityObservable, String> emailEmpColomn;
+    @FXML
+    private TableColumn<EmployeEntityObservable, String> typeContratEmpColomn;
+    @FXML
+    private TableColumn<EmployeEntityObservable, String> debutContratEmpColomn;
+    @FXML
+    private TableColumn<EmployeEntityObservable, String> finContratEmpColomn;
+    @FXML
+    private TableView<EmployeEntityObservable> tableViewEmp;
 
     private final ObservableList<EmployeEntityObservable> observables = FXCollections.observableArrayList();
 
@@ -70,25 +76,72 @@ public class RechercheEmployeController extends ControllerSample implements Init
         phoneEmpColomn.setCellValueFactory(new PropertyValueFactory<>("telephone"));
         emailEmpColomn.setCellValueFactory(new PropertyValueFactory<>("mail"));
         debutContratEmpColomn.setCellValueFactory(new PropertyValueFactory<>("dateDebutContrat"));
+        finContratEmpColomn.setCellValueFactory(new PropertyValueFactory<>("dateFinContrat"));
+        typeContratEmpColomn.setCellValueFactory(new PropertyValueFactory<>("typeContrat"));
 
         loadEmp();
 
+        nomEmpField.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.ENTER) {
+                filtrerEmp();
+            }
+        });
+
+        prenomEmpField.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.ENTER) {
+                filtrerEmp();
+            }
+        });
+
+        telEmpField.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.ENTER) {
+            filtrerEmp();
+            }
+        });
+
+        typeContratEmp.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.ENTER) {
+                filtrerEmp();
+            }
+        });
+
+
+        tableViewEmp.setRowFactory(tv -> {
+            TableRow<EmployeEntityObservable> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    EmployeEntityObservable emp = row.getItem();
+                    Utils.setActualEmploye(emp.toEmpEntity());
+                    try {
+                        super.creatBtn("/fxml/dossierEmploye.fxml", (Stage) tableViewEmp.getScene().getWindow());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            return row ;
+        });
     }
 
-    public void insererEmploye(ActionEvent actionEvent) throws IOException {
-        Stage primaryStage = (Stage) insertEmpButton.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/inscriptionEmploye.fxml"));
-        primaryStage.setScene(new Scene(root, Utils.WIDTH, Utils.HEIGHT));
-        primaryStage.centerOnScreen();
+    @FXML
+    private void insererEmploye(ActionEvent actionEvent) throws IOException {
+        super.creatBtn("/fxml/inscriptionEmploye.fxml", (Stage) insertEmpButton.getScene().getWindow());
     }
 
-    public void modifierEmploye(ActionEvent actionEvent) throws IOException {
-        Stage primaryStage = (Stage) editEmpButton.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/dossierEmploye.fxml"));
-        primaryStage.setScene(new Scene(root, Utils.WIDTH, Utils.HEIGHT));
-        primaryStage.centerOnScreen();
+    @FXML
+    private void modifierEmploye(ActionEvent actionEvent) throws IOException {
+        if (tableViewEmp.getSelectionModel().getSelectedItem() != null) {
+            EmployeEntityObservable selectedEmp = tableViewEmp.getSelectionModel().getSelectedItem();
+            EmployeEntity emp = selectedEmp.toEmpEntity();
+            Utils.setActualEmploye(emp);
+            super.creatBtn("/fxml/dossierEmploye.fxml", (Stage) editEmpButton.getScene().getWindow());
+        } else {
+            error.setStyle("-fx-text-fill: red");
+            error.setText("Aucun produit selectionné");
+        }
     }
 
+    @FXML
     private void loadEmp() {
         this.observables.clear();
         List<EmployeEntity> emps = Utils.EMPLOYE_DAO.findAll();
@@ -114,32 +167,91 @@ public class RechercheEmployeController extends ControllerSample implements Init
         }
     }
 
-    public void filtrageRecherche(ActionEvent actionEvent) throws IOException{
+    @FXML
+    private void filtrerEmp(){
+        Boolean ajout = false;
+        ObservableList<EmployeEntityObservable> observableTmpList = FXCollections.observableArrayList();
+        ObservableList<EmployeEntityObservable> observableTmpListCopy = FXCollections.observableArrayList();
 
-        ObservableList<EmployeEntityObservable> observables = FXCollections.observableArrayList();
-        List<EmployeEntity> emps = Utils.EMPLOYE_DAO.findAll();
-
-        EmployeEntity emp1 = new EmployeEntity();
-
-        if (nomEmpField == null){
-            emp1.getPersonneById().setNom(nomEmpField.getText());
+        if(!nomEmpField.getText().equals("")){
+            ajout = true;
+            for (EmployeEntityObservable emp : observables) {
+                if (emp.getNom().contains(nomEmpField.getText())) {
+                    observableTmpList.add(emp);
+                }
+            }
+            observableTmpListCopy.addAll(observableTmpList);
         }
-        if (prenomEmpField == null){
-            emp1.getPersonneById().setPrenom(prenomEmpField.getText());
-        }
-        if (telEmpField == null){
-            emp1.getPersonneById().setTelephone(telEmpField.getText());
-        }
 
-        for (EmployeEntity emp : emps) {
-            if((emp1.getPersonneById().getNom().equals(emp.getPersonneById().getNom()))
-                    && (emp1.getPersonneById().getPrenom().equals(emp.getPersonneById().getPrenom()))
-                    && emp1.getPersonneById().getTelephone().equals(emp.getPersonneById().getTelephone())){
-                EmployeEntityObservable e = new EmployeEntityObservable(emp);
-                observables.add(e);
+        if(!prenomEmpField.getText().equals("")){
+            if(!ajout){
+                ajout = true;
+                for (EmployeEntityObservable emp : observables) {
+                    if (emp.getPrenom().contains(prenomEmpField.getText())) {
+                        observableTmpList.add(emp);
+                    }
+                }
+                observableTmpListCopy.removeAll();
+                observableTmpListCopy.addAll(observableTmpList);
+            } else {
+                for(EmployeEntityObservable empT : observableTmpListCopy){
+                    if(!empT.getPrenom().contains(prenomEmpField.getText())){
+                        observableTmpList.remove(empT);
+                    }
+                }
+                observableTmpListCopy.removeAll();
+                observableTmpListCopy.addAll(observableTmpList);
             }
         }
-        tableViewEmp.setItems(observables);
+
+        if(!telEmpField.getText().equals("")){
+            if(!ajout){
+                ajout = true;
+                for (EmployeEntityObservable emp : observables) {
+                    if (emp.getTel().contains(telEmpField.getText())) {
+                        observableTmpList.add(emp);
+                    }
+                }
+                observableTmpListCopy.removeAll();
+                observableTmpListCopy.addAll(observableTmpList);
+            } else {
+                for(EmployeEntityObservable empT : observableTmpListCopy){
+                    if(!empT.getTel().contains(telEmpField.getText())){
+                        observableTmpList.remove(empT);
+                    }
+                }
+                observableTmpListCopy.removeAll();
+                observableTmpListCopy.addAll(observableTmpList);
+            }
+        }
+
+        if(!typeContratEmp.getText().equals("")){
+            if(!ajout){
+                ajout = true;
+                for (EmployeEntityObservable emp : observables) {
+                    if (emp.getTypeContrat().contains(typeContratEmp.getText())) {
+                        observableTmpList.add(emp);
+                    }
+                }
+                observableTmpListCopy.removeAll();
+                observableTmpListCopy.addAll(observableTmpList);
+            } else {
+                for(EmployeEntityObservable empT : observableTmpListCopy){
+                    if(!empT.getTypeContrat().contains(typeContratEmp.getText())){
+                        observableTmpList.remove(empT);
+                    }
+                }
+                observableTmpListCopy.removeAll();
+                observableTmpListCopy.addAll(observableTmpList);
+            }
+        }
+
+        if(!ajout){
+            tableViewEmp.setItems(observables);
+        } else {
+            tableViewEmp.setItems(observableTmpList);
+        }
+
     }
 
 

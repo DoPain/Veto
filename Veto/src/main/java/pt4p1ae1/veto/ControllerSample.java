@@ -11,6 +11,10 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
+import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -28,16 +32,26 @@ public class ControllerSample extends ControllerVbox implements Initializable {
     }
 
     protected void start() {
-        BackgroundFill fill = new BackgroundFill(Color.web("#2E64FE"), CornerRadii.EMPTY, Insets.EMPTY);
+        BackgroundFill fill = new BackgroundFill(Color.web("#01A99C"), CornerRadii.EMPTY, Insets.EMPTY);
         pane.setBackground(new Background(fill));
+        pane.getChildren().forEach(node -> node.setStyle("-fx-fill: white; -fx-background-radius : 6;"));
     }
 
     @FXML
     private void onActionDisconnectBTN() throws IOException {
-        Stage primaryStage = (Stage) pane.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/authentification.fxml"));
-        primaryStage.setScene(new Scene(root, 700, 400));
-        primaryStage.centerOnScreen();
-        Utils.createLog("Disconnect");
+        Parent root1 = FXMLLoader.load(this.getClass().getResource("/fxml/popup.fxml"));
+        Scene scene = new Scene(root1);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle("Confirmation");
+        stage.showAndWait();
+
+        if(Utils.getConfirmation()) {
+            Stage primaryStage = (Stage) pane.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/authentification.fxml"));
+            primaryStage.setScene(new Scene(root, 700, 400));
+            primaryStage.centerOnScreen();
+            Utils.createLog("Disconnect");
+        }
     }
 }

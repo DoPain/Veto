@@ -58,13 +58,14 @@
             <Label fx:id="titleLabel" layoutX="472.0" layoutY="21.0" text="Création profil animal" />
             <ButtonBar layoutX="182.0" layoutY="424.0" prefHeight="40.0" prefWidth="206.0">
                <buttons>
-                  <RadioButton fx:id="maleRadioBtn" mnemonicParsing="false" text="Mâle" />
-                  <RadioButton fx:id="femaleRadioBtn" mnemonicParsing="false" text="Femelle" />
+                  <RadioButton fx:id="maleRadioBtn" mnemonicParsing="false" onAction="#maleRBOnAction" text="Mâle" />
+                  <RadioButton fx:id="femaleRadioBtn" mnemonicParsing="false" onAction="#femaleRBOnAction" text="Femelle" />
                </buttons>
             </ButtonBar>
             <Label layoutX="75.0" layoutY="192.0" text="Propriétaire :" />
             <Button fx:id="newCustomer" layoutX="380.0" layoutY="187.0" mnemonicParsing="false" onAction="#newCustomerOnAction" text="Nouveau Client" />
             <ComboBox fx:id="ownerComboBox" layoutX="203.0" layoutY="187.0" prefHeight="26.0" prefWidth="175.0" />
+            <Label fx:id="error" layoutX="615.0" layoutY="543.0" />
          </children>
       </AnchorPane>
    </center>

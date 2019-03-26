@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import jfxtras.scene.control.agenda.Agenda;
 import pt4p1ae1.veto.AgendaPage.AgendaPage;
 
 import java.io.IOException;
@@ -23,35 +22,31 @@ public class ControllerVbox implements Initializable {
 
     @FXML
     protected Button btn_log;
+    @FXML
+    protected Button btn_emp;
 
     @FXML
     protected VBox vBox;
 
-    HashMap<String,String> titleMap;
+    private static Boolean isAgenda = false;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (!Utils.isAdmin()) {
             btn_log.setVisible(false);
+            btn_emp.setVisible(false);
         }
-        titleMap = new HashMap<>();
-        titleMap.put("/fxml/agendaPage.fxml","Agenda");
-        titleMap.put("/fxml/home.fxml","Home");
-        titleMap.put("/fxml/rechercheAnimal.fxml","Animaux");
-        titleMap.put("/fxml/rechercheClient.fxml","Client");
-        titleMap.put("/fxml/rechercheOrdonnance.fxml","Ordonnance");
-        titleMap.put("/fxml/pageStock.fxml","Stock");
-        titleMap.put("/fxml/pageLog.fxml","Log");
-        titleMap.put("/fxml/rechercheEmployes.fxml","Employé");
+        vBox.setSpacing(3);
+        vBox.getChildren().forEach(node -> node.setStyle("-fx-background-radius : 6; -fx-background-insets:0,1;"));
     }
 
     protected void creatBtn(String ressourceName, Stage primaryStage) throws IOException {
-        if(primaryStage.getTitle().equals("Agenda")){
-            AgendaPage.saveEvent();
+        if(isAgenda){
+            AgendaPage.saveEvents();
         }
         Parent root = FXMLLoader.load(this.getClass().getResource(ressourceName));
         primaryStage.setScene(new Scene(root,Utils.WIDTH,Utils.HEIGHT));
-        primaryStage.setTitle(titleMap.get(ressourceName));
+        isAgenda = ressourceName.equals("/fxml/agendaPage.fxml");
     }
 
     @FXML
@@ -79,7 +74,7 @@ public class ControllerVbox implements Initializable {
 
     @FXML
     protected void onActionStockBTN() throws IOException  {
-        creatBtn("/fxml/pageStock.fxml", (Stage) btn_home.getScene().getWindow());
+        creatBtn("/fxml/rechercheProduit.fxml", (Stage) btn_home.getScene().getWindow());
     }
 
     @FXML

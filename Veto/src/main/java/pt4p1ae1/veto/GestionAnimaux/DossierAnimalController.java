@@ -116,7 +116,6 @@ public class DossierAnimalController extends ControllerSample implements Initial
         Utils.createLog("Remove Animal : " + animal.getNom() +
                 " appartenant à " + animal.getClientByIdClient().getPersonneById().getNom());
         Utils.ANIMAL_DAO.delete(animal);
-
         Stage primaryStage = (Stage) animalDelete.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/rechercheAnimal.fxml"));
         primaryStage.setScene(new Scene(root, 1280, 720));
@@ -126,7 +125,7 @@ public class DossierAnimalController extends ControllerSample implements Initial
     @FXML
     private void onActionInsertCareBtn() throws IOException {
         //TODO Afficher la fenêtre d'insertion d'un soin
-        Utils.setModifyAnimal(false);
+        Utils.setModifyDisease(false);
         Stage primaryStage = (Stage) insertDiseaseBtn.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/ajoutMaladie.fxml"));
         primaryStage.setScene(new Scene(root, 1280, 720));
@@ -138,9 +137,9 @@ public class DossierAnimalController extends ControllerSample implements Initial
         if (diseaseHistory.getSelectionModel().getSelectedItem() != null) {
             error.setText("");
             TraitementEntityObservable traitementObservable = diseaseHistory.getSelectionModel().getSelectedItem();
-            TraitementEntity traitement = Utils.TRAITEMENT_DAO.findById(traitementObservable.getId());
+            TraitementEntity traitement = traitementObservable.getTraitement();
             Utils.setCurrentTraitement(traitement);
-            Utils.setModifyAnimal(true);
+            Utils.setModifyDisease(true);
             Stage primaryStage = (Stage) editDiseaseBtn.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/ajoutMaladie.fxml"));
             primaryStage.setScene(new Scene(root, 1280, 720));
@@ -156,7 +155,7 @@ public class DossierAnimalController extends ControllerSample implements Initial
         if (diseaseHistory.getSelectionModel().getSelectedItem() != null) {
             error.setText("");
             TraitementEntityObservable selectedTraitement = diseaseHistory.getSelectionModel().getSelectedItem();
-            TraitementEntity traitement = Utils.TRAITEMENT_DAO.findById(selectedTraitement.getId());
+            TraitementEntity traitement = selectedTraitement.getTraitement();
             Utils.createLog("Remove Traitement : " + traitement.getMaladie() +
                     " à " + traitement.getAnimalByIdAnimal().getNom() +
                     " appartenant à " + traitement.getAnimalByIdAnimal().getClientByIdClient().getPersonneById().getNom());

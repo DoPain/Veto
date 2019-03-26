@@ -25,20 +25,19 @@ public class AnimalEntityObservable {
     public AnimalEntityObservable(AnimalEntity animal) {
         this.animal = animal;
         this.id = animal.getId();
-        this.proprietaire = animal.getClientByIdClient().getPersonneById().getNom();
+        this.proprietaire = animal.getClientByIdClient().getPersonneById().getNom() + " " + animal.getClientByIdClient().getPersonneById().getPrenom();
         this.nom = animal.getNom();
         this.espece = animal.getRaceByIdRace().getEspeceByIdEspece().getNom();
         this.race = animal.getRaceByIdRace().getNom();
         this.sexe = animal.getSexe();
         this.dateDeNaissance = animal.getDateNaissance();
-        this.age = Utils.calculateAge(animal.getDateNaissance());
-        if(animal.getPoids()!=null)
+        this.age = Utils.calculateAge(animal.getDateNaissance()) + " ans";
+        if (animal.getPoids() != null)
             this.poids = animal.getPoids().toString();
         else
             this.poids = "";
         this.autresInformations = animal.getAutreInformations();
-        //this.prochainRDV = getNextRDVAnimal();
-
+        this.prochainRDV = "pas défini";
     }
 
     private String getNextRDVAnimal() {
@@ -100,15 +99,15 @@ public class AnimalEntityObservable {
         return id;
     }
 
-    public AnimalEntity toAnimalEntity() {
-        return animal;
-    }
-
     public AnimalEntity getAnimal() {
         return animal;
     }
 
     public String getSexe() {
         return sexe;
+    }
+
+    public AnimalEntity getAnimalEntity() {
+        return animal;
     }
 }

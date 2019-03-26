@@ -345,7 +345,7 @@ public class VilleEntity {
         return Objects.hash(id, villeDepartement, villeSlug, villeNom, villeNomSimple, villeNomReel, villeNomSoundex, villeNomMetaphone, villeCodePostal, villeCommune, villeCodeCommune, villeArrondissement, villeCanton, villeAmdi, villePopulation2010, villePopulation1999, villePopulation2012, villeDensite2010, villeSurface, villeLongitudeDeg, villeLatitudeDeg, villeLongitudeGrd, villeLatitudeGrd, villeLongitudeDms, villeLatitudeDms, villeZmin, villeZmax);
     }
 
-    @OneToMany(mappedBy = "villeByIdVille")
+    @OneToMany( mappedBy = "villeByIdVille")
     public Collection<PersonneEntity> getPersonnesById() {
         return personnesById;
     }

@@ -4,12 +4,15 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
+/**
+ * Entité des rendez vous de l'agenda
+ */
 @Entity
 @Table(name = "RendezVous", schema = "PT_S4P1A_E1", catalog = "")
 public class RendezVousEntity {
     private long id;
-    private long idAnimal;
-    private long idVeterinaire;
+    private Long idAnimal;
+    private Long idVeterinaire;
     private Timestamp dateHeureDebut;
     private Timestamp dateHeureFin;
     private String resume;
@@ -29,22 +32,22 @@ public class RendezVousEntity {
     }
 
     @Basic
-    @Column(name = "idAnimal", nullable = false)
-    public long getIdAnimal() {
+    @Column(name = "idAnimal", nullable = true)
+    public Long getIdAnimal() {
         return idAnimal;
     }
 
-    public void setIdAnimal(long idAnimal) {
+    public void setIdAnimal(Long idAnimal) {
         this.idAnimal = idAnimal;
     }
 
     @Basic
-    @Column(name = "idVeterinaire", nullable = false)
-    public long getIdVeterinaire() {
+    @Column(name = "idVeterinaire", nullable = true)
+    public Long getIdVeterinaire() {
         return idVeterinaire;
     }
 
-    public void setIdVeterinaire(long idVeterinaire) {
+    public void setIdVeterinaire(Long idVeterinaire) {
         this.idVeterinaire = idVeterinaire;
     }
 

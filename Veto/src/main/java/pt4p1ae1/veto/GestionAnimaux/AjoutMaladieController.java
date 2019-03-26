@@ -51,6 +51,14 @@ public class AjoutMaladieController extends ControllerSample implements Initiali
         animalNameLab.setText(Utils.getCurrentAnimal().getNom());
         beginDateText.setPromptText("aaaa-mm-jj");
         endDateText.setPromptText("aaaa-mm-jj");
+
+        if(Utils.isModifyDisease()){
+            validateBtn.setText("Enregistrer les modifications");
+            diseaseText.setText(Utils.getCurrentTraitement().getMaladie());
+            careText.setText(Utils.getCurrentTraitement().getSoin());
+            beginDateText.setText(Utils.getCurrentTraitement().getDateDebut().toString());
+            endDateText.setText(Utils.getCurrentTraitement().getDateFin().toString());
+        }
     }
 
 
@@ -62,39 +70,52 @@ public class AjoutMaladieController extends ControllerSample implements Initiali
     }
 
     public void validateBtnOnAction(ActionEvent actionEvent) throws IOException {
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE);
-        java.util.Date dateD = null;
-        java.util.Date dateF = null;
-        try {
-            dateD = formatter.parse(beginDateText.getText());
-            dateF = formatter.parse(endDateText.getText());
-        } catch (ParseException e) {
-            error.setStyle("-fx-text-fill: red");
-            error.setText("Date(s) invalide(s)");
-        }
-        java.sql.Date sqlDateD = new java.sql.Date(dateD.getTime());
-        java.sql.Date sqlDateF = new java.sql.Date(dateF.getTime());
+        if(!diseaseText.getText().equals("") && !careText.getText().equals("") &&
+                !beginDateText.getText().equals("") && !endDateText.getText().equals("")) {
+            DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE);
+            java.util.Date dateD = null;
+            java.util.Date dateF = null;
+            try {
+                dateD = formatter.parse(beginDateText.getText());
+                dateF = formatter.parse(endDateText.getText());
+            } catch (ParseException e) {
+                error.setStyle("-fx-text-fill: red");
+                error.setText("Date(s) invalide(s)");
+            }
+            java.sql.Date sqlDateD = new java.sql.Date(dateD.getTime());
+            java.sql.Date sqlDateF = new java.sql.Date(dateF.getTime());
 
-        if(!Utils.isModifyDisease()) {
-            TraitementEntity newTraitement = new TraitementEntity();
-            newTraitement.setMaladie(diseaseText.getText());
-            newTraitement.setSoin(careText.getText());
-            newTraitement.setDateDebut(sqlDateD);
-            newTraitement.setDateFin(sqlDateF);
-            Utils.TRAITEMENT_DAO.saveOrUpdate(newTraitement);
+            if (!Utils.isModifyDisease()) {
+                TraitementEntity newTraitement = new TraitementEntity();
+                newTraitement.setIdAnimal(Utils.getCurrentAnimal().getId());
+                newTraitement.setMaladie(diseaseText.getText());
+                newTraitement.setSoin(careText.getText());
+                newTraitement.setDateDebut(sqlDateD);
+                newTraitement.setDateFin(sqlDateF);
+                Utils.TRAITEMENT_DAO.saveOrUpdate(newTraitement);
+                Utils.createLog("Ajout traitement : concernant la maladie " + diseaseText.getText() +
+                        " sur l'animal " + Utils.getCurrentAnimal().getNom() + " appartenant à " +
+                        Utils.getCurrentAnimal().getClientByIdClient().getPersonneById().getNom());
+            } else {
+                traitement.setIdAnimal(Utils.getCurrentAnimal().getId());
+                traitement.setMaladie(diseaseText.getText());
+                traitement.setSoin(careText.getText());
+                traitement.setDateDebut(sqlDateD);
+                traitement.setDateFin(sqlDateF);
+                Utils.TRAITEMENT_DAO.saveOrUpdate(traitement);
+                Utils.createLog("Modification traitement : concernant la maladie " + diseaseText.getText() +
+                        " sur l'animal " + Utils.getCurrentAnimal().getNom() + " appartenant à " +
+                        Utils.getCurrentAnimal().getClientByIdClient().getPersonneById().getNom());
+            }
+            Utils.setModifyDisease(false);
+            //Rediriger vers le dossier animal
+            Stage primaryStage = (Stage) validateBtn.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/dossierAnimal.fxml"));
+            primaryStage.setScene(new Scene(root, 1280, 720));
+            primaryStage.centerOnScreen();
         } else {
-            traitement.setMaladie(diseaseText.getText());
-            traitement.setSoin(careText.getText());
-            traitement.setDateDebut(sqlDateD);
-            traitement.setDateFin(sqlDateF);
-            Utils.TRAITEMENT_DAO.saveOrUpdate(traitement);
+            error.setStyle("-fx-text-fill: red");
+            error.setText("Veuillez remplir tous les champs");
         }
-
-        Utils.setModifyDisease(false);
-        //Rediriger vers le dossier animal
-        Stage primaryStage = (Stage) validateBtn.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/dossierAnimal.fxml"));
-        primaryStage.setScene(new Scene(root, 1280, 720));
-        primaryStage.centerOnScreen();
     }
 }

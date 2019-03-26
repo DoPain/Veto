@@ -1,14 +1,10 @@
-package pt4p1ae1.veto.GestionCLient;
+package pt4p1ae1.veto.GestionClient;
 
 import pt4p1ae1.veto.Entity.AnimalEntity;
 import pt4p1ae1.veto.Entity.RendezVousEntity;
 import pt4p1ae1.veto.Entity.ClientEntity;
-import pt4p1ae1.veto.GestionAnimaux.AnimalEntityObservable;
 import pt4p1ae1.veto.Utils;
 
-import java.time.LocalDate;
-import java.time.Period;
-import java.util.Iterator;
 import java.util.List;
 
 public class ClientEntityObservable {
@@ -29,7 +25,7 @@ public class ClientEntityObservable {
 
         this.tel = clientEntity.getPersonneById().getTelephone();
         this.email = clientEntity.getPersonneById().getMail();
-        this.nextRDV = getNextRDVOfClient();
+        this.nextRDV = "Pas de Rendez-vous";//getNextRDVOfClient();
     }
 
     private String getNextRDVOfClient() {

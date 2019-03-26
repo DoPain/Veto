@@ -18,7 +18,7 @@ public class Utils {
     public static final EntityDao<LogEntity> LOG_DAO = DaoFactory.getDaoFor(LogEntity.class);
     public static final EntityDao<PersonneEntity> PERSONNE_DAO = DaoFactory.getDaoFor(PersonneEntity.class);
     public static final EntityDao<AnimalEntity> ANIMAL_DAO = DaoFactory.getDaoFor(AnimalEntity.class);
-    public static final EntityDao<RendezVousEntity> AVOIR_RENDEZ_VOUS_DAO = DaoFactory.getDaoFor(RendezVousEntity.class);
+    public static final EntityDao<RendezVousEntity> RENDEZ_VOUS_DAO = DaoFactory.getDaoFor(RendezVousEntity.class);
     public static final EntityDao<EspeceEntity> ESPECE_DAO = DaoFactory.getDaoFor(EspeceEntity.class);
     public static final EntityDao<RaceEntity> RACE_DAO= DaoFactory.getDaoFor(RaceEntity.class);
     public static final EntityDao<OrdonnanceEntity> ORDONNANCE_DAO = DaoFactory.getDaoFor(OrdonnanceEntity.class);
@@ -26,20 +26,22 @@ public class Utils {
     public static final EntityDao<EmployeEntity> EMPLOYE_DAO = DaoFactory.getDaoFor(EmployeEntity.class);
     public static final EntityDao<VeterinaireEntity> VETERINAIRE_DAO = DaoFactory.getDaoFor(VeterinaireEntity.class);
     public static final EntityDao<ProduitEntity> PRODUIT_DAO = DaoFactory.getDaoFor(ProduitEntity.class);
+    public static final EntityDao<AppartenirEntity> APPARTENIR_DAO = DaoFactory.getDaoFor(AppartenirEntity.class);
+    public static final EntityDao<VilleEntity> VILLE_DAO = DaoFactory.getDaoFor(VilleEntity.class);
 
     public static final double WIDTH = 1280;
     public static final double HEIGHT = 800;
 
     private static boolean admin = true;
     private static EmployeEntity actualEmploye;
+    public static ClientEntity currentClient;
     private static AnimalEntity currentAnimal;
     private static ProduitEntity currentProduit;
     private static TraitementEntity currentTraitement;
+    private static boolean confirmation;
 
     private static boolean modifyAnimal = false;
     private static boolean modifyDisease = false;
-
-    private static boolean fromAddAnimal = false;
 
     public static void createLog(String action) {
         new Thread(() -> {
@@ -57,7 +59,7 @@ public class Utils {
     }
 
     public static List<RendezVousEntity> getRDVAnimal(long idAnimal) {
-        Iterator<RendezVousEntity> allRDV = Utils.AVOIR_RENDEZ_VOUS_DAO.findAll().iterator();
+        Iterator<RendezVousEntity> allRDV = Utils.RENDEZ_VOUS_DAO.findAll().iterator();
         List<RendezVousEntity> allRDVAnimal = null;
         while (allRDV.hasNext()) {
             RendezVousEntity rdv = allRDV.next();
@@ -135,11 +137,11 @@ public class Utils {
         Utils.currentTraitement = currentTraitement;
     }
 
-    public static boolean isFromAddAnimal() {
-        return fromAddAnimal;
+    public static boolean getConfirmation() {
+        return confirmation;
     }
 
-    public static void setFromAddAnimal(boolean fromAddAnimal) {
-        Utils.fromAddAnimal = fromAddAnimal;
+    public static void setConfirmation(boolean confirmation) {
+        Utils.confirmation = confirmation;
     }
 }
