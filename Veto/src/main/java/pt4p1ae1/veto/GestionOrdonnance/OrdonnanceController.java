@@ -112,52 +112,53 @@ public class OrdonnanceController extends ControllerSample implements Initializa
         tableViewAnimal.setItems(animalEntityObservables);
     }
 
-    public void createOrdonnance() throws FileNotFoundException, DocumentException {
+    public void createOrdonnance(){
         Date dateToday = new Date();
         VeterinaireEntity veterinaire = Utils.VETERINAIRE_DAO.findAll().get(0);
-//        try {
-        AnimalEntityObservable animal = tableViewAnimal.getSelectionModel().getSelectedItem();
+        try {
+            AnimalEntityObservable animal = tableViewAnimal.getSelectionModel().getSelectedItem();
 
-        OrdonnanceEntity ord = new OrdonnanceEntity();
-        ord.setIdVeterinaire(veterinaire.getId());
-        ord.setIdAnimal(animal.getId());
-        ord.setVeterinaireByIdVeterinaire(veterinaire);
-        ord.setAnimalByIdAnimal(animal.getAnimalEntity());
-        ord.setDateOrdonnance(new java.sql.Date(dateToday.getTime()));
-        ArrayList<AppartenirEntity> entities = new ArrayList<>();
-        Utils.ORDONNANCE_DAO.saveOrUpdate(ord);
-        long idOrdonnance = 0;
-        for (OrdonnanceEntity o : Utils.ORDONNANCE_DAO.findAll())
-            idOrdonnance = o.getId();
-        for (ProduitEntityObservable p : prescriptions.keySet()) {
-            AppartenirEntity a = new AppartenirEntity();
-            for (ProduitEntity prd : Utils.PRODUIT_DAO.findAll())
-                if (p.toProduitEntity().getRefProduit().equals(prd.getRefProduit()))
-                    a.setIdProduit(prd.getId());
-            a.setIdOrdonnance(idOrdonnance);
-            a.setIdProduit(p.toProduitEntity().getId());
-            a.setQuantite(1);
-            a.setDescription(prescriptions.get(p));
-            entities.add(a);
-            Utils.APPARTENIR_DAO.saveOrUpdate(a);
+            OrdonnanceEntity ord = new OrdonnanceEntity();
+            ord.setIdVeterinaire(veterinaire.getId());
+            ord.setIdAnimal(animal.getId());
+            ord.setVeterinaireByIdVeterinaire(veterinaire);
+            ord.setAnimalByIdAnimal(animal.getAnimalEntity());
+            ord.setDateOrdonnance(new java.sql.Date(dateToday.getTime()));
+            ArrayList<AppartenirEntity> entities = new ArrayList<>();
+            Utils.ORDONNANCE_DAO.saveOrUpdate(ord);
+            long idOrdonnance = 0;
+            for (OrdonnanceEntity o : Utils.ORDONNANCE_DAO.findAll())
+                idOrdonnance = o.getId();
+            for (ProduitEntityObservable p : prescriptions.keySet()) {
+                AppartenirEntity a = new AppartenirEntity();
+                for (ProduitEntity prd : Utils.PRODUIT_DAO.findAll())
+                    if (p.toProduitEntity().getRefProduit().equals(prd.getRefProduit()))
+                        a.setIdProduit(prd.getId());
+                a.setIdOrdonnance(idOrdonnance);
+                a.setIdProduit(p.toProduitEntity().getId());
+                a.setQuantite(1);
+                a.setDescription(prescriptions.get(p));
+                entities.add(a);
+                Utils.APPARTENIR_DAO.saveOrUpdate(a);
+            }
+
+            ord.setAppartenirsById(entities);
+            createOrdonnancePDF(ord);
+            tableViewAnimal.getSelectionModel().select(null);
+            ordonnanceMsg.setTextFill(Color.GREEN);
+            ordonnanceMsg.setText("L'ordonnance a bien été créer");
+            prescriptions.clear();
+        } catch (Exception e) {
+            if (e.getClass() == NullPointerException.class) {
+                ordonnanceMsg.setTextFill(Color.RED);
+                ordonnanceMsg.setText("Selectionnez un animal");
+                System.out.println(e.getMessage());
+            } else {
+                ordonnanceMsg.setTextFill(Color.RED);
+                ordonnanceMsg.setText("Erreur lors de la création du PDF");
+            }
         }
 
-        ord.setAppartenirsById(entities);
-        createOrdonnancePDF(ord);
-//            tableViewAnimal.getSelectionModel().select(null);
-        ordonnanceMsg.setTextFill(Color.GREEN);
-        ordonnanceMsg.setText("L'ordonnance a bien été créer");
-        prescriptions.clear();
-//        } catch (Exception e) {
-//            if (e.getClass() == NullPointerException.class) {
-//                ordonnanceMsg.setTextFill(Color.RED);
-//                ordonnanceMsg.setText("Selectionnez un animal");
-//                System.out.println(e.getMessage());
-//            } else {
-//                ordonnanceMsg.setTextFill(Color.RED);
-//                ordonnanceMsg.setText("Erreur lors de la création du PDF");
-//            }
-//        }
     }
 
     public void createPrescription() {
