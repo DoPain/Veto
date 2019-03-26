@@ -34,6 +34,7 @@ public class Utils {
 
     private static boolean admin = true;
     private static EmployeEntity actualEmploye;
+    public static ClientEntity currentClient;
     private static AnimalEntity currentAnimal;
     private static ProduitEntity currentProduit;
     private static boolean confirmation;
