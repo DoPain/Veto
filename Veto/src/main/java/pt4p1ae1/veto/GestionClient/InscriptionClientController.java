@@ -63,6 +63,7 @@ public class InscriptionClientController extends ControllerSample implements Ini
                     }
                 }
                 cityClient.setItems(villesObservables);
+                cityClient.setValue(villesObservables.get(0));
             }
         });
         cityClient.setOnAction(e -> {
@@ -79,7 +80,8 @@ public class InscriptionClientController extends ControllerSample implements Ini
     private void inscrireClient() throws ParseException {
 
         if(!nameClientText.getText().equals("")
-                && !firstNameClientText.getText().equals("")){
+                && !firstNameClientText.getText().equals("")
+                && !cpClientText.getText().equals("")){
 
             ClientEntity client = new ClientEntity();
             PersonneEntity person = new PersonneEntity();
@@ -122,6 +124,19 @@ public class InscriptionClientController extends ControllerSample implements Ini
             Utils.createLog("Créer Client : " + person.getPrenom()
                     + " "
                     + person.getNom());
+        } else {
+            if (nameClientText.getText().equals("")) {
+                nameClientText.setPromptText("Veuillez remplir ce champ.");
+                nameClientText.setStyle("-fx-prompt-text-fill: red");
+            }
+            if (firstNameClientText.getText().equals("")) {
+                firstNameClientText.setStyle("-fx-prompt-text-fill: red");
+                firstNameClientText.setPromptText("Veuillez remplir ce champ.");
+            }
+            if (cpClientText.getText().equals("")) {
+                cpClientText.setStyle("-fx-prompt-text-fill: red");
+                cpClientText.setPromptText("Veuillez remplir ce champ");
+            }
         }
     }
 }

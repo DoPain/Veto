@@ -128,9 +128,14 @@ public class InscriptionAnimalController extends ControllerSample implements Ini
 
     @FXML
     private void onActionRegisterBtn() throws IOException {
-        if(ownerComboBox.getValue() != null && nameText.getText() != null && speciesComboBox.getValue() != null &&
-        raceComboBox.getValue() != null && (maleRadioBtn.isSelected() || femaleRadioBtn.isSelected()) &&
-        birthDateText.getText() != null && weightText.getText() != null && furtherInformationsText.getText() != null) {
+        if(!ownerComboBox.getValue().equals("")
+                && !nameText.getText().equals("")
+                && !speciesComboBox.getValue().equals("")
+                && !raceComboBox.getValue().equals("")
+                && (maleRadioBtn.isSelected() || femaleRadioBtn.isSelected())
+                && !birthDateText.getText().equals("")
+                && !weightText.getText().equals("")
+                && !furtherInformationsText.getText().equals("")) {
             DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE);
             java.util.Date dateB = null;
             try {
@@ -157,8 +162,7 @@ public class InscriptionAnimalController extends ControllerSample implements Ini
                 newAnimal.setPoids(Double.parseDouble(weightText.getText()));
                 newAnimal.setAutreInformations(furtherInformationsText.getText());
                 Utils.ANIMAL_DAO.saveOrUpdate(newAnimal);
-                Utils.createLog("Ajout animal : " + newAnimal.getNom() + " appartenant à " +
-                        newAnimal.getClientByIdClient().getPersonneById().getNom());
+                Utils.createLog("Ajout animal : " + newAnimal.getNom());
             } else {
                 animal.setIdClient(ownerComboBox.getValue().getId());
                 animal.setNom(nameText.getText());
