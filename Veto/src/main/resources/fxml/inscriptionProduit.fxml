@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="751.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.181" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt4p1ae1.veto.GestionStock.InscriptionProduitController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="751.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt4p1ae1.veto.GestionStock.InscriptionProduitController">
     <top>
         <Pane fx:id="pane" BorderPane.alignment="CENTER">
             <children>
@@ -40,7 +40,7 @@
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="backToProducts" layoutX="27.0" layoutY="30.0" mnemonicParsing="false" onAction="#retourProduits" text="Retour liste produits" />
+                <Button fx:id="backToProducts" layoutX="27.0" layoutY="30.0" mnemonicParsing="false" onAction="#retourProduits" prefHeight="35" prefWidth="165" style="-fx-background-color: #01A99C;" text="Retour liste produits" textFill="white" />
                 <Label layoutX="100.0" layoutY="179.0" text="Référence :" />
                 <Label layoutX="86.0" layoutY="300.0" text="Prix de vente :" />
                 <Label layoutX="123.0" layoutY="229.0" text="Nom :" />
@@ -51,8 +51,11 @@
                 <TextField fx:id="nom" layoutX="179.0" layoutY="224.0" prefHeight="26.0" prefWidth="175.0" />
                 <TextField fx:id="prix" layoutX="184.0" layoutY="296.0" prefHeight="26.0" prefWidth="96.0" />
                 <TextField fx:id="nbInsertion" layoutX="679.0" layoutY="279.0" prefHeight="25.0" prefWidth="76.0" />
-                <Button fx:id="register" layoutX="776.0" layoutY="408.0" mnemonicParsing="false" onAction="#ajouterProduit" prefHeight="53.0" prefWidth="101.0" text="Ajouter" />
-            <Label layoutX="90.0" layoutY="381.0" text="Description :" />
+
+                <Button fx:id="register" layoutX="607.0" layoutY="408.0" mnemonicParsing="false" onAction="#ajouterProduit" prefHeight="35" prefWidth="105" style="-fx-background-color: green;" text="Ajouter" textFill="white" />
+                <Button fx:id="cancelBtn" layoutX="744.0" layoutY="408.0" mnemonicParsing="false" onAction="#retourProduits" prefHeight="35" prefWidth="105" style="-fx-background-color: #C9223E;" text="Annuler" textFill="white" />
+
+                <Label layoutX="90.0" layoutY="381.0" text="Description :" />
             <TextField fx:id="minQuantite" layoutX="678.0" layoutY="324.0" prefHeight="25.0" prefWidth="79.0" />
             <Label layoutX="550.0" layoutY="328.0" text="Quantité minimum :" />
             <TextArea fx:id="description" layoutX="90.0" layoutY="414.0" prefHeight="131.0" prefWidth="279.0" />

@@ -72,7 +72,7 @@ public class InscriptionClientController extends ControllerSample implements Ini
     }
 
     @FXML
-    private void retour() throws IOException {
+    private void retourClient() throws IOException {
         super.creatBtn("/fxml/rechercheClient.fxml", (Stage) backToClients.getScene().getWindow());
     }
 

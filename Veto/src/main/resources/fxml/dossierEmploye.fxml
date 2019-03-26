@@ -43,7 +43,7 @@
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="backToEmp" layoutX="37.0" layoutY="19.0" mnemonicParsing="false" onAction="#retourEmploye" text="Retour liste employé" />
+                <Button fx:id="backToEmp" layoutX="37.0" layoutY="19.0" mnemonicParsing="false" onAction="#retourEmploye" prefHeight="35.0" style="-fx-background-color: #01A99C;" textFill="white" text="Retour liste employé" />
                 <Label layoutX="498.0" layoutY="342.0" text="Liste de ses congés :" />
                 <ScrollPane layoutX="498.0" layoutY="366.0" prefHeight="268.0" prefWidth="640.0">
                     <content>
@@ -57,8 +57,8 @@
                 </ScrollPane>
                 <ButtonBar fx:id="animalButtonList" layoutX="7.0" layoutY="564.0" prefHeight="40.0" prefWidth="327.0">
                     <buttons>
-                        <Button fx:id="empModifyBtn" mnemonicParsing="false" style="-fx-background-color: blue;" textFill="WHITE" onAction="#modifierEmp" text="Modifier employé" />
-                        <Button fx:id="empDeleteBtn" mnemonicParsing="false" style="-fx-background-color: #C9223E;" textFill="WHITE" text="Supprimer employé" />
+                        <Button fx:id="empModifyBtn" mnemonicParsing="false" style="-fx-background-color: #01A99C;" prefHeight="35.0" textFill="WHITE" onAction="#modifierEmp" text="Modifier employé" />
+                        <Button fx:id="empDeleteBtn" mnemonicParsing="false" style="-fx-background-color: #C9223E;" prefHeight="35.0" textFill="WHITE" text="Supprimer employé" />
                     </buttons>
                 </ButtonBar>
                 <Label layoutX="14.0" layoutY="102.0" text="Fiche employé :" />
