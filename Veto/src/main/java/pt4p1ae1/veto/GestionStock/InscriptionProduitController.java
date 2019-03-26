@@ -84,12 +84,13 @@ public class InscriptionProduitController extends ControllerSample implements In
 
                 LocalDate localDateAcqui = dateAcquisition.getValue();
                 LocalDate localDatePer = datePeremption.getValue();
-                    java.sql.Date sqlDateA = java.sql.Date.valueOf(localDateAcqui);
-                    java.sql.Date sqlDateP = java.sql.Date.valueOf(localDatePer);
-                    newProduit.setDateAcquisition(sqlDateA);
-                    newProduit.setPeremption(sqlDateP);
+                java.sql.Date sqlDateA = java.sql.Date.valueOf(localDateAcqui);
+                java.sql.Date sqlDateP = java.sql.Date.valueOf(localDatePer);
+                newProduit.setDateAcquisition(sqlDateA);
+                newProduit.setPeremption(sqlDateP);
 
                 Utils.PRODUIT_DAO.saveOrUpdate(newProduit);
+                Utils.createLog(newProduit.getNom() + " " + "added");
             }
         } else {
             error.setStyle("-fx-text-fill: red");
