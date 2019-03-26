@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="751.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt4p1ae1.veto.GestionClient.DossierClientController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="751.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.181" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt4p1ae1.veto.GestionClient.DossierClientController">
     <top>
         <Pane fx:id="pane" BorderPane.alignment="CENTER">
             <children>
@@ -42,9 +42,9 @@
         <fx:include fx:id="vbox" source="VBoxButton.fxml" />
     </left>
     <center>
-        <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <AnchorPane fx:id="error" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="backToClients" layoutX="37.0" layoutY="19.0" mnemonicParsing="false" prefHeight="35" prefWidth="165" textFill="white" onAction="#backToClientsBtn" style="-fx-background-color: #01A99C;" text="Retour liste clients" />
+                <Button fx:id="backToClients" layoutX="37.0" layoutY="19.0" mnemonicParsing="false" onAction="#backToClientsBtn" prefHeight="35" prefWidth="165" style="-fx-background-color: #01A99C;" text="Retour liste clients" textFill="white" />
                 <Label layoutX="517.0" layoutY="201.0" text="Liste de ses animaux :" />
                   <TableView fx:id="animals" layoutX="518.0" layoutY="236.0" prefHeight="315.0" prefWidth="621.0">
                       <columns>
@@ -58,20 +58,20 @@
                 <ButtonBar fx:id="clientsButtonList" layoutX="61.0" layoutY="564.0" prefHeight="40.0" prefWidth="335.0">
                     <buttons>
                         <Button fx:id="clientModify" mnemonicParsing="false" onAction="#validateModification" prefHeight="35.0" prefWidth="165.0" style="-fx-background-color: green;" text="Valider Modification" textFill="WHITE" />
-                        <Button fx:id="clientDelete" mnemonicParsing="false" onAction="#supprClient" style="-fx-background-color: #C9223E;" prefHeight="35.0" prefWidth="165.0" text="Supprimer client" textFill="WHITE" />
+                        <Button fx:id="clientDelete" mnemonicParsing="false" onAction="#supprClient" prefHeight="35.0" prefWidth="165.0" style="-fx-background-color: #C9223E;" text="Supprimer client" textFill="WHITE" />
                     </buttons>
                 </ButtonBar>
                 <ButtonBar buttonMinWidth="30.0" layoutX="658.0" layoutY="564.0" maxWidth="784.0" prefHeight="40.0" prefWidth="341.0">
                     <buttons>
-                        <Button fx:id="insertAnimalClient" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: green;" text="Insert" textFill="WHITE">
+                        <Button fx:id="insertAnimalClient" mnemonicParsing="false" onAction="#insererAnimal" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: green;" text="Insérer" textFill="WHITE">
                             <font>
                                 <Font size="12.0" />
                             </font></Button>
-                        <Button fx:id="editAnimalClient" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #01A99C;" text="Edit" textFill="WHITE">
+                        <Button fx:id="editAnimalClient" mnemonicParsing="false" onAction="#modifAnimal" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #01A99C;" text="Modifier" textFill="WHITE">
                             <font>
                                 <Font size="12.0" />
                             </font></Button>
-                        <Button fx:id="deleteAnimalClient" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #C9223E;" text="Delete" textFill="WHITE">
+                        <Button fx:id="deleteAnimalClient" mnemonicParsing="false" onAction="#supprAnimal" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #C9223E;" text="Supprimer" textFill="WHITE">
                             <font>
                                 <Font size="12.0" />
                             </font></Button>
