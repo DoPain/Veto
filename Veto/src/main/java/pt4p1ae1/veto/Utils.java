@@ -37,9 +37,11 @@ public class Utils {
     public static ClientEntity currentClient;
     private static AnimalEntity currentAnimal;
     private static ProduitEntity currentProduit;
+    private static TraitementEntity currentTraitement;
     private static boolean confirmation;
 
     private static boolean modifyAnimal = false;
+    private static boolean modifyDisease = false;
 
     public static void createLog(String action) {
         new Thread(() -> {
@@ -117,6 +119,22 @@ public class Utils {
 
     public static void setCurrentProduit(ProduitEntity currentProduit) {
         Utils.currentProduit = currentProduit;
+    }
+
+    public static boolean isModifyDisease() {
+        return modifyDisease;
+    }
+
+    public static void setModifyDisease(boolean modifyDisease) {
+        Utils.modifyDisease = modifyDisease;
+    }
+
+    public static TraitementEntity getCurrentTraitement() {
+        return currentTraitement;
+    }
+
+    public static void setCurrentTraitement(TraitementEntity currentTraitement) {
+        Utils.currentTraitement = currentTraitement;
     }
 
     public static boolean getConfirmation() {

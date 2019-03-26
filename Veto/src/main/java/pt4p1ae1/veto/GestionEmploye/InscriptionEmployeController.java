@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -30,7 +31,7 @@ public class InscriptionEmployeController extends ControllerSample implements In
     @FXML
     public TextField firstNameEmp;
     @FXML
-    public TextField birthDateEmp;
+    public DatePicker birthDateEmp;
     @FXML
     public TextField phoneEmp;
     @FXML
@@ -38,9 +39,9 @@ public class InscriptionEmployeController extends ControllerSample implements In
     @FXML
     public TextField addressEmp;
     @FXML
-    public TextField startContractEmp;
+    public DatePicker startContractEmp;
     @FXML
-    public TextField endContractEmp;
+    public DatePicker endContractEmp;
     @FXML
     public TextField salaryEmp;
     @FXML
@@ -63,8 +64,8 @@ public class InscriptionEmployeController extends ControllerSample implements In
     private void ajouterEmp(ActionEvent actionEvent) throws ParseException {
         List<VilleEntity> villes = Utils.VILLE_DAO.findAll();
 
-        if(!nameEmp.getText().equals("") && !firstNameEmp.getText().equals("") && !birthDateEmp.getText().equals("") && !phoneEmp.getText().equals("") && !emailEmp.getText().equals("")
-                && !addressEmp.getText().equals("") && !startContractEmp.getText().equals("") && !endContractEmp.getText().equals("") && !salaryEmp.getText().equals("")
+        if(!nameEmp.getText().equals("") && !firstNameEmp.getText().equals("") && birthDateEmp.getValue() != null && !phoneEmp.getText().equals("") && !emailEmp.getText().equals("")
+                && !addressEmp.getText().equals("") && startContractEmp.getValue()!=null && endContractEmp.getValue() != null && !salaryEmp.getText().equals("")
                 && !mdpEmp.getText().equals("") && !loginEmp.getText().equals("") && !typeContrat.getText().equals("")){
 
                 EmployeEntity emp = new EmployeEntity();
@@ -79,15 +80,12 @@ public class InscriptionEmployeController extends ControllerSample implements In
 
             }
 
-                DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
-                Date dateB = formatter.parse(birthDateEmp.getText());
-                Date dateD = formatter.parse(startContractEmp.getText());
-                Date dateF = formatter.parse(endContractEmp.getText());
-                java.sql.Date sqlDateB = new java.sql.Date(dateB.getTime());
-                java.sql.Date sqlDateD = new java.sql.Date(dateD.getTime());
-                java.sql.Date sqlDateF = new java.sql.Date(dateF.getTime());
-                emp.setDateDebutContrat(sqlDateD);
-                emp.setDateFinContrat(sqlDateF);
+            LocalDate localDateB = birthDateEmp.getValue();
+            LocalDate localDateD = startContractEmp.getValue();
+            LocalDate localDateF = endContractEmp.getValue();
+            java.sql.Date sqlDateB = java.sql.Date.valueOf(localDateB);
+            java.sql.Date sqlDateD = java.sql.Date.valueOf(localDateD);
+            java.sql.Date sqlDateF = java.sql.Date.valueOf(localDateF);
 
                 person.setNom(nameEmp.getText());
                 person.setPrenom(firstNameEmp.getText());
@@ -103,6 +101,8 @@ public class InscriptionEmployeController extends ControllerSample implements In
                         person.setId(p.getId());
                     }
                 }
+                emp.setDateDebutContrat(sqlDateD);
+                emp.setDateFinContrat(sqlDateF);
                 emp.setId(person.getId());
                 emp.setSalaire(Double.parseDouble(salaryEmp.getText()));
                 emp.setLogin(loginEmp.getText());
@@ -110,6 +110,7 @@ public class InscriptionEmployeController extends ControllerSample implements In
                 emp.setTypeContrat(typeContrat.getText());
 
                 Utils.EMPLOYE_DAO.saveOrUpdate(emp);
+                Utils.createLog("Iscrire employé : " + emp.getPersonneById().getNom());
             }
     }
 }
