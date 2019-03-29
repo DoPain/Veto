@@ -12,62 +12,67 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="751.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt4p1ae1.veto.GestionStock.dossierProduitController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="751.0"
+            prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="pt4p1ae1.veto.GestionStock.dossierProduitController">
     <top>
         <Pane fx:id="pane" BorderPane.alignment="CENTER">
-            <children>
-                <Button alignment="CENTER_RIGHT" contentDisplay="GRAPHIC_ONLY" ellipsisString="" graphicTextGap="1.0" layoutX="1192.0" mnemonicParsing="false" onAction="#onActionDisconnectBTN" prefHeight="70.0" prefWidth="70.0">
-                    <graphic>
-                        <ImageView pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../img/power.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Text layoutX="565.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fiche produit">
-                    <font>
-                        <Font size="19.0" />
-                    </font>
-                </Text>
-            </children>
+            <Button alignment="CENTER_RIGHT" contentDisplay="GRAPHIC_ONLY" ellipsisString="" graphicTextGap="1.0"
+                    layoutX="1192.0" mnemonicParsing="false" onAction="#onActionDisconnectBTN" prefHeight="70.0"
+                    prefWidth="70.0">
+                <graphic>
+                    <ImageView pickOnBounds="true" preserveRatio="true">
+                        <Image url="@../img/power.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Text layoutX="565.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fiche produit">
+                <font>
+                    <Font size="19.0"/>
+                </font>
+            </Text>
         </Pane>
     </top>
     <left>
-        <fx:include fx:id="vbox" source="VBoxButton.fxml" />
+        <fx:include source="VBoxButton.fxml"/>
     </left>
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="backToProducts" layoutX="27.0" layoutY="25.0" mnemonicParsing="false" onAction="#retourProduits" prefHeight="35.0" style="-fx-background-color: #01A99C;" text="Retour liste des produits" textFill="WHITE" />
+            <Button fx:id="backToProducts" layoutX="27.0" layoutY="25.0" mnemonicParsing="false"
+                    onAction="#retourProduits" prefHeight="35.0" style="-fx-background-color: #01A99C;"
+                    text="Retour liste des produits" textFill="WHITE"/>
             <Label layoutX="82.0" layoutY="143.0" text="Fiche produit :">
-               <font>
-                  <Font size="13.0" />
-               </font></Label>
-            <Label layoutX="599.0" layoutY="144.0" text="Description produit :">
-               <font>
-                  <Font size="13.0" />
-               </font>
+                <font>
+                    <Font size="13.0"/>
+                </font>
             </Label>
-            <Button fx:id="modifier" layoutX="97.0" layoutY="597.0" mnemonicParsing="false" onAction="#modifierProduit" prefHeight="35.0" prefWidth="125.0"  style="-fx-background-color: green;" text="Valider" textFill="WHITE" />
-            <Button fx:id="supprimer" layoutX="482.0" layoutY="595.0" mnemonicParsing="false" onAction="#supprimerProduit" prefHeight="35.0" prefWidth="125.0"  style="-fx-background-color: #C9223E;" text="Supprimer" textFill="WHITE" />
-            <TextArea fx:id="description" layoutX="599.0" layoutY="208.0" prefHeight="200.0" prefWidth="323.0" />
-            <Label layoutX="86.0" layoutY="208.0" text="Nom :" />
-            <Label layoutX="86.0" layoutY="255.0" text="Référence :" />
-            <Label layoutX="86.0" layoutY="300.0" text="Prix :" />
-            <Label layoutX="86.0" layoutY="344.0" text="Quantité :" />
-            <Label layoutX="86.0" layoutY="384.0" text="Quantité min :" />
-            <Label layoutX="89.0" layoutY="424.0" text="Date d'acquisition :" />
-            <Label layoutX="89.0" layoutY="465.0" text="Date de péremption :" />
-            <TextField fx:id="nom" layoutX="140.0" layoutY="204.0" />
-            <TextField fx:id="reference" layoutX="164.0" layoutY="251.0" />
-            <TextField fx:id="prix" layoutX="140.0" layoutY="296.0" prefHeight="25.0" prefWidth="75.0" />
-            <TextField fx:id="quantite" layoutX="162.0" layoutY="340.0" prefHeight="25.0" prefWidth="85.0" />
-            <TextField fx:id="quantiteMin" layoutX="183.0" layoutY="380.0" prefHeight="25.0" prefWidth="84.0" />
-            <TextField fx:id="dateAcquisition" layoutX="221.0" layoutY="420.0" />
-            <TextField fx:id="datePeremption" layoutX="235.0" layoutY="461.0" />
-            <Label fx:id="error" layoutX="124.0" layoutY="529.0" />
-         </children>
+            <Label layoutX="599.0" layoutY="144.0" text="Description produit :">
+                <font>
+                    <Font size="13.0"/>
+                </font>
+            </Label>
+            <Button fx:id="modifier" layoutX="97.0" layoutY="597.0" mnemonicParsing="false" onAction="#modifierProduit"
+                    prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: green;" text="Valider"
+                    textFill="WHITE"/>
+            <Button fx:id="supprimer" layoutX="482.0" layoutY="595.0" mnemonicParsing="false"
+                    onAction="#supprimerProduit" prefHeight="35.0" prefWidth="125.0"
+                    style="-fx-background-color: #C9223E;" text="Supprimer" textFill="WHITE"/>
+            <TextArea fx:id="description" layoutX="599.0" layoutY="208.0" prefHeight="200.0" prefWidth="323.0"/>
+            <Label layoutX="86.0" layoutY="208.0" text="Nom :"/>
+            <Label layoutX="86.0" layoutY="255.0" text="Référence :"/>
+            <Label layoutX="86.0" layoutY="300.0" text="Prix :"/>
+            <Label layoutX="86.0" layoutY="344.0" text="Quantité :"/>
+            <Label layoutX="86.0" layoutY="384.0" text="Quantité min :"/>
+            <Label layoutX="89.0" layoutY="424.0" text="Date d'acquisition :"/>
+            <Label layoutX="89.0" layoutY="465.0" text="Date de péremption :"/>
+            <TextField fx:id="nom" layoutX="140.0" layoutY="204.0"/>
+            <TextField fx:id="reference" layoutX="164.0" layoutY="251.0"/>
+            <TextField fx:id="prix" layoutX="140.0" layoutY="296.0" prefHeight="25.0" prefWidth="75.0"/>
+            <TextField fx:id="quantite" layoutX="162.0" layoutY="340.0" prefHeight="25.0" prefWidth="85.0"/>
+            <TextField fx:id="quantiteMin" layoutX="183.0" layoutY="380.0" prefHeight="25.0" prefWidth="84.0"/>
+            <TextField fx:id="dateAcquisition" layoutX="221.0" layoutY="420.0"/>
+            <TextField fx:id="datePeremption" layoutX="235.0" layoutY="461.0"/>
+            <Label fx:id="error" layoutX="124.0" layoutY="529.0"/>
         </AnchorPane>
     </center>
 </BorderPane>

@@ -17,90 +17,99 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="751.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.181" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt4p1ae1.veto.GestionClient.DossierClientController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="751.0"
+            prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.181" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="pt4p1ae1.veto.GestionClient.DossierClientController">
     <top>
         <Pane fx:id="pane" BorderPane.alignment="CENTER">
-            <children>
-                <Button alignment="CENTER_RIGHT" contentDisplay="GRAPHIC_ONLY" ellipsisString="" graphicTextGap="1.0" layoutX="1192.0" mnemonicParsing="false" onAction="#onActionDisconnectBTN" prefHeight="70.0" prefWidth="70.0">
-                    <graphic>
-                        <ImageView pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../img/power.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Text layoutX="565.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gestion Clients">
-                    <font>
-                        <Font size="19.0" />
-                    </font>
-                </Text>
-            </children>
+            <Button alignment="CENTER_RIGHT" contentDisplay="GRAPHIC_ONLY" ellipsisString="" graphicTextGap="1.0"
+                    layoutX="1192.0" mnemonicParsing="false" onAction="#onActionDisconnectBTN" prefHeight="70.0"
+                    prefWidth="70.0">
+                <graphic>
+                    <ImageView pickOnBounds="true" preserveRatio="true">
+                        <Image url="@../img/power.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Text layoutX="565.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gestion Clients">
+                <font>
+                    <Font size="19.0"/>
+                </font>
+            </Text>
         </Pane>
     </top>
     <left>
-        <fx:include fx:id="vbox" source="VBoxButton.fxml" />
+        <fx:include source="VBoxButton.fxml"/>
     </left>
     <center>
-        <AnchorPane fx:id="error" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-            <children>
-                <Button fx:id="backToClients" layoutX="37.0" layoutY="19.0" mnemonicParsing="false" onAction="#backToClientsBtn" prefHeight="35" prefWidth="165" style="-fx-background-color: #01A99C;" text="Retour liste clients" textFill="white" />
-                <Label layoutX="517.0" layoutY="201.0" text="Liste de ses animaux :" />
-                  <TableView fx:id="animals" layoutX="518.0" layoutY="236.0" prefHeight="315.0" prefWidth="621.0">
-                      <columns>
-                          <TableColumn fx:id="nameAnimal" prefWidth="134.0" text="Nom" />
-                          <TableColumn fx:id="poidsAnimal" minWidth="0.0" prefWidth="169.0" text="Poids" />
-                          <TableColumn fx:id="ageAnimal" prefWidth="67.0" text="Age" />
-                          <TableColumn fx:id="especeAnimal" prefWidth="110.0" text="Espèce" />
-                          <TableColumn fx:id="raceAnimal" prefWidth="140.0" text="Race" />
-                      </columns>
-                  </TableView>
-                <ButtonBar fx:id="clientsButtonList" layoutX="61.0" layoutY="564.0" prefHeight="40.0" prefWidth="335.0">
-                    <buttons>
-                        <Button fx:id="clientModify" mnemonicParsing="false" onAction="#validateModification" prefHeight="35.0" prefWidth="165.0" style="-fx-background-color: green;" text="Valider Modification" textFill="WHITE" />
-                        <Button fx:id="clientDelete" mnemonicParsing="false" onAction="#supprClient" prefHeight="35.0" prefWidth="165.0" style="-fx-background-color: #C9223E;" text="Supprimer client" textFill="WHITE" />
-                    </buttons>
-                </ButtonBar>
-                <ButtonBar buttonMinWidth="30.0" layoutX="658.0" layoutY="564.0" maxWidth="784.0" prefHeight="40.0" prefWidth="341.0">
-                    <buttons>
-                        <Button fx:id="insertAnimalClient" mnemonicParsing="false" onAction="#insererAnimal" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: green;" text="Insérer" textFill="WHITE">
-                            <font>
-                                <Font size="12.0" />
-                            </font></Button>
-                        <Button fx:id="editAnimalClient" mnemonicParsing="false" onAction="#modifAnimal" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #01A99C;" text="Modifier" textFill="WHITE">
-                            <font>
-                                <Font size="12.0" />
-                            </font></Button>
-                        <Button fx:id="deleteAnimalClient" mnemonicParsing="false" onAction="#supprAnimal" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #C9223E;" text="Supprimer" textFill="WHITE">
-                            <font>
-                                <Font size="12.0" />
-                            </font></Button>
-                    </buttons>
-                </ButtonBar>
-                <AnchorPane layoutX="42.0" layoutY="105.0" prefHeight="254.0" prefWidth="406.0">
-               <children>
-                  <TextField fx:id="firstNameClient" layoutY="3.0" prefHeight="26.0" prefWidth="356.0" />
-                  <TextField fx:id="nameClient" layoutY="37.0" prefHeight="26.0" prefWidth="356.0" />
-                   <TextField fx:id="mailClient" layoutY="70.0" prefHeight="26.0" prefWidth="356.0" />
-                   <TextField fx:id="telClient" layoutY="103.0" prefHeight="26.0" prefWidth="356.0" />
-                   <TextField fx:id="adresseClient" layoutY="136.0" prefHeight="26.0" prefWidth="356.0" />
-                   <TextField fx:id="cpClient" layoutY="169.0" prefHeight="26.0" prefWidth="101.0" />
-                   <ComboBox fx:id="villeClient" layoutX="110.0" layoutY="169.0" prefHeight="26.0" prefWidth="246.0" />
-                   <TextField fx:id="naissanceClient" layoutY="202.0" prefHeight="26.0" prefWidth="356.0" />
-               </children>
-                </AnchorPane>
-            <AnchorPane layoutX="37.0" layoutY="364.0" prefHeight="200.0" prefWidth="345.0">
-               <children>
-                  <VBox fx:id="historiqueRdvClient" layoutY="35.0" prefHeight="151.0" prefWidth="346.0" />
-                      <Label layoutY="1.0" text="Historique rendez-vous :" />
-               </children>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <Button fx:id="backToClients" layoutX="37.0" layoutY="19.0" mnemonicParsing="false"
+                    onAction="#backToClientsBtn" prefHeight="35" prefWidth="165" style="-fx-background-color: #01A99C;"
+                    text="Retour liste clients" textFill="white"/>
+            <Label layoutX="517.0" layoutY="201.0" text="Liste de ses animaux :"/>
+            <TableView fx:id="animals" layoutX="518.0" layoutY="236.0" prefHeight="315.0" prefWidth="621.0">
+                <columns>
+                    <TableColumn fx:id="nameAnimal" prefWidth="134.0" text="Nom"/>
+                    <TableColumn fx:id="poidsAnimal" minWidth="0.0" prefWidth="169.0" text="Poids"/>
+                    <TableColumn fx:id="ageAnimal" prefWidth="67.0" text="Age"/>
+                    <TableColumn fx:id="especeAnimal" prefWidth="110.0" text="Espèce"/>
+                    <TableColumn fx:id="raceAnimal" prefWidth="140.0" text="Race"/>
+                </columns>
+            </TableView>
+            <ButtonBar layoutX="61.0" layoutY="564.0" prefHeight="40.0" prefWidth="335.0">
+                <buttons>
+                    <Button mnemonicParsing="false" onAction="#validateModification"
+                            prefHeight="35.0" prefWidth="165.0" style="-fx-background-color: green;"
+                            text="Valider Modification" textFill="WHITE"/>
+                    <Button mnemonicParsing="false" onAction="#supprClient" prefHeight="35.0"
+                            prefWidth="165.0" style="-fx-background-color: #C9223E;" text="Supprimer client"
+                            textFill="WHITE"/>
+                </buttons>
+            </ButtonBar>
+            <ButtonBar buttonMinWidth="30.0" layoutX="658.0" layoutY="564.0" maxWidth="784.0" prefHeight="40.0"
+                       prefWidth="341.0">
+                <buttons>
+                    <Button fx:id="insertAnimalClient" mnemonicParsing="false" onAction="#insererAnimal"
+                            prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: green;" text="Insérer"
+                            textFill="WHITE">
+                        <font>
+                            <Font size="12.0"/>
+                        </font>
+                    </Button>
+                    <Button fx:id="editAnimalClient" mnemonicParsing="false" onAction="#modifAnimal" prefHeight="35.0"
+                            prefWidth="100.0" style="-fx-background-color: #01A99C;" text="Modifier" textFill="WHITE">
+                        <font>
+                            <Font size="12.0"/>
+                        </font>
+                    </Button>
+                    <Button mnemonicParsing="false" onAction="#supprAnimal" prefHeight="35.0"
+                            prefWidth="100.0" style="-fx-background-color: #C9223E;" text="Supprimer" textFill="WHITE">
+                        <font>
+                            <Font size="12.0"/>
+                        </font>
+                    </Button>
+                </buttons>
+            </ButtonBar>
+            <AnchorPane layoutX="42.0" layoutY="105.0" prefHeight="254.0" prefWidth="406.0">
+                <TextField fx:id="firstNameClient" layoutY="3.0" prefHeight="26.0" prefWidth="356.0"/>
+                <TextField fx:id="nameClient" layoutY="37.0" prefHeight="26.0" prefWidth="356.0"/>
+                <TextField fx:id="mailClient" layoutY="70.0" prefHeight="26.0" prefWidth="356.0"/>
+                <TextField fx:id="telClient" layoutY="103.0" prefHeight="26.0" prefWidth="356.0"/>
+                <TextField fx:id="adresseClient" layoutY="136.0" prefHeight="26.0" prefWidth="356.0"/>
+                <TextField fx:id="cpClient" layoutY="169.0" prefHeight="26.0" prefWidth="101.0"/>
+                <ComboBox fx:id="villeClient" layoutX="110.0" layoutY="169.0" prefHeight="26.0" prefWidth="246.0"/>
+                <TextField fx:id="naissanceClient" layoutY="202.0" prefHeight="26.0" prefWidth="356.0"/>
             </AnchorPane>
-            <HBox layoutX="590.0" layoutY="19.0" prefHeight="26.0" prefWidth="187.0" />
-            <Label layoutX="518.0" layoutY="81.0" text="Nom animal : " />
-            <TextField fx:id="nomAnimalClientText" layoutX="647.0" layoutY="76.0" />
-            <Button fx:id="filterButton" layoutX="999.0" layoutY="76.0" mnemonicParsing="false" onAction="#filtrer" text="Filtrer" />
-                <Label layoutX="22.0" layoutY="81.0" text="Fiche client :" />
-            </children>
+            <AnchorPane layoutX="37.0" layoutY="364.0" prefHeight="200.0" prefWidth="345.0">
+                <VBox layoutY="35.0" prefHeight="151.0" prefWidth="346.0"/>
+                <Label layoutY="1.0" text="Historique rendez-vous :"/>
+            </AnchorPane>
+            <HBox layoutX="590.0" layoutY="19.0" prefHeight="26.0" prefWidth="187.0"/>
+            <Label layoutX="518.0" layoutY="81.0" text="Nom animal : "/>
+            <TextField fx:id="nomAnimalClientText" layoutX="647.0" layoutY="76.0"/>
+            <Button layoutX="999.0" layoutY="76.0" mnemonicParsing="false" onAction="#filtrer"
+                    text="Filtrer"/>
+            <Label layoutX="22.0" layoutY="81.0" text="Fiche client :"/>
         </AnchorPane>
     </center>
 </BorderPane>
