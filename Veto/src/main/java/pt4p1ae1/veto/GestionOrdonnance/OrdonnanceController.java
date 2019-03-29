@@ -4,6 +4,7 @@ import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -13,7 +14,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import pt4p1ae1.veto.App;
 import pt4p1ae1.veto.ControllerSample;
 import pt4p1ae1.veto.Entity.*;
 import pt4p1ae1.veto.GestionAnimaux.AnimalEntityObservable;
@@ -29,24 +29,32 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
+/**
+ * This class is the controller of pageOrdonnance.fxml
+ */
 public class OrdonnanceController extends ControllerSample implements Initializable {
-    public Label ordonnanceMsg;
+
+    @FXML
+    public Label ordMsg;
     public TextField nameClientField;
-    public TextField posologie;
+    public TextField description;
     public AnchorPane editMode;
 
+    @FXML
     public TableView<AnimalEntityObservable> tableViewAnimal;
     public TableColumn<AnimalEntityObservable, String> nameAnimal;
-    public TableColumn<AnimalEntityObservable, String> especeAnimal;
+    public TableColumn<AnimalEntityObservable, String> specieAnimal;
     public TableColumn<AnimalEntityObservable, String> raceAnimal;
     public TableColumn<AnimalEntityObservable, String> clientNameAnimal;
 
-    public TableView<ProduitEntityObservable> tableViewProduit;
-    public TableColumn<ProduitEntityObservable, String> referenceC;
-    public TableColumn<ProduitEntityObservable, String> nameC;
-    public TableColumn<ProduitEntityObservable, String> prixC;
-    public TableColumn<ProduitEntityObservable, String> quantiteC;
+    @FXML
+    public TableView<ProduitEntityObservable> tableViewP;
+    public TableColumn<ProduitEntityObservable, String> refP;
+    public TableColumn<ProduitEntityObservable, String> nameP;
+    public TableColumn<ProduitEntityObservable, String> price;
+    public TableColumn<ProduitEntityObservable, String> quantity;
 
+    @FXML
     public TableView<PrescriptionObservable> tableViewPrescriptions;
     public TableColumn<PrescriptionObservable, String> comment;
     public TableColumn<PrescriptionObservable, String> productName;
@@ -62,11 +70,11 @@ public class OrdonnanceController extends ControllerSample implements Initializa
         setAnimalsTable();
         setProductTable();
 
-        posologie.setOnMouseClicked(e -> ordonnanceMsg.setText(""));
-        tableViewProduit.setOnMouseClicked(e -> ordonnanceMsg.setText(""));
+        description.setOnMouseClicked(e -> ordMsg.setText(""));
+        tableViewP.setOnMouseClicked(e -> ordMsg.setText(""));
 
-        posologie.setOnKeyPressed(e -> {
-            ordonnanceMsg.setText("");
+        description.setOnKeyPressed(e -> {
+            ordMsg.setText("");
             if (e.getCode() == KeyCode.ENTER) {
                 createPrescription();
             }
@@ -74,7 +82,7 @@ public class OrdonnanceController extends ControllerSample implements Initializa
 
         nameClientField.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.ENTER) {
-                ordonnanceMsg.setText("");
+                ordMsg.setText("");
                 ObservableList<AnimalEntityObservable> observableTmpList = FXCollections.observableArrayList();
                 if (!nameClientField.getText().equals("")) {
                     for (AnimalEntityObservable animal : animalEntityObservables)
@@ -83,26 +91,33 @@ public class OrdonnanceController extends ControllerSample implements Initializa
                     tableViewAnimal.setItems(observableTmpList);
                 } else
                     tableViewAnimal.setItems(animalEntityObservables);
-                ordonnanceMsg.setText("");
+                ordMsg.setText("");
             }
         });
     }
 
+
+    /**
+     * This method add to tableViewP all items displayed
+     */
     private void setProductTable() {
 
-        nameC.setCellValueFactory(new PropertyValueFactory<>("nom"));
-        prixC.setCellValueFactory(new PropertyValueFactory<>("prix"));
-        quantiteC.setCellValueFactory(new PropertyValueFactory<>("quantiteStock"));
-        referenceC.setCellValueFactory(new PropertyValueFactory<>("reference"));
+        nameP.setCellValueFactory(new PropertyValueFactory<>("nom"));
+        price.setCellValueFactory(new PropertyValueFactory<>("prix"));
+        quantity.setCellValueFactory(new PropertyValueFactory<>("quantiteStock"));
+        refP.setCellValueFactory(new PropertyValueFactory<>("reference"));
         for (ProduitEntity produit : Utils.PRODUIT_DAO.findAll())
             productEntityObservables.add(new ProduitEntityObservable(produit));
-        tableViewProduit.setItems(productEntityObservables);
+        tableViewP.setItems(productEntityObservables);
     }
 
+    /**
+     * This method add to tableViewAnimal all items displayed
+     */
     private void setAnimalsTable() {
 
         this.nameAnimal.setCellValueFactory(new PropertyValueFactory<>("nom"));
-        this.especeAnimal.setCellValueFactory(new PropertyValueFactory<>("espece"));
+        this.specieAnimal.setCellValueFactory(new PropertyValueFactory<>("espece"));
         this.raceAnimal.setCellValueFactory(new PropertyValueFactory<>("race"));
         this.clientNameAnimal.setCellValueFactory(new PropertyValueFactory<>("proprietaire"));
 
@@ -112,7 +127,10 @@ public class OrdonnanceController extends ControllerSample implements Initializa
         tableViewAnimal.setItems(animalEntityObservables);
     }
 
-    public void createOrdonnance(){
+    /**
+     * This method create an Ordinance object and add it to DataBase
+     */
+    public void createOrdinance() {
         Date dateToday = new Date();
         VeterinaireEntity veterinaire = Utils.VETERINAIRE_DAO.findAll().get(0);
         try {
@@ -143,46 +161,57 @@ public class OrdonnanceController extends ControllerSample implements Initializa
             }
 
             ord.setAppartenirsById(entities);
-            createOrdonnancePDF(ord);
+            printOrdinanceToPDF(ord);
             tableViewAnimal.getSelectionModel().select(null);
-            ordonnanceMsg.setTextFill(Color.GREEN);
-            ordonnanceMsg.setText("L'ordonnance à bien été crée");
+            ordMsg.setTextFill(Color.GREEN);
+            ordMsg.setText("L'ordonnance à bien été crée");
             prescriptions.clear();
         } catch (Exception e) {
             if (e.getClass() == NullPointerException.class) {
-                ordonnanceMsg.setTextFill(Color.RED);
-                ordonnanceMsg.setText("Selectionnez un animal");
+                ordMsg.setTextFill(Color.RED);
+                ordMsg.setText("Selectionnez un animal");
                 System.out.println(e.getMessage());
             } else {
-                ordonnanceMsg.setTextFill(Color.RED);
-                ordonnanceMsg.setText("Erreur lors de la création du PDF");
+                ordMsg.setTextFill(Color.RED);
+                ordMsg.setText("Erreur lors de la création du PDF");
             }
         }
 
     }
 
+    /**
+     * This method create a description of the selected Product
+     */
     public void createPrescription() {
         try {
-            ProduitEntityObservable product = tableViewProduit.getSelectionModel().getSelectedItem();
-            prescriptions.put(product, posologie.getText());
-            posologie.setText("");
-            ordonnanceMsg.setTextFill(Color.GREEN);
-            ordonnanceMsg.setText("La prescriptions à été enregistré");
-            tableViewProduit.getSelectionModel().select(null);
+            ProduitEntityObservable product = tableViewP.getSelectionModel().getSelectedItem();
+            prescriptions.put(product, description.getText());
+            description.setText("");
+            ordMsg.setTextFill(Color.GREEN);
+            ordMsg.setText("La prescriptions à été enregistré");
+            tableViewP.getSelectionModel().select(null);
         } catch (Exception e) {
             if (e.getClass() == NullPointerException.class) {
-                ordonnanceMsg.setTextFill(Color.RED);
-                ordonnanceMsg.setText("Selectionnez un produit");
+                ordMsg.setTextFill(Color.RED);
+                ordMsg.setText("Selectionnez un produit");
             }
         }
     }
 
 
+    /**
+     * This method is an onClicked method which permit user to display PrescriptionTable
+     */
     public void editModeDisplay() {
         setPrescriptionTable();
-
-
         editMode.setVisible(true);
+    }
+
+    /**
+     * This method is an onClicked method which permit user to hide PrescriptionTable
+     */
+    public void editModeHide() {
+        editMode.setVisible(false);
     }
 
     private void setPrescriptionTable() {
@@ -195,11 +224,10 @@ public class OrdonnanceController extends ControllerSample implements Initializa
         }
     }
 
-    public void editModeUndisplay() {
-        editMode.setVisible(false);
-    }
-
-    public void deletePoso() {
+    /**
+     * This method is an onClicked method which permit user to delete a selected prescription
+     */
+    public void deletePrescription() {
         if (null != tableViewPrescriptions.getSelectionModel().getSelectedItem()) {
             prescriptions.remove(tableViewPrescriptions.getSelectionModel().getSelectedItem().getProduitEntityObservable());
             tableViewPrescriptions.getSelectionModel().select(null);
@@ -207,10 +235,17 @@ public class OrdonnanceController extends ControllerSample implements Initializa
         }
     }
 
-    public static void createOrdonnancePDF(OrdonnanceEntity ord) throws FileNotFoundException, DocumentException {
-        long idOrdonnance = 0;
+    /**
+     * This method permit to print an ordinance into PDF file
+     *
+     * @param ord the ordinance created
+     * @throws FileNotFoundException if the file could'nt been created
+     * @throws DocumentException     if the document could'nt been create
+     */
+    static void printOrdinanceToPDF(OrdonnanceEntity ord) throws FileNotFoundException, DocumentException {
+        long idOrdinance = 0;
         for (OrdonnanceEntity o : Utils.ORDONNANCE_DAO.findAll())
-            idOrdonnance = o.getId();
+            idOrdinance = o.getId();
 
         Date dateToday = new Date();
         String dateFormatUser = new SimpleDateFormat("dd/MM/yyyy").format(dateToday);
@@ -224,15 +259,10 @@ public class OrdonnanceController extends ControllerSample implements Initializa
         PdfWriter.getInstance(document, file);
         Font font = FontFactory.getFont(FontFactory.COURIER, 12, BaseColor.BLACK);
 
-        StringBuilder header = new StringBuilder();
-        header.append(dateFormatUser).append("\nDocteur ").append(veterinaire.getPersonneById().getPrenom()).append(" ").append(veterinaire.getPersonneById().getNom())
-                .append("\n").append(veterinaire.getPersonneById().getAdresse())
-                .append("\n").append(veterinaire.getPersonneById().getTelephone())
-                .append("\n").append(veterinaire.getPersonneById().getMail()).append("\n\n\n\n\n");
         StringBuilder content = new StringBuilder();
         content.append("Pour ").append(animal.getNom()).append(", ").append(animal.getEspece()).append(", ").append(animal.getAge()).append(" :\n");
         for (AppartenirEntity a : Utils.APPARTENIR_DAO.findAll()) {
-            if (a.getIdOrdonnance() == idOrdonnance)
+            if (a.getIdOrdonnance() == idOrdinance)
                 for (ProduitEntity p : Utils.PRODUIT_DAO.findAll())
                     if (a.getIdProduit() == p.getId())
                         content.append("     - ").append(p.getNom()).append(" :").append(" ").append(a.getDescription()).append("\n");
@@ -241,7 +271,11 @@ public class OrdonnanceController extends ControllerSample implements Initializa
         document.open();
         document.addTitle("Ordonnance");
         document.addAuthor(actualUser.getPersonneById().getNom() + " " + actualUser.getPersonneById().getPrenom());
-        document.add(new Paragraph(new Chunk(header.toString(), font)));
+        String header = dateFormatUser + "\nDocteur " + veterinaire.getPersonneById().getPrenom() + " " + veterinaire.getPersonneById().getNom() +
+                "\n" + veterinaire.getPersonneById().getAdresse() +
+                "\n" + veterinaire.getPersonneById().getTelephone() +
+                "\n" + veterinaire.getPersonneById().getMail() + "\n\n\n\n\n";
+        document.add(new Paragraph(new Chunk(header, font)));
         document.left(1000);
         document.add(new Paragraph(new Chunk(content.toString(), font)));
         document.close();

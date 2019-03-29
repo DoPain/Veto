@@ -35,29 +35,29 @@
     </left>
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-            <TextField fx:id="posologie" layoutX="36.0" layoutY="376.0" prefHeight="44.0" prefWidth="480.0" promptText="Posologie" />
+            <TextField fx:id="description" layoutX="36.0" layoutY="376.0" prefHeight="44.0" prefWidth="480.0" promptText="Posologie" />
             <TextField fx:id="nameClientField" layoutX="963.0" layoutY="46.0" prefHeight="26.0" prefWidth="158.0" promptText="Proprpiétaire" />
             <TableView fx:id="tableViewAnimal" layoutX="542.0" layoutY="72.0" prefHeight="286.0" prefWidth="595.0">
                 <columns>
                     <TableColumn fx:id="nameAnimal" prefWidth="140.0" text="Nom" />
-                    <TableColumn fx:id="especeAnimal" prefWidth="140.0" text="Espèce" />
+                    <TableColumn fx:id="specieAnimal" prefWidth="140.0" text="Espèce" />
                     <TableColumn fx:id="raceAnimal" prefWidth="140.0" text="Race" />
                     <TableColumn fx:id="clientNameAnimal" prefWidth="157.0" text="Propriétaire" />
 
                 </columns>
             </TableView>
-            <TableView fx:id="tableViewProduit" layoutX="36.0" layoutY="72.0" prefHeight="287.0" prefWidth="477.0">
+            <TableView fx:id="tableViewP" layoutX="36.0" layoutY="72.0" prefHeight="287.0" prefWidth="477.0">
                 <columns>
-                    <TableColumn fx:id="referenceC" prefWidth="107.0" text="Référence" />
-                    <TableColumn fx:id="nameC" prefWidth="136.0" text="Nom" />
-                    <TableColumn fx:id="prixC" prefWidth="108.0" text="Prix TTC" />
-                    <TableColumn fx:id="quantiteC" prefWidth="107.0" text="Quantité" />
+                    <TableColumn fx:id="refP" prefWidth="107.0" text="Référence" />
+                    <TableColumn fx:id="nameP" prefWidth="136.0" text="Nom" />
+                    <TableColumn fx:id="price" prefWidth="108.0" text="Prix TTC" />
+                    <TableColumn fx:id="quantity" prefWidth="107.0" text="Quantité" />
                 </columns>
             </TableView>
             <Button layoutX="310.0" layoutY="429.0" mnemonicParsing="false" onMouseClicked="#createPrescription" prefHeight="45.0" prefWidth="206.0" text="Ajouter la préscription" />
-            <Button layoutX="911.0" layoutY="570.0" mnemonicParsing="false" onMouseClicked="#createOrdonnance" prefHeight="65.0" prefWidth="245.0" text="Valider Ordonnance" />
+            <Button layoutX="911.0" layoutY="570.0" mnemonicParsing="false" onMouseClicked="#createOrdinance" prefHeight="65.0" prefWidth="245.0" text="Valider Ordonnance" />
             <Button layoutX="580.0" layoutY="430.0" mnemonicParsing="false" onMouseClicked="#editModeDisplay" prefHeight="43.0" prefWidth="227.0" text="Editer" />
-            <Label fx:id="ordonnanceMsg" layoutX="398.0" layoutY="605.0" prefHeight="50.0" prefWidth="317.0" style="-fx-font-size: 16;"/>
+            <Label fx:id="ordMsg" layoutX="398.0" layoutY="605.0" prefHeight="50.0" prefWidth="317.0" style="-fx-font-size: 16;"/>
 
             <AnchorPane fx:id="editMode" layoutX="138.0" layoutY="47.0" prefHeight="569.0" prefWidth="801.0" style="-fx-background-color: white;" visible="false" BorderPane.alignment="CENTER">
                 <TableView fx:id="tableViewPrescriptions" editable="true" layoutX="22.0" layoutY="18.0" prefHeight="408.0" prefWidth="763.0">
@@ -66,8 +66,8 @@
                         <TableColumn fx:id="comment" prefWidth="582.0" text="Posologie    " />
                     </columns>
                 </TableView>
-                <Button layoutX="31.0" layoutY="445.0" mnemonicParsing="false" onMouseClicked="#deletePoso" style="-fx-background-color: #C9223E;"  textFill="WHITE" prefHeight="33.0" prefWidth="158.0" text="Supprimer" />
-                <Button layoutX="585.0" layoutY="492.0" mnemonicParsing="false" onMouseClicked="#editModeUndisplay" style="-fx-background-color: green"  textFill="WHITE" prefHeight="63.0" prefWidth="200.0" text="Valider" />
+                <Button layoutX="31.0" layoutY="445.0" mnemonicParsing="false" onMouseClicked="#deletePrescription" style="-fx-background-color: #C9223E;" textFill="WHITE" prefHeight="33.0" prefWidth="158.0" text="Supprimer" />
+                <Button layoutX="585.0" layoutY="492.0" mnemonicParsing="false" onMouseClicked="#editModeHide" style="-fx-background-color: green" textFill="WHITE" prefHeight="63.0" prefWidth="200.0" text="Valider" />
             </AnchorPane>
         </AnchorPane>
     </center>
