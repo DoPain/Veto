@@ -13,65 +13,52 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="751.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.181"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt4p1ae1.veto.GestionEmploye.RechercheEmployeController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="751.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt4p1ae1.veto.GestionEmploye.RechercheEmployeController">
     <top>
         <Pane fx:id="pane" BorderPane.alignment="CENTER">
-            <Button alignment="CENTER_RIGHT" contentDisplay="GRAPHIC_ONLY" ellipsisString="" graphicTextGap="1.0"
-                    layoutX="1192.0" mnemonicParsing="false" onAction="#onActionDisconnectBTN" prefHeight="70.0"
-                    prefWidth="70.0">
+            <Button alignment="CENTER_RIGHT" contentDisplay="GRAPHIC_ONLY" ellipsisString="" graphicTextGap="1.0" layoutX="1192.0" mnemonicParsing="false" onAction="#onActionDisconnectBTN" prefHeight="70.0" prefWidth="70.0">
                 <graphic>
                     <ImageView pickOnBounds="true" preserveRatio="true">
-                        <Image url="@../img/power.png"/>
+                        <Image url="@../img/power.png" />
                     </ImageView>
                 </graphic>
             </Button>
             <Text layoutX="565.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gestion Employés">
                 <font>
-                    <Font size="19.0"/>
+                    <Font size="19.0" />
                 </font>
             </Text>
         </Pane>
     </top>
     <left>
-        <fx:include source="VBoxButton.fxml"/>
+        <fx:include source="VBoxButton.fxml" />
     </left>
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-            <Label layoutX="125.0" layoutY="39.0" text="Nom employé :"/>
-            <TextField fx:id="nomEmpField" layoutX="234.0" layoutY="34.0"/>
-            <Label layoutX="106.0" layoutY="92.0" text="Prénom employé :"/>
-            <TextField fx:id="prenomEmpField" layoutX="234.0" layoutY="87.0"/>
-            <Label layoutX="498.0" layoutY="92.0" text="Téléphone :"/>
+            <Label layoutX="125.0" layoutY="39.0" text="Nom employé :" />
+            <TextField fx:id="nomEmpField" layoutX="234.0" layoutY="34.0" />
+            <Label layoutX="106.0" layoutY="92.0" text="Prénom employé :" />
+            <TextField fx:id="prenomEmpField" layoutX="234.0" layoutY="87.0" />
+            <Label layoutX="498.0" layoutY="92.0" text="Téléphone :" />
             <TableView fx:id="tableViewEmp" layoutX="13.0" layoutY="137.0" prefHeight="458.0" prefWidth="1154.0">
                 <columns>
-                    <TableColumn fx:id="nomEmpColumn" minWidth="30.0" prefWidth="110.0" text="Nom"/>
-                    <TableColumn fx:id="firstNameEmpColomn" minWidth="30.0" prefWidth="126.0" text="Prenom"/>
-                    <TableColumn fx:id="phoneEmpColomn" minWidth="24.0" prefWidth="143.0" text="Téléphone"/>
-                    <TableColumn fx:id="emailEmpColomn" minWidth="0.0" prefWidth="217.0" text="Email"/>
-                    <TableColumn fx:id="typeContratEmpColomn" minWidth="0.0" prefWidth="144.0"
-                                 text="Type de contrat"/>
-                    <TableColumn fx:id="debutContratEmpColomn" minWidth="30.0" prefWidth="183.0"
-                                 text="Début de contrat"/>
-                    <TableColumn fx:id="finContratEmpColomn" prefWidth="229.0" text="Fin de contrat"/>
+                    <TableColumn fx:id="nomEmpColumn" minWidth="30.0" prefWidth="110.0" text="Nom" />
+                    <TableColumn fx:id="firstNameEmpColomn" minWidth="30.0" prefWidth="126.0" text="Prenom" />
+                    <TableColumn fx:id="phoneEmpColomn" minWidth="24.0" prefWidth="143.0" text="Téléphone" />
+                    <TableColumn fx:id="emailEmpColomn" minWidth="0.0" prefWidth="217.0" text="Email" />
+                    <TableColumn fx:id="typeContratEmpColomn" minWidth="0.0" prefWidth="144.0" text="Type de contrat" />
+                    <TableColumn fx:id="debutContratEmpColomn" minWidth="30.0" prefWidth="183.0" text="Début de contrat" />
+                    <TableColumn fx:id="finContratEmpColomn" prefWidth="209.0" text="Fin de contrat" />
                 </columns>
             </TableView>
-            <Button fx:id="filterButton" layoutX="837.0" layoutY="87.0" mnemonicParsing="false"
-                    onAction="#filtrerEmp" prefHeight="26.0" prefWidth="75.0" text="Filtrer"/>
-            <Button fx:id="insertEmpButton" layoutX="260.0" layoutY="614.0" style="-fx-background-color: green"
-                    textFill="WHITE" mnemonicParsing="false" onAction="#insererEmploye" prefHeight="35.0"
-                    prefWidth="125.0" text="Insérer"/>
-            <Button fx:id="editEmpButton" layoutX="509.0" layoutY="614.0" style="-fx-background-color: #01A99C"
-                    textFill="WHITE" mnemonicParsing="false" onAction="#modifierEmploye" prefHeight="35.0"
-                    prefWidth="125.0" text="Modifier"/>
-            <Button fx:id="deleteEmpButton" layoutX="764.0" layoutY="614.0" style="-fx-background-color: #C9223E;"
-                    textFill="WHITE" mnemonicParsing="false" onAction="#supprimerEmp" prefHeight="35.0"
-                    prefWidth="125.0" text="Supprimer"/>
-            <TextField fx:id="telEmpField" layoutX="589.0" layoutY="87.0"/>
-            <Label fx:id="error" layoutX="819.0" layoutY="39.0" prefHeight="23.0" prefWidth="184.0"/>
-            <Label layoutX="463.0" layoutY="39.0" text="Type de contrat :"/>
-            <TextField fx:id="typeContratEmp" layoutX="589.0" layoutY="38.0"/>
+            <Button fx:id="filterButton" layoutX="837.0" layoutY="87.0" mnemonicParsing="false" onAction="#filtrerEmp" prefHeight="26.0" prefWidth="75.0" text="Filtrer" />
+            <Button fx:id="insertEmpButton" layoutX="260.0" layoutY="614.0" mnemonicParsing="false" onAction="#insererEmploye" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: green" text="Insérer" textFill="WHITE" />
+            <Button fx:id="editEmpButton" layoutX="509.0" layoutY="614.0" mnemonicParsing="false" onAction="#modifierEmploye" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #01A99C" text="Modifier" textFill="WHITE" />
+            <Button fx:id="deleteEmpButton" layoutX="764.0" layoutY="614.0" mnemonicParsing="false" onAction="#supprimerEmp" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #C9223E;" text="Supprimer" textFill="WHITE" />
+            <TextField fx:id="telEmpField" layoutX="589.0" layoutY="87.0" />
+            <Label fx:id="error" layoutX="819.0" layoutY="39.0" prefHeight="23.0" prefWidth="184.0" />
+            <Label layoutX="463.0" layoutY="39.0" text="Type de contrat :" />
+            <TextField fx:id="typeContratEmp" layoutX="589.0" layoutY="38.0" />
         </AnchorPane>
     </center>
 </BorderPane>

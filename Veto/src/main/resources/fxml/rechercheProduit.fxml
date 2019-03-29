@@ -13,69 +13,55 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="751.0"
-            prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="pt4p1ae1.veto.GestionStock.RechecheProduitController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="751.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt4p1ae1.veto.GestionStock.RechecheProduitController">
     <top>
         <Pane fx:id="pane" BorderPane.alignment="CENTER">
-            <Button alignment="CENTER_RIGHT" contentDisplay="GRAPHIC_ONLY" ellipsisString="" graphicTextGap="1.0"
-                    layoutX="1192.0" mnemonicParsing="false" onAction="#onActionDisconnectBTN" prefHeight="70.0"
-                    prefWidth="70.0">
+            <Button alignment="CENTER_RIGHT" contentDisplay="GRAPHIC_ONLY" ellipsisString="" graphicTextGap="1.0" layoutX="1192.0" mnemonicParsing="false" onAction="#onActionDisconnectBTN" prefHeight="70.0" prefWidth="70.0">
                 <graphic>
                     <ImageView pickOnBounds="true" preserveRatio="true">
-                        <Image url="@../img/power.png"/>
+                        <Image url="@../img/power.png" />
                     </ImageView>
                 </graphic>
             </Button>
             <Text layoutX="565.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Stock">
                 <font>
-                    <Font size="19.0"/>
+                    <Font size="19.0" />
                 </font>
             </Text>
         </Pane>
     </top>
     <left>
-        <fx:include source="VBoxButton.fxml"/>
+        <fx:include source="VBoxButton.fxml" />
     </left>
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-            <TextField fx:id="nomF" layoutX="161.0" layoutY="45.0"/>
-            <TextField fx:id="referenceF" layoutX="452.0" layoutY="45.0"/>
-            <TextField fx:id="prixF" layoutX="452.0" layoutY="104.0"/>
-            <Label layoutX="93.0" layoutY="49.0" text="Nom :"/>
-            <Label layoutX="362.0" layoutY="49.0" text="Référence :"/>
-            <Label layoutX="395.0" layoutY="108.0" text="Prix :"/>
-            <TextField fx:id="dateAcquisitionF" layoutX="777.0" layoutY="44.0"/>
-            <TextField fx:id="datePeremptionF" layoutX="777.0" layoutY="104.0"/>
-            <Label layoutX="642.0" layoutY="49.0" text="Date d'acquisition :"/>
-            <Label layoutX="631.0" layoutY="108.0" text="Date de péremption :"/>
-            <Button fx:id="filtrer" layoutX="844.0" layoutY="156.0" mnemonicParsing="false" onAction="#filtrerProduits"
-                    prefHeight="32.0" prefWidth="68.0" text="Filtrer"/>
+            <TextField fx:id="nomF" layoutX="161.0" layoutY="45.0" />
+            <TextField fx:id="referenceF" layoutX="452.0" layoutY="45.0" />
+            <TextField fx:id="prixF" layoutX="452.0" layoutY="104.0" />
+            <Label layoutX="93.0" layoutY="49.0" text="Nom :" />
+            <Label layoutX="362.0" layoutY="49.0" text="Référence :" />
+            <Label layoutX="395.0" layoutY="108.0" text="Prix :" />
+            <TextField fx:id="dateAcquisitionF" layoutX="777.0" layoutY="44.0" />
+            <TextField fx:id="datePeremptionF" layoutX="777.0" layoutY="104.0" />
+            <Label layoutX="642.0" layoutY="49.0" text="Date d'acquisition :" />
+            <Label layoutX="631.0" layoutY="108.0" text="Date de péremption :" />
+            <Button fx:id="filtrer" layoutX="844.0" layoutY="156.0" mnemonicParsing="false" onAction="#filtrerProduits" prefHeight="32.0" prefWidth="68.0" text="Filtrer" />
             <TableView fx:id="tableViewProduit" layoutX="93.0" layoutY="207.0" prefHeight="391.0" prefWidth="951.0">
                 <columns>
-                    <TableColumn fx:id="nameC" prefWidth="209.0" text="Nom"/>
-                    <TableColumn fx:id="dateAcquisitionC" prefWidth="198.0" text="Date d'acquisition"/>
-                    <TableColumn fx:id="prixC" prefWidth="79.0" text="Prix TTC"/>
-                    <TableColumn fx:id="datePeremptionC" prefWidth="210.0" text="Date de péremption"/>
-                    <TableColumn fx:id="quantiteC" prefWidth="98.0" text="Quantité"/>
-                    <TableColumn fx:id="referenceC" prefWidth="156.0" text="Référence"/>
+                    <TableColumn fx:id="nameC" prefWidth="209.0" text="Nom" />
+                    <TableColumn fx:id="dateAcquisitionC" prefWidth="198.0" text="Date d'acquisition" />
+                    <TableColumn fx:id="prixC" prefWidth="79.0" text="Prix TTC" />
+                    <TableColumn fx:id="datePeremptionC" prefWidth="210.0" text="Date de péremption" />
+                    <TableColumn fx:id="quantiteC" prefWidth="98.0" text="Quantité" />
+                    <TableColumn fx:id="referenceC" prefWidth="140.0" text="Référence" />
                 </columns>
             </TableView>
-            <Button fx:id="insertBtn" layoutX="255.0" layoutY="612.0" mnemonicParsing="false"
-                    onAction="#insertionProduit" prefHeight="35.0" prefWidth="102.0"
-                    style="-fx-background-color: green;"
-                    text="Insérer" textFill="WHITE"/>
-            <Button fx:id="modifierBtn" layoutX="530.0" layoutY="613.0" mnemonicParsing="false"
-                    onAction="#modifierProduit" prefHeight="35.0" prefWidth="102.0"
-                    style="-fx-background-color: #01A99C;" text="Modifier" textFill="WHITE"/>
-            <Button fx:id="deleteBtn" layoutX="895.0" layoutY="615.0" mnemonicParsing="false"
-                    onAction="#supprimerProduit" prefHeight="35.0" prefWidth="106.0"
-                    style="-fx-background-color: #C9223E;" text="Supprimer" textFill="WHITE"/>
-            <Button fx:id="ruptureBtn" layoutX="100.0" layoutY="156.0" mnemonicParsing="false"
-                    onAction="#ruptureProduit"
-                    prefHeight="33.0" prefWidth="334.0" text="Afficher les produits bientôt en rupture de stock"/>
-            <Label fx:id="error" layoutX="496.0" layoutY="164.0" prefHeight="17.0" prefWidth="314.0"/>
-            <TextField fx:id="quantiteSupp" layoutX="720.0" layoutY="620.0" promptText="Quantité"/>
+            <Button fx:id="insertBtn" layoutX="255.0" layoutY="612.0" mnemonicParsing="false" onAction="#insertionProduit" prefHeight="35.0" prefWidth="102.0" style="-fx-background-color: green;" text="Insérer" textFill="WHITE" />
+            <Button fx:id="modifierBtn" layoutX="530.0" layoutY="613.0" mnemonicParsing="false" onAction="#modifierProduit" prefHeight="35.0" prefWidth="102.0" style="-fx-background-color: #01A99C;" text="Modifier" textFill="WHITE" />
+            <Button fx:id="deleteBtn" layoutX="895.0" layoutY="615.0" mnemonicParsing="false" onAction="#supprimerProduit" prefHeight="35.0" prefWidth="106.0" style="-fx-background-color: #C9223E;" text="Supprimer" textFill="WHITE" />
+            <Button fx:id="ruptureBtn" layoutX="100.0" layoutY="156.0" mnemonicParsing="false" onAction="#ruptureProduit" prefHeight="33.0" prefWidth="334.0" text="Afficher les produits bientôt en rupture de stock" />
+            <Label fx:id="error" layoutX="496.0" layoutY="164.0" prefHeight="17.0" prefWidth="314.0" />
+            <TextField fx:id="quantiteSupp" layoutX="720.0" layoutY="620.0" promptText="Quantité" />
         </AnchorPane>
     </center>
 </BorderPane>
