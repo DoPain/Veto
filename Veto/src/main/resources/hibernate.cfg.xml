@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        " http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <!--<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/PT_S4P1A_E1</property>-->
+        <property name="hibernate.connection.url">jdbc:mysql://info-arie/PT_S4P1A_E1</property>
+        <property name="hibernate.connection.username">PT_S4P1A_E1</property>
+        <property name="hibernate.connection.password">cBYW9Gus</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
+
+        <property name="show_sql">true</property>
+        <property name="connection.pool_size">5</property>
+
+        <mapping class="pt4p1ae1.veto.Entity.AnimalEntity"/>
+        <mapping class="pt4p1ae1.veto.Entity.AppartenirEntity"/>
+        <mapping class="pt4p1ae1.veto.Entity.ClientEntity"/>
+        <mapping class="pt4p1ae1.veto.Entity.CommanderEntity"/>
+        <mapping class="pt4p1ae1.veto.Entity.CongeEntity"/>
+        <mapping class="pt4p1ae1.veto.Entity.EmployeEntity"/>
+        <mapping class="pt4p1ae1.veto.Entity.EspeceEntity"/>
+        <mapping class="pt4p1ae1.veto.Entity.LogEntity"/>
+        <mapping class="pt4p1ae1.veto.Entity.OrdonnanceEntity"/>
+        <mapping class="pt4p1ae1.veto.Entity.PanierEntity"/>
+        <mapping class="pt4p1ae1.veto.Entity.PersonneEntity"/>
+        <mapping class="pt4p1ae1.veto.Entity.ProduitEntity"/>
+        <mapping class="pt4p1ae1.veto.Entity.RaceEntity"/>
+        <mapping class="pt4p1ae1.veto.Entity.RendezVousEntity"/>
+        <mapping class="pt4p1ae1.veto.Entity.TraitementEntity"/>
+        <mapping class="pt4p1ae1.veto.Entity.VeterinaireEntity"/>
+        <mapping class="pt4p1ae1.veto.Entity.VilleEntity"/>
+    </session-factory>
+</hibernate-configuration>

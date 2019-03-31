@@ -13,41 +13,50 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="751.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.181" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt4p1ae1.veto.GestionOrdonnance.RechercheOrdonnanceController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="751.0"
+            prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.181" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="pt4p1ae1.veto.GestionOrdonnance.SearchOrdinanceController">
     <top>
         <Pane fx:id="pane" BorderPane.alignment="CENTER">
-            <Button alignment="CENTER_RIGHT" contentDisplay="GRAPHIC_ONLY" ellipsisString="" graphicTextGap="1.0" layoutX="1192.0" mnemonicParsing="false" onAction="#onActionDisconnectBTN" prefHeight="70.0" prefWidth="70.0">
+            <Button alignment="CENTER_RIGHT" contentDisplay="GRAPHIC_ONLY" ellipsisString="" graphicTextGap="1.0"
+                    layoutX="1192.0" mnemonicParsing="false" onAction="#onActionDisconnectBTN" prefHeight="70.0"
+                    prefWidth="70.0">
                 <graphic>
                     <ImageView pickOnBounds="true" preserveRatio="true">
-                        <Image url="@../img/power.png" />
+                        <Image url="@../img/power.png"/>
                     </ImageView>
                 </graphic>
             </Button>
             <Text layoutX="565.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ordonnances">
                 <font>
-                    <Font size="19.0" />
+                    <Font size="19.0"/>
                 </font>
             </Text>
         </Pane>
     </top>
     <left>
-        <fx:include source="VBoxButton.fxml" />
+        <fx:include source="VBoxButton.fxml"/>
     </left>
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-            <TextField fx:id="nameClientField" layoutX="339.0" layoutY="104.0" prefHeight="26.0" prefWidth="300.0" promptText="Nom Propriétaire" />
-            <TextField fx:id="nameAnimalField" layoutX="85.0" layoutY="104.0" prefHeight="26.0" prefWidth="253.0" promptText="Nom Animal" />
-            <TableView fx:id="tableViewOrdonnace" layoutX="85.0" layoutY="137.0" prefHeight="461.0" prefWidth="1012.0">
+            <TextField fx:id="nameClientField" layoutX="339.0" layoutY="104.0" prefHeight="26.0" prefWidth="300.0"
+                       promptText="Nom Propriétaire"/>
+            <TextField fx:id="nameAnimalField" layoutX="85.0" layoutY="104.0" prefHeight="26.0" prefWidth="253.0"
+                       promptText="Nom Animal"/>
+            <TableView fx:id="tableViewOrdinance" layoutX="85.0" layoutY="137.0" prefHeight="461.0" prefWidth="1012.0">
                 <columns>
-                    <TableColumn fx:id="nameAnimal" minWidth="30.0" prefWidth="251.0" text="Nom Animal" />
-                    <TableColumn fx:id="nameClient" minWidth="30.0" prefWidth="301.0" text="Nom Propriétaire" />
-                    <TableColumn fx:id="veterinaire" minWidth="29.0" prefWidth="245.0" text="Fait par" />
-                    <TableColumn fx:id="dateOrdonnance" minWidth="1.0" prefWidth="193.0" text="Date de création" />
+                    <TableColumn fx:id="nameAnimal" minWidth="30.0" prefWidth="251.0" text="Nom Animal"/>
+                    <TableColumn fx:id="nameClient" minWidth="30.0" prefWidth="301.0" text="Nom Propriétaire"/>
+                    <TableColumn fx:id="veterinaire" minWidth="29.0" prefWidth="245.0" text="Fait par"/>
+                    <TableColumn fx:id="dateOrdonnance" minWidth="1.0" prefWidth="193.0" text="Date de création"/>
                 </columns>
             </TableView>
-            <Button fx:id="createOrdonnance" layoutX="800.0" layoutY="614.0" mnemonicParsing="false" onAction="#createOrdonnanceView" prefHeight="30.0" prefWidth="268.0" text="Créer une ordonnance" />
-            <Button fx:id="generateOrdonnance" layoutX="165.0" layoutY="614.0" mnemonicParsing="false" onAction="#generateOrdonnance" prefHeight="30.0" prefWidth="283.0" text="Regénérer l'ordonnance sélectionnée" />
-            <Label fx:id="errorMsg" layoutX="570.0" layoutY="598.0" />
+            <Button fx:id="createOrdinance" layoutX="800.0" layoutY="614.0" mnemonicParsing="false"
+                    onAction="#createOrdinanceView" prefHeight="30.0" prefWidth="268.0" text="Créer une ordonnance"/>
+            <Button fx:id="generateOrdinance" layoutX="165.0" layoutY="614.0" mnemonicParsing="false"
+                    onAction="#generateOrdonnance" prefHeight="30.0" prefWidth="283.0"
+                    text="Regénérer l'ordonnance sélectionnée"/>
+            <Label fx:id="errorMsg" layoutX="570.0" layoutY="598.0"/>
         </AnchorPane>
     </center>
 </BorderPane>

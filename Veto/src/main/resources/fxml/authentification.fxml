@@ -8,29 +8,31 @@
 <?import javafx.scene.text.Font?>
 
 <?import javafx.scene.control.PasswordField?>
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt4p1ae1.veto.ConnectionMenu.Authentification.AuthentificationController">
-  <children>
-    <AnchorPane id="rootPane" fx:id="rootPane" maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
-      <children>
-        <Label id="loginLabel" alignment="CENTER" layoutX="56.0" layoutY="125.0" prefHeight="21.0" prefWidth="194.0" style="&#10;" text="Login :" textAlignment="CENTER" wrapText="false">
-          <font>
-            <Font size="18.0" />
-          </font>
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="pt4p1ae1.veto.ConnectionMenu.Authentification.AuthentificationController">
+    <AnchorPane id="rootPane" VBox.vgrow="ALWAYS">
+        <Label id="loginLabel" alignment="CENTER" layoutX="56.0" layoutY="125.0" prefHeight="21.0" prefWidth="194.0"
+               style="&#10;" text="Login :" textAlignment="CENTER">
+            <font>
+                <Font size="18.0"/>
+            </font>
         </Label>
-            <Label id="passwordLabel" alignment="CENTER" layoutX="105.0" layoutY="190.0" text="Mot de passe :" textAlignment="CENTER">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <TextField id="loginField" fx:id="loginField" layoutX="265.0" layoutY="123.0" prefHeight="26.0" prefWidth="300.0" promptText="Login :" />
-            <PasswordField id="passwordField" fx:id="passwordField" layoutX="265.0" layoutY="188.0" prefHeight="26.0" prefWidth="300.0" promptText="Mot de passe :" />
-            <Button id="signInButton" fx:id="signInButton" layoutX="513.0" layoutY="243.0" mnemonicParsing="false" onAction="#signInButtonPushed" text="Connexion" />
-            <Label layoutX="228.0" layoutY="34.0" text="Authentification">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </Label>
-      </children>
+        <Label id="passwordLabel" alignment="CENTER" layoutX="105.0" layoutY="190.0" text="Mot de passe :"
+               textAlignment="CENTER">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </Label>
+        <TextField id="loginField" fx:id="loginField" layoutX="265.0" layoutY="123.0" prefHeight="26.0"
+                   prefWidth="300.0" promptText="Login :"/>
+        <PasswordField id="passwordField" fx:id="passwordField" layoutX="265.0" layoutY="188.0" prefHeight="26.0"
+                       prefWidth="300.0" promptText="Mot de passe :"/>
+        <Button id="signInButton" fx:id="signInButton" layoutX="513.0" layoutY="243.0" mnemonicParsing="false"
+                onAction="#signInButtonPushed" text="Connexion"/>
+        <Label layoutX="228.0" layoutY="34.0" text="Authentification">
+            <font>
+                <Font name="System Bold" size="20.0"/>
+            </font>
+        </Label>
     </AnchorPane>
-  </children>
 </VBox>

@@ -7,29 +7,25 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt4p1ae1.veto.ConnectionMenu.Register.RegisterController">
-  <children>
-    <AnchorPane id="rootPane" fx:id="rootPane" maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
-      <children>
-            <TextField id="loginField" fx:id="loginField" layoutX="235.0" layoutY="89.0" promptText="Enter a login ..." />
-            <Label layoutX="272.0" layoutY="30.0" text="Register">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </Label>
-            <Label layoutX="144.0" layoutY="93.0" text="Login :">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <TextField id="passwordField" fx:id="passwordField" layoutX="235.0" layoutY="148.0" promptText="Enter a password ..." />
-            <Label layoutX="114.0" layoutY="152.0" text="Password :">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <Button id="registerButton" fx:id="registerButton" layoutX="333.0" layoutY="208.0" mnemonicParsing="false" onAction="#registerButtonPushed" text="Register" />
-      </children>
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt4p1ae1.veto.ConnectionMenu.Register.RegisterController">
+    <AnchorPane id="rootPane" VBox.vgrow="ALWAYS">
+        <TextField id="loginField" fx:id="loginField" layoutX="277.0" layoutY="138.0" promptText="Enter a login ..." />
+        <Label layoutX="314.0" layoutY="79.0" text="Register">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Label>
+        <Label layoutX="186.0" layoutY="142.0" text="Login :">
+            <font>
+                <Font size="15.0" />
+            </font>
+        </Label>
+        <TextField id="passwordField" fx:id="passwordField" layoutX="277.0" layoutY="197.0" promptText="Enter a password ..." />
+        <Label layoutX="156.0" layoutY="201.0" text="Password :">
+            <font>
+                <Font size="15.0" />
+            </font>
+        </Label>
+        <Button id="registerButton" fx:id="registerButton" layoutX="375.0" layoutY="257.0" mnemonicParsing="false" onAction="#registerButtonPushed" text="Register" />
     </AnchorPane>
-  </children>
 </VBox>

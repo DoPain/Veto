@@ -3,7 +3,10 @@ package pt4p1ae1.veto.GestionOrdonnance;
 import pt4p1ae1.veto.Entity.OrdonnanceEntity;
 import java.text.SimpleDateFormat;
 
-public class OrdonnanceEntityObservable {
+/**
+ * This class is an Observable object which is used to display OrdonnanceEntity object
+ */
+public class OrdinanceEntityObservable {
 
     private OrdonnanceEntity ordonnance;
     private String nameAnimal;
@@ -11,7 +14,10 @@ public class OrdonnanceEntityObservable {
     private String dateOrdonnance;
     private String veterinaire;
 
-    public OrdonnanceEntityObservable(OrdonnanceEntity ordonnance) {
+    /**
+     * @param ordonnance the OrdinanceEntity we will use to create this observable object
+     */
+    public OrdinanceEntityObservable(OrdonnanceEntity ordonnance) {
         this.ordonnance=ordonnance;
         this.nameAnimal = ordonnance.getAnimalByIdAnimal().getNom();
         this.nameClient = ordonnance.getAnimalByIdAnimal().getClientByIdClient().getPersonneById().getNom()
@@ -21,22 +27,47 @@ public class OrdonnanceEntityObservable {
                 + " " + ordonnance.getVeterinaireByIdVeterinaire().getPersonneById().getPrenom();
     }
 
+    /**
+     * Getter of ordonnance
+     *
+     * @return ordonnance
+     */
     public OrdonnanceEntity getOrdonnance() {
         return ordonnance;
     }
 
+    /**
+     * Getter of nameAnimal
+     *
+     * @return nameAnimal
+     */
     public String getNameAnimal() {
         return nameAnimal;
     }
 
+    /**
+     * Getter of nameClient
+     *
+     * @return nameClient
+     */
     public String getNameClient() {
         return nameClient;
     }
 
+    /**
+     * Getter of dateOrdonnace
+     *
+     * @return dateOrdonnance
+     */
     public String getDateOrdonnance() {
         return dateOrdonnance;
     }
 
+    /**
+     * Getter of veterinaire
+     *
+     * @return veterinaire
+     */
     public String getVeterinaire() {
         return veterinaire;
     }
