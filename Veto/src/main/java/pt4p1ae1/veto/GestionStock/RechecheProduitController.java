@@ -68,7 +68,6 @@ public class RechecheProduitController extends ControllerSample implements Initi
     @FXML
     private TextField quantiteSupp;
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.start();
@@ -138,11 +137,21 @@ public class RechecheProduitController extends ControllerSample implements Initi
 
     }
 
+    /**
+     * Redirige vers la page d'inscription d'un produit si un clic sur le boutton en question est effectué
+     *
+     * @param actionEvent clic sur le boutton
+     * @throws IOException si l'application ne trouve pas la page
+     */
     @FXML
     private void insertionProduit(ActionEvent actionEvent) throws IOException {
         super.creatBtn("/fxml/inscriptionProduit.fxml", (Stage) insertBtn.getScene().getWindow());
     }
 
+    /**
+     * Permet le chargement de tous les produits présents dans la base de données
+     *
+     */
     private void loadProduits() {
         this.observables.clear();
         List<ProduitEntity> produits = Utils.PRODUIT_DAO.findAll();
@@ -153,6 +162,10 @@ public class RechecheProduitController extends ControllerSample implements Initi
         tableViewProduit.setItems(observables);
     }
 
+    /**
+     * Permet l'affichage de tous les produits bientôt en rupture de stock
+     *
+     */
     @FXML
     private void ruptureProduit() {
         if (ruptureBtn.getText().equals("Afficher les produits bientôt en rupture de stock")) {
@@ -170,6 +183,12 @@ public class RechecheProduitController extends ControllerSample implements Initi
         }
     }
 
+    /**
+     * Permet la suppression du produit sélectionné si un clic sur le boutton en question est effectué
+     *
+     * @param actionEvent clic sur le boutton
+     * @throws IOException si l'application ne trouve pas la page
+     */
     @FXML
     private void supprimerProduit(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(this.getClass().getResource("/fxml/popup.fxml"));
@@ -209,6 +228,11 @@ public class RechecheProduitController extends ControllerSample implements Initi
 
     }
 
+    /**
+     * Redirige vers la page de modification d'un produit ( ici le produit est celui sélectionné )
+     *
+     * @throws IOException si l'application ne trouve pas la page
+     */
     @FXML
     private void modifierProduit() throws IOException {
         if (tableViewProduit.getSelectionModel().getSelectedItem() != null) {
@@ -222,6 +246,10 @@ public class RechecheProduitController extends ControllerSample implements Initi
         }
     }
 
+    /**
+     * Permet le filtrage des produits selon le nom, le prix, la réference, la date d'acquisition et la date de péremption
+     *
+     */
     @FXML
     private void filtrerProduits(){
         Boolean ajout = false;
