@@ -1,16 +1,9 @@
 package pt4p1ae1.veto;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
-import javafx.scene.*;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import javafx.stage.*;
-import jdk.internal.util.xml.impl.Input;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
-import java.awt.event.InputEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
