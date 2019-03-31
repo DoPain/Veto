@@ -3,14 +3,13 @@ package pt4p1ae1.veto.GestionClient;
 import pt4p1ae1.veto.Entity.AnimalEntity;
 import pt4p1ae1.veto.Entity.RendezVousEntity;
 import pt4p1ae1.veto.Entity.ClientEntity;
-import pt4p1ae1.veto.GestionAnimaux.AnimalEntityObservable;
 import pt4p1ae1.veto.Utils;
 
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe permettant l'affichage de l'entité ClientEntity.
+ */
 public class ClientEntityObservable {
     private ClientEntity clientEntity;
     private String nom;
@@ -39,9 +38,14 @@ public class ClientEntityObservable {
         } else {
             this.email = "Non renseigné";
         }
-        this.nextRDV = getNextRDVOfClient();
+        this.nextRDV = "None"; //getNextRDVOfClient();
     }
 
+    /**
+     * Fonction retournant la date en string du prochain rendez-vous du client.
+     *
+     * @return la date en string du prochain rendez-vous du client
+     */
     private String getNextRDVOfClient() {
         List<AnimalEntity> animalsClient = Utils.getAnimalFromClient(this.clientEntity.getId());
         RendezVousEntity nextRDV = null;
@@ -60,30 +64,58 @@ public class ClientEntityObservable {
         }
     }
 
+    /**
+     * Getter de l'attribut clientEntity.
+     * @return clientEntity
+     */
     public ClientEntity toClientEntity() {
         return this.clientEntity;
     }
 
+    /**
+     * Getter de l'attribut nom.
+     * @return nom
+     */
     public String getNom() {
         return nom;
     }
 
+    /**
+     * Getter de l'attribut prenom.
+     * @return prenom
+     */
     public String getPrenom() {
         return prenom;
     }
 
+    /**
+     * Getter de l'attribut age.
+     * @return age
+     */
     public String getAge() {
         return age;
     }
 
+    /**
+     * Getter de l'attribut tel.
+     * @return tel
+     */
     public String getTel() {
         return tel;
     }
 
+    /**
+     * Getter de l'attribut email.
+     * @return email
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Getter de l'attribut nextRDV.
+     * @return nextRDV
+     */
     public String getNextRDV() {
         return nextRDV;
     }

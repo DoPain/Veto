@@ -13,12 +13,10 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import pt4p1ae1.veto.ControllerSample;
 import pt4p1ae1.veto.Entity.AnimalEntity;
-import pt4p1ae1.veto.Entity.ClientEntity;
 import pt4p1ae1.veto.Entity.VilleEntity;
 import pt4p1ae1.veto.GestionAnimaux.AnimalEntityObservable;
 import pt4p1ae1.veto.Utils;
 
-import javax.xml.soap.Text;
 import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
@@ -127,6 +125,9 @@ public class DossierClientController extends ControllerSample implements Initial
         });
     }
 
+    /**
+     * Fonction filtrant les entrées dans le tableau en fonction du nom et/ou prénom recherché.
+     */
     @FXML
     private void filtrer() {
         ObservableList<AnimalEntityObservable> observableTmpList = FXCollections.observableArrayList();
@@ -142,6 +143,11 @@ public class DossierClientController extends ControllerSample implements Initial
         }
     }
 
+    /**
+     * Fonction gérant le retour à la liste des clients.
+     *
+     * @throws IOException si l'application ne trouve pas le fxml concerné
+     */
     @FXML
     private void backToClientsBtn() throws IOException {
         Stage primaryStage = (Stage) backToClients.getScene().getWindow();
@@ -150,6 +156,11 @@ public class DossierClientController extends ControllerSample implements Initial
         primaryStage.centerOnScreen();
     }
 
+    /**
+     * Fonction gérant la suppression du client.
+     *
+     * @throws IOException si l'application ne trouve pas le fxml concerné
+     */
     @FXML
     private void supprClient() throws IOException {
         Parent root1 = FXMLLoader.load(this.getClass().getResource("/fxml/popup.fxml"));
@@ -165,6 +176,12 @@ public class DossierClientController extends ControllerSample implements Initial
         }
     }
 
+    /**
+     * Fonction gérant la modification de l'entité et de l'update dans la base de donnée.
+     *
+     * @throws IOException si l'application ne trouve pas le fxml concerné
+     * @throws ParseException si la date parsée ne correspond pas au format demandé
+     */
     @FXML
     private void validateModification() throws IOException, ParseException {
         Parent root1 = FXMLLoader.load(this.getClass().getResource("/fxml/popup.fxml"));
@@ -188,6 +205,11 @@ public class DossierClientController extends ControllerSample implements Initial
         }
     }
 
+    /**
+     * Appliquer les changements des modifications sur l'entité.
+     *
+     * @throws ParseException si la date parsée ne correspond pas au format demandé
+     */
     private void applyChanges() throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         if (!naissanceClient.getText().equals("")) {
@@ -210,6 +232,11 @@ public class DossierClientController extends ControllerSample implements Initial
         }
     }
 
+    /**
+     * Fonction supprimant l'animal sélectionné
+     *
+     * @throws IOException si l'application ne trouve pas le fxml concerné
+     */
     @FXML
     private void supprAnimal() throws IOException {
         List<AnimalEntity> animaux = Utils.ANIMAL_DAO.findAll();
@@ -230,6 +257,9 @@ public class DossierClientController extends ControllerSample implements Initial
         }
     }
 
+    /**
+     * Fonction chargeant les animaux dans le tableau correspondant.
+     */
     private void chargerAnimaux(){
         List<AnimalEntity> allAnimal = Utils.getAnimalFromClient(Utils.currentClient.getId());
         for (AnimalEntity a : allAnimal) {
@@ -239,6 +269,11 @@ public class DossierClientController extends ControllerSample implements Initial
         animals.setItems(animalsObservables);
     }
 
+    /**
+     * Fonction changeant la page de modification de l'animal séléctionné.
+     *
+     * @throws IOException si l'application ne trouve pas le fxml concerné
+     */
     @FXML
     private void modifAnimal() throws IOException {
         if(animals.getSelectionModel().getSelectedItem() != null) {
@@ -248,6 +283,11 @@ public class DossierClientController extends ControllerSample implements Initial
         }
     }
 
+    /**
+     * Fonction chargeant la page d'inscription d'un animal.
+     *
+     * @throws IOException si l'application ne trouve pas le fxml concerné
+     */
     @FXML
     private void insererAnimal() throws IOException {
         super.creatBtn("/fxml/inscriptionAnimal.fxml", (Stage) insertAnimalClient.getScene().getWindow());

@@ -74,11 +74,22 @@ public class InscriptionClientController extends ControllerSample implements Ini
         });
     }
 
+    /**
+     * Fonction gérant le retour à la liste des clients.
+     *
+     * @throws IOException si l'application ne trouve pas le fxml concerné
+     */
     @FXML
     private void retourClient() throws IOException {
         super.creatBtn("/fxml/rechercheClient.fxml", (Stage) backToClients.getScene().getWindow());
     }
 
+    /**
+     * Fonction chargeant la page d'inscription d'un client.
+     *
+     * @throws ParseException si la date entrée n'est pas au bon format
+     * @throws IOException si l'application ne trouve pas le fxml concerné
+     */
     @FXML
     private void inscrireClient() throws ParseException, IOException {
         Parent root1 = FXMLLoader.load(this.getClass().getResource("/fxml/popup.fxml"));

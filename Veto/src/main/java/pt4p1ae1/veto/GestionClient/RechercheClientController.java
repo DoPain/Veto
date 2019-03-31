@@ -14,7 +14,6 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import pt4p1ae1.veto.ControllerSample;
 import pt4p1ae1.veto.Entity.ClientEntity;
-import pt4p1ae1.veto.GestionEmploye.EmployeEntityObservable;
 import pt4p1ae1.veto.Utils;
 
 import java.io.IOException;
@@ -101,6 +100,9 @@ public class RechercheClientController extends ControllerSample implements Initi
         });
     }
 
+    /**
+     * Fonction chargeant les clients dans le tableau.
+     */
     private void loadClients() {
         this.observables.clear();
         List<ClientEntity> clients = Utils.CLIENT_DAO.findAll();
@@ -111,6 +113,11 @@ public class RechercheClientController extends ControllerSample implements Initi
         tableViewClient.setItems(observables);
     }
 
+    /**
+     * Fonction chargeant la page d'inscription d'un client.
+     *
+     * @throws IOException si l'application ne trouve pas le fxml concerné
+     */
     @FXML
     private void insererClient() throws IOException {
         Stage primaryStage = (Stage) insertButton.getScene().getWindow();
@@ -119,6 +126,11 @@ public class RechercheClientController extends ControllerSample implements Initi
         primaryStage.centerOnScreen();
     }
 
+    /**
+     * Fonction supprimant le client sélectionné ou affichant une erreur si aucun client n'est séléctionné
+     *
+     * @throws IOException si l'application ne trouve pas le fxml concerné
+     */
     @FXML
     private void supprimerClient() throws IOException {
         if (tableViewClient.getSelectionModel().getSelectedItem() != null) {
@@ -141,6 +153,11 @@ public class RechercheClientController extends ControllerSample implements Initi
         }
     }
 
+    /**
+     * Fonction chargeant la page de modification du client sélectionné.
+     *
+     * @throws IOException si l'application ne trouve pas le fxml concerné
+     */
     @FXML
     private void modifierClient() throws IOException {
         if (tableViewClient.getSelectionModel().getSelectedItem() != null) {
@@ -155,6 +172,9 @@ public class RechercheClientController extends ControllerSample implements Initi
         }
     }
 
+    /**
+     * Fonction filtrant les clients dans le tableau en fonction du nom et/ou prénom recherché.
+     */
     @FXML
     private void filtrer() {
         boolean filter = false;
