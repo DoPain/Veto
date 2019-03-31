@@ -55,15 +55,15 @@ public class AgendaPage extends ControllerSample implements Initializable {
 
     private VCalendar vCalendar;
     private static NewICalendarAgenda agendaHome;
-    private RendezVousEntity selectedRDV;
+    private RendezVousEntity selectedRDVentity;
     private VEvent selectedVEvent;
-    public static HashMap<String, RendezVousEntity> vEventEntity;
+    private AnimalEntity selectedAnimal;
+    public static HashMap<String, RendezVousEntity> vEventEntity = new HashMap<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         vCalendar = new VCalendar();
         agendaHome = new NewICalendarAgenda(vCalendar);
-        vEventEntity = new HashMap<>();
         datePicker.setValue(agendaHome.getDisplayedLocalDateTime().toLocalDate());
         BorderPane.setCenter(agendaHome);
 
@@ -77,7 +77,8 @@ public class AgendaPage extends ControllerSample implements Initializable {
         List<VEvent> vEventList = new ArrayList<>();
         Utils.RENDEZ_VOUS_DAO.findAll().forEach(entity -> {
             VEvent vEvent = RendezVousEntityOservable.toVEvent(entity);
-            if(entity.getIdAnimal() != null && entity.getIdVeterinaire()!=null){
+            if(entity.getIdAnimal() != null && entity.getIdVeterinaire()!=null
+                    && !vEventEntity.containsValue(entity)){
                 vEventEntity.put(vEvent.getUniqueIdentifier().getValue(),entity);
             }
             vEventList.add(vEvent);
@@ -94,16 +95,34 @@ public class AgendaPage extends ControllerSample implements Initializable {
                     if (selectedVEvent == null) {
                         selectedVEvent = (VEvent) agendaHome.getVComponentFactory().createVComponent(selectedAppointment);
                     }
-                    selectedRDV = RendezVousEntityOservable.toEntity(selectedVEvent);
+                    if(vEventEntity.containsKey(selectedVEvent.getUniqueIdentifier().getValue())){
+                        selectedRDVentity = vEventEntity.get(selectedVEvent.getUniqueIdentifier().getValue());
+                        vetoBox.setValue(selectedRDVentity.getVeterinaireByIdVeterinaire());
+                        System.out.println(selectedRDVentity.getIdAnimal());
+//                        Utils.ANIMAL_DAO.findAll().forEach(animalEntity -> {
+//                                if(animalEntity.getId()==selectedRDVentity.getIdAnimal()){
+//                                    selectedAnimal = animalEntity;
+//                                }
+//                        });
+//                        AnimalEntity animal = Utils.ANIMAL_DAO.findById(selectedRDVentity.getIdAnimal());
+//                        ClientEntity client = animal.getClientByIdClient();
+//                        clientBox.setValue(client);
+//                        animalBox.setValue(animal);
+                    }else{
+                        selectedRDVentity = RendezVousEntityOservable.toEntity(selectedVEvent);
+                        vetoBox.setValue(null);
+                        clientBox.setValue(null);
+                        animalBox.setValue(null);
+                    }
                     modifyEvent.setDisable(false);
 
                     modifyButton.setOnAction(event -> {
                         if (animalBox.getValue() != null && clientBox.getValue() != null) {
-                            selectedRDV.setIdAnimal(animalBox.getValue().getId()); //recup l'id de l'animal
-                            selectedRDV.setIdVeterinaire(vetoBox.getValue().getId()); //recup l'id du client
-                            selectedRDV.setDescription("Rendez vous :\n" +clientBox.getValue()+"\n" +animalBox.getValue());
+                            selectedRDVentity.setIdAnimal(animalBox.getValue().getId()); //recup l'id de l'animal
+                            selectedRDVentity.setIdVeterinaire(vetoBox.getValue().getId()); //recup l'id du client
+                            selectedRDVentity.setDescription("Rendez vous :\n" +clientBox.getValue()+"\n" +animalBox.getValue());
                             selectedVEvent.setDescription("Rendez vous :\n" +clientBox.getValue()+"\n" +animalBox.getValue());
-                            vEventEntity.put(selectedVEvent.getUniqueIdentifier().getValue(), selectedRDV);
+                            vEventEntity.put(selectedVEvent.getUniqueIdentifier().getValue(), selectedRDVentity);
                             saveEvents();
                             agendaHome.refresh();
                             messageAfterModif.setTextFill(Color.web("#15e246"));
@@ -183,8 +202,8 @@ public class AgendaPage extends ControllerSample implements Initializable {
                         eventRemove.add(s);
                     }
                 });
-                eventRemove.forEach(s -> {
-                    vEventEntity.remove(s);
+                eventRemove.forEach(eventUI -> {
+                    vEventEntity.remove(eventUI);
                 });
             }
         }
