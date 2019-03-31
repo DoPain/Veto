@@ -1,3 +1,10 @@
-# pt4-veto
+PT4 Veto Réalisé par :
+ARAGON Nathan
+BOURY Elie
+MORAX Dorian
+POTIN Matéo
+RAYNAL Maxime
+VINCENT Bastien
 
-Git de partage de code pour notre groupe de PT4 sur le projet Veto.
+
+Logiciel v1.0
