@@ -47,16 +47,26 @@ public class InscriptionProduitController extends ControllerSample implements In
     @FXML
     private Button register;
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
     }
 
+    /**
+     * Permet le retour vers la page de recherche des produits si un clic sur le boutton en question est effectué
+     *
+     * @param actionEvent clic sur le boutton
+     * @throws IOException si l'application ne trouve pas la page
+     */
     public void retourProduits(ActionEvent actionEvent) throws IOException {
         super.creatBtn("/fxml/rechercheProduit.fxml", (Stage) backToProducts.getScene().getWindow());
     }
 
+    /**
+     * Permet la création d'un nouveau produit ou l'augmentation de la quantité du produit s'il existe déjà
+     *
+     * @param actionEvent clic sur le boutton
+     */
     @FXML
     private void ajouterProduit(ActionEvent actionEvent){
         Boolean found = false;
@@ -90,7 +100,7 @@ public class InscriptionProduitController extends ControllerSample implements In
                 newProduit.setPeremption(sqlDateP);
 
                 Utils.PRODUIT_DAO.saveOrUpdate(newProduit);
-                Utils.createLog(newProduit.getNom() + " " + "added");
+                Utils.createLog("Ajout Produit : " + newProduit.getNom());
             }
         } else {
             error.setStyle("-fx-text-fill: red");

@@ -42,8 +42,8 @@ public class ClientEntity {
         return Objects.hash(id);
     }
 
-    @OneToMany( mappedBy = "clientByIdClient")
-    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "clientByIdClient")
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     public Collection<AnimalEntity> getAnimalsById() {
         return animalsById;
     }

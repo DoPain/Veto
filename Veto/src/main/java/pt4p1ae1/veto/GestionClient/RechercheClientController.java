@@ -13,12 +13,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import pt4p1ae1.veto.ControllerSample;
+import pt4p1ae1.veto.Entity.AnimalEntity;
+import pt4p1ae1.veto.Entity.AppartenirEntity;
 import pt4p1ae1.veto.Entity.ClientEntity;
-import pt4p1ae1.veto.GestionEmploye.EmployeEntityObservable;
+import pt4p1ae1.veto.Entity.OrdonnanceEntity;
 import pt4p1ae1.veto.Utils;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -101,6 +105,9 @@ public class RechercheClientController extends ControllerSample implements Initi
         });
     }
 
+    /**
+     * Fonction chargeant les clients dans le tableau.
+     */
     private void loadClients() {
         this.observables.clear();
         List<ClientEntity> clients = Utils.CLIENT_DAO.findAll();
@@ -111,6 +118,11 @@ public class RechercheClientController extends ControllerSample implements Initi
         tableViewClient.setItems(observables);
     }
 
+    /**
+     * Fonction chargeant la page d'inscription d'un client.
+     *
+     * @throws IOException si l'application ne trouve pas le fxml concerné
+     */
     @FXML
     private void insererClient() throws IOException {
         Stage primaryStage = (Stage) insertButton.getScene().getWindow();
@@ -119,6 +131,11 @@ public class RechercheClientController extends ControllerSample implements Initi
         primaryStage.centerOnScreen();
     }
 
+    /**
+     * Fonction supprimant le client sélectionné ou affichant une erreur si aucun client n'est séléctionné
+     *
+     * @throws IOException si l'application ne trouve pas le fxml concerné
+     */
     @FXML
     private void supprimerClient() throws IOException {
         if (tableViewClient.getSelectionModel().getSelectedItem() != null) {
@@ -131,7 +148,22 @@ public class RechercheClientController extends ControllerSample implements Initi
             if (Utils.getConfirmation()) {
                 ClientEntityObservable selectedClient = tableViewClient.getSelectionModel().getSelectedItem();
                 ClientEntity client = selectedClient.toClientEntity();
-                Utils.createLog("Remove Client : " + client.getPersonneById().getNom() + " " + client.getPersonneById().getPrenom());
+                Collection<AnimalEntity> animaux = client.getAnimalsById();
+                if(!animaux.isEmpty()) {
+                    List<OrdonnanceEntity> ordonnances = Utils.ORDONNANCE_DAO.findAll();
+                    for (OrdonnanceEntity o : ordonnances) {
+                        for (AnimalEntity an : animaux) {
+                            if (o.getAnimalByIdAnimal().equals(an)) {
+                                Collection<AppartenirEntity> appartenir = o.getAppartenirsById();
+                                for(AppartenirEntity a : appartenir){
+                                    Utils.APPARTENIR_DAO.delete(a);
+                                }
+                                Utils.ORDONNANCE_DAO.delete(o);
+                            }
+                        }
+                    }
+                }
+                Utils.createLog("Suppression Client : " + client.getPersonneById().getNom() + " " + client.getPersonneById().getPrenom());
                 Utils.CLIENT_DAO.delete(client);
                 loadClients();
             }
@@ -141,6 +173,11 @@ public class RechercheClientController extends ControllerSample implements Initi
         }
     }
 
+    /**
+     * Fonction chargeant la page de modification du client sélectionné.
+     *
+     * @throws IOException si l'application ne trouve pas le fxml concerné
+     */
     @FXML
     private void modifierClient() throws IOException {
         if (tableViewClient.getSelectionModel().getSelectedItem() != null) {
@@ -155,6 +192,9 @@ public class RechercheClientController extends ControllerSample implements Initi
         }
     }
 
+    /**
+     * Fonction filtrant les clients dans le tableau en fonction du nom et/ou prénom recherché.
+     */
     @FXML
     private void filtrer() {
         boolean filter = false;

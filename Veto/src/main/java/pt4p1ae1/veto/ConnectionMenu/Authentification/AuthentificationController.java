@@ -48,6 +48,11 @@ public class AuthentificationController implements Initializable {
         });
     }
 
+    /**
+     * Renvoie vers la page d'accueil si le login ainsi que le mot de passe sont corrects
+     *
+     * @throws IOException si l'application ne trouve pas la page
+     */
     public void signInButtonPushed() throws IOException {
         int returnInt = connexionMatched();
         if (loginField.getText().equals("") && passwordField.getText().equals("")) {
@@ -82,10 +87,14 @@ public class AuthentificationController implements Initializable {
         }
     }
 
-
+    /**
+     * Vérifie si le login et le mot de passe sont présents dans la base et attribue les droits d'admin
+     * si le compte en a la possibilité
+     *
+     * @return 2 si droits d'admin, 1 si droits normaux et 0 si le login ou le mot de passe n'apparaît pas
+     * dans la base de données
+     */
     private int connexionMatched() {
-        // accountBoolean [0] == accountFound
-        // accountBoolean [1] == adminAccount
         final boolean[] accountBoolean = {false, false};
         final String login = loginField.getText();
         final String mdp = passwordField.getText();
@@ -101,7 +110,7 @@ public class AuthentificationController implements Initializable {
                 accountBoolean[0] = true;
 
                 Utils.setActualEmploye(employeEntity);
-                Utils.createLog("Connect");
+                Utils.createLog("Connexion");
             }
         });
 

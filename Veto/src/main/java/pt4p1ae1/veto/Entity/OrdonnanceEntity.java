@@ -74,8 +74,8 @@ public class OrdonnanceEntity {
         return Objects.hash(id, idAnimal, idVeterinaire, dateOrdonnance);
     }
 
-    @OneToMany( mappedBy = "ordonnanceByIdOrdonnance")
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "ordonnanceByIdOrdonnance")
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     public Collection<AppartenirEntity> getAppartenirsById() {
         return appartenirsById;
     }

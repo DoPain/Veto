@@ -31,12 +31,20 @@ public class ControllerSample extends ControllerVbox implements Initializable {
         start();
     }
 
+    /**
+     * Fonction qui ajoute du style au fxml associé
+     */
     protected void start() {
         BackgroundFill fill = new BackgroundFill(Color.web("#01A99C"), CornerRadii.EMPTY, Insets.EMPTY);
         pane.setBackground(new Background(fill));
         pane.getChildren().forEach(node -> node.setStyle("-fx-fill: white; -fx-background-radius : 6;"));
     }
 
+
+    /**
+     * Fonction de gérant le bouton de déconnexion
+     * @throws IOException si le FXMLLoader ne trouve pas le fxml correspondant.
+     */
     @FXML
     private void onActionDisconnectBTN() throws IOException {
         Parent root1 = FXMLLoader.load(this.getClass().getResource("/fxml/popup.fxml"));
@@ -51,7 +59,7 @@ public class ControllerSample extends ControllerVbox implements Initializable {
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/authentification.fxml"));
             primaryStage.setScene(new Scene(root, 700, 400));
             primaryStage.centerOnScreen();
-            Utils.createLog("Disconnect");
+            Utils.createLog("Déconnexion");
         }
     }
 }

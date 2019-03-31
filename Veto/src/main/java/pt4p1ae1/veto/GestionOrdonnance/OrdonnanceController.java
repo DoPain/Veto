@@ -166,6 +166,7 @@ public class OrdonnanceController extends ControllerSample implements Initializa
             ordMsg.setTextFill(Color.GREEN);
             ordMsg.setText("L'ordonnance à bien été crée");
             prescriptions.clear();
+            Utils.createLog("Création ordonnance");
         } catch (Exception e) {
             if (e.getClass() == NullPointerException.class) {
                 ordMsg.setTextFill(Color.RED);
@@ -189,6 +190,7 @@ public class OrdonnanceController extends ControllerSample implements Initializa
             description.setText("");
             ordMsg.setTextFill(Color.GREEN);
             ordMsg.setText("La prescriptions à été enregistré");
+            Utils.createLog("Ajout du produit " + product.getNom() + " à la presciption");
             tableViewP.getSelectionModel().select(null);
         } catch (Exception e) {
             if (e.getClass() == NullPointerException.class) {
@@ -229,7 +231,9 @@ public class OrdonnanceController extends ControllerSample implements Initializa
      */
     public void deletePrescription() {
         if (null != tableViewPrescriptions.getSelectionModel().getSelectedItem()) {
-            prescriptions.remove(tableViewPrescriptions.getSelectionModel().getSelectedItem().getProduitEntityObservable());
+            ProduitEntityObservable produit = tableViewPrescriptions.getSelectionModel().getSelectedItem().getProduitEntityObservable();
+            prescriptions.remove(produit);
+            Utils.createLog("Suppression du produit " + produit.getNom() + " de l'ordonnance");
             tableViewPrescriptions.getSelectionModel().select(null);
             setPrescriptionTable();
         }
@@ -279,6 +283,6 @@ public class OrdonnanceController extends ControllerSample implements Initializa
         document.left(1000);
         document.add(new Paragraph(new Chunk(content.toString(), font)));
         document.close();
-        Utils.createLog("Génération d'une ordonnance");
+        Utils.createLog("Impression de l'ordonnance pour " + animal.getNom());
     }
 }

@@ -54,8 +54,6 @@ public class dossierProduitController extends ControllerSample implements Initia
 
     private ProduitEntity currentProduit;
 
-
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.start();
@@ -71,10 +69,21 @@ public class dossierProduitController extends ControllerSample implements Initia
 
     }
 
+    /**
+     * Redirige vers la page de recherche des produits si un clic sur le boutton en question est effectué
+     *
+     * @throws IOException si l'application ne trouve pas la page
+     */
     public void retourProduits() throws IOException {
         super.creatBtn("/fxml/rechercheProduit.fxml", (Stage) backToProducts.getScene().getWindow());
     }
 
+    /**
+     * Permet la modification du produit actuel si toutes les informations nécéssaires sont indiquées
+     *
+     * @throws ParseException si la date parsée ne correspond pas au format demandé
+     * @throws IOException si l'application ne trouve pas la page
+     */
     @FXML
     private void modifierProduit() throws ParseException, IOException {
         if(!nom.getText().equals("") && !prix.getText().equals("") && !quantite.getText().equals("") && !quantiteMin.getText().equals("") && !reference.getText().equals("") && !datePeremption.getText().equals("") && !dateAcquisition.getText().equals("")) {
@@ -91,7 +100,7 @@ public class dossierProduitController extends ControllerSample implements Initia
             java.sql.Date sqlDateP = new java.sql.Date(dateP.getTime());
             currentProduit.setDateAcquisition(sqlDateA);
             currentProduit.setPeremption(sqlDateP);
-            Utils.createLog(currentProduit.getNom() + " " + "modified");
+            Utils.createLog("Modification Produit : " + currentProduit.getNom());
             Utils.PRODUIT_DAO.saveOrUpdate(currentProduit);
         } else {
             error.setStyle("-fx-text-fill: red");
@@ -100,6 +109,11 @@ public class dossierProduitController extends ControllerSample implements Initia
         retourProduits();
     }
 
+    /**
+     * Permet la suppression du produit actuel
+     *
+     * @throws IOException si l'application ne trouve pas la page
+     */
     @FXML
     private void supprimerProduit() throws IOException {
         Parent root = FXMLLoader.load(this.getClass().getResource("/fxml/popup.fxml"));
@@ -110,14 +124,9 @@ public class dossierProduitController extends ControllerSample implements Initia
         stage.showAndWait();
 
         if(Utils.getConfirmation()) {
-            Utils.createLog(currentProduit.getNom() + " " + "removed ");
+            Utils.createLog("Suppression Produit : " + currentProduit.getNom());
             Utils.PRODUIT_DAO.delete(currentProduit);
             super.creatBtn("/fxml/rechercheProduit.fxml", (Stage) supprimer.getScene().getWindow());
         }
     }
-
-    public void display(){
-
-    }
-
 }
