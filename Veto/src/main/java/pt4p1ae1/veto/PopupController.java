@@ -24,12 +24,14 @@ public class PopupController{
 
     Stage stage;
 
-
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
-
     }
 
+    /**
+     * Confirme la décision actuelle si un clic sur le boutton est effectué
+     *
+     */
     @FXML
     public void Confirmer(){
         stage = (Stage) refuser.getScene().getWindow();
@@ -37,6 +39,10 @@ public class PopupController{
         stage.close();
     }
 
+    /**
+     * Refuse la décision actuelle si un clic sur le boutton est effectué
+     *
+     */
     @FXML
     public void Refuser(){
         stage = (Stage) refuser.getScene().getWindow();

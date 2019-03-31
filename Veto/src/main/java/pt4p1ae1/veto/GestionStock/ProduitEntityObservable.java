@@ -16,7 +16,9 @@ public class ProduitEntityObservable {
     private Date dateAcquisition;
     private String desc;
 
-
+    /**
+     * Classe permettant l'affichage de l'entité ProduitEntity
+     */
     public ProduitEntityObservable(ProduitEntity produitEntity) {
         this.produit = produitEntity;
         this.nom = produitEntity.getNom();
