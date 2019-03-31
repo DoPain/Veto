@@ -113,7 +113,7 @@ public class DossierAnimalController extends ControllerSample implements Initial
     @FXML
     private void onActionAnimalDeleteBtn() throws IOException {
         //TODO Supprimer l'animal (afficher fenêtre de confirmation)
-        Utils.createLog("Remove Animal : " + animal.getNom() +
+        Utils.createLog("Suppression Animal : " + animal.getNom() +
                 " appartenant à " + animal.getClientByIdClient().getPersonneById().getNom());
         Utils.ANIMAL_DAO.delete(animal);
         Stage primaryStage = (Stage) animalDelete.getScene().getWindow();
@@ -156,7 +156,7 @@ public class DossierAnimalController extends ControllerSample implements Initial
             error.setText("");
             TraitementEntityObservable selectedTraitement = diseaseHistory.getSelectionModel().getSelectedItem();
             TraitementEntity traitement = selectedTraitement.getTraitement();
-            Utils.createLog("Remove Traitement : " + traitement.getMaladie() +
+            Utils.createLog("Suppression Traitement : " + traitement.getMaladie() +
                     " à " + traitement.getAnimalByIdAnimal().getNom() +
                     " appartenant à " + traitement.getAnimalByIdAnimal().getClientByIdClient().getPersonneById().getNom());
             Utils.TRAITEMENT_DAO.delete(traitement);

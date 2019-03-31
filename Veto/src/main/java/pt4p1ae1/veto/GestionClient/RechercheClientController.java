@@ -13,11 +13,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import pt4p1ae1.veto.ControllerSample;
+import pt4p1ae1.veto.Entity.AnimalEntity;
+import pt4p1ae1.veto.Entity.AppartenirEntity;
 import pt4p1ae1.veto.Entity.ClientEntity;
+import pt4p1ae1.veto.Entity.OrdonnanceEntity;
 import pt4p1ae1.veto.Utils;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -143,7 +148,22 @@ public class RechercheClientController extends ControllerSample implements Initi
             if (Utils.getConfirmation()) {
                 ClientEntityObservable selectedClient = tableViewClient.getSelectionModel().getSelectedItem();
                 ClientEntity client = selectedClient.toClientEntity();
-                Utils.createLog("Remove Client : " + client.getPersonneById().getNom() + " " + client.getPersonneById().getPrenom());
+                Collection<AnimalEntity> animaux = client.getAnimalsById();
+                if(!animaux.isEmpty()) {
+                    List<OrdonnanceEntity> ordonnances = Utils.ORDONNANCE_DAO.findAll();
+                    for (OrdonnanceEntity o : ordonnances) {
+                        for (AnimalEntity an : animaux) {
+                            if (o.getAnimalByIdAnimal().equals(an)) {
+                                Collection<AppartenirEntity> appartenir = o.getAppartenirsById();
+                                for(AppartenirEntity a : appartenir){
+                                    Utils.APPARTENIR_DAO.delete(a);
+                                }
+                                Utils.ORDONNANCE_DAO.delete(o);
+                            }
+                        }
+                    }
+                }
+                Utils.createLog("Suppression Client : " + client.getPersonneById().getNom() + " " + client.getPersonneById().getPrenom());
                 Utils.CLIENT_DAO.delete(client);
                 loadClients();
             }

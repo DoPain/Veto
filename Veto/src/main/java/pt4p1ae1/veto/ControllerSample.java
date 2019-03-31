@@ -59,7 +59,7 @@ public class ControllerSample extends ControllerVbox implements Initializable {
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/authentification.fxml"));
             primaryStage.setScene(new Scene(root, 700, 400));
             primaryStage.centerOnScreen();
-            Utils.createLog("Disconnect");
+            Utils.createLog("Déconnexion");
         }
     }
 }

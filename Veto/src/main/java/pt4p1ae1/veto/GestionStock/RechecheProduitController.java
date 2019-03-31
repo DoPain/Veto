@@ -203,18 +203,18 @@ public class RechecheProduitController extends ControllerSample implements Initi
                 ProduitEntityObservable selectedProduit = tableViewProduit.getSelectionModel().getSelectedItem();
                 ProduitEntity produit = selectedProduit.toProduitEntity();
                 if (produit.getQuantiteEnStock() - Integer.valueOf(quantiteSupp.getText()) >= 0) {
-                    Utils.createLog(quantiteSupp.getText() + produit.getNom() + " " + " removed");
+                    Utils.createLog("Suppression de " + quantiteSupp.getText() + " " + produit.getNom());
                     produit.setQuantiteEnStock(produit.getQuantiteEnStock() - Integer.valueOf(quantiteSupp.getText()));
                     Utils.PRODUIT_DAO.saveOrUpdate(produit);
                     loadProduits();
                     quantiteSupp.setText("");
                 } else if (produit.getQuantiteEnStock() == 0) {
-                    Utils.createLog(produit.getNom() + " " + "removed ");
+                    Utils.createLog("Suppression de : "+ produit.getNom());
                     Utils.PRODUIT_DAO.delete(produit);
                     loadProduits();
                     quantiteSupp.setText("");
                 } else {
-                    Utils.createLog(quantiteSupp.getText() + produit.getNom() + "   " + " removed ");
+                    Utils.createLog("Suppression de " + quantiteSupp.getText() + " " + produit.getNom());
                     produit.setQuantiteEnStock(0);
                     Utils.PRODUIT_DAO.saveOrUpdate(produit);
                     loadProduits();

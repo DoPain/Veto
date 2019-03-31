@@ -93,7 +93,7 @@ public class AjoutMaladieController extends ControllerSample implements Initiali
                 newTraitement.setDateDebut(sqlDateD);
                 newTraitement.setDateFin(sqlDateF);
                 Utils.TRAITEMENT_DAO.saveOrUpdate(newTraitement);
-                Utils.createLog("Ajout traitement : concernant la maladie " + diseaseText.getText() +
+                Utils.createLog("Ajout traitement : Maladie traitée " + diseaseText.getText() +
                         " sur l'animal " + Utils.getCurrentAnimal().getNom() + " appartenant à " +
                         Utils.getCurrentAnimal().getClientByIdClient().getPersonneById().getNom());
             } else {
@@ -103,7 +103,7 @@ public class AjoutMaladieController extends ControllerSample implements Initiali
                 traitement.setDateDebut(sqlDateD);
                 traitement.setDateFin(sqlDateF);
                 Utils.TRAITEMENT_DAO.saveOrUpdate(traitement);
-                Utils.createLog("Modification traitement : concernant la maladie " + diseaseText.getText() +
+                Utils.createLog("Modification traitement : Maladie traitée " + diseaseText.getText() +
                         " sur l'animal " + Utils.getCurrentAnimal().getNom() + " appartenant à " +
                         Utils.getCurrentAnimal().getClientByIdClient().getPersonneById().getNom());
             }

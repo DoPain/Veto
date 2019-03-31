@@ -1,5 +1,7 @@
 package pt4p1ae1.veto.Entity;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
@@ -131,7 +133,8 @@ public class ProduitEntity {
         return Objects.hash(id, nom, refProduit, quantiteEnStock, prix, quantiteMinimum, peremption, dateAcquisition, description);
     }
 
-    @OneToMany( mappedBy = "produitByIdProduit")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "produitByIdProduit")
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     public Collection<AppartenirEntity> getAppartenirsById() {
         return appartenirsById;
     }

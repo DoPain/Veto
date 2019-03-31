@@ -142,7 +142,7 @@ public class InscriptionClientController extends ControllerSample implements Ini
 
                 Utils.CLIENT_DAO.saveOrUpdate(client);
 
-                Utils.createLog("Créer Client : " + person.getPrenom()
+                Utils.createLog("Création Client : " + person.getPrenom()
                         + " "
                         + person.getNom());
                 super.creatBtn("/fxml/rechercheClient.fxml", (Stage) register.getScene().getWindow());

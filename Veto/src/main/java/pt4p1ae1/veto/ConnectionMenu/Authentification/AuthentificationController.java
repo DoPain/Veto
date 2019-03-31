@@ -110,7 +110,7 @@ public class AuthentificationController implements Initializable {
                 accountBoolean[0] = true;
 
                 Utils.setActualEmploye(employeEntity);
-                Utils.createLog("Connect");
+                Utils.createLog("Connexion");
             }
         });
 

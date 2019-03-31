@@ -100,7 +100,7 @@ public class dossierProduitController extends ControllerSample implements Initia
             java.sql.Date sqlDateP = new java.sql.Date(dateP.getTime());
             currentProduit.setDateAcquisition(sqlDateA);
             currentProduit.setPeremption(sqlDateP);
-            Utils.createLog(currentProduit.getNom() + " " + "modified");
+            Utils.createLog("Modification Produit : " + currentProduit.getNom());
             Utils.PRODUIT_DAO.saveOrUpdate(currentProduit);
         } else {
             error.setStyle("-fx-text-fill: red");
@@ -124,7 +124,7 @@ public class dossierProduitController extends ControllerSample implements Initia
         stage.showAndWait();
 
         if(Utils.getConfirmation()) {
-            Utils.createLog(currentProduit.getNom() + " " + "removed ");
+            Utils.createLog("Suppression Produit : " + currentProduit.getNom());
             Utils.PRODUIT_DAO.delete(currentProduit);
             super.creatBtn("/fxml/rechercheProduit.fxml", (Stage) supprimer.getScene().getWindow());
         }

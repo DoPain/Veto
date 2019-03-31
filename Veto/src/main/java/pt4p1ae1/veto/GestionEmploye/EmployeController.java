@@ -86,6 +86,11 @@ public class EmployeController extends ControllerSample implements Initializable
     }
 
 
+    /**
+     * Fonction qui permet de retourner sur la page de recherche d'un employé
+     * @param actionEvent
+     * @throws IOException
+     */
     @FXML
     private void retourEmploye(ActionEvent actionEvent) throws IOException {
         Stage primaryStage = (Stage) backToEmp.getScene().getWindow();
@@ -94,6 +99,11 @@ public class EmployeController extends ControllerSample implements Initializable
         primaryStage.centerOnScreen();
     }
 
+    /**
+     * Fonction qui permet la modification d'un employé
+     * @throws ParseException
+     * @throws IOException
+     */
     @FXML
     private void modifierEmp() throws ParseException, IOException {
         List<VilleEntity> villes = Utils.VILLE_DAO.findAll();
@@ -143,7 +153,7 @@ public class EmployeController extends ControllerSample implements Initializable
 
             Utils.PERSONNE_DAO.saveOrUpdate(currEmp.getPersonneById());
             Utils.EMPLOYE_DAO.saveOrUpdate(currEmp);
-            Utils.createLog("Modification de l'employe : " + currEmp.getPersonneById().getNom() );
+            Utils.createLog("Modification Employe : " + currEmp.getPersonneById().getNom() );
         } else {
             error.setStyle("-fx-text-fill: red");
             error.setText("Information(s) manquante(s)");
