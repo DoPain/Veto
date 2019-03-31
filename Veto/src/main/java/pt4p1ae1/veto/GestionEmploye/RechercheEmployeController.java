@@ -175,7 +175,7 @@ public class RechercheEmployeController extends ControllerSample implements Init
             EmployeEntityObservable selectedEmp = tableViewEmp.getSelectionModel().getSelectedItem();
 
             EmployeEntity emp = selectedEmp.toEmpEntity();
-            Utils.createLog("Remove Employe : " + emp.getPersonneById().getNom() + " " + emp.getPersonneById().getPrenom());
+            Utils.createLog("Suppression Employe : " + emp.getPersonneById().getNom() + " " + emp.getPersonneById().getPrenom());
             Utils.EMPLOYE_DAO.delete(emp);
             loadEmp();
         } else {

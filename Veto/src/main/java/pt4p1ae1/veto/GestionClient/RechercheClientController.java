@@ -163,7 +163,7 @@ public class RechercheClientController extends ControllerSample implements Initi
                         }
                     }
                 }
-                Utils.createLog("Remove Client : " + client.getPersonneById().getNom() + " " + client.getPersonneById().getPrenom());
+                Utils.createLog("Suppression Client : " + client.getPersonneById().getNom() + " " + client.getPersonneById().getPrenom());
                 Utils.CLIENT_DAO.delete(client);
                 loadClients();
             }

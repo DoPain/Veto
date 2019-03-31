@@ -100,7 +100,7 @@ public class InscriptionProduitController extends ControllerSample implements In
                 newProduit.setPeremption(sqlDateP);
 
                 Utils.PRODUIT_DAO.saveOrUpdate(newProduit);
-                Utils.createLog(newProduit.getNom() + " " + "added");
+                Utils.createLog("Ajout Produit : " + newProduit.getNom());
             }
         } else {
             error.setStyle("-fx-text-fill: red");

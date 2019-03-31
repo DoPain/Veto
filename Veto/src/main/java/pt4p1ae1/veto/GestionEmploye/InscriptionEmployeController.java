@@ -120,7 +120,7 @@ public class InscriptionEmployeController extends ControllerSample implements In
                 emp.setTypeContrat(typeContrat.getText());
 
                 Utils.EMPLOYE_DAO.saveOrUpdate(emp);
-                Utils.createLog("Inscrire employé : " + emp.getPersonneById().getNom());
+                Utils.createLog("Inscription Employé : " + emp.getPersonneById().getNom());
             }
     }
 }

@@ -170,7 +170,7 @@ public class DossierClientController extends ControllerSample implements Initial
         stage.setTitle("Confirmation");
         stage.showAndWait();
         if (Utils.getConfirmation()) {
-            Utils.createLog("Remove Client : " + Utils.currentClient.getPersonneById().getNom() + " " + Utils.currentClient.getPersonneById().getPrenom());
+            Utils.createLog("Suppression Client : " + Utils.currentClient.getPersonneById().getNom() + " " + Utils.currentClient.getPersonneById().getPrenom());
             Utils.CLIENT_DAO.delete(Utils.currentClient);
             creatBtn("/fxml/rechercheClient.fxml", (Stage) backToClients.getScene().getWindow());
         }
@@ -193,11 +193,10 @@ public class DossierClientController extends ControllerSample implements Initial
 
         if (Utils.getConfirmation()) {
             applyChanges();
-            System.out.println(Utils.currentClient.getPersonneById().getNom());
             Utils.CLIENT_DAO.saveOrUpdate(Utils.currentClient);
             Utils.PERSONNE_DAO.saveOrUpdate(Utils.currentClient.getPersonneById());
             backToClientsBtn();
-            Utils.createLog("Modifier Client : "
+            Utils.createLog("Modification Client : "
                     + Utils.currentClient.getPersonneById().getNom()
                     + " "
                     + Utils.currentClient.getPersonneById().getPrenom());

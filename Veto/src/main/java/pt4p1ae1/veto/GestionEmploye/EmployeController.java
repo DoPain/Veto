@@ -153,7 +153,7 @@ public class EmployeController extends ControllerSample implements Initializable
 
             Utils.PERSONNE_DAO.saveOrUpdate(currEmp.getPersonneById());
             Utils.EMPLOYE_DAO.saveOrUpdate(currEmp);
-            Utils.createLog("Modification de l'employe : " + currEmp.getPersonneById().getNom() );
+            Utils.createLog("Modification Employe : " + currEmp.getPersonneById().getNom() );
         } else {
             error.setStyle("-fx-text-fill: red");
             error.setText("Information(s) manquante(s)");
