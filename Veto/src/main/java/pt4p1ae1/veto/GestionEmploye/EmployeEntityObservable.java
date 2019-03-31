@@ -2,6 +2,9 @@ package pt4p1ae1.veto.GestionEmploye;
 
 import pt4p1ae1.veto.Entity.EmployeEntity;
 
+/**
+ * Classe permettant l'affichage de l'entité EmployeEntity.
+ */
 public class EmployeEntityObservable {
 
     private EmployeEntity empEntity;
@@ -32,63 +35,92 @@ public class EmployeEntityObservable {
         this.typeContrat = employeEntity.getTypeContrat();
     }
 
+    /**
+     * Getter de l'attribut nom.
+     * @return nom
+     */
     public String getNom() {
         return nom;
     }
 
+    /**
+     * Getter de l'attribut prenom.
+     * @return prenom
+     */
     public String getPrenom() {
         return prenom;
     }
 
+    /**
+     * Getter de l'attribut telephone.
+     * @return telephone
+     */
     public String getTel() {
         return telephone;
     }
 
+    /**
+     * Getter de l'attribut mail.
+     * @return mail
+     */
     public String getEmail() {
         return mail;
     }
 
-
+    /**
+     * Getter de l'attribut id.
+     * @return id
+     */
     public long getId() {
         return id;
     }
 
+    /**
+     * Getter de l'attribut login.
+     * @return login
+     */
     public String getLogin() {
         return login;
     }
-
+    /**
+     * Getter de l'attribut motDePasse.
+     * @return motDePasse
+     */
     public String getMotDePasse() {
         return motDePasse;
     }
-
+    /**
+     * Getter de l'attribut salaire.
+     * @return salaire
+     */
     public Double getSalaire() {
         return salaire;
     }
-
+    /**
+     * Getter de l'attribut dateDebutContrat.
+     * @return dateDebutContrat
+     */
     public String getDateDebutContrat() {
         return dateDebutContrat;
     }
-
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
+    /**
+     * Getter de l'attribut empEntity.
+     * @return empEntity
+     */
     public EmployeEntity toEmpEntity() {
         return this.empEntity;
     }
-
+    /**
+     * Getter de l'attribut dateFinContrat.
+     * @return dateFinContrat
+     */
     public String getDateFinContrat() {
         return dateFinContrat;
     }
-
-    public EmployeEntity getEmpEntity() {
-        return empEntity;
-    }
-
+    /**
+     * Getter de l'attribut typeContrat.
+     * @return typeContrat
+     */
     public String getTypeContrat() {
         return typeContrat;
     }

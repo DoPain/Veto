@@ -55,11 +55,21 @@ public class InscriptionEmployeController extends ControllerSample implements In
     @FXML
     public Label error;
 
+    /**
+     * Fonction qui permet de retourner à la page de recherche d'un employé
+     * @param actionEvent
+     * @throws IOException
+     */
     @FXML
     private void retourEmp(ActionEvent actionEvent) throws IOException {
         super.creatBtn("/fxml/rechercheEmployes.fxml", (Stage) backToEmp.getScene().getWindow());
     }
 
+    /**
+     * Fonction qui permet d'ajouter un client à la base de donnée
+     * @param actionEvent
+     * @throws ParseException
+     */
     @FXML
     private void ajouterEmp(ActionEvent actionEvent) throws ParseException {
         List<VilleEntity> villes = Utils.VILLE_DAO.findAll();
@@ -110,7 +120,7 @@ public class InscriptionEmployeController extends ControllerSample implements In
                 emp.setTypeContrat(typeContrat.getText());
 
                 Utils.EMPLOYE_DAO.saveOrUpdate(emp);
-                Utils.createLog("Iscrire employé : " + emp.getPersonneById().getNom());
+                Utils.createLog("Inscrire employé : " + emp.getPersonneById().getNom());
             }
     }
 }

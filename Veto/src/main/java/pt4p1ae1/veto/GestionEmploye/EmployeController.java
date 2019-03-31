@@ -86,6 +86,11 @@ public class EmployeController extends ControllerSample implements Initializable
     }
 
 
+    /**
+     * Fonction qui permet de retourner sur la page de recherche d'un employé
+     * @param actionEvent
+     * @throws IOException
+     */
     @FXML
     private void retourEmploye(ActionEvent actionEvent) throws IOException {
         Stage primaryStage = (Stage) backToEmp.getScene().getWindow();
@@ -94,6 +99,11 @@ public class EmployeController extends ControllerSample implements Initializable
         primaryStage.centerOnScreen();
     }
 
+    /**
+     * Fonction qui permet la modification d'un employé
+     * @throws ParseException
+     * @throws IOException
+     */
     @FXML
     private void modifierEmp() throws ParseException, IOException {
         List<VilleEntity> villes = Utils.VILLE_DAO.findAll();

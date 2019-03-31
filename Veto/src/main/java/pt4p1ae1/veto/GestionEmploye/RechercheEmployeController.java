@@ -123,11 +123,21 @@ public class RechercheEmployeController extends ControllerSample implements Init
         });
     }
 
+    /**
+     * Fonction permettant d'acceder à la page d'inscription d'un employé
+     * @param actionEvent
+     * @throws IOException
+     */
     @FXML
     private void insererEmploye(ActionEvent actionEvent) throws IOException {
         super.creatBtn("/fxml/inscriptionEmploye.fxml", (Stage) insertEmpButton.getScene().getWindow());
     }
 
+    /**
+     * Fonction permettant le fait de recupérer l'employé selectionné par le clic souris pour ouvrir à l'aide du boutton la page de modification
+     * @param actionEvent
+     * @throws IOException
+     */
     @FXML
     private void modifierEmploye(ActionEvent actionEvent) throws IOException {
         if (tableViewEmp.getSelectionModel().getSelectedItem() != null) {
@@ -141,6 +151,9 @@ public class RechercheEmployeController extends ControllerSample implements Init
         }
     }
 
+    /**
+     * Fonction permettant le chargement des employés dans la table_list
+     */
     @FXML
     private void loadEmp() {
         this.observables.clear();
@@ -152,6 +165,10 @@ public class RechercheEmployeController extends ControllerSample implements Init
         tableViewEmp.setItems(observables);
     }
 
+    /**
+     * Fonction supprimant l'employé sélectionné ou affichant une erreur si aucun client n'est séléctionné
+     * @param actionEvent
+     */
     @FXML
     private void supprimerEmp(ActionEvent actionEvent) {
         if (tableViewEmp.getSelectionModel().getSelectedItem() != null) {
@@ -163,10 +180,13 @@ public class RechercheEmployeController extends ControllerSample implements Init
             loadEmp();
         } else {
             error.setStyle("-fx-text-fill: red");
-            error.setText("Aucun client selectionné");
+            error.setText("Aucun employé selectionné");
         }
     }
 
+    /**
+     * Fonction filtrant les employés dans le table_list
+     */
     @FXML
     private void filtrerEmp(){
         Boolean ajout = false;
