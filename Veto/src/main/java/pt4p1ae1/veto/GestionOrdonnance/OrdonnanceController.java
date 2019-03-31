@@ -158,8 +158,8 @@ public class OrdonnanceController extends ControllerSample implements Initializa
                 a.setDescription(prescriptions.get(p));
                 entities.add(a);
                 Utils.APPARTENIR_DAO.saveOrUpdate(a);
+                Utils.createLog("Creation de l'ordonnance de " + animal.getNom());
             }
-
             ord.setAppartenirsById(entities);
             printOrdinanceToPDF(ord);
             tableViewAnimal.getSelectionModel().select(null);
